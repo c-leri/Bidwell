@@ -17,7 +17,7 @@
 
 <body>
     <div id="slider">
-        <a href="#"><img src="../img/logo.png" alt="Besoin d'aide" id="slide"></a>
+        <a href="#"><img src="../data/img/logo.png" alt="Besoin d'aide" id="slide"></a>
         <div id="precedent" onclick="ChangeSlide(-1)"><</div>
         <div id="suivant" onclick="ChangeSlide(1)">></div>
     </div>

@@ -4,7 +4,7 @@
         <nav id="navbar-top">
             <div class="nav-left">
                 <a href="" aria-label="Bidwell.fr">
-                    <img src="../img/logo.png" alt="logo">
+                    <img src="../data/img/logo.png" alt="logo">
                 </a>
             </div>
 
@@ -44,7 +44,7 @@
         <nav id="navbar-bot">
             <ul>
                 <li><a href="" aria-label="Tous">
-                    <img src="../img/burger.png" alt="logo"> Tous les articles
+                    <img src="../data/img/burger.png" alt="logo"> Tous les articles
                     </a></li>
                 <li><a href="" aria-label="Art décoratif">
                         Art décoratif
