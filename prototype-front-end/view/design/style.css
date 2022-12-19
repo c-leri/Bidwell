@@ -1,0 +1,99 @@
+/* --- General --- */
+*, ::before, ::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    width: 100%;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* --- Barre de navigation ---*/
+/* -- Barre du haut -- */
+/* - Logo en haut à gauche - */
+div.nav-left img{
+    display: block;
+}
+/* - Div de la barre du haut  - */
+nav#navbar-top{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    background-color: black;
+}
+nav#navbar-top div{
+    display: inline-block;
+    vertical-align: middle;
+    align-content: center;
+}
+
+/* - Boutons du milieu et gauche de la barre du haut - */
+nav#navbar-top div.nav-center a, nav#navbar-top div.nav-right a{
+    text-decoration: none;
+    color: black;
+    background-color: #FFD600;
+    border-radius: 1em;
+
+    display: block;
+    padding: 0.5em 0.5em;
+}
+/* - Espacements dans la barre du haut - */
+div.nav-left{
+    margin:0em 4em 0em 4em;
+}
+div.nav-search{
+    margin:0em 4em 0em 4em;
+    width: 50em;
+}
+div.nav-center{
+    margin:0em 4em 0em 4em;
+}
+div.nav-right{
+    margin:0em 4em 0em 4em;
+}
+/* - Barre de recherche - */
+div#nav-search-fill{
+    width: 45em;
+}
+div#nav-search-fill input{
+    width: 100%;
+}
+/* - Premier bouton de droite - */
+div#nav-left-signin a{
+    color: white !important;
+    background-color: black !important;
+    border: 0.15em white solid;
+    margin-right: 1em;
+}
+
+/* -- Barre du bas -- */
+nav#navbar-bot{
+    padding: 0.5em;
+    background-color: rgba(0, 0, 0, 30%);
+}
+/* - Liste des catégories - */
+nav#navbar-bot>ul{
+    list-style-type: none;
+    background-color: rgba(black, black, black, 30%);
+    display: flex;
+    flex-direction: row;
+    justify-content:left;
+}
+/* - Catégories - */
+nav#navbar-bot ul li a{
+    text-decoration: none;
+    color: black;
+    background-color: #FFD600;
+    border-radius: 1em;
+
+    display: block;
+    padding: 0.5em 0.5em;
+    margin-right: 1em;
+}
+/* - Burger - */
+nav#navbar-bot>ul li a img{
+    width: 1em;
+}
