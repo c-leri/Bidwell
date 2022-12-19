@@ -30,7 +30,7 @@ nav#navbar-top div{
     align-content: center;
 }
 
-/* - Boutons du milieu et gauche de la barre du haut - */
+/* - Boutons du milieu et droite de la barre du haut - */
 nav#navbar-top div.nav-center a, nav#navbar-top div.nav-right a{
     text-decoration: none;
     color: black;
@@ -40,25 +40,38 @@ nav#navbar-top div.nav-center a, nav#navbar-top div.nav-right a{
     display: block;
     padding: 0.5em 0.5em;
 }
+/* - Boutons de doite - */
+div.nav-right{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
 /* - Espacements dans la barre du haut - */
 div.nav-left{
-    margin:0em 4em 0em 4em;
+    margin:0 4% 0 4%;
 }
 div.nav-search{
-    margin:0em 4em 0em 4em;
-    width: 50em;
+    margin:0 4% 0 4%;
+    width: 30%;
 }
 div.nav-center{
-    margin:0em 4em 0em 4em;
+    margin:0 4% 0 4%;
 }
 div.nav-right{
-    margin:0em 4em 0em 4em;
+    margin:0 4% 0 4%;
 }
 /* - Barre de recherche - */
 div#nav-search-fill{
-    width: 45em;
+    width: 90%;
 }
 div#nav-search-fill input{
+    width: 100%;
+}
+
+div#nav-search-right{
+    width: 5%;
+}
+div#nav-search-right input{
     width: 100%;
 }
 /* - Premier bouton de droite - */
