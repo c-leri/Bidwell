@@ -1,5 +1,7 @@
 <?php
 
+// Copié des TPs de R3.01
+
 // Le Data Access Object 
 // Il représente la base de donnée
 class DAO
