@@ -30,6 +30,10 @@
 
     <hr>
     <script src="../js/slider.js"></script>
+
+    <h2>Populaire en ce moment</h2>
+
+    
 </body>
 
 <footer>
