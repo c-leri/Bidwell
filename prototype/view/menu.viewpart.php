@@ -2,7 +2,7 @@
         <nav id="navbar-top">
             <div class="nav-left">
                 <a href="main.view.php" aria-label="Bidwell.fr">
-                    <img src="../img/logo.png" alt="logo">
+                    <img src="../view/design/img/logo.png" alt="logo">
                 </a>
             </div>
 
