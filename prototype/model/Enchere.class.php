@@ -21,7 +21,7 @@ class Enchere extends Component {
   private DateTime $dateDebut;
   private double $prixDepart;                   // prix auquel commence l'enchère, utilisé dans les calculs d'augmentation du prix 
   private double $prixRetrait;                  // prix de fin de l'enchère si personne n'enchérit
-  private double|null $montantDerniereEnchere;  // prix auquel la dernière enchère a été posée, null jusuqu'à la première enchère
+  private double|null $prixDerniereEnchere;     // prix auquel la dernière enchère a été posée, null jusuqu'à la première enchère
   private Participation|null $derniereEnchere;  // dernière enchère, null jusqu'à la première enchère
   private $participations = array()             // liste des participations sur cette enchère
   private $images = array();                    // liste des noms des fichers contenant les images

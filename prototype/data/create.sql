@@ -1,16 +1,16 @@
 CREATE TABLE enchere (
-    id INTEGER PRIMARY KEY,
-    dateDebut INTEGER,
-    prixDepart REAL,
-    prixRetrait REAL,
-    prixDernierEnchere REAL,
-    libelle TEXT,
-    urlImage TEXT,
-    urlDescription TEXT	
+  id INTEGER PRIMARY KEY,
+  libelle TEXT,
+  dateDebut INTEGER,
+  prixDepart REAL,
+  prixRetrait REAL,
+  prixDernierEnchere REAL,
+  images TEXT,
+  description TEXT	
 );
 
 CREATE TABLE utilisateur (
-    login TEXT PRIMARY KEY,
+  login TEXT PRIMARY KEY,
 	email TEXT,
 	mdpHash TEXT,
 	nom TEXT,
