@@ -10,8 +10,10 @@
     <meta name="author"
         content="Paul Sode, Gatien Caillet, Célestin Bouchet, Antoine Vuillet, Clément Mazet, Hippolyte Chauvin">
     <title>Connexion</title>
+    <link rel="stylesheet" href="../view/design/styleGeneral.css">
     <link rel="stylesheet" href="design/styleConnect.css">
     <link rel="stylesheet" href="design/styleMenu.css">
+    <link rel="stylesheet" href="../view/design/footer.css">
 
 </head>
 
@@ -71,6 +73,9 @@
         Lorem Ipsum
     </aside>
 </body>
+
+
 <footer>
     <?php include(__DIR__ . '/footer.viewpart.php') ?>
 </footer>
+</html>
