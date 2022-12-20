@@ -13,7 +13,7 @@ class DAO
   private PDO $db;
 
   // Le type, le chemin et le nom de la base de donnée
-  private string $database = 'sqlite:' . __DIR__ . '/../data/enchere.db';
+  private string $database = 'sqlite:' . __DIR__ . '/../data/database.db';
 
   // Constructeur chargé d'ouvrir la BD
   private function __construct()
