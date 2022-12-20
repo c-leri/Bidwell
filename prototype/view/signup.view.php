@@ -23,31 +23,35 @@
 <body>
     <main>
         <div class="left">
-            <h2> Se connecter </h2>
+            <h2> Inscription </h2>
 
-            <form id="connect-form" accept-charset="utf-8" action="" method="get">
+            <form id="signin-form" accept-charset="utf-8" action="" method="get">
                 <h3>Nom d'utilisateur</h3>
                 <input type="text" dir="auto" aria-label="Nom" spellcheck="false" autocomplete="false">
-
-                <a href="">Nom d'utilisateur oublié ?</a>
-
 
                 <h3>Mot de passe</h3>
                 <input type="password" dir="auto" aria-label="MDP" spellcheck="false" autocomplete="false">
 
-                <a href="">Mot de passe oublié ?</a>
+                <h3>Confirmer le mot de passe</h3>
+                <input type="password" dir="auto" aria-label="MDP" spellcheck="false" autocomplete="false">
 
-                <button type="submit">Se connecter</button>
+                <h3>Mail</h3>
+                <input type="text" dir="auto" aria-label="MDP" spellcheck="false" autocomplete="false">
+
+                <h3>Téléphone</h3>
+                <input type="text" dir="auto" aria-label="MDP" spellcheck="false" autocomplete="false">
+
+                <button type="submit">Confirmer</button>
             </form>
         </div>
 
 
         <div class="center">
             <div id="top">
-                <h2> Inscription </h2>
+                <h2> Vous avez déjà un compte ? </h2>
 
-                <form id="signup-form" accept-charset="utf-8" action="" method="get">
-                    <button type="submit">Inscription</button>
+                <form id="connect-form" accept-charset="utf-8" action="" method="get">
+                    <button type="submit">Connexion</button>
                 </form>
             </div>
 
@@ -67,7 +71,6 @@
         Lorem Ipsum
     </aside>
 </body>
-
 <footer>
     <?php include(__DIR__ . '/footer.viewpart.php') ?>
 </footer>

@@ -1,7 +1,7 @@
 <!-- Partie d'une vue : le menu -->
         <nav id="navbar-top">
             <div class="nav-left">
-                <a href="" aria-label="Bidwell.fr">
+                <a href="main.view.php" aria-label="Bidwell.fr">
                     <img src="../img/logo.png" alt="logo">
                 </a>
             </div>
@@ -32,7 +32,7 @@
                     </a>
                 </div>
                 <div id="nav-left-signup">
-                    <a href="" aria-label="S'inscrire">
+                    <a href="signup.view.php" aria-label="S'inscrire">
                         Inscription
                     </a>
                 </div>
