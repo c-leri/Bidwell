@@ -2,7 +2,7 @@
 <nav id="navbar-bot">
             <ul>
                 <li><a href="" aria-label="Tous">
-                    <img src="../data/img/burger.png" alt="logo"> Tous les articles
+                    <img src="../img/burger.png" alt="logo"> Tous les articles
                     </a></li>
                 <li><a href="" aria-label="Art décoratif">
                         Art décoratif

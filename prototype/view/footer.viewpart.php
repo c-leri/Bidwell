@@ -1,6 +1,6 @@
 <footer>
     <a href="" aria-label="Bidwell.fr">
-         <img src="../data/img/logo.png" alt="logo">
+         <img src="../img/logo.png" alt="logo">
      </a>
      <div class="div1">
         <h1>BidWell</h1>
