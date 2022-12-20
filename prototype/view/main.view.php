@@ -13,7 +13,11 @@
     <link rel="stylesheet" href="design/style.css">
 </head>
 <!-- Menu -->
-<?php include(__DIR__ . '/menu.viewpart.php'); ?>
+<header>
+<?php include(__DIR__ . '/menu.viewpart.php'); 
+ include(__DIR__. '/sous-menu_categorie.viewpart.php') ?>
+
+</header>
 
 <body>
     <div id="slider">
@@ -26,4 +30,7 @@
     <script src="../js/slider.js"></script>
 </body>
 
+<footer>
+    <?php include(__DIR__. '/footer.viewpart.php') ?>
+</footer>
 </html>
