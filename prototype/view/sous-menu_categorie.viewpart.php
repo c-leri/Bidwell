@@ -1,31 +1,31 @@
 <!--Sous partie du menu de la page principale -->
 <nav id="navbar-bot">
             <ul>
-                <li><a href="" aria-label="Tous">
-                    <img src="../img/burger.png" alt="logo"> Tous les articles
+                <li><a href="">
+                    <img src="../view/design/img/burger.png" alt="burger"> Tous les articles
                     </a></li>
-                <li><a href="" aria-label="Art décoratif">
+                <li><a href="">
                         Art décoratif
                     </a></li>
-                <li><a href="" aria-label="Art graphique">
+                <li><a href="" >
                         Art graphique
                     </a></li>
-                <li><a href="" aria-label="Bijouterie">
+                <li><a href="">
                         Bijouterie
                     </a></li>
-                <li><a href="" aria-label="Mobilier">
+                <li><a href="">
                         Mobilier
                     </a></li>
-                <li><a href="" aria-label="Mode">
+                <li><a href="">
                         Mode
                     </a></li>
-                <li><a href="" aria-label="Sculptures">
+                <li><a href="">
                         Sculptures
                     </a></li>
-                <li><a href="" aria-label="Monnaie">
+                <li><a href="" >
                         Monnaie
                     </a></li>
-                <li><a href="" aria-label="Pierres">
+                <li><a href="">
                         Pierres
                     </a></li>
 
