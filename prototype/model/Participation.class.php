@@ -1,4 +1,7 @@
 <?php
+
+require_once __DIR__.'/Enchere.class.php';
+
 /**
  * La classe Participation modélise la participation d'un utilisateur à des enchères.
  * Il s'agit d'une classe assiociation entre la classe Utilisateur et la classe Enchere. Elle permet à des enchères d'avoir autant de participations qu'elle veut
