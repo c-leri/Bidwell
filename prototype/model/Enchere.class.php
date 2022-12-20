@@ -81,6 +81,10 @@ class Enchere extends Component {
   }
 
   // Setters
+  public function setPrixDerniereEnchere(float $prixDerniereEnchere) : void {
+    $this->prixDerniereEnchere = $prixDerniereEnchere;
+  }
+
   public function setLibelle(string $libelle) : void {
     $this->libelle = $libelle;
   }
@@ -159,7 +163,7 @@ class Enchere extends Component {
 
     // throw une exception si on trouve plusieurs enchères
     if (count($table) > 1) {
-      throw new Exception("Enchere $id existe en {count($table)} exemplaires");
+      throw new Exception("Enchere $id existe en ".count($table).' exemplaires');
     }
 
     $row = $table[0];
@@ -172,7 +176,11 @@ class Enchere extends Component {
     $dateDebut->setTimestamp($row['dateDebut']);
 
     // création d'un objet enchère avec les informations de la bd
-    $enchere = new Enchere($row['libelle'], $dateDebut, $row['prixDepart'], $row['prixRetrait'], $row['prixDerniereEnchere'], $images[0], $row['description']);
+    $enchere = new Enchere($row['libelle'], $dateDebut, $row['prixDepart'], $row['prixRetrait'], $images[0], $row['description']);
+
+    // on set le prixDerniereEnchere si il est dans la bd
+    if (isset($row['prixDerniereEnchere']))
+      $enchere->setPrixDerniereEnchere($row['prixDerniereEnchere']);
 
     // on ajoute les images restantes dans la liste de string
     unset($images[0]);
