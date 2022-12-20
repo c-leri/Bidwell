@@ -19,22 +19,22 @@ class Enchere extends Component {
   private int $id;                              // identifiant unique à chaque enchère, = -1 tant que l'enchère n'est pas enregistrée dans la bd
   private string $libelle;
   private DateTime $dateDebut;
-  private double $prixDepart;                   // prix auquel commence l'enchère, utilisé dans les calculs d'augmentation du prix 
-  private double $prixRetrait;                  // prix de fin de l'enchère si personne n'enchérit
-  private double|null $prixDerniereEnchere;     // prix auquel la dernière enchère a été posée, null jusuqu'à la première enchère
+  private float $prixDepart;                   // prix auquel commence l'enchère, utilisé dans les calculs d'augmentation du prix 
+  private float $prixRetrait;                  // prix de fin de l'enchère si personne n'enchérit
+  private float|null $prixDerniereEnchere;     // prix auquel la dernière enchère a été posée, null jusuqu'à la première enchère
   private Participation|null $derniereEnchere;  // dernière enchère, null jusqu'à la première enchère
   private $participations = array();            // liste des participations sur cette enchère
   private $images = array();                    // liste des noms des fichers contenant les images
   private string $description;                  // nom du fichier contenant la description
 
   // constructeur
-  public function __construct(string $libelle, DateTime $dateDebut, double $prixDepart, double $prixRetrait, string $imagePrincipale, string $description) {
+  public function __construct(string $libelle, DateTime $dateDebut, float $prixDepart, float $prixRetrait, string $imagePrincipale, string $description) {
     $this->id = -1;
     $this->libelle = $libelle;
     $this->dateDebut = $dateDebut; 
     $this->prixDepart = $prixDepart;
     $this->prixRetrait = $prixRetrait;
-    $this->images[0] = $image;
+    $this->images[0] = $imagePrincipale;
     $this->description = $description;
   }
 
@@ -51,11 +51,11 @@ class Enchere extends Component {
     return $this->dateDebut;
   }
 
-  public function getPrixDepart() : double {
+  public function getPrixDepart() : float {
     return $this->prixDepart;
   }
 
-  public function getPrixRetrait() : double {
+  public function getPrixRetrait() : float {
     return $this->prixRetrait;
   }
 
@@ -86,7 +86,7 @@ class Enchere extends Component {
   }
 
   public function setDescription(string $description) : void {
-    $this->description = description;
+    $this->description = $description;
   }
 
   // Gestion des images
@@ -118,7 +118,7 @@ class Enchere extends Component {
 
     // transforme le tableaux d'images en un string avec les images séparées par des espaces
     $imagesString = '';
-    foreach ($images as $image) {
+    foreach ($this->images as $image) {
       $imagesString .= $image . ' '; 
     }
 
@@ -172,7 +172,7 @@ class Enchere extends Component {
     $dateDebut->setTimestamp($row['dateDebut']);
 
     // création d'un objet enchère avec les informations de la bd
-    $enchere = new Enchere($row['libelle'], $dateDebut, $row['prixDepart'], $row['prixRetrait'], $row['prixDerniereEnchere'], $image[0], $row['description']);
+    $enchere = new Enchere($row['libelle'], $dateDebut, $row['prixDepart'], $row['prixRetrait'], $row['prixDerniereEnchere'], $images[0], $row['description']);
 
     // on ajoute les images restantes dans la liste de string
     unset($images[0]);
@@ -198,7 +198,7 @@ class Enchere extends Component {
 
       // transforme le tableaux d'images en un string avec les images séparées par des espaces
       $imagesString = '';
-      foreach ($images as $image) {
+      foreach ($this->images as $image) {
         $imagesString .= $image . ' '; 
       }
 

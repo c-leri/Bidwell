@@ -18,7 +18,7 @@ class Participation {
 
 
     // Constructeur
-    public __construct(Enchere $enchere, Utilisateur $utilisateur) {
+    public function __construct(Enchere $enchere, Utilisateur $utilisateur) {
         $this->enchere = $enchere;
         $this->utilisateur = $utilisateur;
         $this->nbEncheres = 0;
@@ -29,7 +29,7 @@ class Participation {
     /**
      * La procédure setAEncheri() permet d'ajouter 1 au compteur de participations de l'instance courante de la classe Participation.
      */
-    public setAEncheri() {
+    public function setAEncheri() {
         $this->nbEncheres++;
     }
 }
