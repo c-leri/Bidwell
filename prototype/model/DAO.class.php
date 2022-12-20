@@ -23,7 +23,6 @@ class DAO
       //var_dump($this);
       if (!$this->db) {
         throw new Exception("Impossible d'ouvrir " . $this->database);
-        ("Database error");
       }
       // Positionne PDO pour lancer les erreurs sous forme d'exeptions
       $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
