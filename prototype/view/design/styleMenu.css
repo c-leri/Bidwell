@@ -1,0 +1,59 @@
+/* --- Barre de navigation ---*/
+/* -- Barre du haut -- */
+/* - Logo en haut à gauche - */
+div.nav-left img{
+    display: block;
+}
+/* - Div de la barre du haut  - */
+nav#navbar-top{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--couleur-noir);
+}
+nav#navbar-top div{
+    display: inline-block;
+    vertical-align: middle;
+    align-content: center;
+    white-space: nowrap;
+    margin:0 2% 0 2%;
+}
+
+/* - Boutons du milieu et droite de la barre du haut - */
+nav#navbar-top div.nav-center a, nav#navbar-top div.nav-right a{
+    text-decoration: none;
+    color: var(--couleur-noir);
+    background-color: var(--couleur-jaune);
+    border-radius: 1em;
+    white-space: nowrap;
+
+    display: block;
+    padding: 0.5em 0.5em;
+}
+
+/* - Barre de recherche - */
+div.nav-search{
+    width: 50%;
+}
+
+div#nav-search-fill{
+    width: 90%;
+}
+div#nav-search-fill input{
+    width: 100%;
+}
+
+div#nav-search-right{
+    width: 5%;
+}
+div#nav-search-right input{
+    width: 100%;
+}
+/* - Premier bouton de droite - */
+div#nav-left-signin a{
+    color: var(--couleur-blanc) !important;
+    background-color: var(--couleur-noir) !important;
+    border: 0.15em var(--couleur-blanc) solid;
+    margin-right: 1em;
+}
