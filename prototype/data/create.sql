@@ -1,16 +1,16 @@
 CREATE TABLE enchere (
-  id INTEGER PRIMARY KEY,
-  libelle TEXT,
-  dateDebut INTEGER,
-  prixDepart REAL,
-  prixRetrait REAL,
-  prixDernierEnchere REAL,
-  images TEXT,
-  description TEXT	
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	libelle TEXT,
+	dateDebut INTEGER,
+	prixDepart REAL,
+	prixRetrait REAL,
+	prixDernierEnchere REAL,
+	images TEXT,
+	description TEXT	
 );
 
 CREATE TABLE utilisateur (
-  login TEXT PRIMARY KEY,
+	login TEXT PRIMARY KEY,
 	email TEXT,
 	mdpHash TEXT,
 	nom TEXT,
@@ -19,13 +19,13 @@ CREATE TABLE utilisateur (
 );
 
 CREATE TABLE categorie (
-	id INTEGER PRIMARY KEY,
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
 	libelle TEXT,
 	idMere INTEGER REFERENCES categorie(id)
 );
 
 CREATE TABLE participation (
-	idEnchere INTEGER,
+	idEnchere INTEGER AUTO_INCREMENT,
 	loginUtilisateur TEXT,
 	nbEncheres INTEGER,
 	PRIMARY KEY (idEnchere, loginUtilisateur),

@@ -10,20 +10,21 @@
     <meta name="author"
         content="Paul Sode, Gatien Caillet, Célestin Bouchet, Antoine Vuillet, Clément Mazet, Hippolyte Chauvin">
     <title>Main</title>
-    <link rel="stylesheet" href="design/styleGeneral.css">
-    <link rel="stylesheet" href="design/styleMenu.css">
-    <link rel="stylesheet" href="design/styleSous-Menu_Categorie.css">
+    <link rel="stylesheet" href="../view/design/styleGeneral.css">
+    <link rel="stylesheet" href="../view/design/styleMenu.css">
+    <link rel="stylesheet" href="../view/design/styleSous-Menu_Categorie.css">
+    <link rel="stylesheet" href="../view/design/footer.css">
+
 </head>
 <!-- Menu -->
 <header>
 <?php include(__DIR__ . '/menu.viewpart.php'); 
  include(__DIR__. '/sous-menu_categorie.viewpart.php') ?>
-
 </header>
 
 <body>
     <div id="slider">
-        <a href="#"><img src="../img/logo.png" alt="Besoin d'aide" id="slide"></a>
+        <a href="#"><img src="../view/design/img/logo.png" alt="Besoin d'aide" id="slide"></a>
         <div id="precedent" onclick="ChangeSlide(-1)"><</div>
         <div id="suivant" onclick="ChangeSlide(1)">></div>
     </div>

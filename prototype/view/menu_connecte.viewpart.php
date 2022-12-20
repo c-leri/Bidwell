@@ -2,7 +2,7 @@
 <nav id="navbar-top">
             <div class="nav-left">
                 <a href="" aria-label="Bidwell.fr">
-                    <img src="../data/img/logo.png" alt="logo">
+                    <img src="../view/design/img/logo.png" alt="logo">
                 </a>
             </div>
 
@@ -27,7 +27,7 @@
 
             <div class="nav-right">
                 <div id="nav-left-my_account">
-                    <a href="" aria-label="Mon compte">
+                    <a href="">
                         Mon compte
                     </a>
                 </div>

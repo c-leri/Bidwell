@@ -1,0 +1,47 @@
+footer>div{
+    /*background-color: var(--couleur-noir);*/
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+footer>div div, footer>div>a{
+    display: block;
+    align-self: center;
+}
+
+footer>div>a img{
+    display: block;
+}
+
+footer ul{
+    list-style-type: none;
+    margin: 0.2em;
+}
+
+.div3 ul{
+    display: flex;
+    
+}
+
+footer a,footer h1, footer p{
+    text-decoration: none;
+    color: var(--couleur-blanc);
+    margin: 0.2em 0.5em 0.2em 0.5em;
+}
+
+footer h1{
+    font-size: 1.5em;
+}
+
+footer {
+    position: absolute;
+    bottom:0;
+    width: 100%;
+    background-color: var(--couleur-marron);
+}
+
+footer p{
+    text-align: center;
+}
+

@@ -10,6 +10,7 @@
     --couleur-violet:purple;
     --couleur-blanc:white;
     --couleur-noir30:rgba(0, 0, 0, 30%);
+    --couleur-marron:rgb(25, 25, 25);
 }
 
 body {
@@ -42,7 +43,7 @@ hr{
 #suivant {
     cursor: pointer;
     transition: opacity 0.3s ease;
-    opacity: 0;
+    opacity: 0.2;
     position: absolute;
     font-size: 4em;
     color: rgba(220, 220, 220, 0.8);
