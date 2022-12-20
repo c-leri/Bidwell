@@ -13,7 +13,7 @@ class DAO
   private PDO $db;
 
   // Le type, le chemin et le nom de la base de donnée
-  private string $database = 'sqlite:' . __DIR__ . '/../data/enchere.db';
+  private string $database = 'sqlite:' . __DIR__ . '/../data/database.db';
 
   // Constructeur chargé d'ouvrir la BD
   private function __construct()
@@ -23,7 +23,6 @@ class DAO
       //var_dump($this);
       if (!$this->db) {
         throw new Exception("Impossible d'ouvrir " . $this->database);
-        ("Database error");
       }
       // Positionne PDO pour lancer les erreurs sous forme d'exeptions
       $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

@@ -2,23 +2,43 @@
 
 require_once __DIR__.'/CompositeComponent.class.php';
 
+/**
+ * Classe représentant le concept de Catégorie
+ * "contenant" du pattern composite (Enchere est le "contenu")
+ */
 class Categorie extends Component {
-    protected SplObjectStorage $children;
+  // Attributs
+  private int $id;                        // identifiant unique à chaque catégorie, = -1 tant que la catégorie n'est pas dans la bd 
+  private string $libelle;
+  // Fils du pattern composite
+  protected SplObjectStorage $children;
 
-    // constructeur
-    public function __construct()
-    {
-        $this->children = new SplObjectStorage;
-    }
+  // constructeur
+  public function __construct(string $libelle)
+  {
+    $this->id = -1;
+    $this->libelle = $libelle;
+    $this->children = new SplObjectStorage;
+  }
 
-    // gestion des fils
-    public function add(Component $component) : void {
-        $this->children->attach($component);
-        $component->setParent($this);
-    }
+  // Getters
+  public function getLibelle() : string {
+    return $this->libelle;
+  }
 
-    public function remove(Component $component) : void {
-        $this->children->detach($component);
-        $component->setParent(null);
-    }
+  // Setters
+  public function setLibelle(string $libelle) : void {
+    $this->libelle = $libelle;
+  }
+
+  // gestion des fils
+  public function add(Component $component) : void {
+      $this->children->attach($component);
+      $component->setParent($this);
+  }
+
+  public function remove(Component $component) : void {
+      $this->children->detach($component);
+      $component->setParent(null);
+  }
 }
