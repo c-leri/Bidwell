@@ -11,25 +11,25 @@ CREATE TABLE enchere (
 
 CREATE TABLE utilisateur (
     login TEXT PRIMARY KEY,
-	email TEXT,
-	mdpHash TEXT,
-	nom TEXT,
-	numeroDeTelephone TEXT UNIQUE,
-	nbJetons INTEGER
+    email TEXT,
+    mdpHash TEXT,
+    nom TEXT,
+    numeroDeTelephone TEXT UNIQUE,
+    nbJetons INTEGER
 );
 
 CREATE TABLE categorie (
-	id INTEGER PRIMARY KEY,
-	libelle TEXT,
-	idMere INTEGER REFERENCES categorie(id)
+    id INTEGER PRIMARY KEY,
+    libelle TEXT,
+    idMere INTEGER REFERENCES categorie(id)
 );
 
 CREATE TABLE participation (
-	idEnchere INTEGER,
-	loginUtilisateur TEXT,
-	nbEncheres INTEGER,
-	PRIMARY KEY (idEnchere, loginUtilisateur),
-	FOREIGN KEY (idEnchere) REFERENCES enchere(id),
-	FOREIGN KEY (loginUtilisateur) REFERENCES utilisateur(login)
+    idEnchere INTEGER,
+    loginUtilisateur TEXT,
+    nbEncheres INTEGER,
+    PRIMARY KEY (idEnchere, loginUtilisateur),
+    FOREIGN KEY (idEnchere) REFERENCES enchere(id),
+    FOREIGN KEY (loginUtilisateur) REFERENCES utilisateur(login)
 );
 
