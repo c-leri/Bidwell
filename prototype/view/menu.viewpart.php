@@ -27,7 +27,7 @@
 
             <div class="nav-right">
                 <div id="nav-left-signin">
-                    <a href="" aria-label="Se Connecter">
+                    <a href="connect.view.php" aria-label="Se Connecter">
                         Connexion
                     </a>
                 </div>
