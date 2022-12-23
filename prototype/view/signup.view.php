@@ -29,19 +29,19 @@
 
             <form id="signin-form" accept-charset="utf-8" action="" method="get">
                 <h3>Nom d'utilisateur</h3>
-                <input type="text" dir="auto" aria-label="Nom" spellcheck="false" autocomplete="false">
+                <input type="text" dir="auto" spellcheck="false" autocomplete="false">
 
                 <h3>Mot de passe</h3>
-                <input type="password" dir="auto" aria-label="MDP" spellcheck="false" autocomplete="false">
+                <input type="password" dir="auto" spellcheck="false" autocomplete="false">
 
                 <h3>Confirmer le mot de passe</h3>
-                <input type="password" dir="auto" aria-label="MDP" spellcheck="false" autocomplete="false">
+                <input type="password" dir="auto" spellcheck="false" autocomplete="false">
 
                 <h3>Mail</h3>
-                <input type="text" dir="auto" aria-label="MDP" spellcheck="false" autocomplete="false">
+                <input type="text" dir="auto" spellcheck="false" autocomplete="false">
 
                 <h3>Téléphone</h3>
-                <input type="text" dir="auto" aria-label="MDP" spellcheck="false" autocomplete="false">
+                <input type="text" dir="auto" spellcheck="false" autocomplete="false">
 
                 <button type="submit">Confirmer</button>
             </form>

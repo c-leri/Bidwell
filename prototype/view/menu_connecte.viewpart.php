@@ -1,7 +1,7 @@
 <!-- Partie de la vue de la création d'enchère : le menu -->
 <nav id="navbar-top">
             <div class="nav-left">
-                <a href="" aria-label="Bidwell.fr">
+                <a href="">
                     <img src="../view/design/img/logo.png" alt="logo">
                 </a>
             </div>
@@ -9,7 +9,7 @@
             <div class="nav-search">
                 <form id="nav-search-form" accept-charset="utf-8" action="" method="get" role="search">
                     <div id="nav-search-fill">
-                        <input type="text" id="searchbox" dir="auto" aria-label="Rechercher" spellcheck="false"
+                        <input type="text" id="searchbox" dir="auto" spellcheck="false"
                             autocomplete="false">
                     </div>
 
@@ -20,7 +20,7 @@
             </div>
 
             <div class="nav-center">
-                <a href="" aria-label="Vendre">
+                <a href="">
                     Vendre un article
                 </a>
             </div>

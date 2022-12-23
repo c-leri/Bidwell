@@ -29,13 +29,13 @@
 
             <form id="connect-form" accept-charset="utf-8" action="" method="get">
                 <h3>Nom d'utilisateur</h3>
-                <input type="text" dir="auto" aria-label="Nom" spellcheck="false" autocomplete="false">
+                <input type="text" dir="auto" spellcheck="false" autocomplete="false">
 
                 <a href="">Nom d'utilisateur oublié ?</a>
 
 
                 <h3>Mot de passe</h3>
-                <input type="password" dir="auto" aria-label="MDP" spellcheck="false" autocomplete="false">
+                <input type="password" dir="auto" spellcheck="false" autocomplete="false">
 
                 <a href="">Mot de passe oublié ?</a>
 
