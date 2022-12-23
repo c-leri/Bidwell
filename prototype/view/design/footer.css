@@ -24,7 +24,7 @@ footer ul{
     
 }
 
-footer a,footer h1, footer p{
+footer a,footer h1{
     text-decoration: none;
     color: var(--couleur-blanc);
     margin: 0.2rem 0.5rem 0.2rem 0.5rem;
@@ -35,13 +35,14 @@ footer h1{
 }
 
 footer {
-    position: absolute;
-    bottom:0;
+    min-height: 0;
     width: 100%;
     background-color: var(--couleur-marron);
 }
 
 footer p{
     text-align: center;
+    text-decoration: none;
+    color: var(--couleur-blanc); 
 }
 
