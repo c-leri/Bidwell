@@ -21,7 +21,7 @@ nav#navbar-top div{
 }
 
 /* - Boutons du milieu et droite de la barre du haut - */
-nav#navbar-top div.nav-center a, nav#navbar-top div.nav-right a{
+nav#navbar-top div.nav-center a, nav#navbar-top div.nav-right #nav-left-signup a{
     text-decoration: none;
     color: var(--couleur-noir);
     background-color: var(--couleur-jaune);
@@ -33,32 +33,52 @@ nav#navbar-top div.nav-center a, nav#navbar-top div.nav-right a{
 }
 
 /* - Barre de recherche - */
-div.nav-search img{
-    width: 1rem;
-    height: 1rem;
-}
 
 div.nav-search{
+    padding: 0.2rem 0.3rem 0.2rem 0.3rem;
     width: 50%;
+    border: 0.2rem solid var(--couleur-blanc);
+    border-radius: 1rem;
+    white-space: nowrap;
 }
 
-div#nav-search-fill{
+div.nav-search form{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content:space-between;
+}
+
+div.nav-search input{
+    outline: none;
+    border-width: 0;
+}
+div.nav-search form>input{
     width: 90%;
-}
-div#nav-search-fill input{
-    width: 100%;
+    color: var(--couleur-blanc);
+    background-color: var(--couleur-noir);
 }
 
-div#nav-search-right{
-    width: 5%;
+#button-submit{
+    background: url(../design/img/search.png) no-repeat;
+    background-size: 100%;
+    width: 1.5rem;
+    height: 1.5rem;
 }
-div#nav-search-right input{
-    width: 100%;
+
+#button-submit:hover{
+    cursor:pointer;
 }
+
 /* - Premier bouton de droite - */
 div#nav-left-signin a{
-    color: var(--couleur-blanc) !important;
-    background-color: var(--couleur-noir) !important;
+    text-decoration: none;
+    border-radius: 1rem;
+    white-space: nowrap;
+    display: block;
+    padding: 0.5rem 0.5rem;
+    color: var(--couleur-blanc);
+    background-color: var(--couleur-noir);
     border: 0.15rem var(--couleur-blanc) solid;
     margin-right: 1rem;
 }
