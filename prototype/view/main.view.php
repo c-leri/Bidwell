@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="../view/design/styleMenu.css">
     <link rel="stylesheet" href="../view/design/styleSous-Menu_Categorie.css">
     <link rel="stylesheet" href="../view/design/footer.css">
+    <link rel="stylesheet" href="../view/design/stylePagePrincipale.css">
 
 </head>
 <!-- Menu -->
@@ -33,7 +34,19 @@
     <script src="../js/slider.js"></script>
 
     <h2>Populaire en ce moment</h2>
-
+    <div class="ventesPopulaires">
+        <?php for($i=0 ; $i<12 ; $i++){
+        ?>
+        <article>
+            <img src="../view/design/img/logo.png" alt="">
+            <h1>Titre------------------------------------------------------</h1>
+            <div class="variablesEnchere">
+                <p class="temps-restant">temps restant</p>
+                <p class="prix-actuel">prix actuel</p>
+            </div>
+        </article>
+        <?php }?>
+    </div>
     
 </body>
 

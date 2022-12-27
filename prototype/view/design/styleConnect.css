@@ -1,20 +1,4 @@
-/* --- General --- */
-*, ::before, ::after {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-:root{
-    --couleur-jaune:#FFD600;
-    --couleur-noir:black;
-    --couleur-violet:purple;
-    --couleur-blanc:white;
-    --couleur-noir30:rgba(0, 0, 0, 30%);
-}
-
-body {
-    width: 100%;
-    font-family: Arial, Helvetica, sans-serif;
-}
-
 /*  --- Main --- */
+@media only screen and (min-width: 960px) {
+    
+}
