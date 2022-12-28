@@ -3,9 +3,16 @@
 
     /* -- Barre du haut -- */
     /* - Logo en haut à gauche - */
+    header{
+        position: sticky;
+        top: 0;
+    }
+    
     div.nav-left img {
         display: block;
     }
+    
+    
 
     /* - Div de la barre du haut  - */
     nav#navbar-top {
