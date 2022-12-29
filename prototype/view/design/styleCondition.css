@@ -1,0 +1,15 @@
+
+@media only screen and (min-width: 960px) {
+    #prevention{
+        background-color: #9c3576;
+        border : solid #ff5c00 2px;
+        border-radius: 25px;
+    }
+
+    p{
+        background-color: #4f1975;
+    }
+    
+    
+    
+}
