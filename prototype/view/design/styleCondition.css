@@ -4,12 +4,54 @@
         background-color: #9c3576;
         border : solid #ff5c00 2px;
         border-radius: 25px;
+        padding: 1em;
+    }
+
+    li{
+        margin: 0.5em;
+        background-color: inherit;
+    }
+
+    
+    div{
+        width: 90%;
+        margin: 1% 5% 1% 5%;
+        color : white;
     }
 
     p{
         background-color: #4f1975;
+        padding: 0.4em;
     }
-    
-    
-    
+
+    ul{
+        background-color: #4f1975;
+        padding-top:0.2em;
+        padding-bottom: 0.2em;
+        padding-left: 1.2em;
+    }
+
+    #Generalites p, #Frais p, #Contenus p, #Protection p, #Indemnite p{
+        border-radius: 25px;
+    }
+
+    #Utilisation p, #Achat p{
+        border-top-left-radius: 25px ;
+        border-top-right-radius: 25px;
+    }
+
+    #Utilisation ul, #Achat ul{
+        border-bottom-left-radius: 25px;
+        border-bottom-right-radius: 25px;
+    }
+
+    #Violation p:nth-child(1), #Vente p:nth-child(1), #Responsabilite p:nth-child(1){
+        border-top-left-radius: 25px ;
+        border-top-right-radius: 25px;
+    }
+
+    #Violation p:nth-child(5), #Vente p:nth-child(3), #Responsabilite p:nth-child(5){
+        border-bottom-left-radius: 25px;
+        border-bottom-right-radius: 25px;
+    } 
 }
