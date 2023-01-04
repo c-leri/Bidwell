@@ -6,7 +6,7 @@
 class Utilisateur {
     // informations de connection
     private string $login;
-    private string $password_hash;      // le hash correspondant au mot de passe de l'utilisateur, calculé avec password_hash() 
+    private string $mdpHash;        // le hash correspondant au mot de passe de l'utilisateur, calculé avec password_hash() 
     // informations personnelles
     private string $nom;
     private string $email;
@@ -50,7 +50,7 @@ class Utilisateur {
 
     // Setters
     public function setPassword(string $password) : void {
-        $this->password_hash = password_hash($password, PASSWORD_BCRYPT);
+        $this->mdpHash = password_hash($password, PASSWORD_BCRYPT);
     }
 
     public function setNom(string $nom) : void {
@@ -75,6 +75,6 @@ class Utilisateur {
 
     // Autres méthodes
     public function connectionValide(string $login, string $password) : bool {
-        return $this->login == $login && $this->password_hash === password_hash($password, PASSWORD_BCRYPT);
+        return $this->login == $login && $this->mdpHash === password_hash($password, PASSWORD_BCRYPT);
     }
 }
