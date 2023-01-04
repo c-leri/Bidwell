@@ -1,15 +1,15 @@
 <!-- Partie d'une vue : le menu -->
 <nav id="navbar-top">
     <div class="nav-left">
-        <a href="">
+        <a href="main.ctrl.php">
             <img src="../view/design/img/logo.png" alt="logo">
         </a>
     </div>
 
     <div class="nav-search">
         <form id="nav-search-form" method="get">
-                <input type="text" placeholder="Rechercher...">
-                <input id="button-submit" type="submit" value="">
+            <input type="text" placeholder="Rechercher...">
+            <input id="button-submit" type="submit" value="">
         </form>
     </div>
 
