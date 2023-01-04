@@ -11,18 +11,19 @@
         content="Paul Sode, Gatien Caillet, Célestin Bouchet, Antoine Vuillet, Clément Mazet, Hippolyte Chauvin">
     <title>Connexion</title>
     <link rel="stylesheet" href="../view/design/styleGeneral.css">
-    <link rel="stylesheet" href="design/styleConnect.css">
-    <link rel="stylesheet" href="design/styleMenu.css">
-    <link rel="stylesheet" href="../view/design/footer.css">
+    <link rel="stylesheet" href="../view/design/styleConnect.css">
+    <link rel="stylesheet" href="../view/design/styleMenu.css">
+    <link rel="stylesheet" href="../view/design/styleFooter.css">
 
 </head>
 
-<!-- Menu -->
-<header>
-    <?php include(__DIR__ . '/menu.viewpart.php') ?>
-</header>
+
 
 <body>
+    <!-- Menu -->
+    <header>
+        <?php include(__DIR__ . '/menu.viewpart.php') ?>
+    </header>
     <main>
         <div class="left">
             <h2> Inscription </h2>
@@ -63,7 +64,6 @@
                 <li><a href="#"></a>Cookies</li>
                 <li><a href="#"></a>Mentions légales</li>
                 <li><a href="#"></a>Politique de confidentalité</li>
-                <a>
             </div>
         </div>
     </main>
@@ -72,10 +72,10 @@
         <h2> FAQ </h2>
         Lorem Ipsum
     </aside>
+    <footer>
+        <?php include(__DIR__ . '/footer.viewpart.php') ?>
+    </footer>
 </body>
 
 
-<footer>
-    <?php include(__DIR__ . '/footer.viewpart.php') ?>
-</footer>
 </html>

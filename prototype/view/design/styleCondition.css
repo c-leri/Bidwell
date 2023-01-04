@@ -2,19 +2,17 @@
 @media only screen and (min-width: 960px) {
     #prevention{
         background-color: #9c3576;
-        border : solid #ff5c00 2px;
-        border-radius: 25px;
+        border : solid #ff5c00 0.2rem;
+        border-radius: 2rem;
         padding: 1em;
     }
 
     li{
         margin: 0.5em;
-        background-color: inherit;
     }
 
     
     div{
-        width: 90%;
         margin: 1% 5% 1% 5%;
         color : white;
     }
@@ -32,26 +30,26 @@
     }
 
     #Generalites p, #Frais p, #Contenus p, #Protection p, #Indemnite p{
-        border-radius: 25px;
+        border-radius: 1rem;
     }
 
     #Utilisation p, #Achat p{
-        border-top-left-radius: 25px ;
-        border-top-right-radius: 25px;
+        border-top-left-radius: 1rem ;
+        border-top-right-radius: 1rem;
     }
 
     #Utilisation ul, #Achat ul{
-        border-bottom-left-radius: 25px;
-        border-bottom-right-radius: 25px;
+        border-bottom-left-radius: 1rem;
+        border-bottom-right-radius: 1rem;
     }
 
     #Violation p:nth-child(1), #Vente p:nth-child(1), #Responsabilite p:nth-child(1){
-        border-top-left-radius: 25px ;
-        border-top-right-radius: 25px;
+        border-top-left-radius: 1rem ;
+        border-top-right-radius: 1rem;
     }
 
     #Violation p:nth-child(5), #Vente p:nth-child(3), #Responsabilite p:nth-child(5){
-        border-bottom-left-radius: 25px;
-        border-bottom-right-radius: 25px;
+        border-bottom-left-radius: 1rem;
+        border-bottom-right-radius: 1rem;
     } 
 }
