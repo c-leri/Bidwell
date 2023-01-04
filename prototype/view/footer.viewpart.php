@@ -1,36 +1,44 @@
 <footer>
-    <a href="" aria-label="Bidwell.fr">
-         <img src="../img/logo.png" alt="logo">
-     </a>
-     <div class="div1">
-        <h1>BidWell</h1>
-        <ul>
-            <li><a href="#"></a>Paramétrer les cookies</li>
-            <li><a href="#"></a>Conditions d’utilisation</li>
-            <li><a href="#"></a>Mentions légales</li>
-            <li><a href="#"></a>Politique de confidentalité</li>
-        </ul>
-     </div>
-     <div class="div2">
-        <ul>
-        <li><a href="#"></a>À propos</li>
-        <li><a href="#"></a>Contact</li>
-        <li><a href="#"></a>Besoin d'aide ?</li>
-        </ul>
-     </div>
-     <div class="div3">
-        <h1>Catégories</h1>
-        <ul>
-            <li><a href="#"></a>Art Graphique</li>
-            <li><a href="#"></a>Art Décoartif</li>
-            <li><a href="#"></a>Bijoux et montres</li>
-            <li><a href="#"></a>Livres et manuscrits</li>
-            <li><a href="#"></a>Mobilier</li>
-            <li><a href="#"></a>Mode</li>
-            <li><a href="#"></a>Scultures</li>
-            <li><a href="#"></a>Photographie</li>
-            <li><a href="#"></a>PhotographieObjets de collection</li>
-            <li><a href="#"></a>Touts les catégories</li>
-        </ul>
-     </div>
+    <div class="footer">
+        <a href="">
+            <img src="../view/design/img/logo.png" alt="logo">
+        </a>
+        <div class="div1">
+            <h1>BidWell</h1>
+            <ul>
+                <li><a href="#">Paramétrer les cookies</a></li>
+                <li><a href="#">Conditions d’utilisation</a></li>
+                <li><a href="#">Mentions légales</a></li>
+                <li><a href="#">Politique de confidentalité</a></li>
+            </ul>
+        </div>
+        <div class="div2">
+            <ul>
+                <li><a href="">À propos</a></li>
+                <li><a href="">Contact</a></li>
+                <li><a href="">Besoin d'aide ?</a></li>
+            </ul>
+        </div>
+        <div class="div3">
+            <h1>Catégories</h1>
+            <ul>
+                <div>
+                    <li><a href="">Art Graphique</a></li>
+                    <li><a href="">Art Décoratif</a></li>
+                    <li><a href="">Bijoux et montres</a></li>
+                </div>
+                <div>
+                    <li><a href="">Livres et manuscrits</a></li>
+                    <li><a href="">Mobilier</a></li>
+                    <li><a href="">Mode</a></li>
+                </div>
+                <div>
+                    <li><a href="">Scultures</a></li>
+                    <li><a href="">Photographie</a></li>
+                    <li><a href="">Toutes les catégories</a></li>
+                </div>
+            </ul>
+        </div>
+    </div>
+    <p>© 2023, BidWell</p>
 </footer>

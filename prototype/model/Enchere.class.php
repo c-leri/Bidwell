@@ -19,22 +19,22 @@ class Enchere extends Component {
   private int $id;                              // identifiant unique à chaque enchère, = -1 tant que l'enchère n'est pas enregistrée dans la bd
   private string $libelle;
   private DateTime $dateDebut;
-  private double $prixDepart;                   // prix auquel commence l'enchère, utilisé dans les calculs d'augmentation du prix 
-  private double $prixRetrait;                  // prix de fin de l'enchère si personne n'enchérit
-  private double|null $prixDerniereEnchere;     // prix auquel la dernière enchère a été posée, null jusuqu'à la première enchère
+  private float $prixDepart;                   // prix auquel commence l'enchère, utilisé dans les calculs d'augmentation du prix 
+  private float $prixRetrait;                  // prix de fin de l'enchère si personne n'enchérit
+  private float|null $prixDerniereEnchere;     // prix auquel la dernière enchère a été posée, null jusuqu'à la première enchère
   private Participation|null $derniereEnchere;  // dernière enchère, null jusqu'à la première enchère
-  private $participations = array()             // liste des participations sur cette enchère
+  private $participations = array();            // liste des participations sur cette enchère
   private $images = array();                    // liste des noms des fichers contenant les images
   private string $description;                  // nom du fichier contenant la description
 
   // constructeur
-  public function __construct(string $libelle, DateTime $dateDebut, double $prixDepart, double $prixRetrait, string $imagePrincipale, string $description) {
+  public function __construct(string $libelle, DateTime $dateDebut, float $prixDepart, float $prixRetrait, string $imagePrincipale, string $description) {
     $this->id = -1;
     $this->libelle = $libelle;
     $this->dateDebut = $dateDebut; 
     $this->prixDepart = $prixDepart;
     $this->prixRetrait = $prixRetrait;
-    $this->images[0] = $image;
+    $this->images[0] = $imagePrincipale;
     $this->description = $description;
   }
 
@@ -51,11 +51,11 @@ class Enchere extends Component {
     return $this->dateDebut;
   }
 
-  public function getPrixDepart() : double {
+  public function getPrixDepart() : float {
     return $this->prixDepart;
   }
 
-  public function getPrixRetrait() : double {
+  public function getPrixRetrait() : float {
     return $this->prixRetrait;
   }
 
@@ -76,17 +76,21 @@ class Enchere extends Component {
     return $this->description;
   }
 
-  public function getDescriptionURL : string {
+  public function getDescriptionURL() : string {
     return $this::ADRESSE_DESCRIPTIONS . $this->description;
   }
 
   // Setters
+  public function setPrixDerniereEnchere(float $prixDerniereEnchere) : void {
+    $this->prixDerniereEnchere = $prixDerniereEnchere;
+  }
+
   public function setLibelle(string $libelle) : void {
     $this->libelle = $libelle;
   }
 
   public function setDescription(string $description) : void {
-    $this->description = description;
+    $this->description = $description;
   }
 
   // Gestion des images
@@ -108,31 +112,129 @@ class Enchere extends Component {
 
   ////////////////// CREATE ///////////////////
 
-  public function create() {
+  /**
+   * Enregistre l'enchère dans la bd
+   * @throws Exception si l'insertion échoue
+   */
+  public function create() : void {
+    // récupération du dao
     $dao = DAO::get();
 
+    // transforme le tableaux d'images en un string avec les images séparées par des espaces
+    $imagesString = '';
+    foreach ($this->images as $image) {
+      $imagesString .= $image . ' '; 
+    }
+
+    // préparation de la query
+    $query = 'INSERT INTO Enchere(libelle, dateDebut, prixDepart, prixRetrait, images, description) VALUES (?, ?, ?, ?, ?, ?)';
+    $data = [$this->libelle, $this->dateDebut->getTimestamp(), $this->prixDepart, $this->prixRetrait, $imagesString, $this->description];
+
+    // récupération du résultat de l'insertion 
+    $r = $dao->exec($query, $data);
+
+    // si on n'a pas exactement une ligne modifié, throw une exception
+    if ($r != 1) {
+      throw new Exception("L'insertion de l'enchère a échoué");
+    }
   }
 
   /////////////////// READ ////////////////////
-  
+
+  /**
+   * Récupère une enchère dans la bd à partir de son id
+   * @throws Exception si on ne trouve pas l'enchère dans la bd ou si plusieurs enchères on le même id dans la bd
+   */
   public static function read(int $id) : Enchere {
+    // récupératoin du dao
     $dao = DAO::get();
 
+    // préparation de la query
     $query = 'SELECT * FROM Enchere WHERE id = ?';
     $data = [$id];
 
+    // récupération de la table de résultat
     $table = $dao->query($query, $data);
 
+    // throw une exception si on ne trouve pas l'enchère
     if (count($table) == 0) {
       throw new Exception("Enchere $id non trouvée");
     }
 
+    // throw une exception si on trouve plusieurs enchères
     if (count($table) > 1) {
-      throw new Exception("Enchere $id existe en {count($table)} exemplaires");
+      throw new Exception("Enchere $id existe en ".count($table).' exemplaires');
     }
 
     $row = $table[0];
+    
+    // split le contenu du string images de la bd en un tableaux de string contenant le nom des fichiers contenant les images
+    $images = explode(' ', $row['images']);
 
-    $enchere = new Enchere($row['libelle'], $row['dateDebut'], $row[''])
+    // on récupère le DateTime correspondant au timestamp stocké dans la bd
+    $dateDebut = new DateTime();
+    $dateDebut->setTimestamp($row['dateDebut']);
+
+    // création d'un objet enchère avec les informations de la bd
+    $enchere = new Enchere($row['libelle'], $dateDebut, $row['prixDepart'], $row['prixRetrait'], $images[0], $row['description']);
+
+    // on set le prixDerniereEnchere si il est dans la bd
+    if (isset($row['prixDerniereEnchere']))
+      $enchere->setPrixDerniereEnchere($row['prixDerniereEnchere']);
+
+    // on ajoute les images restantes dans la liste de string
+    unset($images[0]);
+    foreach ($images as $image) {
+      $enchere->addImage($image);
+    }
+
+    // on set l'id de l'enchère
+    $enchere->id = $id;
+
+    return $enchere;
+  }
+
+  ////////////////// UPDATE ///////////////////
+
+  /**
+   * Met à jour les valeurs de l'enchère dans la bd
+   */ 
+  public function update() : void {
+    if ($this->id != 1) {
+      // récupération du dao
+      $dao = DAO::get();
+
+      // transforme le tableaux d'images en un string avec les images séparées par des espaces
+      $imagesString = '';
+      foreach ($this->images as $image) {
+        $imagesString .= $image . ' '; 
+      }
+
+      // si l'enchere a une derniere enchère, on l'inclut dans l'update
+      if (isset($this->prixDerniereEnchere)) {
+        $query = 'UPDATE Enchere SET libelle = ?, dateDebut = ?, prixDepart = ?, prixRetrait = ?, prixDerniereEnchere = ?, images = ?, description = ? WHERE id = ?';
+        $data = [$this->libelle, $this->dateDebut->getTimestamp(), $this->prixDepart, $this->prixRetrait, $this->prixDerniereEnchere, $imagesString, $this->description, $this->id];
+      } else {
+        $query = 'UPDATE Enchere SET libelle = ?, dateDebut = ?, prixDepart = ?, prixRetrait = ?, images = ?, description = ? WHERE id = ?';
+        $data = [$this->libelle, $this->dateDebut->getTimestamp(), $this->prixDepart, $this->prixRetrait, $imagesString, $this->description, $this->id];
+      }
+
+      $dao->exec($query, $data);
+    }
+  }
+
+  ////////////////// DELETE ///////////////////
+
+  public function delete() {
+    if ($this->id != 1) {
+      // récupération du dao
+      $dao = DAO::get();
+
+      // préparation du query
+      $query = 'DELETE FROM Enchere WHERE id = ?';
+      $data = [$this->id];
+
+      $dao->exec($query, $data);
+    }
   }
 }

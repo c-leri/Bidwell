@@ -1,4 +1,7 @@
 <?php
+
+require_once __DIR__.'/Enchere.class.php';
+
 /**
  * La classe Participation modélise la participation d'un utilisateur à des enchères.
  * Il s'agit d'une classe assiociation entre la classe Utilisateur et la classe Enchere. Elle permet à des enchères d'avoir autant de participations qu'elle veut
@@ -15,7 +18,7 @@ class Participation {
 
 
     // Constructeur
-    public __construct(Enchere $enchere, Utilisateur $utilisateur) {
+    public function __construct(Enchere $enchere, Utilisateur $utilisateur) {
         $this->enchere = $enchere;
         $this->utilisateur = $utilisateur;
         $this->nbEncheres = 0;
@@ -26,7 +29,7 @@ class Participation {
     /**
      * La procédure setAEncheri() permet d'ajouter 1 au compteur de participations de l'instance courante de la classe Participation.
      */
-    public setAEncheri() {
+    public function setAEncheri() {
         $this->nbEncheres++;
     }
 }

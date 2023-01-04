@@ -4,7 +4,7 @@ CREATE TABLE enchere (
 	dateDebut INTEGER,
 	prixDepart REAL,
 	prixRetrait REAL,
-	prixDernierEnchere REAL,
+	prixDerniereEnchere REAL,
 	images TEXT,
 	description TEXT	
 );

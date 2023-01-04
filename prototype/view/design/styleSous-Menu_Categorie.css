@@ -1,29 +1,35 @@
 /* --- Barre de navigation ---*/
-/* -- Barre du bas -- */
-nav#navbar-bot{
-    padding: 0.5em;
-    background-color: var(--couleur-noir30);
-}
-/* - Liste des catégories - */
-nav#navbar-bot>ul{
-    list-style-type: none;
-    display: flex;
-    flex-direction: row;
-    justify-content:left;
-}
-/* - Catégories - */
-nav#navbar-bot ul li a{
-    text-decoration: none;
-    color: var(--couleur-noir);
-    background-color: var(--couleur-jaune);
-    border-radius: 1em;
-    white-space: nowrap;
+@media only screen and (min-width: 960px) {
 
-    display: block;
-    padding: 0.5em 0.5em;
-    margin-right: 1em;
-}
-/* - Burger - */
-nav#navbar-bot>ul li a img{
-    width: 1em;
+    /* -- Barre du bas -- */
+    nav#navbar-bot {
+        padding: 0.5rem;
+        background-color: var(--couleur-noir30);
+    }
+
+    /* - Liste des catégories - */
+    nav#navbar-bot>ul {
+        list-style-type: none;
+        display: flex;
+        flex-direction: row;
+        justify-content: left;
+    }
+
+    /* - Catégories - */
+    nav#navbar-bot ul li a {
+        text-decoration: none;
+        color: var(--couleur-noir);
+        background-color: var(--couleur-jaune);
+        border-radius: 1rem;
+        white-space: nowrap;
+
+        display: block;
+        padding: 0.5rem 0.5rem;
+        margin-right: 0.9rem;
+    }
+
+    /* - Burger - */
+    nav#navbar-bot>ul li a img {
+        width: 1rem;
+    }
 }
