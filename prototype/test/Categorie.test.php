@@ -6,51 +6,62 @@
 // Inclusion de la classe Categorie
 require_once(__DIR__ . "/../model/Categorie.class.php");
 // Inclusion du helper
-require_once(__DIR__ . "/helper.php");
-
-// Construction d'un objet Categorie ; Récupération du libellé
-try {
-    $nomCategorie = "it's a me";
-    $categorie = new Categorie("it's a me");
-    verify($categorie->getLibelle() == $nomCategorie, "Le nom de la catégorie est erroné : " . getLibelle());
-} catch (Exception $e) {
-    printCol("La création d'une instance de Categorie a échoué.");
-}
-
-/**
- * Test du setter setLibelle()
- */
+require_once(__DIR__ . "/Helper.php");
 
 try {
-    $nomCategorie = "mama mia";
-    $categorie->setLibelle($nomCategorie);
-    verify($categorie->getLibelle(), $nomCategorie, "Le libellé a mal été mis à jour: " . $categorie->getLibelle());
+    // Constructeur
+    print('Test du constructeur : ');
+    $nomCategorie = 'testConstructeur';
+    $categorie = new Categorie($nomCategorie);
+    if ($categorie->getLibelle() != $nomCategorie) {
+        throw new Exception("Test du constructeur :\n"
+            ." - Nom de la catégorie : {$categorie->getLibelle()}"
+            ." - Attendu : $nomCategorie");
+    }
     OK();
-} catch (Exception $e) {
-    printCol("Erreur dans la mise à jour du libellé");
-    $e->getMessage();
-}
 
-/**
- * Test de la méthode add()
- */
-// Création d'une nouvelle catégorie
-$categorieFille = new Categorie("mario");
-// Ajout de la catégorie fille à la précédente catégorie
-try {
+    ////////////////// SETTERS //////////////////
+    print('Test des setters : ');
+
+    // setLibelle()
+    $nomCategorie = 'testSetLibelle';
+    $categorie->setLibelle($nomCategorie);
+    if ($categorie->getLibelle() != $nomCategorie) {
+        throw new Exception("Test de setLibelle() :\n"
+            ." - Nom de la catégorie : {$categorie->getLibelle()}"
+            ." - Attendu : $nomCategorie");
+    }
+
+    OK();
+
+    ///////////// GESTION DES FILS //////////////
+    print('Test gestion des fils : ');
+
+    // add()
+    $categorieFille = new Categorie('filleTest');
     $categorie->add($categorieFille);
-} catch (Exception $e) {
-    printCol("Erreur dans l'ajout d'une catégorie fille.");
-}
+    if ($categorieFille->getParent() != $categorie) {
+        printf("\nCategorie mere :");
+        var_dump($categorie);
+        printf("Categorie fille :");
+        var_dump($categorieFille);
+        throw new Exception('Test add() : $categorieFille->getParent() != $categorie');
+    }
 
-/**
- * Test de la méthode remove()
- */
-// Ajout de la catégorie fille à la précédente catégorie
-try {
+    // remove()
     $categorie->remove($categorieFille);
+    if ($categorie->getParent() !== null) {
+        printf("\nCategorie mere :");
+        var_dump($categorie);
+        printf("Categorie fille :");
+        var_dump($categorieFille);
+        throw new Exception('Test remove() : $categorieFille->getParent() != null');
+    }
+
+    OK();
+
+
 } catch (Exception $e) {
-    printCol("Erreur de suppression d'une catégorie fille.");
+    KO("Erreur sur Categorie : ".$e->getMessage());
 }
-?>
 
