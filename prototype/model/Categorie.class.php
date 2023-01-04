@@ -14,11 +14,12 @@ class Categorie extends Component {
   protected SplObjectStorage $children;
 
   // constructeur
-  public function __construct(string $libelle)
+  public function __construct(string $libelle, Categorie $categorieMere = null)
   {
     $this->id = -1;
     $this->libelle = $libelle;
     $this->children = new SplObjectStorage;
+    $this->setParent($categorieMere);
   }
 
   // Getters
@@ -44,5 +45,75 @@ class Categorie extends Component {
   public function remove(Component $component) : void {
       $this->children->detach($component);
       $component->setParent(null);
+  }
+
+  /////////////////////////////////////////////
+  //                  CRUD                   //
+  /////////////////////////////////////////////
+
+  ////////////////// CREATE ///////////////////
+
+  /**
+   * Enregistre la catégorie dans la bd
+   * @throws Exception si l'insertion échoue
+   */
+  public function create() : void {
+    // récupération du dao
+    $dao = DAO::get();
+
+    // préparation de la query
+    $query = 'INSERT INTO Catehorie(libelle, idMere) VALUES (?, ?)';
+    $data = [$this->libelle, $this->getParent()];
+
+    // récupération du résultat de l'insertion 
+    $r = $dao->exec($query, $data);
+
+    // si on n'a pas exactement une ligne insérée, throw une exception
+    if ($r != 1) {
+      throw new Exception("L'insertion de l'enchère a échoué");
+    }
+  }
+
+  /////////////////// READ ////////////////////
+
+  /**
+   * Récupère une catégorie dans la bd à partir de son id
+   * @throws Exception si on ne trouve pas la catégorie dans la bd ou si plusieurs catégories on le même id dans la bd
+   */
+  public static function read(int $id) : Categorie {
+    // récupératoin du dao
+    $dao = DAO::get();
+
+    // préparation de la query
+    $query = 'SELECT * FROM Categorie WHERE id = ?';
+    $data = [$id];
+
+    // récupération de la table de résultat
+    $table = $dao->query($query, $data);
+
+    // throw une exception si on ne trouve pas la catégorie
+    if (count($table) == 0) {
+      throw new Exception("Catégorie $id non trouvée");
+    }
+
+    // throw une exception si on trouve plusieurs catégorie
+    if (count($table) > 1) {
+      throw new Exception("Catégorie $id existe en ".count($table).' exemplaires');
+    }
+
+    $row = $table[0];
+
+    $idMere = $row['idMere'];
+
+    // création d'un objet catégorie avec les informations de la bd
+    if (isset($idMere))
+      $categorie = new Categorie($row['libelle'], Categorie::read($idMere));
+    else
+      $categorie = new Categorie($row['libelle']);
+
+    // on set l'id de la catégorie
+    $categorie->id = $id;
+
+    return $categorie;
   }
 }

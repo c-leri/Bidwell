@@ -1,11 +1,7 @@
 <?php
-/**
- * Test de la classe Categorie
- */
-
-// Inclusion de la classe Categorie
+// Test la classe Categorie
 require_once(__DIR__ . "/../model/Categorie.class.php");
-// Inclusion du helper
+// Fonctions d'aide
 require_once(__DIR__ . "/Helper.php");
 
 try {

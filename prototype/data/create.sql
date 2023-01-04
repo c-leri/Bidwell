@@ -10,7 +10,7 @@ CREATE TABLE Utilisateur (
 CREATE TABLE Categorie (
 	id INTEGER PRIMARY KEY AUTOINCREMENT,
 	libelle TEXT NOT NULL,
-	idMere INTEGER NOT NULL,
+	idMere INTEGER,		-- NULL si c'est la Categorie racine
 	FOREIGN KEY (idMere) REFERENCES Categorie(id)
 );
 
