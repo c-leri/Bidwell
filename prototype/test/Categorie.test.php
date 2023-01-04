@@ -38,6 +38,19 @@ try {
 $categorieFille = new Categorie("mario");
 // Ajout de la catégorie fille à la précédente catégorie
 try {
-//    $categorie->
+    $categorie->add($categorieFille);
+} catch (Exception $e) {
+    printCol("Erreur dans l'ajout d'une catégorie fille.");
+}
+
+/**
+ * Test de la méthode remove()
+ */
+// Ajout de la catégorie fille à la précédente catégorie
+try {
+    $categorie->remove($categorieFille);
+} catch (Exception $e) {
+    printCol("Erreur de suppression d'une catégorie fille.");
+}
 ?>
 
