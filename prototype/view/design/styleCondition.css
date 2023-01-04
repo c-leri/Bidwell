@@ -7,22 +7,22 @@
         padding: 1em;
     }
 
-    li{
+    .conditions li{
         margin: 0.5em;
     }
 
     
-    div{
+    .conditions div{
         margin: 1% 5% 1% 5%;
         color : white;
     }
 
-    p{
+    .conditions p{
         background-color: #4f1975;
         padding: 0.4em;
     }
 
-    ul{
+    .conditions ul{
         background-color: #4f1975;
         padding-top:0.2em;
         padding-bottom: 0.2em;

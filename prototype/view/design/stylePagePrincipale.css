@@ -2,6 +2,9 @@
 @media only screen and (min-width: 960px) {
     hr {
         margin: 1rem 2rem 1rem 2rem;
+        height: 0.1rem;
+        background-color: var(--couleur-noir);
+        border: none;
     }
 
     /* -- Slider -- */
