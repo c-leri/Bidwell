@@ -24,7 +24,7 @@
     <header>
         <?php include(__DIR__ . '/menu.viewpart.php') ?>
     </header>
-    <main>
+    <main class="connect">
         <div class="left">
             <h2> Inscription </h2>
 
@@ -60,18 +60,19 @@
 
             <div class="bot">
                 <h2> Liens utiles </h2>
+                <ul>
                 <li><a href="#"></a>Conditions d’utilisation</li>
                 <li><a href="#"></a>Cookies</li>
                 <li><a href="#"></a>Mentions légales</li>
                 <li><a href="#"></a>Politique de confidentalité</li>
+                </ul>
             </div>
         </div>
-    </main>
-
-    <aside>
+        <div class="right">
         <h2> FAQ </h2>
-        Lorem Ipsum
-    </aside>
+        <p>truc style de Paul</p>
+        </div>
+    </main>
     <footer>
         <?php include(__DIR__ . '/footer.viewpart.php') ?>
     </footer>

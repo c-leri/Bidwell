@@ -92,6 +92,11 @@ class Enchere extends Component {
     $this->description = $description;
   }
 
+  // Gestion des participations
+  public function addParticipation(Participation $participation) : void {
+    $this->participations[] = $participation;
+  }
+
   // Gestion des images
   public function setImagePrincipale(string $image) : void {
     $this->images[0] = $image;
@@ -102,6 +107,7 @@ class Enchere extends Component {
   }
 
   public function removeImage(int $id) : void {
+    if (!isset($this->images[$id])) throw new Exception("Pas d'image d'id $id.");
     unset($this->images[$id]);
   }
 

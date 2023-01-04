@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__.'/CompositeComponent.class.php';
+require_once __DIR__.'/Component.class.php';
 
 /**
  * Classe représentant le concept de Catégorie
@@ -22,6 +22,10 @@ class Categorie extends Component {
   }
 
   // Getters
+  public function getId() : int {
+    return $this->id;
+  }
+
   public function getLibelle() : string {
     return $this->libelle;
   }

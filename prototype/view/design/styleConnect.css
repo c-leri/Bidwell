@@ -1,4 +1,57 @@
-/*  --- Main --- */
 @media only screen and (min-width: 960px) {
+    /*  --- Se connecter et s'inscrire--- */
+    /*  -- Main -- */
+    main.connect{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        color: var(--couleur-blanc);
+    }
+
+    main.connect>div{
+        width: 25%;
+    }
+
+    main.connect button{
+        text-decoration: none;
+        color: var(--couleur-noir);
+        background-color: var(--couleur-blanc);
+        border: 0.1rem solid var(--couleur-noir);
+        border-radius: 0.8rem;
+        white-space: nowrap;
+        display: block;
+        padding: 0.4rem;
+    }
+
+    main.connect a{
+        text-decoration: none;
+        display: block;
+        font-size: 1rem;
+        color: var(--couleur-blanc);
+    }
     
+    /* -- Partie de gauche -- */
+    .left {
+        display: flex;
+        flex-direction: column;
+    }
+    /* -- Partie du milieu -- */
+    .center li{
+        margin: 1rem;
+        list-style-type: none;
+        font-size: 1rem;
+    }
+    /* -- Partie du milieu -- */
+    .right {
+        padding: 0.5rem;
+        background-color: var(--couleur-blanc30);
+        border-radius: 1rem;
+    }
+    /* -- Design -- */
+    hr {
+        margin: 1rem 0rem 1rem 0rem;
+        height: 0.1rem;
+        background-color: var(--couleur-blanc);
+        border: none;
+    }
 }

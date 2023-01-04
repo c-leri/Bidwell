@@ -1,28 +1,29 @@
 CREATE TABLE Utilisateur (
 	login TEXT PRIMARY KEY,
-	email TEXT,
-	mdpHash TEXT,
-	nom TEXT,
-	numeroDeTelephone TEXT UNIQUE,
-	nbJetons INTEGER
+	mdpHash TEXT NOT NULL,
+	nom TEXT NOT NULL,
+	email TEXT NOT NULL,
+	numeroTelephone TEXT UNIQUE NOT NULL,
+	nbJetons INTEGER NOT NULL
 );
 
 CREATE TABLE Categorie (
 	id INTEGER PRIMARY KEY AUTOINCREMENT,
-	libelle TEXT,
-	idMere INTEGER REFERENCES Categorie(id)
+	libelle TEXT NOT NULL,
+	idMere INTEGER NOT NULL,
+	FOREIGN KEY (idMere) REFERENCES Categorie(id)
 );
 
 CREATE TABLE Enchere (
 	id INTEGER PRIMARY KEY AUTOINCREMENT,
-	idCategorie INTEGER,
-	libelle TEXT,
-	dateDebut INTEGER,
-	prixDepart REAL,
-	prixRetrait REAL,
+	libelle TEXT NOT NULL,
+	dateDebut INTEGER NOT NULL,
+	prixDepart REAL NOT NULL,
+	prixRetrait REAL NOT NULL,
 	loginUtilisateurDerniereEnchere TEXT,
-	images TEXT,
-	description TEXT,
+	images TEXT NOT NULL,
+	description TEXT NOT NULL,
+	idCategorie INTEGER NOT NULL,
 	FOREIGN KEY (idCategorie) REFERENCES Categorie(id),
 	FOREIGN KEY (loginUtilisateurDerniereEnchere) REFERENCES Utilisateur(login)
 );
@@ -30,7 +31,7 @@ CREATE TABLE Enchere (
 CREATE TABLE Participation (
 	idEnchere INTEGER,
 	loginUtilisateur TEXT,
-	nbEncheres INTEGER,
+	nbEncheres INTEGER NOT NULL,
 	montantDerniereEnchere REAL,
 	PRIMARY KEY (idEnchere, loginUtilisateur),
 	FOREIGN KEY (idEnchere) REFERENCES Enchere(id),

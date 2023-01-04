@@ -25,12 +25,21 @@ class Participation {
         $this->nbEncheres = 0;
     }
 
+    // Getters
+    public function getEnchere() : Enchere {
+        return $this->enchere;
+    }
+
+    public function getUtilisateur() : Utilisateur {
+        return $this->utilisateur;
+    }
+
 
     // Méthode
     /**
-     * La procédure setAEncheri() permet d'ajouter 1 au compteur de participations de l'instance courante de la classe Participation.
+     * Incrémente le compteur d'enchères posées par $utilisateur sur $enchere
      */
-    public function setAEncheri() {
+    public function aEncheri() {
         $this->nbEncheres++;
     }
 }
