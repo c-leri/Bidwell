@@ -15,6 +15,7 @@ class Participation {
     private Enchere $enchere;
     private Utilisateur $utilisateur;
     private int $nbEncheres;
+    private float|null $montantDerniereEnchere;
 
 
     // Constructeur

@@ -1,15 +1,4 @@
-CREATE TABLE enchere (
-	id INTEGER PRIMARY KEY AUTO_INCREMENT,
-	libelle TEXT,
-	dateDebut INTEGER,
-	prixDepart REAL,
-	prixRetrait REAL,
-	prixDerniereEnchere REAL,
-	images TEXT,
-	description TEXT	
-);
-
-CREATE TABLE utilisateur (
+CREATE TABLE Utilisateur (
 	login TEXT PRIMARY KEY,
 	email TEXT,
 	mdpHash TEXT,
@@ -18,18 +7,32 @@ CREATE TABLE utilisateur (
 	nbJetons INTEGER
 );
 
-CREATE TABLE categorie (
-	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+CREATE TABLE Categorie (
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
 	libelle TEXT,
-	idMere INTEGER REFERENCES categorie(id)
+	idMere INTEGER REFERENCES Categorie(id)
 );
 
-CREATE TABLE participation (
-	idEnchere INTEGER AUTO_INCREMENT,
+CREATE TABLE Enchere (
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	idCategorie INTEGER,
+	libelle TEXT,
+	dateDebut INTEGER,
+	prixDepart REAL,
+	prixRetrait REAL,
+	loginUtilisateurDerniereEnchere TEXT,
+	images TEXT,
+	description TEXT,
+	FOREIGN KEY (idCategorie) REFERENCES Categorie(id),
+	FOREIGN KEY (loginUtilisateurDerniereEnchere) REFERENCES Utilisateur(login)
+);
+
+CREATE TABLE Participation (
+	idEnchere INTEGER,
 	loginUtilisateur TEXT,
 	nbEncheres INTEGER,
+	montantDerniereEnchere REAL,
 	PRIMARY KEY (idEnchere, loginUtilisateur),
-	FOREIGN KEY (idEnchere) REFERENCES enchere(id),
-	FOREIGN KEY (loginUtilisateur) REFERENCES utilisateur(login)
+	FOREIGN KEY (idEnchere) REFERENCES Enchere(id),
+	FOREIGN KEY (loginUtilisateur) REFERENCES Utilisateur(login)
 );
-

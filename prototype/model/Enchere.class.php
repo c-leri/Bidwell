@@ -21,7 +21,6 @@ class Enchere extends Component {
   private DateTime $dateDebut;
   private float $prixDepart;                   // prix auquel commence l'enchère, utilisé dans les calculs d'augmentation du prix 
   private float $prixRetrait;                  // prix de fin de l'enchère si personne n'enchérit
-  private float|null $prixDerniereEnchere;     // prix auquel la dernière enchère a été posée, null jusuqu'à la première enchère
   private Participation|null $derniereEnchere;  // dernière enchère, null jusqu'à la première enchère
   private $participations = array();            // liste des participations sur cette enchère
   private $images = array();                    // liste des noms des fichers contenant les images
@@ -81,8 +80,8 @@ class Enchere extends Component {
   }
 
   // Setters
-  public function setPrixDerniereEnchere(float $prixDerniereEnchere) : void {
-    $this->prixDerniereEnchere = $prixDerniereEnchere;
+  public function setDerniereEnchere(Participation $participation) : void {
+    $this->derniereEnchere = $participation;
   }
 
   public function setLibelle(string $libelle) : void {
@@ -178,9 +177,9 @@ class Enchere extends Component {
     // création d'un objet enchère avec les informations de la bd
     $enchere = new Enchere($row['libelle'], $dateDebut, $row['prixDepart'], $row['prixRetrait'], $images[0], $row['description']);
 
-    // on set le prixDerniereEnchere si il est dans la bd
-    if (isset($row['prixDerniereEnchere']))
-      $enchere->setPrixDerniereEnchere($row['prixDerniereEnchere']);
+    // on set la derniereEnchere si elle est dans la bd
+    if (isset($row['derniereEnchere']))
+      $enchere->setDerniereEnchere($row['derniereEnchere']);
 
     // on ajoute les images restantes dans la liste de string
     unset($images[0]);
@@ -200,7 +199,7 @@ class Enchere extends Component {
    * Met à jour les valeurs de l'enchère dans la bd
    */ 
   public function update() : void {
-    if ($this->id != 1) {
+    if ($this->id != -1 && $this->getParent()->getId() != -1) {
       // récupération du dao
       $dao = DAO::get();
 
@@ -211,12 +210,12 @@ class Enchere extends Component {
       }
 
       // si l'enchere a une derniere enchère, on l'inclut dans l'update
-      if (isset($this->prixDerniereEnchere)) {
-        $query = 'UPDATE Enchere SET libelle = ?, dateDebut = ?, prixDepart = ?, prixRetrait = ?, prixDerniereEnchere = ?, images = ?, description = ? WHERE id = ?';
-        $data = [$this->libelle, $this->dateDebut->getTimestamp(), $this->prixDepart, $this->prixRetrait, $this->prixDerniereEnchere, $imagesString, $this->description, $this->id];
+      if (isset($this->derniereEnchere)) {
+        $query = 'UPDATE Enchere SET libelle = ?, idCategorie = ?, dateDebut = ?, prixDepart = ?, prixRetrait = ?, loginUtilisateurDerniereEnchere = ?, images = ?, description = ? WHERE id = ?';
+        $data = [$this->libelle, $this->getParent()->getId(), $this->dateDebut->getTimestamp(), $this->prixDepart, $this->prixRetrait, $this->derniereEnchere->getUtilisateur()->getLogin(), $imagesString, $this->description, $this->id];
       } else {
-        $query = 'UPDATE Enchere SET libelle = ?, dateDebut = ?, prixDepart = ?, prixRetrait = ?, images = ?, description = ? WHERE id = ?';
-        $data = [$this->libelle, $this->dateDebut->getTimestamp(), $this->prixDepart, $this->prixRetrait, $imagesString, $this->description, $this->id];
+        $query = 'UPDATE Enchere SET libelle = ?, idCategorie = ?, dateDebut = ?, prixDepart = ?, prixRetrait = ?, images = ?, description = ? WHERE id = ?';
+        $data = [$this->libelle, $this->getParent()->getId(), $this->dateDebut->getTimestamp(), $this->prixDepart, $this->prixRetrait, $imagesString, $this->description, $this->id];
       }
 
       $dao->exec($query, $data);
@@ -226,7 +225,7 @@ class Enchere extends Component {
   ////////////////// DELETE ///////////////////
 
   public function delete() {
-    if ($this->id != 1) {
+    if ($this->id != -1) {
       // récupération du dao
       $dao = DAO::get();
 
