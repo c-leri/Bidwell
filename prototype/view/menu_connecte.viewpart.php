@@ -7,14 +7,9 @@
     </div>
 
     <div class="nav-search">
-        <form id="nav-search-form" accept-charset="utf-8" action="" method="get" role="search">
-            <div id="nav-search-fill">
-                <input type="text" id="searchbox" dir="auto" spellcheck="false" autocomplete="false">
-            </div>
-
-            <div id="nav-search-right">
-                <input id="nav-search-button" type="submit" value="Go">
-            </div>
+        <form id="nav-search-form" method="get">
+            <input type="text" placeholder="Rechercher...">
+            <input id="button-submit" type="submit" value="">
         </form>
     </div>
 
@@ -23,12 +18,20 @@
             Vendre un article
         </a>
     </div>
+   
 
     <div class="nav-right">
+    <div id="nav-left-logout">
+            <a href="disconnect.ctrl.php">
+                Déconnexion
+                </a>
+        </div>
         <div id="nav-left-my_account">
             <a href="">
                 Mon compte
             </a>
         </div>
+        
     </div>
+    
 </nav>
