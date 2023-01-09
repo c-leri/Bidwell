@@ -89,7 +89,7 @@ class Utilisateur {
     }
 
     public function mdpValide(string $password) : bool {
-        return $this->mdpHash == password_hash($password, PASSWORD_BCRYPT);
+        return password_verify($password, $this->mdpHash);
     }
 
     // Autres méthodes

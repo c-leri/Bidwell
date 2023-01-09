@@ -17,7 +17,6 @@ class Participation {
     private int $nbEncheres;
     private float|null $montantDerniereEnchere;
 
-
     // Constructeur
     public function __construct(Enchere $enchere, Utilisateur $utilisateur) {
         $this->enchere = $enchere;
@@ -33,7 +32,6 @@ class Participation {
     public function getUtilisateur() : Utilisateur {
         return $this->utilisateur;
     }
-
 
     // Autres méthodes
 
