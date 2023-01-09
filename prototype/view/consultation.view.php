@@ -23,10 +23,6 @@
         <?php include(__DIR__ . '/menu.viewpart.php') ?>
     </header>
     <main class="consultation">
-        <div class="retour">
-            <button type="submit">Retour</button>
-        </div>
-
         <div class="top">
             <div class="presentation">
                 <img src="../view/design/img/logo.png" alt="mainimage">
