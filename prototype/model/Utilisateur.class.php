@@ -90,12 +90,34 @@ class Utilisateur {
     }
 
     // Autres méthodes
-    public function connectionValide(string $login, string $password) : bool {
-        return $this->login == $login && $this->mdpHash === password_hash($password, PASSWORD_BCRYPT);
+
+    public static function connectionValide(string $login, string $password) : bool {
+        $utilisateur = Utilisateur::read($login);
+        return $utilisateur->mdpHash == password_hash($password, PASSWORD_BCRYPT);
     }
 
+    /**
+     * Vérifie si l'utilisateur est enregistré dans la bd
+     */
+    public function isInDB() : bool {
+        // Récupération de la classe DAO
+        $dao = DAO::get();
 
-    // Méthodes CRUD
+        // Initialisation de la requête et du tableau de valeurs
+        $requete = 'SELECT * FROM Utilisateur WHERE login = ?';
+        $valeurs = [$this->login];
+
+        // Exécution de la requête
+        $table = $dao->query($requete, $valeurs);
+
+        return count($table) == 0;
+    }
+
+    /////////////////////////////////////////////
+    //                  CRUD                   //
+    /////////////////////////////////////////////
+
+    ////////////////// CREATE ///////////////////
     
     /**
      * La méthode create() permet de sérialiser dans la base de données de l'application l'instance courante de la classe Utilisateur
@@ -124,6 +146,8 @@ class Utilisateur {
         }
     }
 
+    /////////////////// READ ////////////////////
+
     /**
      * La méthode read() retourne une instance de la classe Utilisateur à partir de son login
      * @throws Exception si l'utilisateur n'est pas trouvé dans la base
@@ -146,13 +170,19 @@ class Utilisateur {
 
         return Utilisateur::construct_fromdb($table[0]);
     }
+
+    ////////////////// UPDATE ///////////////////
     
     /**
      * La méthode update() permet de sérialiser des modifications apportées à une instance de la classe Utilisateur dans la
      * base de données
-     * @throws Exception si le nombre de ligne modifiée != 1
+     * @throws Exception si l'utilisateur n'existe pas dans la db ou le nombre de ligne modifiée != 1
      */
     public function update() : void {
+        if (!$this->isInDB()) {
+            throw new Exception("Update : L'utilisateur $this->login n'existe pas dans la bd");
+        }
+
         // Récupération de l'objet DAO
         $dao = DAO::get();
 
@@ -165,14 +195,12 @@ class Utilisateur {
         $nbLignesMod = $dao->exec($requete, $valeurs);
 
         // Vérification de la bonne exécution de la requête
-        if ($nbLignesMod == 0) {
-            throw new Exception("Update : L'utilisateur $this->login n'existe pas dans la bd");
-        }
-
         if ($nbLignesMod > 1) {
-            throw new Exception("Update : Nombre de ligne modifiée > 1 lors de la modification de l'utilisateur $this->login");
+            throw new Exception("Update : Nombre de ligne modifiée != 1 lors de la modification de l'utilisateur $this->login");
         }
     }
+
+    ////////////////// DELETE ///////////////////
 
     /**
      * La méthode delete() permet de supprimer l'utilisateur correspondant à l'instance courante de la classe
@@ -180,6 +208,10 @@ class Utilisateur {
      * @throws Exception si l'utilisateur n'est pas présent dans la base
      */
     public function delete() : void {
+        if (!$this->isInDB()) {
+            throw new Exception("Delete : L'utilisateur $this->login n'existe pas dans la bd");
+        }
+
         // Récupération de l'objet DAO
         $dao = DAO::get();
 
@@ -188,12 +220,7 @@ class Utilisateur {
         $valeurs = [$this->login];
 
         // Exécution de la requête
-        $nbLignesMod = $dao->exec($requete, $valeurs);
-
-        // Vérification de la bonne exécution de la requête
-        if ($nbLignesMod == 0) {
-            throw new Exception("Delete : L'utilisateur " . $this->login . " n'existe pas dans la bd");
-        }
+        $dao->exec($requete, $valeurs);
     }
 }
 

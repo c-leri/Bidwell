@@ -35,12 +35,30 @@ class Participation {
     }
 
 
-    // Méthode
+    // Autres méthodes
+
     /**
      * Incrémente le compteur d'enchères posées par $utilisateur sur $enchere
      */
     public function aEncheri() {
         $this->nbEncheres++;
+    }
+
+    /**
+     * Vérifie si la participation est enregistrée dans la bd
+     */
+    public function isInDB() : bool {
+        // Récupération de la classe DAO
+        $dao = DAO::get();
+
+        // Initialisation de la requête et du tableau de valeurs
+        $query = 'SELECT * FROM Participation WHERE idEnchere = ?, loginUtilisateur = ?';
+        $data = [$this->enchere->getId(), $this->utilisateur->getLogin()];
+
+        // Exécution de la requête
+        $table = $dao->query($query, $data);
+
+        return count($table) == 0;
     }
 
     /////////////////////////////////////////////
@@ -89,12 +107,12 @@ class Participation {
 
         // throw une exception si on ne trouve pas la participation
         if (count($table) == 0) {
-            throw new Exception("Participation d'utilisateur {$utilisateur->getLogin()} pour l'enchère {$enchere->getId()} non trouvée");
+            throw new Exception("Participation de utilisateur {$utilisateur->getLogin()} à l'enchère {$enchere->getId()} non trouvée");
         }
 
         // throw une exception si on trouve plusieurs participation
         if (count($table) > 1) {
-            throw new Exception("Participation d'utilisateur {$utilisateur->getLogin()} pour l'enchère {$enchere->getId()} existe en ".count($table).' exemplaires');
+            throw new Exception("Participation de l'utilisateur {$utilisateur->getLogin()} à l'enchère {$enchere->getId()} existe en ".count($table).' exemplaires');
         }
 
         $row = $table[0];
@@ -109,5 +127,59 @@ class Participation {
         $participation->montantDerniereEnchere = $row['montantDerniereEnchere'];
 
         return $participation;
+    }
+
+    ////////////////// UPDATE ///////////////////
+
+    /**
+     * Enregistre les modification faites à la paticipation dans la bd
+     * @throws Exception si la participation n'existe pas dans la bd ou si le nombre de ligne modifiée != 1
+     */
+    public function update() : void {
+        if (!$this->isInDB()) {
+            throw new Exception("Update : La participation de l'utilisateur {$this->utilisateur->getLogin()} à l'enchère {$this->enchere->getId()} n'existe pas dans la bd");
+        }
+
+        // récupératoin du dao
+        $dao = DAO::get();
+
+        // update le montant de la dernière enchère si il existe
+        if (isset($this->montantDerniereEnchere)) {
+            $query = 'UPDATE Participation SET nbEncheres = ?, montantDerniereEnchere = ? WHERE idEnchere = ? AND loginUtilisateur = ?';
+            $data = [$this->nbEncheres, $this->montantDerniereEnchere, $this->enchere->getId(), $this->utilisateur->getLogin()];
+        } else {
+            $query = 'UPDATE Participation SET nbEncheres = ?, montantDerniereEnchere = ? WHERE idEnchere = ? AND loginUtilisateur = ?';
+            $data = [$this->nbEncheres, $this->montantDerniereEnchere, $this->enchere->getId(), $this->utilisateur->getLogin()];
+        }
+        
+        // Exécution de la requête
+        $nbLignesMod = $dao->exec($query, $data);
+
+        // Vérification de la bonne exécution de la requête
+        if ($nbLignesMod > 1) {
+            throw new Exception("Update : Nombre de ligne modifiée != 1 lors de la modification de la participation de l'utilisateur {$this->utilisateur->getLogin()} à l'enchère {$this->enchere->getId()}");
+        }
+    }
+
+    ////////////////// DELETE ///////////////////
+
+    /**
+     * Supprime la participation de la bd
+     * @throws Exception si la participation n'existe pas dans la bd
+     */
+    public function delete() : void {
+        if (!$this->isInDB()) {
+            throw new Exception("Delete : La participation de l'utilisateur {$this->utilisateur->getLogin()} à l'enchère {$this->enchere->getId()} n'existe pas dans la bd");
+        }
+
+        // récupératoin du dao
+        $dao = DAO::get();
+
+        // Initialisation de la requête et du tableau de valeurs
+        $query = 'DELETE FROM Participation WHERE idEnchere = ?, loginUtilisateur = ?';
+        $data = [$this->enchere->getId(), $this->utilisateur->getLogin()];
+
+        // Exécution de la requête
+        $dao->exec($query, $data);
     }
 }
