@@ -45,16 +45,18 @@
             <div class="ventesPopulaires">
                 <?php for ($i = 0; $i < 12; $i++) {
                     ?>
-                    <a href="consultation.ctrl.php"> <!-- Juste pour accéder à la page me tapez pas je sais que c'est pas comme ça qu'on fait -->
+                    
                     <article>
+                    <a href="consultation.ctrl.php"> <!-- Juste pour accéder à la page me tapez pas je sais que c'est pas comme ça qu'on fait -->
                         <img src="../view/design/img/logo.png" alt="">
+                        </a> <!-- Faudra supprimer ça aussi du coup-->
                         <h1>Titre------------------------------------------------------</h1>
                         <div class="variablesEnchere">
                             <p class="temps-restant">temps restant</p>
                             <p class="prix-actuel">prix actuel</p>
                         </div>
                     </article>
-                    </a> <!-- Faudra supprimer ça aussi du coup-->
+                    
                 <?php } ?>
             </div>
     </main>
