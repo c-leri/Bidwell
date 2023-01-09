@@ -97,4 +97,21 @@
         border: 0.15rem var(--couleur-blanc) solid;
         margin-right: 1rem;
     }
+
+
+
+
+
+    /* Création enchère bouton annuler */
+    div#nav-right-cancel a {
+        text-decoration: none;
+        border-radius: 1rem;
+        white-space: nowrap;
+        display: block;
+        padding: 0.5rem 0.5rem;
+        color: var(--couleur-blanc);
+        background-color: var(--couleur-noir);
+        border: 0.15rem var(--couleur-blanc) solid;
+        margin-right: 1rem;
+    }
 }

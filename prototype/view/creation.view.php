@@ -18,7 +18,20 @@
 </head>
 <!-- Menu -->
 <header>
-        <?php include(__DIR__ . '/menu.viewpart.php') ?>
+    <nav id="navbar-top">
+    <div class="nav-left">
+        <a href="main.ctrl.php">
+            <img src="../view/design/img/logo.png" alt="logo">
+        </a>
+    </div>
+
+    <div id="nav-right-cancel">
+            <a href="signup.ctrl.php">
+                Annuler
+            </a>
+        </div>
+
+    </nav>
 </header>
 <body>
 <div class="retour">
