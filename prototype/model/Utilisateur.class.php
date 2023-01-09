@@ -12,7 +12,7 @@
 class Utilisateur {
     // informations de connection
     private string $login;
-    private string $mdpHash;        // le hash correspondant au mot de passe de l'utilisateur, calculé avec password_hash() 
+    private string|null $mdpHash;        // le hash correspondant au mot de passe de l'utilisateur, calculé avec password_hash(), null à la création d'un utilisateur
     // informations personnelles
     private string $nom;
     private string $email;
@@ -20,11 +20,10 @@ class Utilisateur {
     // informations pour les enchères
     private int $nbJetons;
 
-    // constructeur
-    public function __construct(string $login, string $passsword, string $email, string $numeroTelephone)
+    // constructeurs
+    public function __construct(string $login, string $email, string $numeroTelephone)
     {
         $this->login = $login;
-        $this->setPassword($passsword);
 
         $this->nom = '';
         $this->setEmail($email);
@@ -38,12 +37,10 @@ class Utilisateur {
      * de la base de données
      */
     private static function construct_fromdb(array $tuple) : Utilisateur {
-        $this->login = $tuple['login'];
-        $this->password_hash = $tuple['mdpHash'];
-        $this->nom = $tuple['nom'];
-        $this->email = $tuple['email'];
-        $this->numeroTelephone = $tuple['numeroDeTelephone'];
-        $this->nbJetons = $tuple['nbJetons'];
+        $out = new Utilisateur($tuple['login'], $tuple['nom'], $tuple['email'], $tuple['numeroDeTelephone']);
+        $out->mdpHash = $tuple['mdpHash'];
+        $out->nbJetons = $tuple['nbJetons'];
+        return $out;
     }
 
     // Getters
@@ -102,29 +99,34 @@ class Utilisateur {
     
     /**
      * La méthode create() permet de sérialiser dans la base de données de l'application l'instance courante de la classe Utilisateur
-     *  - Une exception est levée si le nombre de lignes modifiées est différent de 1
+     * @throws Exception si le nombre de ligne insérées != 1 ou si le mot de passe de l'utilisateur est null
      */
     public function create() : void {
+        // Vérification que le mdp de l'utilisateur est bien set
+        if (!isset($this->mdpHash)) {
+            throw new Exception("Create : Mot de passe de l'utilisateur $this->login null");
+        }
+
         // Récupération de l'objet DAO
         $dao = DAO::get();
 
         // Initialisation de la requête SQL
         $requete = 'INSERT INTO Utilisateur VALUES ?, ?, ?, ?, ?, ?';
         // Initialisation du tableau de valeurs pour la requête
-        $valeurs = [$this->login, $this->email, $this->password_hash, $this->nom, $this->numeroTelephone, $this->nbJetons];
+        $valeurs = [$this->login, $this->email, $this->mdpHash, $this->nom, $this->numeroTelephone, $this->nbJetons];
 
         // Exécution de la requête
         $nbLignesMod = $dao->exec($requete, $valeurs);
 
         // Vérification de la bonne exécution de la requête
-        if ($nbLignesMod < 1) {
-            throw new Exception("L'utilisateur n'a pas été correctement inséré.");
+        if ($nbLignesMod != 1) {
+            throw new Exception("Create : L'utilisateur $this->login n'a pas été correctement inséré.");
         }
     }
 
     /**
      * La méthode read() retourne une instance de la classe Utilisateur à partir de son login
-     *  - Une exception est levée si l'utilisateur n'a pas été trouvé
+     * @throws Exception si l'utilisateur n'est pas trouvé dans la base
      */
     public static function read(string $login) : Utilisateur {
         // Récupération de la classe DAO
@@ -139,16 +141,16 @@ class Utilisateur {
 
         // Levée d'une exception si la requête ne renvoie pas d'utilisateur
         if (count($table) != 1) {
-            throw new Exception("L'utilisateur " . $login . " n'a pas été trouvé.");
-        } else {
-            $utilisateur = Utilisateur::construct_fromdb($table[0]);
+            throw new Exception("Read : L'utilisateur " . $login . " n'existe pas dans la bd");
         }
+
+        return Utilisateur::construct_fromdb($table[0]);
     }
     
     /**
      * La méthode update() permet de sérialiser des modifications apportées à une instance de la classe Utilisateur dans la
      * base de données
-     *  - Une exception est levée si l'utilisateur n'a pas pu être modifié
+     * @throws Exception si le nombre de ligne modifiée != 1
      */
     public function update() : void {
         // Récupération de l'objet DAO
@@ -157,21 +159,25 @@ class Utilisateur {
         // Initialisation de la requête SQL
         $requete = 'UPDATE Utilisateur SET login = ?, email = ?, mdpHash = ?, nom = ?, numeroDeTelephone = ?, nbJetons = ? WHERE login = ?';
         // Initialisation du tableau de valeurs pour la requête
-        $valeurs = [$this->login, $this->email, $this->password_hash, $this->nom, $this->numeroTelephone, $this->nbJetons, $this->login];
+        $valeurs = [$this->login, $this->email, $this->mdpHash, $this->nom, $this->numeroTelephone, $this->nbJetons, $this->login];
 
         // Exécution de la requête
         $nbLignesMod = $dao->exec($requete, $valeurs);
 
         // Vérification de la bonne exécution de la requête
-        if ($nbLignesMod < 1) {
-            throw new Exception("L'utilisateur n'a pas été modifié.");
+        if ($nbLignesMod == 0) {
+            throw new Exception("Update : L'utilisateur $this->login n'existe pas dans la bd");
+        }
+
+        if ($nbLignesMod > 1) {
+            throw new Exception("Update : Nombre de ligne modifiée > 1 lors de la modification de l'utilisateur $this->login");
         }
     }
 
     /**
      * La méthode delete() permet de supprimer l'utilisateur correspondant à l'instance courante de la classe
      * Utilisateur de la base de données.
-     *  - Une exception est levée si l'utilisateur n'est pas présent dans la base de données
+     * @throws Exception si l'utilisateur n'est pas présent dans la base
      */
     public function delete() : void {
         // Récupération de l'objet DAO
@@ -184,8 +190,9 @@ class Utilisateur {
         // Exécution de la requête
         $nbLignesMod = $dao->exec($requete, $valeurs);
 
-        if ($nbLignesMod < 1) {
-            throw new Exception("L'utilisateur " . $this->login . " n'existe pas.");
+        // Vérification de la bonne exécution de la requête
+        if ($nbLignesMod == 0) {
+            throw new Exception("Delete : L'utilisateur " . $this->login . " n'existe pas dans la bd");
         }
     }
 }
