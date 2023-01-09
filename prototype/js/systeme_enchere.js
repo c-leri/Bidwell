@@ -1,19 +1,21 @@
 var Tempsrestant;
-var duree=3600;
+var duree=216000;
 function countdown(){
-    Tempsrestant = setInterval(timer,1000);
+    Tempsrestant = setInterval(timer,10);
 }
 
 function timer(){
     --duree;
-    var secondes=duree%60;
-    var minutes=(duree-secondes)/60;
+    var centsecondes=duree%60;
+    var esecondes=(duree-centsecondes)/60;
+    var secondes=esecondes % 60;
+    var minutes = (esecondes-secondes)/60;
     console.clear();
-    console.log(minutes + ":"+secondes);
+    console.log(minutes+":"+secondes+":"+centsecondes);
     if(duree==0){
         clearInterval(Tempsrestant);
     }
 }
 
-countdown();
+
 
