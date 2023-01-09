@@ -32,7 +32,7 @@
     </header>
     <main>
         <div id="slider">
-            <a href="#"><img src="../view/design/img/logo.png" alt="Besoin d'aide" id="slide"></a>
+            <a href="#"><img src="../view/design/img/default_image.png" alt="Besoin d'aide" id="slide" style="background-repeat: repeat"></a>
             <div id="precedent" onclick="ChangeSlide(-1)">
                 <</div>
                     <div id="suivant" onclick="ChangeSlide(1)">></div>
@@ -45,16 +45,18 @@
             <div class="ventesPopulaires">
                 <?php for ($i = 0; $i < 12; $i++) {
                     ?>
-                    <a href="consultation.ctrl.php"> <!-- Juste pour accéder à la page me tapez pas je sais que c'est pas comme ça qu'on fait -->
+                    
                     <article>
-                        <img src="../view/design/img/logo.png" alt="">
+                    <a href="consultation.ctrl.php"> <!-- Juste pour accéder à la page me tapez pas je sais que c'est pas comme ça qu'on fait -->
+                        <img src="../view/design/img/default_image.png" alt="">
+                        </a> <!-- Faudra supprimer ça aussi du coup-->
                         <h1>Titre------------------------------------------------------</h1>
                         <div class="variablesEnchere">
                             <p class="temps-restant">temps restant</p>
                             <p class="prix-actuel">prix actuel</p>
                         </div>
                     </article>
-                    </a> <!-- Faudra supprimer ça aussi du coup-->
+                    
                 <?php } ?>
             </div>
     </main>

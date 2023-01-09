@@ -1,6 +1,6 @@
 <div class="footer">
     <a href="#">
-        <img src="../view/design/img/logo.png" alt="logo">
+        <img src="../view/design/img/logo_trans.png" alt="logo">
     </a>
     <div class="div1">
         <h1>BidWell</h1>
