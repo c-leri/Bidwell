@@ -42,16 +42,16 @@
 
             <input type="text" name="nom" required minlength="4" maxlength="60" placeholder="Choisissez un nom">
 
-            <p> Le nom de l’annonce est l’information principale que rechercheront les autres utilisateurs. Donner un
+            <p> Le nom de l'annonce est l'information principale que rechercheront les autres utilisateurs. Donner un
                 nom simple et explicite augmente grandement les chances de vendre un article. </p>
         </div>
 
 
-        <div class="nom">
+        <div class="categorie">
             <h2> Catégorie de l'annonce </h2>
 
             <div class="dropdown">
-                <input type="text" class="dropbtn" id="categorieInput" placeholder="Choisissez une catégorie"
+                <input type="text" class="dropbtn" id="categorieInput" name="categorie" placeholder="Choisissez une catégorie"
                     onclick="showFunction()" onkeyup="filterFunction()">
                 <div id="categorieDropdown" class="dropdown-content">
                     <button onclick="confirmFunction()">A</button>
@@ -62,7 +62,7 @@
                     <button onclick="confirmFunction()">ABC</button>
                 </div>
 
-                <p> Ajouter une catégorie appropriée à votre annonce lui permettra d’être plus facilement trouvée par
+                <p> Ajouter une catégorie appropriée à votre annonce lui permettra d'être plus facilement trouvée par
                     les utilisateurs qui pourraient être intéressés. </p>
             </div>
 
@@ -123,7 +123,7 @@
 
                 <input type="number" name="retrait" required min="1" max="99999" placeholder="Prix de retrait">
 
-                <p> Notre site utilise en système d’enchère qui comprend une partie descendantes. De ce fait, le prix de
+                <p> Notre site utilise en système d'enchère qui comprend une partie descendantes. De ce fait, le prix de
                     votre article pourrait diminuer par rapport au prix de base. Définissez le prix auquel vous ne
                     seriez plus prêt à vendre votre article.</p>
             </div>
@@ -139,12 +139,12 @@
                 <p>
                     <input type="checkbox" name="retraitDirect">
 
-                <p> Je suis prêt à envoyer ce colis vers d’autres villes de France
+                <p> Je suis prêt à envoyer ce colis vers d'autres villes de France
                 <p>
                     <input type="checkbox" name="retraitColis">
 
-                <p> Définissez vos méthodes de remise de votre bien. Accepter d’envoyer votre bien vers d’autre ville
-                    peut grandement augmenter le nombre d’acheteurs potentiels, mais nécessite une organisation plus
+                <p> Définissez vos méthodes de remise de votre bien. Accepter d'envoyer votre bien vers d'autre ville
+                    peut grandement augmenter le nombre d'acheteurs potentiels, mais nécessite une organisation plus
                     complexe.</p>
             </div>
 
@@ -163,17 +163,17 @@
             <div class="contact">
                 <h2> Prix de retrait de l'annonce </h2>
 
-                <p> J’accepte que mon e-mail soit affiché sur la page de mon annonce
+                <p> J'accepte que mon e-mail soit affiché sur la page de mon annonce
                 <p>
                     <input type="checkbox" name="okEmail">
 
-                <p> J’accepte que mon numéro de téléphone soit affiché sur la page de mon annonce
+                <p> J'accepte que mon numéro de téléphone soit affiché sur la page de mon annonce
                 <p>
                     <input type="checkbox" name="okTel">
 
                 <p> Permettre aux autres utilisateurs de vous contacter en cas de question sur votre annonce permet
-                    d’augmenter leur confiance envers vous et votre bien. <br>
-                    Ces informations ne sont pas nécessaires au bon déroulement de l’enchère.</p>
+                    d'augmenter leur confiance envers vous et votre bien. <br>
+                    Ces informations ne sont pas nécessaires au bon déroulement de l'enchère.</p>
             </div>
 
             <input type="submit" name="submit">
