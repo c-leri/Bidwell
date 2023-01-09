@@ -18,7 +18,13 @@
 </head>
 <!-- Menu -->
 <header>
-        <?php include(__DIR__ . '/menu.viewpart.php') ?>
+<?php 
+    if(isset($_SESSION['login'])){
+        include(__DIR__ . '/menu_connecte.viewpart.php');
+    }else{
+        include(__DIR__ . '/menu.viewpart.php');
+    }
+    ?>
 </header>
 <body>
 <div class="retour">
