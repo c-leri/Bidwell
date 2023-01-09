@@ -47,6 +47,15 @@ class Categorie extends Component {
       $component->setParent(null);
   }
 
+  // Autres méthodes
+
+  /**
+   * Vérifie si la catégorie est enregistrée dans la bd
+   */
+  public function isInDB() : bool {
+    return $this->id == -1;
+  }
+
   /////////////////////////////////////////////
   //                  CRUD                   //
   /////////////////////////////////////////////
@@ -115,5 +124,67 @@ class Categorie extends Component {
     $categorie->id = $id;
 
     return $categorie;
+  }
+
+  ////////////////// UPDATE ///////////////////
+
+  /**
+   * Met à jour les valeurs de la catégorie dans la bd
+   * @throws Exception si la catégorie n'existe pas dans la bd ou si le nombre de ligne modifiées != 1
+   */
+  public function update() : void {
+    if (!$this->isInDB()) {
+      throw new Exception("Update : La catégorie n'existe pas dans la bd");
+    }
+
+    // récupération du dao
+    $dao = DAO::get();
+
+    // si la catégorie a un parent (ce n'est pas la catégorie racine), on l'inclut dans l'update
+    if ($this->getParent() !== null) {
+      $query = 'UPDATE Categorie SET libelle = ?, idMere = ?';
+      $data = [$this->libelle, $this->getParent()->getId()];
+    } else {
+      $query = 'UPDATE Categorie SET libelle = ?';
+      $data = [$this->libelle];
+    }
+
+    $nbLignesMod = $dao->exec($query, $data);
+
+    // Vérification de la bonne exécution de la requête
+    if ($nbLignesMod != 1) {
+      throw new Exception("Update : Nombre de ligne modifiée != 1 lors de la modification de la catégorie $this->id");
+    }
+
+    // on update récursivement toutes les catégories filles pour que leur idMere soit à jour dans la bd
+    foreach ($this->children as $child) {
+      if ($child->get_class() == "Categorie") {
+        $child->update();
+      }
+    }
+  }
+
+  ////////////////// DELETE ///////////////////
+
+  /**
+   * Supprime la catégorie de la bd
+   * @throws Exception si la catégorie n'existe pas dans la bd
+   */
+  public function delete() {
+    if (!$this->isInDB()) {
+      throw new Exception("Delete : La catégorie n'existe pas dans la bd");
+    }
+
+    // récupération du dao
+    $dao = DAO::get();
+
+    // préparation du query
+    $query = 'DELETE FROM Categorie WHERE id = ?';
+    $data = [$this->id];
+
+    $dao->exec($query, $data);
+
+    // on change l'id de la catégorie pour signifier qu'elle n'est plus dans la bd
+    $this->id = -1;
   }
 }
