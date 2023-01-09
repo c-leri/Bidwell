@@ -59,7 +59,7 @@
 
     .ventesPopulaires article {
         width: 20rem;
-        height: 20rem;
+        height: 22rem;
         display: flex;
         flex-direction: column;
         flex-wrap: nowrap;

@@ -9,7 +9,7 @@
         content="Bidwell, Bidwell.fr, Vente aux enchères, Vente aux enchères en ligne, Art, Bijouterie, Joaillerie, Mobilier, Mode, Bijoux, Sculptures, Monnais, Pierres, Objets de collection">
     <meta name="author"
         content="Paul Sode, Gatien Caillet, Célestin Bouchet, Antoine Vuillet, Clément Mazet, Hippolyte Chauvin">
-    <title>Conditions d'utilisation</title>
+    <title>Vendre un article</title>
     <link rel="stylesheet" href="../view/design/styleGeneral.css">
     <link rel="stylesheet" href="../view/design/styleMenu.css">
     <link rel="stylesheet" href="../view/design/styleFooter.css">
@@ -18,7 +18,13 @@
 </head>
 <!-- Menu -->
 <header>
-        <?php include(__DIR__ . '/menu.viewpart.php') ?>
+<?php 
+    if(isset($_SESSION['login'])){
+        include(__DIR__ . '/menu_connecte.viewpart.php');
+    }else{
+        include(__DIR__ . '/menu.viewpart.php');
+    }
+    ?>
 </header>
 <body>
 <div class="retour">
@@ -27,12 +33,14 @@
 
 <div class="top">
     <div class="presentation">
-    <input type="file" id="mainImage" style="display:none" accept="image/png, image/jpeg">
+    <input type="file" id="mainImage"  accept="image/png, image/jpeg">
      <a href="#" onclick="openFile();return;">Ajouter une image</a>
 
         <p> Nom de l'article </p>
     </div>
 </div>
+
+
 
 <footer>
         <?php include(__DIR__ . '/footer.viewpart.php') ?>
