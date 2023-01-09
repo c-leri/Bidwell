@@ -27,12 +27,14 @@
 
 <div class="top">
     <div class="presentation">
-    <input type="file" id="mainImage" style="display:none" accept="image/png, image/jpeg">
+    <input type="file" id="mainImage"  accept="image/png, image/jpeg">
      <a href="#" onclick="openFile();return;">Ajouter une image</a>
 
         <p> Nom de l'article </p>
     </div>
 </div>
+
+
 
 <footer>
         <?php include(__DIR__ . '/footer.viewpart.php') ?>
