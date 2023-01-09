@@ -21,45 +21,16 @@
         <?php include(__DIR__ . '/menu.viewpart.php') ?>
 </header>
 <body>
-
 <div class="retour">
-    <button type="submit">Retour</button>
+    <button type="submit">Annuler</button>
 </div>
 
 <div class="top">
     <div class="presentation">
-        <img src="../view/design/img/logo.png" alt="mainimage">
+    <input type="file" id="mainImage" style="display:none" accept="image/png, image/jpeg">
+     <a href="#" onclick="openFile();return;">Ajouter une image</a>
 
         <p> Nom de l'article </p>
-    </div>
-    
-    <div class="enchere">
-        <!-- Aucune idée de comment faire pour l'instant -->
-    </div>
-</div>
-
-<div class="description">
-    <h2>Description</h2>
-
-    <p class="description"> Ceci est un lorem ipsum qui est pas fait pour être long parce que j'ai la flemme mais en fait c'est fait pour faire comme si on faisait une vraie annonce mais là c'est pas le cas en fait. </p>
-
-    <div class="images">
-    <?php for ($i = 0; $i < 7; $i++) {
-                    ?>
-                        <img src="../view/design/img/logo.png" alt="">
-                <?php } ?>
-    </div>
-</div>
-
-<div class="complement">
-    <div class="informations">
-        <h2> Informations complémentaires </h2>
-        <p> Livraison Paiement Conditions particulières ... </p>
-    </div>
-    
-    <div class="vendeur">
-    <h2> Vendeur </h2>
-        <p> Nom Contact (Tel) Contact (Mél) Nombre d'annonces postées ... </p>
     </div>
 </div>
 
@@ -68,5 +39,27 @@
 </footer>
 <body>
 
-</html>
+<script>
+  function openFile()
+{
+  document.getElementById("mainImage").click();
+}
+</script>
+    
+<!-- Explications :
 
+Création d'un input qui permet de chercher un fichier de type png ou jpeg
+Cet input est mit en invisible parce que sinon c'est moche et on le remplace par un lien qui est plus facile
+à modifier en CSS
+
+Lien qui, une fois cliqué, active le script "openFile()"
+
+Ce script utilise .click sur l'input créé
+-> .click est une méthode qui active un événement "click" 
+
+-> L'input étant de type "file", cela ouvre une fenêtre contextuelle qui permet d'insérer une image
+
+Si vous supprimez style="display:none", vous pouvez voir que lorsqu'une image est ajoutée, 
+elle est bien sauvegardée et ça fait pas rien
+-->
+</html>
