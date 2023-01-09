@@ -21,9 +21,9 @@
 
     <div class="nav-right">
         <div id="nav-left-signin">
-            <a href="connect.ctrl.php">
-                Connexion
-            </a>
+                <a href="connect.ctrl.php">
+                    Connexion
+                </a>
         </div>
         <div id="nav-left-signup">
             <a href="signup.ctrl.php">
