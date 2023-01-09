@@ -19,7 +19,7 @@
     </div>
 
     <div class="nav-center">
-        <a href="">
+        <a href="creation.ctrl.php">
             Vendre un article
         </a>
     </div>
