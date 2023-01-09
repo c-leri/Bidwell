@@ -14,6 +14,7 @@ class Enchere extends Component {
 
   private const ADRESSE_IMAGES = '../data/img/';
   private const ADRESSE_DESCRIPTIONS = '../data/desc/';
+  private const TEMPS_CONSERVATION = '5 years'; // temps de conservation des données dans la bd
 
   // Attributs
   private int $id;                              // identifiant unique à chaque enchère, = -1 tant que l'enchère n'est pas enregistrée dans la bd
@@ -129,21 +130,39 @@ class Enchere extends Component {
 
   /**
    * Enregistre l'enchère dans la bd
-   * @throws Exception si l'insertion échoue
+   * @throws Exception si l'enchère est déjà dans la bd,
+   * si la catégorie de n'enchère est null ou si ell n'est pas dans la bd
+   * ou si l'insertion échoue
    */
   public function create() : void {
+    if ($this->id != -1) {
+        throw new Exception("Create : L'enchère $this->id existe déjà dans la bd");
+    }
+
+    if ($this->getParent() == null) {
+      throw new Exception("Create : La catégorie mère de l'enchère est null");
+    }
+
+    if ($this->getParent()->getId() == -1) {
+      throw new Exception("Create : La catégorie mère de l'enchère n'existe pas dans la bd");
+    }
+
     // récupération du dao
     $dao = DAO::get();
 
-    // transforme le tableaux d'images en un string avec les images séparées par des espaces
+    // transforme le tableau d'images en un string avec les images séparées par des espaces
     $imagesString = '';
     foreach ($this->images as $image) {
       $imagesString .= $image . ' '; 
     }
 
+    // variable correspondant à la date de fin de conservation de l'enchère dans la bd
+    $dateFinConservation = new DateTime();
+    $dateFinConservation->add(DateInterval::createFromDateString(Enchere::TEMPS_CONSERVATION));
+
     // préparation de la query
-    $query = 'INSERT INTO Enchere(libelle, dateDebut, prixDepart, prixRetrait, images, description) VALUES (?, ?, ?, ?, ?, ?)';
-    $data = [$this->libelle, $this->dateDebut->getTimestamp(), $this->prixDepart, $this->prixRetrait, $imagesString, $this->description];
+    $query = 'INSERT INTO Enchere(libelle, dateDebut, prixDepart, prixRetrait, images, description, idCategorie, dateFinConservation) VALUES (?,?,?,?,?,?,?,?)';
+    $data = [$this->libelle, $this->dateDebut->getTimestamp(), $this->prixDepart, $this->prixRetrait, $imagesString, $this->description, $this->getParent()->getId(), $dateFinConservation->getTimestamp()];
 
     // récupération du résultat de l'insertion 
     $r = $dao->exec($query, $data);
@@ -152,6 +171,10 @@ class Enchere extends Component {
     if ($r != 1) {
       throw new Exception("Create : L'insertion de l'enchère a échouée");
     }
+
+    // on récupère l'id de l'enchère dans la bd
+    $id = (int) $dao->lastInsertId();
+    $this->id = $id;
   }
 
   /////////////////// READ ////////////////////
@@ -222,7 +245,11 @@ class Enchere extends Component {
       throw new Exception("Update : L'enchère n'existe pas dans la bd");
     }
 
-    if ($this->getParent()->getId() == 1) {
+    if ($this->getParent() == null) {
+        throw new Exception("Update : La catégorie mère de l'enchère $this->id est null");
+    }
+
+    if ($this->getParent()->getId() == -1) {
       throw new Exception("Update : La catégorie mère de l'enchère $this->id n'existe pas dans la bd");
     }
 
