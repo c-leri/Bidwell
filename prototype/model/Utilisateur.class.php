@@ -20,7 +20,7 @@ class Utilisateur {
     // informations pour les enchères
     private int $nbJetons;
 
-    // constructeurs
+    // constructeur
     public function __construct(string $login, string $email, string $numeroTelephone)
     {
         $this->login = $login;
@@ -30,17 +30,6 @@ class Utilisateur {
         $this->setNumeroTelephone($numeroTelephone);
 
         $this->nbJetons = 0;
-    }
-
-    /**
-     * Constructeur privé : il permet de construire une instance de la classe Utilisateur depuis un tuple au préalable extrait
-     * de la base de données
-     */
-    private static function construct_fromdb(array $tuple) : Utilisateur {
-        $out = new Utilisateur($tuple['login'], $tuple['nom'], $tuple['email'], $tuple['numeroDeTelephone']);
-        $out->mdpHash = $tuple['mdpHash'];
-        $out->nbJetons = $tuple['nbJetons'];
-        return $out;
     }
 
     // Getters
@@ -89,12 +78,21 @@ class Utilisateur {
         $this->numeroTelephone = $numeroTelephone;
     }
 
-    // Autres méthodes
+    // Gestion de la connexion
 
+    /**
+     * 
+     */
     public static function connectionValide(string $login, string $password) : bool {
         $utilisateur = Utilisateur::read($login);
-        return $utilisateur->mdpHash == password_hash($password, PASSWORD_BCRYPT);
+        return $utilisateur->mdpValide($password);
     }
+
+    public function mdpValide(string $password) : bool {
+        return $this->mdpHash == password_hash($password, PASSWORD_BCRYPT);
+    }
+
+    // Autres méthodes
 
     /**
      * Vérifie si l'utilisateur est enregistré dans la bd
@@ -168,7 +166,17 @@ class Utilisateur {
             throw new Exception("Read : L'utilisateur " . $login . " n'existe pas dans la bd");
         }
 
-        return Utilisateur::construct_fromdb($table[0]);
+        $tuple = $table[0];
+
+        // crée un utilisateur à partir de la ligne du tableau
+        $out = new Utilisateur($tuple['login'], $tuple['email'], $tuple['numeroDeTelephone']);
+
+        // set les informations qui ne sont pas dans la constructeur
+        $out->nom = $tuple['nom'];
+        $out->mdpHash = $tuple['mdpHash'];
+        $out->nbJetons = $tuple['nbJetons'];
+
+        return $out;
     }
 
     ////////////////// UPDATE ///////////////////
