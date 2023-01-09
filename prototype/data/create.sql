@@ -4,7 +4,8 @@ CREATE TABLE Utilisateur (
 	nom TEXT NOT NULL,
 	email TEXT NOT NULL,
 	numeroTelephone TEXT UNIQUE NOT NULL,
-	nbJetons INTEGER NOT NULL
+	nbJetons INTEGER NOT NULL,
+	dateFinConservation INTEGER NOT NULL
 );
 
 CREATE TABLE Categorie (
@@ -24,6 +25,7 @@ CREATE TABLE Enchere (
 	images TEXT NOT NULL,
 	description TEXT NOT NULL,
 	idCategorie INTEGER NOT NULL,
+	dateFinConservation INTEGER NOT NULL,
 	FOREIGN KEY (idCategorie) REFERENCES Categorie(id),
 	FOREIGN KEY (loginUtilisateurDerniereEnchere) REFERENCES Utilisateur(login)
 );
@@ -33,6 +35,7 @@ CREATE TABLE Participation (
 	loginUtilisateur TEXT,
 	nbEncheres INTEGER NOT NULL,
 	montantDerniereEnchere REAL,
+	dateFinConservation INTEGER NOT NULL,
 	PRIMARY KEY (idEnchere, loginUtilisateur),
 	FOREIGN KEY (idEnchere) REFERENCES Enchere(id),
 	FOREIGN KEY (loginUtilisateur) REFERENCES Utilisateur(login)
