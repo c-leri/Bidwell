@@ -51,14 +51,20 @@ function confirmFunction() {
 
 //----------------------------------------------------------//
 
-
+var compteur = 1;
 var loadFile = function(event) {
-var output = document.getElementById('output');
+  if (compteur < 9){
+
+var output = document.getElementById('output' + compteur);
+document.getElementById("p"+compteur).style = "display:none;";
+compteur++;
+
 output.src = URL.createObjectURL(event.target.files[0]);
 output.onload = function() {
     URL.revokeObjectURL(output.src) // free memory
        }
-   };
+     }
+  };
 
 
 //----------------------------------------------------------//
