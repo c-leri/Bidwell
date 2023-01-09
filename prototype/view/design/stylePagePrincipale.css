@@ -90,4 +90,13 @@
         word-wrap: break-word;
         margin: 0.5rem;
     }
+
+    .ventesPopulaires a {
+        text-decoration: none;
+        color: var(--couleur-blanc);
+    }
+
+    .ventesPopulaires a:visited {
+        color: var(--couleur-gris-clair);
+    }
 }
