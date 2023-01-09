@@ -21,12 +21,12 @@
    
 
     <div class="nav-right">
-    <div id="nav-left-logout">
+    <div id="nav-right-logout">
             <a href="disconnect.ctrl.php">
                 Déconnexion
                 </a>
         </div>
-        <div id="nav-left-my_account">
+        <div id="nav-right-my_account">
             <a href="">
                 Mon compte
             </a>

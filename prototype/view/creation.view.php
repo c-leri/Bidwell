@@ -17,14 +17,7 @@
 
 </head>
 <!-- Menu -->
-<header>
-<?php 
-    if(isset($_SESSION['login'])){
-        include(__DIR__ . '/menu_connecte.viewpart.php');
-    }else{
-        include(__DIR__ . '/menu.viewpart.php');
-    }
-    ?>
+<header> 
     <nav id="navbar-top">
     <div class="nav-left">
         <a href="main.ctrl.php">
