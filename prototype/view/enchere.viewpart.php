@@ -70,7 +70,7 @@
 
     .circle-button {
         position: absolute;
-        top: 10rem;   
+        top: 9rem;   
         height: 10rem;
         line-height: 80px;
         width: 10rem;
@@ -101,7 +101,7 @@
         </linearGradient>
         <circle class="circle-container__background" r="16" cx="16" cy="16" shape-rendering="geometricPrecision">
         </circle>
-        <circle class="circle-container__progress" r="16" cx="16" cy="16" style="stroke-dashoffset: 74"
+        <circle class="circle-container__progress" r="16" cx="16" cy="16" style="stroke-dashoffset: 0"
             shape-rendering="geometricPrecision">
         </circle>
         <!-- stroke-dashoffset = la progression de la barre (0 <= x < 75)-->
