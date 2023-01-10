@@ -59,7 +59,7 @@
 
     .ventesPopulaires article {
         width: 20rem;
-        height: 20rem;
+        height: 22rem;
         display: flex;
         flex-direction: column;
         flex-wrap: nowrap;
@@ -89,5 +89,15 @@
     .ventesPopulaires article h1 {
         word-wrap: break-word;
         margin: 0.5rem;
+        overflow: hidden;
+    }
+
+    .ventesPopulaires a {
+        text-decoration: none;
+        color: var(--couleur-blanc);
+    }
+
+    .ventesPopulaires a:visited {
+        color: var(--couleur-gris-clair);
     }
 }

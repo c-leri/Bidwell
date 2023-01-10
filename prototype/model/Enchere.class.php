@@ -14,6 +14,7 @@ class Enchere extends Component {
 
   private const ADRESSE_IMAGES = '../data/img/';
   private const ADRESSE_DESCRIPTIONS = '../data/desc/';
+  private const TEMPS_CONSERVATION = '5 years'; // temps de conservation des données dans la bd
 
   // Attributs
   private int $id;                              // identifiant unique à chaque enchère, = -1 tant que l'enchère n'est pas enregistrée dans la bd
@@ -112,6 +113,15 @@ class Enchere extends Component {
     unset($this->images[$id]);
   }
 
+  // Autres méthodes
+
+  /**
+   * Vérifie si l'enchère est enregistrée dans la bd
+   */
+  public function isInDB() : bool {
+    return $this->id == -1;
+  }
+
   /////////////////////////////////////////////
   //                  CRUD                   //
   /////////////////////////////////////////////
@@ -120,29 +130,51 @@ class Enchere extends Component {
 
   /**
    * Enregistre l'enchère dans la bd
-   * @throws Exception si l'insertion échoue
+   * @throws Exception si l'enchère est déjà dans la bd,
+   * si la catégorie de n'enchère est null ou si ell n'est pas dans la bd
+   * ou si l'insertion échoue
    */
   public function create() : void {
+    if ($this->id != -1) {
+        throw new Exception("Create : L'enchère $this->id existe déjà dans la bd");
+    }
+
+    if ($this->getParent() == null) {
+      throw new Exception("Create : La catégorie mère de l'enchère est null");
+    }
+
+    if ($this->getParent()->getId() == -1) {
+      throw new Exception("Create : La catégorie mère de l'enchère n'existe pas dans la bd");
+    }
+
     // récupération du dao
     $dao = DAO::get();
 
-    // transforme le tableaux d'images en un string avec les images séparées par des espaces
+    // transforme le tableau d'images en un string avec les images séparées par des espaces
     $imagesString = '';
     foreach ($this->images as $image) {
       $imagesString .= $image . ' '; 
     }
 
+    // variable correspondant à la date de fin de conservation de l'enchère dans la bd
+    $dateFinConservation = new DateTime();
+    $dateFinConservation->add(DateInterval::createFromDateString(Enchere::TEMPS_CONSERVATION));
+
     // préparation de la query
-    $query = 'INSERT INTO Enchere(libelle, dateDebut, prixDepart, prixRetrait, images, description) VALUES (?, ?, ?, ?, ?, ?)';
-    $data = [$this->libelle, $this->dateDebut->getTimestamp(), $this->prixDepart, $this->prixRetrait, $imagesString, $this->description];
+    $query = 'INSERT INTO Enchere(libelle, dateDebut, prixDepart, prixRetrait, images, description, idCategorie, dateFinConservation) VALUES (?,?,?,?,?,?,?,?)';
+    $data = [$this->libelle, $this->dateDebut->getTimestamp(), $this->prixDepart, $this->prixRetrait, $imagesString, $this->description, $this->getParent()->getId(), $dateFinConservation->getTimestamp()];
 
     // récupération du résultat de l'insertion 
     $r = $dao->exec($query, $data);
 
     // si on n'a pas exactement une ligne insérée, throw une exception
     if ($r != 1) {
-      throw new Exception("L'insertion de l'enchère a échouée");
+      throw new Exception("Create : L'insertion de l'enchère a échouée");
     }
+
+    // on récupère l'id de l'enchère dans la bd
+    $id = (int) $dao->lastInsertId();
+    $this->id = $id;
   }
 
   /////////////////// READ ////////////////////
@@ -164,12 +196,12 @@ class Enchere extends Component {
 
     // throw une exception si on ne trouve pas l'enchère
     if (count($table) == 0) {
-      throw new Exception("Enchere $id non trouvée");
+      throw new Exception("Read : Enchere $id non trouvée");
     }
 
     // throw une exception si on trouve plusieurs enchères
     if (count($table) > 1) {
-      throw new Exception("Enchere $id existe en ".count($table).' exemplaires');
+      throw new Exception("Read : Enchere $id existe en ".count($table).' exemplaires');
     }
 
     $row = $table[0];
@@ -206,43 +238,68 @@ class Enchere extends Component {
 
   /**
    * Met à jour les valeurs de l'enchère dans la bd
+   * @throws Exception si l'enchère ou sa catégorie mère n'existent pas dans la bd ou si  
    */ 
   public function update() : void {
-    if ($this->id != -1 && $this->getParent()->getId() != -1) {
-      // récupération du dao
-      $dao = DAO::get();
+    if (!$this->isInDB()) {
+      throw new Exception("Update : L'enchère n'existe pas dans la bd");
+    }
 
-      // transforme le tableaux d'images en un string avec les images séparées par des espaces
-      $imagesString = '';
-      foreach ($this->images as $image) {
-        $imagesString .= $image . ' '; 
-      }
+    if ($this->getParent() == null) {
+        throw new Exception("Update : La catégorie mère de l'enchère $this->id est null");
+    }
 
-      // si l'enchere a une derniere enchère, on l'inclut dans l'update
-      if (isset($this->derniereEnchere)) {
-        $query = 'UPDATE Enchere SET libelle = ?, idCategorie = ?, dateDebut = ?, prixDepart = ?, prixRetrait = ?, loginUtilisateurDerniereEnchere = ?, images = ?, description = ? WHERE id = ?';
-        $data = [$this->libelle, $this->getParent()->getId(), $this->dateDebut->getTimestamp(), $this->prixDepart, $this->prixRetrait, $this->derniereEnchere->getUtilisateur()->getLogin(), $imagesString, $this->description, $this->id];
-      } else {
-        $query = 'UPDATE Enchere SET libelle = ?, idCategorie = ?, dateDebut = ?, prixDepart = ?, prixRetrait = ?, images = ?, description = ? WHERE id = ?';
-        $data = [$this->libelle, $this->getParent()->getId(), $this->dateDebut->getTimestamp(), $this->prixDepart, $this->prixRetrait, $imagesString, $this->description, $this->id];
-      }
+    if ($this->getParent()->getId() == -1) {
+      throw new Exception("Update : La catégorie mère de l'enchère $this->id n'existe pas dans la bd");
+    }
 
-      $dao->exec($query, $data);
+    // récupération du dao
+    $dao = DAO::get();
+
+    // transforme le tableaux d'images en un string avec les images séparées par des espaces
+    $imagesString = '';
+    foreach ($this->images as $image) {
+      $imagesString .= $image . ' '; 
+    }
+
+    // si l'enchere a une derniere enchère, on l'inclut dans l'update
+    if (isset($this->derniereEnchere)) {
+      $query = 'UPDATE Enchere SET libelle = ?, idCategorie = ?, dateDebut = ?, prixDepart = ?, prixRetrait = ?, loginUtilisateurDerniereEnchere = ?, images = ?, description = ? WHERE id = ?';
+      $data = [$this->libelle, $this->getParent()->getId(), $this->dateDebut->getTimestamp(), $this->prixDepart, $this->prixRetrait, $this->derniereEnchere->getUtilisateur()->getLogin(), $imagesString, $this->description, $this->id];
+    } else {
+      $query = 'UPDATE Enchere SET libelle = ?, idCategorie = ?, dateDebut = ?, prixDepart = ?, prixRetrait = ?, images = ?, description = ? WHERE id = ?';
+      $data = [$this->libelle, $this->getParent()->getId(), $this->dateDebut->getTimestamp(), $this->prixDepart, $this->prixRetrait, $imagesString, $this->description, $this->id];
+    }
+
+    $nbLignesMod = $dao->exec($query, $data);
+
+    // Vérification de la bonne exécution de la requête
+    if ($nbLignesMod != 1) {
+      throw new Exception("Update : Nombre de ligne modifiée != 1 lors de la modification de l'enchère $this->id");
     }
   }
 
   ////////////////// DELETE ///////////////////
 
+  /**
+   * Supprime l'enchère de la bd
+   * @throws Exception si l'enchère n'existe pas dans la bd
+   */
   public function delete() {
-    if ($this->id != -1) {
-      // récupération du dao
-      $dao = DAO::get();
-
-      // préparation du query
-      $query = 'DELETE FROM Enchere WHERE id = ?';
-      $data = [$this->id];
-
-      $dao->exec($query, $data);
+    if (!$this->isInDB()) {
+      throw new Exception("Delete : L'enchère n'existe pas dans la bd");
     }
+
+    // récupération du dao
+    $dao = DAO::get();
+
+    // préparation du query
+    $query = 'DELETE FROM Enchere WHERE id = ?';
+    $data = [$this->id];
+
+    $dao->exec($query, $data);
+
+    // on change l'id de l'enchère pour signifier qu'elle n'est plus dans la bd
+    $this->id = -1;
   }
 }

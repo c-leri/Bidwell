@@ -22,7 +22,7 @@
     main.connect button{
         text-decoration: none;
         color: var(--couleur-noir);
-        background-color: var(--couleur-blanc);
+        background-color: #FFD700;
         border: 0.1rem solid var(--couleur-noir);
         border-radius: 0.8rem;
         white-space: nowrap;
@@ -52,6 +52,9 @@
     }
     .left button{        
         display: block;
+    }
+    .left > *{
+        margin-top: 1em;
     }
     /* -- Partie du milieu -- */
     .center{
