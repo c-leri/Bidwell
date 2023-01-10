@@ -31,8 +31,9 @@
             </div>
 
             <div class="enchere">
-                <p>enchère</p>
-                <!-- Aucune idée de comment faire pour l'instant -->
+
+                <?php include(__DIR__ . '/enchere.viewpart.php') ?>
+
             </div>
         </div>
 
@@ -101,5 +102,19 @@
     </footer>
 
     <body>
+
+
+    <script>
+    document.forms.form01.range.addEventListener('change', e => {
+  let numlines = parseInt(e.target.value);
+  let numdots = (numlines < 1) ? 0 : numlines+1;
+  document.querySelector('#styles').innerHTML = `
+    .lines use:nth-child(-n+${numlines}) {
+      stroke: DarkSlateBlue;
+    }
+    .dots use:nth-child(-n+${numdots}) {
+      stroke: DarkSlateBlue;
+    }`;  
+});</script>
 
 </html>
