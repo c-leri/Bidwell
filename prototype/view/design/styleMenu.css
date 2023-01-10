@@ -2,7 +2,7 @@
 @media only screen and (min-width: 960px) {
 
     /* -- Barre du haut -- */
-    /* - Logo en haut à gauche - */
+    /* - Logo en haut Ã  gauche - */
     header{
         position: sticky;
         top: 0;
@@ -34,11 +34,7 @@
 
     /* - Boutons du milieu et droite de la barre du haut - */
     nav#navbar-top div.nav-center a,
-<<<<<<< HEAD
-    nav#navbar-top div.nav-right .nav-button-right a {
-=======
     nav#navbar-top div.nav-right #nav-right-signup a {
->>>>>>> 0412332731101cbcef74188569fe93d15891112b
         text-decoration: none;
         color: var(--couleur-noir);
         background-color: var(--couleur-jaune);
@@ -90,20 +86,15 @@
     }
 
     /* - Premier bouton de droite - */
-<<<<<<< HEAD
-    div.nav-button-left a{
-=======
     div#nav-right-signin a, div#nav-right-cancel a {
->>>>>>> 0412332731101cbcef74188569fe93d15891112b
         text-decoration: none;
         border-radius: 1rem;
         white-space: nowrap;
         display: block;
         padding: 0.5rem 0.5rem;
+        color: var(--couleur-blanc);
         background-color: var(--couleur-noir);
         border: 0.15rem var(--couleur-blanc) solid;
-        color: var(--couleur-blanc);
         margin-right: 1rem;
     }
-
 }

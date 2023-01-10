@@ -21,20 +21,12 @@
    
 
     <div class="nav-right">
-<<<<<<< HEAD
-    <div class="nav-button-left">
-=======
     <div id="nav-right-logout">
->>>>>>> 0412332731101cbcef74188569fe93d15891112b
             <a href="disconnect.ctrl.php">
                 Déconnexion
                 </a>
         </div>
-<<<<<<< HEAD
-        <div class="nav-button-right">
-=======
         <div id="nav-right-my_account">
->>>>>>> 0412332731101cbcef74188569fe93d15891112b
             <a href="">
                 Mon compte
             </a>

@@ -12,13 +12,8 @@
     <link rel="stylesheet" href="../view/design/styleGeneral.css">
     <link rel="stylesheet" href="../view/design/styleConnect.css">
     <link rel="stylesheet" href="../view/design/styleMenu.css">
-<<<<<<< HEAD
-    <link rel="stylesheet" href="../view/design/styleFooter.css">
     <link rel="icon" type="image/x-icon" href="../view/design/img/favicon.ico">
-=======
     <link rel="stylesheet" href="../view/design/styleFooter2.css">
-
->>>>>>> 0412332731101cbcef74188569fe93d15891112b
 </head>
 
 
@@ -30,14 +25,8 @@
     </header>
     <main class="connect">
         <div class="left">
-<<<<<<< HEAD
-            <h2> Inscription </h2>
-            <form id="signin-form" accept-charset="utf-8" action="" method="post" name="register-form" >
-=======
             <h2> S'inscrire </h2>
-
-            <form id="signin-form" accept-charset="utf-8" action="" method="get">
->>>>>>> 0412332731101cbcef74188569fe93d15891112b
+            <form id="signin-form" accept-charset="utf-8" action="" method="post" name="register-form" >
                 <h3>Nom d'utilisateur</h3>
                 <input type="text" dir="auto" spellcheck="false" autocomplete="off" required minlength="4" maxlength="16" >
                 <p class="error username-error"></p>

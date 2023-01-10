@@ -12,12 +12,8 @@
     <link rel="stylesheet" href="../view/design/styleGeneral.css">
     <link rel="stylesheet" href="../view/design/styleConnect.css">
     <link rel="stylesheet" href="../view/design/styleMenu.css">
-<<<<<<< HEAD
-    <link rel="stylesheet" href="../view/design/styleFooter.css">
     <link rel="icon" type="image/x-icon" href="../view/design/img/favicon.ico">
-=======
     <link rel="stylesheet" href="../view/design/styleFooter2.css">
->>>>>>> 0412332731101cbcef74188569fe93d15891112b
 
 </head>
 
