@@ -119,7 +119,7 @@ class Enchere extends Component {
    * Vérifie si l'enchère est enregistrée dans la bd
    */
   public function isInDB() : bool {
-    return $this->id == -1;
+    return $this->id != -1;
   }
 
   /////////////////////////////////////////////

@@ -9,9 +9,10 @@
     }
 
     main.consultation .images img {
-        transition: transform 0.25s ease;
+        transition: transform 0.1s ease;
         width: 10rem;
         height: 10rem;
+        border-radius: 1rem;
     }
 
     main.consultation .images {
