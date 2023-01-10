@@ -34,7 +34,7 @@
 
     /* - Boutons du milieu et droite de la barre du haut - */
     nav#navbar-top div.nav-center a,
-    nav#navbar-top div.nav-right #nav-left-signup a {
+    nav#navbar-top div.nav-right .nav-button-right a {
         text-decoration: none;
         color: var(--couleur-noir);
         background-color: var(--couleur-jaune);
@@ -86,15 +86,16 @@
     }
 
     /* - Premier bouton de droite - */
-    div#nav-left-signin a {
+    div.nav-button-left a{
         text-decoration: none;
         border-radius: 1rem;
         white-space: nowrap;
         display: block;
         padding: 0.5rem 0.5rem;
-        color: var(--couleur-blanc);
         background-color: var(--couleur-noir);
         border: 0.15rem var(--couleur-blanc) solid;
+        color: var(--couleur-blanc);
         margin-right: 1rem;
     }
+
 }

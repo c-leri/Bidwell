@@ -20,12 +20,12 @@
     </div>
 
     <div class="nav-right">
-        <div id="nav-left-signin">
+        <div class="nav-button-left">
                 <a href="connect.ctrl.php">
                     Connexion
                 </a>
         </div>
-        <div id="nav-left-signup">
+        <div class="nav-button-right">
             <a href="signup.ctrl.php">
                 Inscription
             </a>
