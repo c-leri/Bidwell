@@ -70,7 +70,7 @@
 
     .circle-button {
         position: absolute;
-        top: 9rem;   
+        top: 10rem;   
         height: 10rem;
         line-height: 80px;
         width: 10rem;
@@ -88,7 +88,7 @@
     }
 
     .prix * {
-        padding: 0 1rem 0    1rem;
+        padding: 0 1rem 0 1rem;
     }
 </style>
 
