@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="../view/design/styleGeneral.css">
     <link rel="stylesheet" href="../view/design/styleMenu.css">
     <link rel="stylesheet" href="../view/design/styleFooter.css">
+    <link rel="stylesheet" href="../view/design/styleConsultation.css">
+    <link rel="icon" type="image/x-icon" href="../view/design/img/favicon.ico">
     <link rel="stylesheet" href="../view/design/styleCreation.css">
     <script src="../js/creation.js"></script>
 

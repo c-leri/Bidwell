@@ -1,6 +1,7 @@
 <?php
 
 require_once __DIR__.'/Component.class.php';
+require_once __DIR__.'/DAO.class.php';
 
 /**
  * Classe représentant le concept de Catégorie
@@ -19,7 +20,8 @@ class Categorie extends Component {
     $this->id = -1;
     $this->libelle = $libelle;
     $this->children = new SplObjectStorage;
-    $this->setParent($categorieMere);
+    if ($categorieMere !== null)
+      $categorieMere->add($this);
   }
 
   // Getters
@@ -53,7 +55,7 @@ class Categorie extends Component {
    * Vérifie si la catégorie est enregistrée dans la bd
    */
   public function isInDB() : bool {
-    return $this->id == -1;
+    return $this->id != -1;
   }
 
   /////////////////////////////////////////////
@@ -70,9 +72,14 @@ class Categorie extends Component {
     // récupération du dao
     $dao = DAO::get();
 
-    // préparation de la query
-    $query = 'INSERT INTO Categorie(libelle, idMere) VALUES (?, ?)';
-    $data = [$this->libelle, $this->getParent()];
+    // si la catégorie a un parent (ce n'est pas la catégorie racine), on l'inclut dans le create
+    if ($this->getParent() !== null) {
+      $query = 'INSERT INTO Categorie(libelle, idMere) VALUES (?,?)';
+      $data = [$this->libelle, $this->getParent()->getId()];
+    } else {
+      $query = 'INSERT INTO Categorie(libelle) VALUES (?)';
+      $data = [$this->libelle];
+    }
 
     // récupération du résultat de l'insertion 
     $r = $dao->exec($query, $data);
@@ -127,6 +134,26 @@ class Categorie extends Component {
     // on attribue l'id de la catégorie
     $categorie->id = $id;
 
+    // pour les catégories filles de la catégorie
+    $query = 'SELECT * FROM Categorie WHERE idMere = ?';
+    $data = [$id];
+
+    $table = $dao->query($query, $data);
+
+    for ($i = 0; $i < count($table); $i++) {
+      $categorie->add(new Categorie($table[$i]['libelle']));
+    }
+
+    // pour les encheres ayant comme catégorie $categorie
+    $query = 'SELECT * FROM Enchere WHERE idCategorie = ?';
+    $data = [$id];
+
+    $table = $dao->query($query, $data);
+
+    for ($i = 0; $i < count($table); $i++) {
+      $categorie->add(Enchere::read($table[$i]['id']));
+    }
+
     return $categorie;
   }
 
@@ -144,13 +171,13 @@ class Categorie extends Component {
     // récupération du dao
     $dao = DAO::get();
 
-    // si la catégorie a un parent (ce n'est pas la catégorie racine), on l'inclut dans l'update
+    // si la catégorie a un parent (ce n'est pas la catégorie racine) on passe son id en paramètre
     if ($this->getParent() !== null) {
       $query = 'UPDATE Categorie SET libelle = ?, idMere = ? WHERE id = ?';
       $data = [$this->libelle, $this->getParent()->getId(), $this->id];
     } else {
-      $query = 'UPDATE Categorie SET libelle = ? WHERE id = ?';
-      $data = [$this->libelle, $this->id];
+      $query = 'UPDATE Categorie SET libelle = ?, idMere = ? WHERE id = ?';
+      $data = [$this->libelle, null, $this->id];
     }
 
     $nbLignesMod = $dao->exec($query, $data);
@@ -162,7 +189,7 @@ class Categorie extends Component {
 
     // on update récursivement toutes les catégories filles pour que leur idMere soit à jour dans la bd
     foreach ($this->children as $child) {
-      if ($child->get_class() == "Categorie") {
+      if ($child instanceof Categorie) {
         $child->update();
       }
     }

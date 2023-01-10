@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta name="description" content="Site de vente aux enchères de particulier à particulier">
     <meta name="keywords"
-        content="Bidwell, Bidwell.fr, Vente aux enchères, Vente aux enchères en ligne, Art, Bijouterie, Joaillerie, Mobilier, Mode, Bijoux, Sculptures, Monnais, Pierres, Objets de collection">
+        content="Bidwell, Bidwell.fr, Vente aux enchères, Vente aux enchères en ligne, Art, Bijouterie, Joaillerie, Mobilier, Mode, Bijoux, Sculptures, Monnaies, Pierres, Objets de collection">
     <meta name="author"
         content="Paul Sode, Gatien Caillet, Célestin Bouchet, Antoine Vuillet, Clément Mazet, Hippolyte Chauvin">
     <title>Consultation d'un article</title>
@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="../view/design/styleMenu.css">
     <link rel="stylesheet" href="../view/design/styleFooter.css">
     <link rel="stylesheet" href="../view/design/styleConsultation.css">
+    <link rel="icon" type="image/x-icon" href="../view/design/img/favicon.ico">
 
 </head>
 
@@ -23,6 +24,11 @@
         <?php include(__DIR__ . '/menu.viewpart.php') ?>
     </header>
     <main class="consultation">
+<<<<<<< HEAD
+        
+
+=======
+>>>>>>> 0412332731101cbcef74188569fe93d15891112b
         <div class="top">
             <div class="presentation">
                 <img src="../view/design/img/default_image.png" alt="mainimage">
@@ -31,8 +37,9 @@
             </div>
 
             <div class="enchere">
-                <p>enchère</p>
-                <!-- Aucune idée de comment faire pour l'instant -->
+
+                <?php include(__DIR__ . '/enchere.viewpart.php') ?>
+
             </div>
         </div>
 
@@ -101,5 +108,19 @@
     </footer>
 
     <body>
+
+
+    <script>
+    document.forms.form01.range.addEventListener('change', e => {
+  let numlines = parseInt(e.target.value);
+  let numdots = (numlines < 1) ? 0 : numlines+1;
+  document.querySelector('#styles').innerHTML = `
+    .lines use:nth-child(-n+${numlines}) {
+      stroke: DarkSlateBlue;
+    }
+    .dots use:nth-child(-n+${numdots}) {
+      stroke: DarkSlateBlue;
+    }`;  
+});</script>
 
 </html>
