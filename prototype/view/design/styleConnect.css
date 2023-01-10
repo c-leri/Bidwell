@@ -2,25 +2,33 @@
     /*  --- Se connecter et s'inscrire--- */
     /*  -- Main -- */
     main.connect{
+        position: absolute;
+        top: 42%;
+        transform: translate(0,-50%);
         display: flex;
         flex-direction: row;
         justify-content: space-evenly;
         color: var(--couleur-blanc);
+        align-content: center;
+        width: 100%;
     }
 
     main.connect>div{
         width: 25%;
+        padding-top: 2rem;
+        padding-bottom: 2rem;
     }
 
     main.connect button{
         text-decoration: none;
         color: var(--couleur-noir);
-        background-color: #FFD700;
+        background-color: var(--couleur-jaune);
         border: 0.1rem solid var(--couleur-noir);
         border-radius: 0.8rem;
         white-space: nowrap;
         display: block;
         padding: 0.4rem;
+        margin-top: 1rem;
     }
 
     main.connect a{
@@ -34,13 +42,29 @@
     .left {
         display: flex;
         flex-direction: column;
+        justify-content: space-around;
+    }
+
+    .left form{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+    }
+    .left button{        
+        display: block;
     }
     .left > *{
         margin-top: 1em;
     }
     /* -- Partie du milieu -- */
+    .center{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        border-left: 0.15rem solid var(--couleur-blanc);
+    }
     .center li{
-        margin: 1rem;
+        margin-top: 1rem;
         list-style-type: none;
         font-size: 1rem;
     }
@@ -56,5 +80,22 @@
         height: 0.1rem;
         background-color: var(--couleur-blanc);
         border: none;
+    }
+
+
+    /* -- Titres -- */
+    h2{
+        margin-bottom: 1rem;
+    }
+    h3{
+        margin-bottom: 0.5rem;
+    }
+    /* -- Formulaires -- */
+    #signin-form input, #connect-form a{
+        margin-bottom: 1rem;
+    }
+
+    div#top, div#bot{
+        margin-left: 1rem;
     }
 }
