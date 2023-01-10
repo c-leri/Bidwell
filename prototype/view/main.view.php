@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="description" content="Site de vente aux enchères de particulier à particulier">
     <meta name="keywords"
-        content="Bidwell, Bidwell.fr, Vente aux enchères, Vente aux enchères en ligne, Art, Bijouterie, Joaillerie, Mobilier, Mode, Bijoux, Sculptures, Monnais, Pierres, Objets de collection">
+        content="Bidwell, Bidwell.fr, Vente aux enchères, Vente aux enchères en ligne, Art, Bijouterie, Joaillerie, Mobilier, Mode, Bijoux, Sculptures, Monnaies, Pierres, Objets de collection">
     <meta name="author"
         content="Paul Sode, Gatien Caillet, Célestin Bouchet, Antoine Vuillet, Clément Mazet, Hippolyte Chauvin">
     <title>Main</title>
@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="../view/design/styleSous-Menu_Categorie.css">
     <link rel="stylesheet" href="../view/design/styleFooter.css">
     <link rel="stylesheet" href="../view/design/stylePagePrincipale.css">
+    <link rel="icon" type="image/x-icon" href="../view/design/img/favicon.ico">
 
 </head>
 

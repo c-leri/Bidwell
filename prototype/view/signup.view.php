@@ -1,8 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 
 <head>
-    <html lang="fr">
     <meta charset="utf-8">
     <meta name="description" content="Site de vente aux enchères de particulier à particulier">
     <meta name="keywords"
@@ -13,8 +12,8 @@
     <link rel="stylesheet" href="../view/design/styleGeneral.css">
     <link rel="stylesheet" href="../view/design/styleConnect.css">
     <link rel="stylesheet" href="../view/design/styleMenu.css">
-    <link rel="stylesheet" href="../view/design/styleFooter.css">
-
+    <link rel="icon" type="image/x-icon" href="../view/design/img/favicon.ico">
+    <link rel="stylesheet" href="../view/design/styleFooter2.css">
 </head>
 
 
@@ -26,26 +25,31 @@
     </header>
     <main class="connect">
         <div class="left">
-            <h2> Inscription </h2>
-
-            <form id="signin-form" accept-charset="utf-8" action="" method="get">
+            <h2> S'inscrire </h2>
+            <form id="signin-form" accept-charset="utf-8" action="" method="post" name="register-form" >
                 <h3>Nom d'utilisateur</h3>
-                <input type="text" dir="auto" spellcheck="false" autocomplete="false">
+                <input type="text" dir="auto" spellcheck="false" autocomplete="off" required minlength="4" maxlength="16" >
+                <p class="error username-error"></p>
 
                 <h3>Mot de passe</h3>
-                <input type="password" dir="auto" spellcheck="false" autocomplete="false">
+                <input id="password" type="password" dir="auto" spellcheck="false" autocomplete="off"  required minlength="8" maxlength="16">
+                <p class="error password-error"></p>
 
                 <h3>Confirmer le mot de passe</h3>
-                <input type="password" dir="auto" spellcheck="false" autocomplete="false">
+                <input id="confirm_password" type="password" dir="auto" spellcheck="false" autocomplete="off" required minlength="8" maxlength="16">
+                <p class="error confirm-password-error"></p>
 
                 <h3>Mail</h3>
-                <input type="text" dir="auto" spellcheck="false" autocomplete="false">
+                <input id="mail" type="email" dir="auto" spellcheck="false" autocomplete="off" required maxlength="32">
+                <p class="error mail-error"></p>
 
                 <h3>Téléphone</h3>
-                <input type="text" dir="auto" spellcheck="false" autocomplete="false">
+                <input id="tel" type="tel" dir="auto" spellcheck="false" autocomplete="off" required pattern="[0-9]{10}">
+                <p class="error phone-error"></p>
 
-                <button type="submit">Confirmer</button>
+                <button type="submit" name="submit">Confirmer</button>
             </form>
+            <script src="../js/form_checker.js"></script>
         </div>
 
 
@@ -53,18 +57,18 @@
             <div id="top">
                 <h2> Vous avez déjà un compte ? </h2>
 
-                <form id="connect-form" accept-charset="utf-8" action="" method="get">
+                <form id="connect-form" accept-charset="utf-8" action="connect.ctrl.php" method="get">
                     <button type="submit">Connexion</button>
                 </form>
             </div>
 
-            <div class="bot">
+            <div id="bot">
                 <h2> Liens utiles </h2>
                 <ul>
-                <li><a href="#"></a>Conditions d’utilisation</li>
-                <li><a href="#"></a>Cookies</li>
-                <li><a href="#"></a>Mentions légales</li>
-                <li><a href="#"></a>Politique de confidentalité</li>
+                <li><a href="#">Conditions d’utilisation</a></li>
+                <li><a href="#">Cookies</a></li>
+                <li><a href="#">Mentions légales</a></li>
+                <li><a href="#">Politique de confidentalité</a></li>
                 </ul>
             </div>
         </div>

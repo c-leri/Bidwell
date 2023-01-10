@@ -12,6 +12,7 @@ function timer(){
     var minutes = (esecondes-secondes)/60;
     console.clear();
     console.log(minutes+":"+secondes+":"+centsecondes);
+    //document.getElementById("Rebours").innerHTML = minutes+":"+secondes+":"+centsecondes;
     if(duree==0){
         clearInterval(Tempsrestant);
     }
