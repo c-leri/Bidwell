@@ -1,5 +1,5 @@
 <?php
-
+require_once __DIR__."/DAO.class.php";
 /**
  * La classe Utilisateur modélise les utilisateurs enregistrés sur l'application à partir d'un login, d'un mot de passe hashé, d'un nom
  * d'un e-mail, d'un numéro de téléphone et d'un nombre de jetons.
@@ -144,7 +144,7 @@ class Utilisateur {
         // Initialisation de la requête SQL
         $requete = 'INSERT INTO Utilisateur VALUES (?,?,?,?,?,?,?)';
         // Initialisation du tableau de valeurs pour la requête
-        $valeurs = [$this->login, $this->email, $this->mdpHash, $this->nom, $this->numeroTelephone, $this->nbJetons, $dateFinConservation->getTimestamp()];
+        $valeurs = [$this->login, $this->mdpHash, $this->nom, $this->email, $this->numeroTelephone, $this->nbJetons, $dateFinConservation->getTimestamp()];
 
         // Exécution de la requête
         $nbLignesMod = $dao->exec($requete, $valeurs);
@@ -185,7 +185,7 @@ class Utilisateur {
         $tuple = $table[0];
 
         // crée un utilisateur à partir de la ligne du tableau
-        $out = new Utilisateur($tuple['login'], $tuple['email'], $tuple['numeroDeTelephone']);
+        $out = new Utilisateur($tuple['login'], $tuple['email'], $tuple['numeroTelephone']);
 
         // set les informations qui ne sont pas dans le constructeur
         $out->nom = $tuple['nom'];
