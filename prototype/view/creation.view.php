@@ -5,78 +5,72 @@
     <html lang="fr">
     <meta charset="utf-8">
     <meta name="description" content="Site de vente aux enchères de particulier à particulier">
-    <meta name="keywords"
-        content="Bidwell, Bidwell.fr, Vente aux enchères, Vente aux enchères en ligne, Art, Bijouterie, Joaillerie, Mobilier, Mode, Bijoux, Sculptures, Monnaies, Pierres, Objets de collection">
-    <meta name="author"
-        content="Paul Sode, Gatien Caillet, Célestin Bouchet, Antoine Vuillet, Clément Mazet, Hippolyte Chauvin">
+    <meta name="keywords" content="Bidwell, Bidwell.fr, Vente aux enchères, Vente aux enchères en ligne, Art, Bijouterie, Joaillerie, Mobilier, Mode, Bijoux, Sculptures, Monnais, Pierres, Objets de collection">
+    <meta name="author" content="Paul Sode, Gatien Caillet, Célestin Bouchet, Antoine Vuillet, Clément Mazet, Hippolyte Chauvin">
     <title>Vendre un article</title>
     <link rel="stylesheet" href="../view/design/styleGeneral.css">
     <link rel="stylesheet" href="../view/design/styleMenu.css">
     <link rel="stylesheet" href="../view/design/styleFooter.css">
-<<<<<<< HEAD
-    <link rel="stylesheet" href="../view/design/styleConsultation.css">
     <link rel="icon" type="image/x-icon" href="../view/design/img/favicon.ico">
-=======
     <link rel="stylesheet" href="../view/design/styleCreation.css">
     <script src="../js/creation.js"></script>
->>>>>>> 0412332731101cbcef74188569fe93d15891112b
+
 
 </head>
-<!-- Menu -->
-<header>
-    <nav id="navbar-top">
-        <div class="nav-left">
-            <a href="main.ctrl.php">
-                <img src="../view/design/img/logo.png" alt="logo">
-            </a>
-        </div>
-
-        <div id="nav-right-cancel">
-            <a href="main.ctrl.php">
-                Annuler
-            </a>
-        </div>
-
-    </nav>
-</header>
 
 <body>
-    <form action="">
-        <div class="nom">
-            <h2> Nom de l'annonce </h2>
-
-            <input type="text" name="nom" required minlength="4" maxlength="60" placeholder="Choisissez un nom">
-
-            <p> Le nom de l'annonce est l'information principale que rechercheront les autres utilisateurs. Donner un
-                nom simple et explicite augmente grandement les chances de vendre un article. </p>
-        </div>
-
-
-        <div class="categorie">
-            <h2> Catégorie de l'annonce </h2>
-
-            <div class="dropdown">
-                <input type="text" class="dropbtn" id="categorieInput" name="categorie" placeholder="Choisissez une catégorie"
-                    onclick="showFunction()" onkeyup="filterFunction()">
-                <div id="categorieDropdown" class="dropdown-content">
-                    <button onclick="confirmFunction()">A</button>
-                    <button onclick="confirmFunction()">B</button>
-                    <button onclick="confirmFunction()">C</button>
-                    <button onclick="confirmFunction()">BAC</button>
-                    <button onclick="confirmFunction()">ZE</button>
-                    <button onclick="confirmFunction()">ABC</button>
-                </div>
-
-                <p> Ajouter une catégorie appropriée à votre annonce lui permettra d'être plus facilement trouvée par
-                    les utilisateurs qui pourraient être intéressés. </p>
+    <!-- Menu -->
+    <header>
+        <nav id="navbar-top">
+            <div class="nav-left">
+                <a href="main.ctrl.php">
+                    <img src="../view/design/img/logo.png" alt="logo">
+                </a>
             </div>
 
+            <div id="nav-right-cancel">
+                <a href="main.ctrl.php">
+                    Annuler
+                </a>
+            </div>
+
+        </nav>
+    </header>
+    <main class="creation">
+        <form action="">
+            <div class="nom">
+                <h2> Nom de l'annonce </h2>
+
+                <input type="text" name="nom" required minlength="4" maxlength="60" placeholder="Choisissez un nom">
+
+                <p> Le nom de l'annonce est l'information principale que rechercheront les autres utilisateurs. Donner un
+                    nom simple et explicite augmente grandement les chances de vendre un article. </p>
+            </div>
+
+
+            <div class="categorie">
+                <h2> Catégorie de l'annonce </h2>
+
+                <div class="dropdown">
+                    <input type="text" class="dropbtn" id="categorieInput" name="categorie" placeholder="Choisissez une catégorie" onclick="showFunction()" onkeyup="filterFunction()">
+                    <div id="categorieDropdown" class="dropdown-content">
+                        <button onclick="confirmFunction()">A</button>
+                        <button onclick="confirmFunction()">B</button>
+                        <button onclick="confirmFunction()">C</button>
+                        <button onclick="confirmFunction()">BAC</button>
+                        <button onclick="confirmFunction()">ZE</button>
+                        <button onclick="confirmFunction()">ABC</button>
+                    </div>
+
+                    <p> Ajouter une catégorie appropriée à votre annonce lui permettra d'être plus facilement trouvée par
+                        les utilisateurs qui pourraient être intéressés. </p>
+                </div>
+            </div>
 
             <div class="description">
                 <h2> Description de l'annonce </h2>
 
-                <input type="text" name="nom" required minlength="50" maxlength="4000"
-                    placeholder="Insérez une description (minimum 50 caractères)">
+                <input type="text" name="descr" required minlength="50" maxlength="4000" placeholder="Insérez une description (minimum 50 caractères)">
 
                 <p> Une description complète et détailée de votre bien sera perçue comme de plus grande qualité par les
                     autres utilisateurs. Donnez envie d'acheter votre article et mettez en avant ses informations
@@ -91,11 +85,9 @@
 
                 <div class="addedImages"> <!-- déso pour le nom je savais pas quoi mettre -->
                     <?php for ($i = 1; $i < 9; $i++) {
-                        ?>
+                    ?>
                         <article>
-
-                            <img id=<?="output" . $i ?>>
-                            <p id=<?="p" . $i ?>>Image n°<?= $i ?></p>
+                            <img id=<?= "output" . $i ?> src="../view/design/img/default_image.png" alt="">
 
                         </article>
 
@@ -123,8 +115,8 @@
             </div>
 
 
-            <div class="envoi">
-                <h2> Informations d'envoi </h2>
+            <div class="retrait">
+                <h2> Prix de retrait de l'annonce </h2>
 
                 <input type="number" name="retrait" required min="1" max="99999" placeholder="Prix de retrait">
 
@@ -137,20 +129,23 @@
             <hr>
 
 
-            <div class="retrait">
-                <h2> Prix de retrait de l'annonce </h2>
+            <div class="envoi">
+                <h2> Informations d'envoi </h2>
+                <ul>
+                    <li> Je suis prêt à remettre cet article en main propre
+                        <input type="checkbox" name="retraitDirect">
+                    </li>
 
-                <p> Je suis prêt à remettre cet article en main propre
-                <p>
-                    <input type="checkbox" name="retraitDirect">
 
-                <p> Je suis prêt à envoyer ce colis vers d'autres villes de France
-                <p>
-                    <input type="checkbox" name="retraitColis">
+                    <li> Je suis prêt à envoyer ce colis vers d'autres villes de France
+                        <input type="checkbox" name="retraitColis">
+                    </li>
 
-                <p> Définissez vos méthodes de remise de votre bien. Accepter d'envoyer votre bien vers d'autre ville
-                    peut grandement augmenter le nombre d'acheteurs potentiels, mais nécessite une organisation plus
-                    complexe.</p>
+
+                    <li> Définissez vos méthodes de remise de votre bien. Accepter d'envoyer votre bien vers d'autre ville
+                        peut grandement augmenter le nombre d'acheteurs potentiels, mais nécessite une organisation plus
+                        complexe.</li>
+                </ul>
             </div>
 
 
@@ -166,29 +161,32 @@
 
 
             <div class="contact">
-                <h2> Prix de retrait de l'annonce </h2>
+                <h2> Contact avec les acheteurs </h2>
+                <ul>
+                    <li> J'accepte que mon e-mail soit affiché sur la page de mon annonce
+                        <input type="checkbox" name="okEmail">
+                    </li>
 
-                <p> J'accepte que mon e-mail soit affiché sur la page de mon annonce
-                <p>
-                    <input type="checkbox" name="okEmail">
 
-                <p> J'accepte que mon numéro de téléphone soit affiché sur la page de mon annonce
-                <p>
-                    <input type="checkbox" name="okTel">
+                    <li> J'accepte que mon numéro de téléphone soit affiché sur la page de mon annonce
+                        <input type="checkbox" name="okTel">
+                    </li>
 
-                <p> Permettre aux autres utilisateurs de vous contacter en cas de question sur votre annonce permet
-                    d'augmenter leur confiance envers vous et votre bien. <br>
-                    Ces informations ne sont pas nécessaires au bon déroulement de l'enchère.</p>
+
+                    <li> Permettre aux autres utilisateurs de vous contacter en cas de question sur votre annonce permet
+                        d'augmenter leur confiance envers vous et votre bien.
+                        Ces informations ne sont pas nécessaires au bon déroulement de l'enchère.</li>
+                </ul>
             </div>
 
             <input type="submit" name="submit">
-    </form>
-
+        </form>
+    </main>
 
     <footer>
         <?php include(__DIR__ . '/footer.viewpart.php') ?>
     </footer>
 
-    <body>
+</body>
 
 </html>
