@@ -25,7 +25,7 @@
     <main class="consultation">
         <div class="top">
             <div class="presentation">
-                <img src="../view/design/img/logo.png" alt="mainimage">
+                <img src="../view/design/img/default_image.png" alt="mainimage">
 
                 <p> Nom de l'article </p>
             </div>
@@ -70,7 +70,7 @@
             <div class="images">
                 <?php for ($i = 0; $i < 7; $i++) {
                     ?>
-                    <img src="../view/design/img/logo_trans.png" alt="logo">
+                    <img src="../view/design/img/default_image.png" alt="logo">
                 <?php } ?>
             </div>
         </div>

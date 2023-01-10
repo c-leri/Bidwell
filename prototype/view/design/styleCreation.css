@@ -1,69 +1,146 @@
 /* Dropdown Button */
 .dropbtn {
-    color: var(--couleur-noir);
-    border: none;
-    cursor: pointer;
-  }
-
-  
-  /* The search field */
-  #myInput {
-    box-sizing: border-box;
-    background-position: 14px 12px;
-    background-repeat: no-repeat;
-    font-size: 16px;
-    padding: 14px 20px 12px 45px;
-    border: none;
-  }
-  
-  /* The container <div> - needed to position the dropdown content */
-  .dropdown {
-    position: relative;
-    display: inline-block;
-  }
-  
-  /* Dropdown Content (Hidden by Default) */
-  .dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f6f6f6;
-    border: 1px solid #ddd;
-    z-index: 1; 
-  }
-  
-  /* Links inside the dropdown */
-  .dropdown-content button {
-    color: black;
-    padding: 12px 16px;
-    display: block;
-  }
-  
-  /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
-  .show {display:block;}
+  color: var(--couleur-noir);
+  border: none;
+  cursor: pointer;
+}
 
 
-  .addedImages {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;  
-  } 
+/* The search field */
+#myInput {
+  box-sizing: border-box;
+  background-position: 14px 12px;
+  background-repeat: no-repeat;
+  font-size: 16px;
+  padding: 14px 20px 12px 45px;
+  border: none;
+}
 
-  .addedImages img {
-    width: 14rem;
-    height: 14rem;
-    padding: 0.5rem;
-    border-radius: 1rem;
-  }
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  /* position: relative;
+  display: inline-block; */
 
-  .addedImages article {
-    position: relative;
-  }
+}
 
-  .addedImages article p {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f6f6f6;
+  border: 1px solid #ddd;
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content button {
+  color: black;
+  padding: 12px 16px;
+  display: block;
+}
+
+/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+.show {
+  display: block;
+}
+
+
+.addedImages {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.addedImages img {
+  width: 10rem;
+  height: 10rem;
+  margin: 0.5rem;
+  border-radius: 1rem;
+}
+
+.addedImages article {
+  position: relative;
+}
+
+.addedImages article p {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+main.creation {
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+main.creation div.nom,
+main.creation div.categorie,
+main.creation div.base,
+main.creation div.envoi,
+main.creation div.description,
+main.creation div.images,
+main.creation div.retrait,
+main.creation div.localisation,
+main.creation div.contact {
+  margin: 1rem;
+  padding: 0.5rem;
+  border-radius: 1rem;
+  background-color: var(--couleur-blanc30);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+/* -- Design -- */
+hr {
+  margin: 1rem auto 1rem auto;
+  width: 90%;
+  height: 0.1rem;
+  background-color: var(--couleur-blanc);
+  border: none;
+}
+
+/* main.creation p {
+  display: inline-block;
+} */
+
+main.creation input[type=checkbox] {
+  width: 1rem;
+  height: 1rem;
+  margin-bottom: 1rem;
+}
+
+main.creation input[type=text],
+main.creation input[type=number] {
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 1rem;
+}
+
+main.creation ul {
+  list-style-type: none;
+  ;
+}
+
+main.creation li {
+  margin: 1rem;
+}
+
+main.creation h2 {
+  margin: 0.5rem 0rem 0.5rem 0rem;
+}
+
+main.creation input[name=submit] {
+  color: var(--couleur-noir);
+  background-color: var(--couleur-jaune);
+  border-radius: 1rem;
+  white-space: nowrap;
+  display: block;
+  padding: 0.5rem 0.5rem;
+}

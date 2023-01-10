@@ -3,7 +3,7 @@
     hr {
         margin: 1rem 2rem 1rem 2rem;
         height: 0.1rem;
-        background-color: var(--couleur-noir);
+        background-color: var(--couleur-blanc);
         border: none;
     }
 
@@ -55,6 +55,7 @@
         flex-direction: row;
         flex-wrap: wrap;
         justify-content: center;
+        color: var(--couleur-blanc);
     }
 
     .ventesPopulaires article {
@@ -99,5 +100,10 @@
 
     .ventesPopulaires a:visited {
         color: var(--couleur-gris-clair);
+    }
+
+    main.pagePrincipale h2{
+        margin-left: 6rem;
+        color: var(--couleur-blanc);
     }
 }
