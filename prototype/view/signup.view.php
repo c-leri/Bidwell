@@ -1,8 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 
 <head>
-    <html lang="fr">
     <meta charset="utf-8">
     <meta name="description" content="Site de vente aux enchères de particulier à particulier">
     <meta name="keywords"
@@ -13,7 +12,7 @@
     <link rel="stylesheet" href="../view/design/styleGeneral.css">
     <link rel="stylesheet" href="../view/design/styleConnect.css">
     <link rel="stylesheet" href="../view/design/styleMenu.css">
-    <link rel="stylesheet" href="../view/design/styleFooter.css">
+    <link rel="stylesheet" href="../view/design/styleFooter2.css">
 
 </head>
 
@@ -58,13 +57,13 @@
                 </form>
             </div>
 
-            <div class="bot">
+            <div id="bot">
                 <h2> Liens utiles </h2>
                 <ul>
-                <li><a href="#"></a>Conditions d’utilisation</li>
-                <li><a href="#"></a>Cookies</li>
-                <li><a href="#"></a>Mentions légales</li>
-                <li><a href="#"></a>Politique de confidentalité</li>
+                <li><a href="#">Conditions d’utilisation</a></li>
+                <li><a href="#">Cookies</a></li>
+                <li><a href="#">Mentions légales</a></li>
+                <li><a href="#">Politique de confidentalité</a></li>
                 </ul>
             </div>
         </div>
