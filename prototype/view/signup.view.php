@@ -1,8 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 
 <head>
-    <html lang="fr">
     <meta charset="utf-8">
     <meta name="description" content="Site de vente aux enchères de particulier à particulier">
     <meta name="keywords"
@@ -13,8 +12,13 @@
     <link rel="stylesheet" href="../view/design/styleGeneral.css">
     <link rel="stylesheet" href="../view/design/styleConnect.css">
     <link rel="stylesheet" href="../view/design/styleMenu.css">
+<<<<<<< HEAD
     <link rel="stylesheet" href="../view/design/styleFooter.css">
     <link rel="icon" type="image/x-icon" href="../view/design/img/favicon.ico">
+=======
+    <link rel="stylesheet" href="../view/design/styleFooter2.css">
+
+>>>>>>> 0412332731101cbcef74188569fe93d15891112b
 </head>
 
 
@@ -26,8 +30,14 @@
     </header>
     <main class="connect">
         <div class="left">
+<<<<<<< HEAD
             <h2> Inscription </h2>
             <form id="signin-form" accept-charset="utf-8" action="" method="post" name="register-form" >
+=======
+            <h2> S'inscrire </h2>
+
+            <form id="signin-form" accept-charset="utf-8" action="" method="get">
+>>>>>>> 0412332731101cbcef74188569fe93d15891112b
                 <h3>Nom d'utilisateur</h3>
                 <input type="text" dir="auto" spellcheck="false" autocomplete="off" required minlength="4" maxlength="16" >
                 <p class="error username-error"></p>
@@ -63,13 +73,13 @@
                 </form>
             </div>
 
-            <div class="bot">
+            <div id="bot">
                 <h2> Liens utiles </h2>
                 <ul>
-                <li><a href="#"></a>Conditions d’utilisation</li>
-                <li><a href="#"></a>Cookies</li>
-                <li><a href="#"></a>Mentions légales</li>
-                <li><a href="#"></a>Politique de confidentalité</li>
+                <li><a href="#">Conditions d’utilisation</a></li>
+                <li><a href="#">Cookies</a></li>
+                <li><a href="#">Mentions légales</a></li>
+                <li><a href="#">Politique de confidentalité</a></li>
                 </ul>
             </div>
         </div>

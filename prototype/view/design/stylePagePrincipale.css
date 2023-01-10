@@ -89,6 +89,7 @@
     .ventesPopulaires article h1 {
         word-wrap: break-word;
         margin: 0.5rem;
+        overflow: hidden;
     }
 
     .ventesPopulaires a {

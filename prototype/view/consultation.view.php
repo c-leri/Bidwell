@@ -24,8 +24,11 @@
         <?php include(__DIR__ . '/menu.viewpart.php') ?>
     </header>
     <main class="consultation">
+<<<<<<< HEAD
         
 
+=======
+>>>>>>> 0412332731101cbcef74188569fe93d15891112b
         <div class="top">
             <div class="presentation">
                 <img src="../view/design/img/default_image.png" alt="mainimage">

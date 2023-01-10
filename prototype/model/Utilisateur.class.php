@@ -10,6 +10,8 @@
  *    instances de la classe Utilisateur à partir de données lues dans la base de données
  */
 class Utilisateur {
+    private const TEMPS_CONSERVATION = '5 years'; // temps de conservation des données dans la bd
+
     // informations de connection
     private string $login;
     private string|null $mdpHash;        // le hash correspondant au mot de passe de l'utilisateur, calculé avec password_hash(), null à la création d'un utilisateur
@@ -20,7 +22,11 @@ class Utilisateur {
     // informations pour les enchères
     private int $nbJetons;
 
-    // constructeurs
+    // constructeur
+
+    /**
+     * @throws Exception si le numéro de téléphone n'est pas composé de 10 caractères
+     */
     public function __construct(string $login, string $email, string $numeroTelephone)
     {
         $this->login = $login;
@@ -30,17 +36,6 @@ class Utilisateur {
         $this->setNumeroTelephone($numeroTelephone);
 
         $this->nbJetons = 0;
-    }
-
-    /**
-     * Constructeur privé : il permet de construire une instance de la classe Utilisateur depuis un tuple au préalable extrait
-     * de la base de données
-     */
-    private static function construct_fromdb(array $tuple) : Utilisateur {
-        $out = new Utilisateur($tuple['login'], $tuple['nom'], $tuple['email'], $tuple['numeroDeTelephone']);
-        $out->mdpHash = $tuple['mdpHash'];
-        $out->nbJetons = $tuple['nbJetons'];
-        return $out;
     }
 
     // Getters
@@ -79,7 +74,7 @@ class Utilisateur {
 
     /**
      * fonction pour modifier le numéro de téléphone d'un Utilisateur
-     * @throws Exception si le numéro n'est pas composé de 10 charactères
+     * @throws Exception si le numéro n'est pas composé de 10 caractères
      */
     public function setNumeroTelephone(string $numeroTelephone) : void {
         if (strlen($numeroTelephone) != 10) {
@@ -89,12 +84,22 @@ class Utilisateur {
         $this->numeroTelephone = $numeroTelephone;
     }
 
-    // Autres méthodes
+    // Gestion de la connexion
 
+    /**
+     *
+     * @throws Exception si l'utilisateur n'est pas trouvé dans la bd
+     */
     public static function connectionValide(string $login, string $password) : bool {
         $utilisateur = Utilisateur::read($login);
-        return $utilisateur->mdpHash == password_hash($password, PASSWORD_BCRYPT);
+        return $utilisateur->mdpValide($password);
     }
+
+    public function mdpValide(string $password) : bool {
+        return password_verify($password, $this->mdpHash);
+    }
+
+    // Autres méthodes
 
     /**
      * Vérifie si l'utilisateur est enregistré dans la bd
@@ -121,7 +126,7 @@ class Utilisateur {
     
     /**
      * La méthode create() permet de sérialiser dans la base de données de l'application l'instance courante de la classe Utilisateur
-     * @throws Exception si le nombre de ligne insérées != 1 ou si le mot de passe de l'utilisateur est null
+     * @throws Exception si le nombre de lignes insérées != 1 ou si le mot de passe de l'utilisateur est null
      */
     public function create() : void {
         // Vérification que le mdp de l'utilisateur est bien set
@@ -132,10 +137,14 @@ class Utilisateur {
         // Récupération de l'objet DAO
         $dao = DAO::get();
 
+        // variable correspondant à la date de fin de conservation de l'enchère dans la bd
+        $dateFinConservation = new DateTime();
+        $dateFinConservation->add(DateInterval::createFromDateString(Utilisateur::TEMPS_CONSERVATION));
+
         // Initialisation de la requête SQL
-        $requete = 'INSERT INTO Utilisateur VALUES ?, ?, ?, ?, ?, ?';
+        $requete = 'INSERT INTO Utilisateur VALUES (?,?,?,?,?,?,?)';
         // Initialisation du tableau de valeurs pour la requête
-        $valeurs = [$this->login, $this->email, $this->mdpHash, $this->nom, $this->numeroTelephone, $this->nbJetons];
+        $valeurs = [$this->login, $this->email, $this->mdpHash, $this->nom, $this->numeroTelephone, $this->nbJetons, $dateFinConservation->getTimestamp()];
 
         // Exécution de la requête
         $nbLignesMod = $dao->exec($requete, $valeurs);
@@ -168,7 +177,17 @@ class Utilisateur {
             throw new Exception("Read : L'utilisateur " . $login . " n'existe pas dans la bd");
         }
 
-        return Utilisateur::construct_fromdb($table[0]);
+        $tuple = $table[0];
+
+        // crée un utilisateur à partir de la ligne du tableau
+        $out = new Utilisateur($tuple['login'], $tuple['email'], $tuple['numeroDeTelephone']);
+
+        // set les informations qui ne sont pas dans le constructeur
+        $out->nom = $tuple['nom'];
+        $out->mdpHash = $tuple['mdpHash'];
+        $out->nbJetons = $tuple['nbJetons'];
+
+        return $out;
     }
 
     ////////////////// UPDATE ///////////////////
@@ -176,7 +195,7 @@ class Utilisateur {
     /**
      * La méthode update() permet de sérialiser des modifications apportées à une instance de la classe Utilisateur dans la
      * base de données
-     * @throws Exception si l'utilisateur n'existe pas dans la db ou le nombre de ligne modifiée != 1
+     * @throws Exception si l'utilisateur n'existe pas dans la db ou le nombre de lignes modifiée != 1
      */
     public function update() : void {
         if (!$this->isInDB()) {
@@ -187,7 +206,7 @@ class Utilisateur {
         $dao = DAO::get();
 
         // Initialisation de la requête SQL
-        $requete = 'UPDATE Utilisateur SET login = ?, email = ?, mdpHash = ?, nom = ?, numeroDeTelephone = ?, nbJetons = ? WHERE login = ?';
+        $requete = 'UPDATE Utilisateur SET login = ?, email = ?, mdpHash = ?, nom = ?, numeroTelephone = ?, nbJetons = ? WHERE login = ?';
         // Initialisation du tableau de valeurs pour la requête
         $valeurs = [$this->login, $this->email, $this->mdpHash, $this->nom, $this->numeroTelephone, $this->nbJetons, $this->login];
 
