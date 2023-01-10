@@ -22,7 +22,7 @@
     main.connect button{
         text-decoration: none;
         color: var(--couleur-noir);
-        background-color: #FFD700;
+        background-color: var(--couleur-jaune);
         border: 0.1rem solid var(--couleur-noir);
         border-radius: 0.8rem;
         white-space: nowrap;
