@@ -25,7 +25,7 @@
     </header>
     <main class="connect">
         <div class="left">
-            <h2> Inscription </h2>
+            <h2> S'inscrire </h2>
 
             <form id="signin-form" accept-charset="utf-8" action="" method="get">
                 <h3>Nom d'utilisateur</h3>
