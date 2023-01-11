@@ -107,8 +107,8 @@ try{
         OK();
     }
 
-     ////////////////// UPDATE //////////////////
-     print('Test update() : ');
+    ////////////////// UPDATE //////////////////
+    print('Test update() : ');
 
     $utisilateur->setPassword('Newmdp');
     $utisilateur->setNom('Newnom');
@@ -126,10 +126,10 @@ try{
 
 
      ////////////////// DELETE ///////////////////
-     print('Test delete() : ');
+    print('Test delete() : ');
 
-     $utisilateur->delete();
-     try{
+    $utisilateur->delete();
+    try{
         Utilisateur::read($utisilateur->getLogin());
         KO("Erreur sur Utilisateur : Test read() : lecture d'un untilisateur delete devrait renvoyer une exception");
     } catch (Exception $e) {

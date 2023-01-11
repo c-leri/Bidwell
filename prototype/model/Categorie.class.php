@@ -8,6 +8,8 @@ require_once __DIR__.'/DAO.class.php';
  * "contenant" du modèle composite (Enchere est le "contenu")
  */
 class Categorie extends Component {
+  // catégorie par défaut
+  private static Categorie $autre;
   // stock les catégories qu'on a enregistrées ou lues dans la base
   static private array $instances = array();
 
@@ -18,12 +20,12 @@ class Categorie extends Component {
   protected array $children;
 
   // constructeur
-  public function __construct(string $libelle, Categorie $categorieMere = null)
+  public function __construct(string $libelle, int $idCategorieMere = null)
   {
     $this->id = -1;
     $this->libelle = $libelle;
     $this->children = array();
-    $this->setCategorieMere($categorieMere);
+    $this->setIdCategorieMere($idCategorieMere);
   }
 
   // Getters
@@ -48,7 +50,7 @@ class Categorie extends Component {
 
   public function remove(Component $component) : void {
     unset($this->children[($component instanceof Categorie) ? 'c'.$component->getId() : 'e'.$component->getId()]);
-    $component->setCategorieMere(null);
+    $component->setIdCategorieMere(null);
   }
 
   // Autres méthodes
@@ -61,13 +63,29 @@ class Categorie extends Component {
   }
 
   /**
-   * Syncrhonise la catégorie avec ses valeurs en bd
+   * Synchronise la catégorie avec ses valeurs en bd
    */
   public function sync() : void {
     $new_this = Categorie::read($this->getId(), true);
     $this->libelle = $new_this->libelle;
     $this->children = $new_this->children;
-    ($new_this->getIdCategorieMere() !== null) ? $new_this->getCategorieMere()->add($this) : $this->setCategorieMere(null);
+    ($new_this->getIdCategorieMere() !== null) ? $new_this->getCategorieMere()->add($this) : $this->setIdCategorieMere(null);
+  }
+
+  /**
+   * Renvoie la catégorie 'Autre' qui sert comme catégorie par défaut
+   */
+  public static function getCategorieAutre() : Categorie {
+    if (!isset(Categorie::$autre)) {
+      $dao = DAO::get();
+      $query = 'DELETE FROM Categorie WHERE libelle = ?';
+      $data = ['Autre'];
+      $dao->exec($query, $data);
+
+      Categorie::$autre = new Categorie('Autre');
+      Categorie::$autre->create();
+    }
+    return Categorie::$autre;
   }
 
   /////////////////////////////////////////////
@@ -243,8 +261,9 @@ class Categorie extends Component {
 
     // on enleve le fait que cette catégorie est mère dans tous ses fils
     // AVANT de faire la suppression dans la bd
+    // les enchère ont alors comme catégorie 'Autre'
     foreach ($this->children as $child) {
-      $child->setCategorieMere(null);
+      $child->setCategorieMere(($child instanceof Enchere) ? Categorie::getCategorieAutre() : null);
       $child->update();
     }
 

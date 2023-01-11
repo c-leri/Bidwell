@@ -18,6 +18,10 @@ abstract class Component {
         return (isset($this->idCategorieMere)) ? Categorie::read($this->idCategorieMere) : null;
     }
 
+    public function setIdCategorieMere(?int $idCategorie): void {
+        $this->idCategorieMere = $idCategorie;
+    }
+
     public function setCategorieMere(?Categorie $categorie): void {
         $this->idCategorieMere = (isset($categorie)) ? $categorie->getId() : null;
     }

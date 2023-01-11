@@ -1,6 +1,7 @@
 <?php
 // Test la classe Categorie
 require_once(__DIR__ . "/../model/Categorie.class.php");
+require_once(__DIR__."/../model/Enchere.class.php");
 // Fonctions d'aide
 require_once(__DIR__ . "/Helper.php");
 
@@ -68,13 +69,13 @@ try {
     if ($categorieMere != $categorieMereRead) {
         print("\nCategorie créée :\n");
         var_dump($categorieMere);
-        print("\nCategorie lue :\n");
+        print("Categorie lue :\n");
         var_dump($categorieMereRead);
         throw new Exception('Test create() et read() : categorie créée != catégorie lue');
     }
 
     // create() catégorie fille
-    $categorieFille = new Categorie('testCreateFille', $categorieMere);
+    $categorieFille = new Categorie('testCreateFille', $categorieMere->getId());
     $categorieFille->create();
 
     // read() catégorie fille
@@ -105,6 +106,22 @@ try {
 
     // update() catégorie fille
     $categorieFille->setLibelle('testUpdateFille');
+    $categorieFille->update();
+    $categorieFilleRead = Categorie::read($categorieFille->getId());
+    if ($categorieFille != $categorieFilleRead) {
+        print("\nCategorie mise à jour :\n");
+        var_dump($categorieFille);
+        print("\nCategorie lue :\n");
+        var_dump($categorieFilleRead);
+        throw new Exception('Test update() : categorie mise à jour != catégorie lue');
+    }
+
+    // update() avec des enchères
+    $dateDebut = DateTime::createFromFormat('Y-m-d', '2050-12-24');
+    $enchere1 = new Enchere('enchere1', $dateDebut, 500, 0, 'enchere1.png', 'enchere1.txt', $categorieFille->getId());
+    $enchere1->create();
+    $enchere2 = new Enchere('enchere2', $dateDebut, 500, 0, 'enchere2.png', 'enchere2.txt', $categorieFille->getId());
+    $enchere2->create();
     $categorieFille->update();
     $categorieFilleRead = Categorie::read($categorieFille->getId());
     if ($categorieFille != $categorieFilleRead) {
@@ -148,7 +165,7 @@ try {
     $categorieFille->delete();
     try {
         Categorie::read($idCategorieFille);
-        throw new Exception("Test delete() : read une catégorie delete devrait renvoyer une exception");
+        KO("Erreur sur Categorie : Test delete() : read une catégorie delete devrait renvoyer une exception");
     } catch (Exception $e) {}
     if ($categorieFille->getId() != -1) {
         var_dump($categorieFille);
@@ -167,7 +184,7 @@ try {
     $categorieMere->delete();
     try {
         Categorie::read($idCategorieMere);
-        throw new Exception("Test delete() : read une catégorie delete devrait renvoyer une exception");
+        OK("Erreur sur Categorie : Test delete() : read une catégorie delete devrait renvoyer une exception");
     } catch (Exception $e) {}
     if ($categorieMere->getId() != -1) {
         var_dump($categorieMere);
@@ -177,7 +194,7 @@ try {
     // test delete() sur une catégorie non dans la bd
     try {
         $categorie->delete();
-        throw new Exception("Test delete() : delete une catégorie non dans la base devrait renvoyer une exception");
+        OK("Erreur sur Categorie : Test delete() : delete une catégorie non dans la base devrait renvoyer une exception");
     } catch (Exception $e) {}
 
     OK();
