@@ -115,7 +115,7 @@ class Utilisateur {
         // Exécution de la requête
         $table = $dao->query($requete, $valeurs);
 
-        return count($table) == 0;
+        return count($table) != 0;
     }
 
     /////////////////////////////////////////////
