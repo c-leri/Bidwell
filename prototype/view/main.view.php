@@ -31,7 +31,7 @@
         include(__DIR__ . '/sous-menu_categorie.viewpart.php') 
         ?>
     </header>
-    <main>
+    <main class="pagePrincipale">
         <div id="slider">
             <a href="#"><img src="../view/design/img/default_image.png" alt="Besoin d'aide" id="slide" style="background-repeat: repeat"></a>
             <div id="precedent" onclick="ChangeSlide(-1)">

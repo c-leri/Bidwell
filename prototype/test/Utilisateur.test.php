@@ -34,7 +34,9 @@ try{
     $fpss = 'mypasswordbrother';
     $gpss = 'Mypasswordsister';
     $utilisatest->setPassword($pss);
-    if($utilisatest->mdpValide($gpss)){
+    if(!$utilisatest->mdpValide($pss)){
+        throw new Exception("Test du mdpValide : Mot de passe juste ne fonctionne pas");
+    }elseif($utilisatest->mdpValide($gpss)){
         throw new Exception("Test du mdpValide : Résultat non identique accepté\n"
             . " -Mot de passe de l'utilisateur : {$pss}"
             . " -Mot de passe donné : {$gpss}");
@@ -68,6 +70,71 @@ try{
     }
 
 
+    /////////////// CREATE + READ ////////////////
+    print('Test create() et read() : ');
+    
+    //Création d'un utilisateur
+    $utisilateur= new Utilisateur($login,$email,$numtel);
+    try{
+        $utisilateur->create();
+        throw new Exception("Création d'un utilisateur sans mot de passe");
+    }catch(Exception $e){
+        $utisilateur->setPassword($pss);
+        $utisilateur->create();
+    }
+    
+
+    //Lecture de l'utilisateur
+    $utilisateurRead = Utilisateur::read($utisilateur->getLogin());
+    if($utisilateur!=$utilisateurRead){
+        print("\nUtilisateur créé :");
+        var_dump($utisilateur);
+        print("\nUtilisateur lu : \n");
+        var_dump($utilisateurRead);
+        throw new Exception('Test create() et read() : utilisateur créé != utilisateur lu');
+    }
+    OK();
+
+
+    /////////////////// READ ////////////////////
+    print('Test read() : ');
+
+    //Read d'un utilisateur inexistant
+    try {
+        Utilisateur::read('boyoboy');
+        KO("Erreur sur Utilisateur : Test read() : lecture d'un untilisateur inexistante devrait renvoyer une exception");
+    } catch (Exception $e) {
+        OK();
+    }
+
+     ////////////////// UPDATE //////////////////
+     print('Test update() : ');
+
+    $utisilateur->setPassword('Newmdp');
+    $utisilateur->setNom('Newnom');
+    $utisilateur->setEmail('NewMail@yahoo.ru');
+    $utisilateur->setNumeroTelephone('9876543210');
+    $utisilateur->update();
+    $utilisateurRead = Utilisateur::read($utisilateur->getLogin());
+    if($utisilateur!=$utilisateurRead){
+        print("\nUtilisateur mis à jour :");
+        var_dump($utisilateur);
+        print("\nUtilisateur lu : \n");
+        var_dump($utilisateurRead);
+        throw new Exception('Test update() : utilisateur mise à jour != utilisateur lu');
+    }
+
+
+     ////////////////// DELETE ///////////////////
+     print('Test delete() : ');
+
+     $utisilateur->delete();
+     try{
+        Utilisateur::read($utisilateur->getLogin());
+        KO("Erreur sur Utilisateur : Test read() : lecture d'un untilisateur delete devrait renvoyer une exception");
+    } catch (Exception $e) {
+        OK();
+    }
 
 } catch(Exception $e){
     KO("Erreur sur information : ".$e->getMessage());

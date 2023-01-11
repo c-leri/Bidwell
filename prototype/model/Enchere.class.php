@@ -31,7 +31,7 @@ class Enchere extends Component {
   public function __construct(string $libelle, DateTime $dateDebut, float $prixDepart, float $prixRetrait, string $imagePrincipale, string $description, Categorie $categorie) {
     $this->id = -1;
     $this->libelle = $libelle;
-    $this->dateDebut = $dateDebut; 
+	$this->setDateDebut($dateDebut);
     $this->prixDepart = $prixDepart;
     $this->prixRetrait = $prixRetrait;
     $this->images[0] = $imagePrincipale;
@@ -92,6 +92,15 @@ class Enchere extends Component {
 
   public function setDescription(string $description) : void {
     $this->description = $description;
+  }
+
+  public function setDateDebut(DateTime $date) : void {
+	  $currentDate = new DateTime();
+	  if ($date > $currentDate) {
+		  $this->dateDebut = $date;
+	  } else {
+		  throw new Exception($date->format('Y-m-d') . " est antérieure à la date courante : " . $currentDate->format('Y-m-d'));
+	  }
   }
 
   // Gestion des participations
@@ -303,3 +312,4 @@ class Enchere extends Component {
     $this->id = -1;
   }
 }
+
