@@ -7,7 +7,7 @@
     </div>
 
     <div class="nav-search">
-        <form id="nav-search-form" method="get">
+        <form id="nav-search-form" method="get" action="recherche.ctrl.php">
             <input type="text" placeholder="Rechercher...">
             <input id="button-submit" type="submit" value="">
         </form>

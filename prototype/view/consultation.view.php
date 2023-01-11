@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="../view/design/styleMenu.css">
     <link rel="stylesheet" href="../view/design/styleFooter.css">
     <link rel="stylesheet" href="../view/design/styleConsultation.css">
+    <link rel="stylesheet" href="../view/design/styleEnchere.css">
     <link rel="icon" type="image/x-icon" href="../view/design/img/favicon.ico">
 
 </head>
@@ -22,6 +23,7 @@
     <header>
         <?php include(__DIR__ . '/menu.viewpart.php') ?>
     </header>
+    
     <main class="consultation">
         <div class="top">
             <div class="presentation">

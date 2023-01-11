@@ -48,9 +48,9 @@
                     ?>
                     
                     <article>
-                    <a href="consultation.ctrl.php"> <!-- Juste pour accéder à la page me tapez pas je sais que c'est pas comme ça qu'on fait -->
+                    <a href="consultation.ctrl.php">
                         <img src="../view/design/img/default_image.png" alt="">
-                        </a> <!-- Faudra supprimer ça aussi du coup-->
+                        </a>
                         <h1>WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW</h1>
                         <div class="variablesEnchere">
                             <p class="temps-restant">temps restant</p>
