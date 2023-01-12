@@ -1,3 +1,5 @@
+
+
 //Affiche ou cache les options du dropdown des catégorie
 function showFunction() {
   document.getElementById("categorieDropdown").classList.toggle("show");
@@ -68,3 +70,16 @@ output.onload = function() {
 
 
 //----------------------------------------------------------//
+const prixretrait = document.getElementById("prixretrait"),
+prixbase = document.getElementById("prixbase");
+prixbase.onkeyup = validatePrices;
+
+function validatePrices(event){
+  event.preventDefault();
+  console.log("OUAI")
+  if(prixbase.value >= prixretrait.value*1.1) {
+    prixretrait.setCustomValidity("Le prix de base doit être au moins 10% supérieur au prix de retrait");
+  } else {
+    prixretrait.setCustomValidity('');
+  }
+}
