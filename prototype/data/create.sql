@@ -24,7 +24,7 @@ CREATE TABLE Enchere (
 	images TEXT NOT NULL,
 	description TEXT NOT NULL,
 	libelleCategorie INTEGER NOT NULL,
-	dateFinConservation INTEGER NOT NULL,
+	dateFinConservation INTEGER NOT NULL,		
 	FOREIGN KEY (libelleCategorie) REFERENCES Categorie(libelle),
 	FOREIGN KEY (loginUtilisateurDerniereEnchere) REFERENCES Utilisateur(login)
 );

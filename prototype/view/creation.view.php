@@ -86,6 +86,8 @@
                     ?>
                         <article>
                             <img id=<?= "output" . $i ?> src="../view/design/img/default_image.png">
+                            <p id=<?= "p" . $i ?>> Image n°<?= $i?> </p> 
+
                         </article>
 
                     <?php } ?>
@@ -97,13 +99,7 @@
                     Triez vos images par ordre d'importance, la première image sera celle affichée dans la liste des
                     annonces</p>
             </div>
-
-
-            <hr>
-
-
             <div class="base">
-                <h2> Prix de départ de l'annonce </h2>
 
                 <input id="prixbase" type="number" name="base" required min="1" max="99999" placeholder="Prix espéré" value="500">
 
@@ -111,6 +107,7 @@
                     de votre article et pensez à ce que vous seriez prêt à mettre à la place de l'acheteur.</p>
             </div>
 
+         
 
             <div class="retrait">
                 <h2> Prix de retrait de l'annonce </h2>
