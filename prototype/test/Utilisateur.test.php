@@ -70,6 +70,9 @@ try{
     }
 
 
+
+
+
     /////////////// CREATE + READ ////////////////
     print('Test create() et read() : ');
     
@@ -106,6 +109,18 @@ try{
     } catch (Exception $e) {
         OK();
     }
+
+        //Méthodes différentes
+    //connectionValide
+    print('Test connectionValide() : ');
+    if(Utilisateur::connectionValide($login,$gpss)){        
+        KO("Erreur sur Utilisateur : Test connectionValide() : Demande de validation d'un faux mot de passe");
+    } elseif(Utilisateur::connectionValide($login,$pss)){
+        OK();
+    }else{
+        throw new Exception('Test connection valide renvoie une erreur même en cas de réussite');
+    }
+    
 
     ////////////////// UPDATE //////////////////
     print('Test update() : ');
