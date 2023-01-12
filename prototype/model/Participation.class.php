@@ -18,12 +18,17 @@ class Participation {
     private Utilisateur $utilisateur;
     private int $nbEncheres;
     private float|null $montantDerniereEnchere;
+    // booleen qui signifie si l'utilisateur est enregistré dans la base
+    private bool $isInDB;
 
     // Constructeur
     public function __construct(Enchere $enchere, Utilisateur $utilisateur) {
         $this->enchere = $enchere;
         $this->utilisateur = $utilisateur;
         $this->nbEncheres = 0;
+        $this->isInDB = false;
+        $enchere->addParticipation($this);
+        $utilisateur->addParticipation($this);
     }
 
     // Getters
@@ -48,17 +53,7 @@ class Participation {
      * Vérifie si la participation est enregistrée dans la bd
      */
     public function isInDB() : bool {
-        // Récupération de la classe DAO
-        $dao = DAO::get();
-
-        // Initialisation de la requête et du tableau de valeurs
-        $query = 'SELECT * FROM Participation WHERE idEnchere = ?, loginUtilisateur = ?';
-        $data = [$this->enchere->getId(), $this->utilisateur->getLogin()];
-
-        // Exécution de la requête
-        $table = $dao->query($query, $data);
-
-        return count($table) == 0;
+        return $this->isInDB;
     }
 
     /////////////////////////////////////////////
@@ -90,6 +85,8 @@ class Participation {
         if ($r != 1) {
             throw new Exception("L'insertion de la participation a échouée");
         }
+
+        $this->isInDB = true;
     }
 
     /////////////////// READ ////////////////////
@@ -122,7 +119,7 @@ class Participation {
         $row = $table[0];
 
         // création d'un objet participation avec les informations de la bd
-        $participation = new Participation(Enchere::read($row['idEnchere']), Utilisateur::read($row['loginUtilisateur']));
+        $participation = new Participation($enchere, $utilisateur);
 
         // on set le nombre d'enchères de la participation
         $participation->nbEncheres = $row['nbEncheres'];
@@ -130,7 +127,69 @@ class Participation {
         // on set le montantDerniereEnchere si il existe
         $participation->montantDerniereEnchere = $row['montantDerniereEnchere'];
 
+        $participation->isInDB = true;
+
         return $participation;
+    }
+
+    public static function readFromUtilisateur(Utilisateur $utilisateur) : array {
+        // récupération du dao
+        $dao = DAO::get();
+
+        // préparation de la query
+        $query = 'SELECT * FROM Participation WHERE loginUtilisateur  = ?';
+        $data = [$utilisateur->getLogin()];
+
+        // récupération de la table de résultat
+        $table = $dao->query($query, $data);
+
+        $out = array();
+        foreach($table as $row) {
+            // création d'un objet participation avec les informations de la bd
+            $participation = new Participation(Enchere::read($row['idEnchere']), $utilisateur);
+
+            // on set le nombre d'enchères de la participation
+            $participation->nbEncheres = $row['nbEncheres'];
+
+            // on set le montantDerniereEnchere si il existe
+            $participation->montantDerniereEnchere = $row['montantDerniereEnchere'];
+
+            $participation->isInDB = true;
+
+            $out[] = $participation;
+        }
+
+        return $out;
+    }
+
+    public static function readFromEnchere(Enchere $enchere) : array {
+        // récupération du dao
+        $dao = DAO::get();
+
+        // préparation de la query
+        $query = 'SELECT * FROM Participation WHERE idEnchere  = ?';
+        $data = [$enchere->getId()];
+
+        // récupération de la table de résultat
+        $table = $dao->query($query, $data);
+
+        $out = array();
+        foreach($table as $row) {
+            // création d'un objet participation avec les informations de la bd
+            $participation = new Participation($enchere, Utilisateur::read($row['loginUtilisateur']));
+
+            // on set le nombre d'enchères de la participation
+            $participation->nbEncheres = $row['nbEncheres'];
+
+            // on set le montantDerniereEnchere si il existe
+            $participation->montantDerniereEnchere = $row['montantDerniereEnchere'];
+
+            $participation->isInDB = true;
+
+            $out[] = $participation;
+        }
+
+        return $out;
     }
 
     ////////////////// UPDATE ///////////////////
@@ -185,5 +244,7 @@ class Participation {
 
         // Exécution de la requête
         $dao->exec($query, $data);
+
+        $this->isInDB = false;
     }
 }

@@ -16,6 +16,7 @@ CREATE TABLE Categorie (
 
 CREATE TABLE Enchere (
 	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	loginCreateur TEXT NOT NULL, 
 	libelle TEXT NOT NULL,
 	dateDebut INTEGER NOT NULL,
 	prixDepart REAL NOT NULL,
@@ -25,6 +26,7 @@ CREATE TABLE Enchere (
 	description TEXT NOT NULL,
 	libelleCategorie INTEGER NOT NULL,
 	dateFinConservation INTEGER NOT NULL,
+	FOREIGN KEY (loginCreateur) REFERENCES Utilisateur(login),
 	FOREIGN KEY (libelleCategorie) REFERENCES Categorie(libelle),
 	FOREIGN KEY (loginUtilisateurDerniereEnchere) REFERENCES Utilisateur(login)
 );
