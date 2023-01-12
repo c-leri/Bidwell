@@ -30,11 +30,9 @@ class Utilisateur {
     public function __construct(string $login, string $email, string $numeroTelephone)
     {
         $this->login = $login;
-
         $this->nom = '';
         $this->setEmail($email);
         $this->setNumeroTelephone($numeroTelephone);
-
         $this->nbJetons = 0;
     }
 
@@ -78,7 +76,7 @@ class Utilisateur {
      */
     public function setNumeroTelephone(string $numeroTelephone) : void {
         if (strlen($numeroTelephone) != 10) {
-            throw new Exception("Un numéro de téléphone doit être composée de 10 chiffres");
+            throw new Exception("Un numéro de téléphone doit être composée de 10 chiffres" . strlen($numeroTelephone));
         }
 
         $this->numeroTelephone = $numeroTelephone;
@@ -86,13 +84,13 @@ class Utilisateur {
 
     // Gestion de la connexion
 
-    /**
-     *
-     * @throws Exception si l'utilisateur n'est pas trouvé dans la bd
-     */
     public static function connectionValide(string $login, string $password) : bool {
-        $utilisateur = Utilisateur::read($login);
-        return $utilisateur->mdpValide($password);
+        try {
+            $utilisateur = Utilisateur::read($login);
+            return $utilisateur->mdpValide($password);
+        } catch (Exception $e) {
+            return false;
+        }
     }
 
     public function mdpValide(string $password) : bool {
@@ -104,18 +102,16 @@ class Utilisateur {
     /**
      * Vérifie si l'utilisateur est enregistré dans la bd
      */
-    public function isInDB() : bool {
+    public function isAttributeInDB($attribute) : bool {
         // Récupération de la classe DAO
         $dao = DAO::get();
-
+        $str = '?';
         // Initialisation de la requête et du tableau de valeurs
-        $requete = 'SELECT * FROM Utilisateur WHERE login = ?';
-        $valeurs = [$this->login];
-
+        $requete = 'SELECT * FROM Utilisateur WHERE '. $attribute .'= '.$str;
+        $valeurs = [$this->$attribute];
         // Exécution de la requête
         $table = $dao->query($requete, $valeurs);
-
-        return count($table) == 0;
+        return count($table) != 0;
     }
 
     /////////////////////////////////////////////
@@ -144,7 +140,7 @@ class Utilisateur {
         // Initialisation de la requête SQL
         $requete = 'INSERT INTO Utilisateur VALUES (?,?,?,?,?,?,?)';
         // Initialisation du tableau de valeurs pour la requête
-        $valeurs = [$this->login, $this->email, $this->mdpHash, $this->nom, $this->numeroTelephone, $this->nbJetons, $dateFinConservation->getTimestamp()];
+        $valeurs = [$this->login, $this->mdpHash, $this->nom, $this->email, $this->numeroTelephone, $this->nbJetons, $dateFinConservation->getTimestamp()];
 
         // Exécution de la requête
         $nbLignesMod = $dao->exec($requete, $valeurs);
@@ -180,7 +176,7 @@ class Utilisateur {
         $tuple = $table[0];
 
         // crée un utilisateur à partir de la ligne du tableau
-        $out = new Utilisateur($tuple['login'], $tuple['email'], $tuple['numeroDeTelephone']);
+        $out = new Utilisateur($tuple['login'], $tuple['email'], $tuple['numeroTelephone']);
 
         // set les informations qui ne sont pas dans le constructeur
         $out->nom = $tuple['nom'];

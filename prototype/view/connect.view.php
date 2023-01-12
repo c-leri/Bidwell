@@ -28,19 +28,21 @@
         <div class="left">
             <h2> Se connecter </h2>
 
-            <form id="connect-form" accept-charset="utf-8" action="connect.ctrl.php" method="post">
+            <form id="connect-form" accept-charset="utf-8" action="" method="post">
                 <h3>Nom d'utilisateur</h3>
-                <input type="text" dir="auto" spellcheck="false" autocomplete="false" placeholder="Nom d'utilisateur" name="login" value="<?=$_SESSION['login'] ?? ''?>">
-
+                <input id="login" type="text" dir="auto" spellcheck="false" autocomplete="false" placeholder="Nom d'utilisateur" name="login" value="<?=$_SESSION['login'] ?? ''?>">
+                <p id="errorlogin"></p>
                 <a href="">Nom d'utilisateur oublié ?</a>
 
 
                 <h3>Mot de passe</h3>
-                <input type="password" dir="auto" spellcheck="false" autocomplete="false" placeholder="Mot de passe" name="password">
-
+                <input id="password" type="password" dir="auto" spellcheck="false" autocomplete="false" placeholder="Mot de passe" name="password">
+                <p id="errorpassword"></p>
                 <a href="">Mot de passe oublié ?</a>
-                <button type="submit" name="submit" value="login">Se connecter</button>
+                <button type="submit">Se connecter</button>
             </form>
+            <script src="../js/connectChecker.js"></script>
+
         </div>
         
 
@@ -49,7 +51,7 @@
                 <h2> Inscription </h2>
 
                 <form id="signup-form" accept-charset="utf-8" action="signup.ctrl.php" method="get">
-                    <button type="submit" name="submit" value="new">Inscription</button>
+                    <button type="submit">Inscription</button>
                 </form>
             </div>
             <hr>

@@ -93,9 +93,13 @@
     /* -- Formulaires -- */
     #signin-form input, #connect-form a{
         margin-bottom: 1rem;
+        border-radius: 0.4rem;
     }
 
     div#top, div#bot{
         margin-left: 1rem;
+    }
+    #erroremail,#errorusername,#errornumtel,#errorlogin, #errorpassword{
+        background-color:var(--couleur-rouge);
     }
 }

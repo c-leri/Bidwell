@@ -13,13 +13,10 @@
     <link rel="stylesheet" href="../view/design/styleGeneral.css">
     <link rel="stylesheet" href="../view/design/styleMenu.css">
     <link rel="stylesheet" href="../view/design/styleFooter.css">
-<<<<<<< HEAD
     <link rel="stylesheet" href="../view/design/styleConsultation.css">
     <link rel="icon" type="image/x-icon" href="../view/design/img/favicon.ico">
-=======
     <link rel="stylesheet" href="../view/design/styleCreation.css">
     <script src="../js/creation.js"></script>
->>>>>>> 0412332731101cbcef74188569fe93d15891112b
 
 </head>
 <!-- Menu -->

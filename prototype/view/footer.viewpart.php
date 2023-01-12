@@ -32,7 +32,7 @@
                 <li><a href="">Mode</a></li>
             </div>
             <div>
-                <li><a href="">Scultures</a></li>
+                <li><a href="">Sculptures</a></li>
                 <li><a href="">Photographie</a></li>
                 <li><a href="">Toutes les catégories</a></li>
             </div>
