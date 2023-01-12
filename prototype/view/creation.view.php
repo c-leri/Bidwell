@@ -88,6 +88,7 @@
                     ?>
                         <article>
                             <img id=<?= "output" . $i ?> src="../view/design/img/default_image.png" alt="">
+                            <p id=<?= "p" . $i ?>> Image n°<?= $i?> </p> 
 
                         </article>
 
