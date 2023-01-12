@@ -39,3 +39,9 @@
   
   /* Change the background color of the dropdown button when the dropdown content is shown */
   .dropdown:hover .dropbtn {background-color: #3e8e41;}
+
+
+  #annonces:checked+label, #utilisateurs:checked+label { 
+    font-weight: bold;
+    text-decoration: underline; 
+  }

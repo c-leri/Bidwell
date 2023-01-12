@@ -18,21 +18,23 @@ class Enchere extends Component {
 
   // Attributs
   private int $id;                              // identifiant unique à chaque enchère, = -1 tant que l'enchère n'est pas enregistrée dans la bd
+  private Utilisateur $createur;
   private string $libelle;
   private DateTime $dateDebut;
   private float $prixDepart;                    // prix auquel commence l'enchère, utilisé dans les calculs d'augmentation du prix 
   private float $prixRetrait;                   // prix de fin de l'enchère si personne n'enchérit
   private Participation|null $derniereEnchere;  // dernière enchère, null jusqu'à la première enchère
-  private $participations = array();            // liste des participations sur cette enchère
-  private $images = array();                    // liste des noms des fichers contenant les images
+  private array $participations = array();      // liste des participations sur cette enchère
+  private array $images = array();              // liste des noms des fichers contenant les images
   private string $description;                  // nom du fichier contenant la description
 
   /**
    * Constructeur
    * @throws Exception si la catégorie n'est pas dans la bd
    */
-  public function __construct(string $libelle, DateTime $dateDebut, float $prixDepart, float $prixRetrait, string $imagePrincipale, string $description, string $libelleCategorie) {
+  public function __construct(Utilisateur $createur, string $libelle, DateTime $dateDebut, float $prixDepart, float $prixRetrait, string $imagePrincipale, string $description, string $libelleCategorie) {
     $this->id = -1;
+    $this->createur = $createur;
     $this->libelle = $libelle;
 	  $this->setDateDebut($dateDebut);
     $this->prixDepart = $prixDepart;
@@ -45,6 +47,10 @@ class Enchere extends Component {
   // Getters
   public function getId() : int {
     return $this->id;
+  }
+
+  public function getCreateur() : Utilisateur {
+    return $this->createur;
   }
 
   public function getLibelle() : string {
@@ -107,8 +113,17 @@ class Enchere extends Component {
   }
 
   // Gestion des participations
+  /**
+   * @throws Exception si l'enchère n'est pas enregistrée dans la bd
+   */
   public function addParticipation(Participation $participation) : void {
-    $this->participations[] = $participation;
+    if (!$this->isInDB())
+      throw new Exception("Impossible de participer à une enchère non enregistrée dans la bd");
+    $this->participations[$participation->getEnchere()->getId().$participation->getUtilisateur()->getLogin()] = $participation;
+  }
+
+  public function removeParticipation(Participation $participation) : void {
+    unset($this->participations[$participation->getEnchere()->getId().$participation->getUtilisateur()->getLogin()]);
   }
 
   // Gestion des images
@@ -173,8 +188,8 @@ class Enchere extends Component {
     $dateFinConservation->add(DateInterval::createFromDateString(Enchere::TEMPS_CONSERVATION));
 
     // préparation de la query
-    $query = 'INSERT INTO Enchere(libelle, dateDebut, prixDepart, prixRetrait, images, description, libelleCategorie, dateFinConservation) VALUES (?,?,?,?,?,?,?,?)';
-    $data = [$this->libelle, $this->dateDebut->getTimestamp(), $this->prixDepart, $this->prixRetrait, $imagesString, $this->description, $this->getLibelleCategorieMere(), $dateFinConservation->getTimestamp()];
+    $query = 'INSERT INTO Enchere(loginCreateur, libelle, dateDebut, prixDepart, prixRetrait, images, description, libelleCategorie, dateFinConservation) VALUES (?,?,?,?,?,?,?,?,?)';
+    $data = [$this->createur->getLogin(), $this->libelle, $this->dateDebut->getTimestamp(), $this->prixDepart, $this->prixRetrait, $imagesString, $this->description, $this->getLibelleCategorieMere(), $dateFinConservation->getTimestamp()];
 
     // récupération du résultat de l'insertion 
     $r = $dao->exec($query, $data);
@@ -234,7 +249,7 @@ class Enchere extends Component {
     $dateDebut->setTimestamp($row['dateDebut']);
 
     // création d'un objet enchère avec les informations de la bd
-    $enchere = new Enchere($row['libelle'], $dateDebut, $row['prixDepart'], $row['prixRetrait'], $images[0], $row['description'], $row['libelleCategorie']);
+    $enchere = new Enchere(Utilisateur::read($row['loginCreateur']), $row['libelle'], $dateDebut, $row['prixDepart'], $row['prixRetrait'], $images[0], $row['description'], $row['libelleCategorie']);
 
     // on set la derniereEnchere si elle est dans la bd
     if (isset($row['loginUtilisateurDerniereEnchere'])) {
@@ -251,7 +266,60 @@ class Enchere extends Component {
     // on set l'id de l'enchère
     $enchere->id = $id;
 
+    foreach(Participation::readFromEnchere($enchere) as $participation) {
+      $enchere->addParticipation($participation);
+    }
+
     return $enchere;
+  }
+
+  public static function readFromCreateur(Utilisateur $createur) : array {
+    // récupératoin du dao
+    $dao = DAO::get();
+
+    // préparation de la query
+    $query = 'SELECT * FROM Enchere WHERE loginCreateur = ?';
+    $data = [$createur->getLogin()];
+
+    // récupération de la table de résultat
+    $table = $dao->query($query, $data);
+
+    $out = array();
+    foreach($table as $row) {
+      // split le contenu du string images de la bd en un tableaux de string contenant le nom des fichiers contenant les images
+      $images = explode(' ', $row['images']);
+
+      // on retire les strings vides de $images
+      while (($key = array_search("", $images)) !== false) {
+        unset($images[$key]);
+      }
+
+      // on récupère le DateTime correspondant au timestamp stocké dans la bd
+      $dateDebut = new DateTime();
+      $dateDebut->setTimestamp($row['dateDebut']);
+
+      // création d'un objet enchère avec les informations de la bd
+      $enchere = new Enchere($createur, $row['libelle'], $dateDebut, $row['prixDepart'], $row['prixRetrait'], $images[0], $row['description'], $row['libelleCategorie']);
+
+      // on set la derniereEnchere si elle est dans la bd
+      if (isset($row['loginUtilisateurDerniereEnchere'])) {
+        $derniereEnchere = Participation::read($enchere, Utilisateur::read($row['loginUtilisateurDerniereEnchere']));
+        $enchere->setDerniereEnchere($derniereEnchere);
+      }
+
+      // on ajoute les images restantes dans la liste de string
+      unset($images[0]);
+      foreach ($images as $image) {
+        $enchere->addImage($image);
+      }
+
+      // on set l'id de l'enchère
+      $enchere->id = $row['id'];
+
+      $out[] = $enchere;
+    }
+
+    return $out;
   }
 
   ////////////////// UPDATE ///////////////////

@@ -139,6 +139,8 @@ try{
         throw new Exception('Test update() : utilisateur mise à jour != utilisateur lu');
     }
 
+    OK();
+
 
      ////////////////// DELETE ///////////////////
     print('Test delete() : ');

@@ -13,9 +13,6 @@
     <link rel="stylesheet" href="../view/design/styleFooter.css">
     <link rel="icon" type="image/x-icon" href="../view/design/img/favicon.ico">
     <link rel="stylesheet" href="../view/design/styleCreation.css">
-    <script src="../js/creation.js"></script>
-
-
 </head>
 
 <body>
@@ -41,7 +38,7 @@
             <div class="nom">
                 <h2> Nom de l'annonce </h2>
 
-                <input type="text" name="nom" required minlength="4" maxlength="60" placeholder="Choisissez un nom">
+                <input type="text" name="nom" required minlength="4" maxlength="60" placeholder="Choisissez un nom" value="nomannonce">
 
                 <p> Le nom de l'annonce est l'information principale que rechercheront les autres utilisateurs. Donner un
                     nom simple et explicite augmente grandement les chances de vendre un article. </p>
@@ -52,14 +49,15 @@
                 <h2> Catégorie de l'annonce </h2>
 
                 <div class="dropdown">
-                    <input type="text" class="dropbtn" id="categorieInput" name="categorie" placeholder="Choisissez une catégorie" onclick="showFunction()" onkeyup="filterFunction()">
+                    <input type="text" class="dropbtn" id="categorieInput" name="categorie" placeholder="Choisissez une catégorie" onclick="showFunction()" onkeyup="filterFunction()" required value="Timbres">
                     <div id="categorieDropdown" class="dropdown-content">
-                        <button onclick="confirmFunction()">A</button>
-                        <button onclick="confirmFunction()">B</button>
-                        <button onclick="confirmFunction()">C</button>
-                        <button onclick="confirmFunction()">BAC</button>
-                        <button onclick="confirmFunction()">ZE</button>
-                        <button onclick="confirmFunction()">ABC</button>
+                        <button onclick="confirmFunction()">Art graphique</button>
+                        <button onclick="confirmFunction()">Art décoratif</button>
+                        <button onclick="confirmFunction()">Bijoux et montres</button>
+                        <button onclick="confirmFunction()">Livres et manuscrits</button>
+                        <button onclick="confirmFunction()">Mobiliers</button>
+                        <button onclick="confirmFunction()">Timbres</button>
+                        <button onclick="confirmFunction()">Pierre précieuses</button>
                     </div>
 
                     <p> Ajouter une catégorie appropriée à votre annonce lui permettra d'être plus facilement trouvée par
@@ -70,7 +68,7 @@
             <div class="description">
                 <h2> Description de l'annonce </h2>
 
-                <input type="text" name="descr" required minlength="50" maxlength="4000" placeholder="Insérez une description (minimum 50 caractères)">
+                <input type="text" name="descr" required minlength="50" maxlength="4000" placeholder="Insérez une description (minimum 50 caractères)" value="Description de fou Description de fou Description de fou Description de fou Description de fou ">
 
                 <p> Une description complète et détailée de votre bien sera perçue comme de plus grande qualité par les
                     autres utilisateurs. Donnez envie d'acheter votre article et mettez en avant ses informations
@@ -81,13 +79,14 @@
             <div class="images">
                 <h2> Ajouter des images </h2>
 
-                <input type="file" accept="image/*" onchange="loadFile(event)">
+                <input type="file" accept="image/*" onchange="loadFile(event)" required>
 
                 <div class="addedImages"> <!-- déso pour le nom je savais pas quoi mettre -->
                     <?php for ($i = 1; $i < 9; $i++) {
                     ?>
                         <article>
-                            <img id=<?= "output" . $i ?> src="../view/design/img/default_image.png" alt="">
+                            <img id=<?= "output" . $i ?> src="../view/design/img/default_image.png">
+                            <p id=<?= "p" . $i ?>> Image n°<?= $i?> </p> 
 
                         </article>
 
@@ -100,25 +99,20 @@
                     Triez vos images par ordre d'importance, la première image sera celle affichée dans la liste des
                     annonces</p>
             </div>
-
-
-            <hr>
-
-
             <div class="base">
-                <h2> Prix de départ de l'annonce </h2>
 
-                <input type="number" name="base" required min="1" max="99999" placeholder="Prix espéré">
+                <input id="prixbase" type="number" name="base" required min="1" max="99999" placeholder="Prix espéré" value="500">
 
                 <p> Définissez le prix auquel vous souhaiteriez vendre votre article. Prenez en compte la valeur réelle
                     de votre article et pensez à ce que vous seriez prêt à mettre à la place de l'acheteur.</p>
             </div>
 
+         
 
             <div class="retrait">
                 <h2> Prix de retrait de l'annonce </h2>
 
-                <input type="number" name="retrait" required min="1" max="99999" placeholder="Prix de retrait">
+                <input id="prixretrait" type="number" name="retrait" required min="1" max="99999" placeholder="Prix de retrait" value="20">
 
                 <p> Notre site utilise en système d'enchère qui comprend une partie descendantes. De ce fait, le prix de
                     votre article pourrait diminuer par rapport au prix de base. Définissez le prix auquel vous ne
@@ -152,7 +146,7 @@
             <div class="localisation">
                 <h2> Localisation du bien (code postal) </h2>
 
-                <input type="number" name="code" required placeholder="Code postal">
+                <input type="number" name="code" required placeholder="Code postal" value="38000">
 
                 <p> Renseigner le numéro de votre commune permet aux utilisateurs de savoir si la remise en main propre
                     est une option possible par rapport à leur emplacement. <br>
@@ -179,7 +173,7 @@
                 </ul>
             </div>
 
-            <input type="submit" name="submit">
+            <button type="submit" name="submit">Créer annonce</button>
         </form>
     </main>
 
@@ -188,5 +182,5 @@
     </footer>
 
 </body>
-
+<script src="../js/creation.js"></script>
 </html>

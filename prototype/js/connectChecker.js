@@ -4,6 +4,7 @@ errorlogin =  document.getElementById("errorlogin"),
 password = document.getElementById("password"),
 errorpassword =  document.getElementById("errorpassword"),
 form= document.getElementById("connect-form");
+
 function validateConnection(event){
     //Empêche le form de reload la page et niquer la requête ajax
     event.preventDefault();
