@@ -31,11 +31,7 @@ class Enchere extends Component {
    * Constructeur
    * @throws Exception si la catégorie n'est pas dans la bd
    */
-  public function __construct(string $libelle, DateTime $dateDebut, float $prixDepart, float $prixRetrait, string $imagePrincipale, string $description, int $idCategorie) {
-    if ($idCategorie == -1) {
-      throw new Exception("Constructeur : Il ne faut pas initialiser une enchère avec une catégorie qui n'est pas dans la bd");
-    }
-
+  public function __construct(string $libelle, DateTime $dateDebut, float $prixDepart, float $prixRetrait, string $imagePrincipale, string $description, string $libelleCategorie) {
     $this->id = -1;
     $this->libelle = $libelle;
 	  $this->setDateDebut($dateDebut);
@@ -43,7 +39,7 @@ class Enchere extends Component {
     $this->prixRetrait = $prixRetrait;
     $this->images[0] = $imagePrincipale;
     $this->description = $description;
-    $this->setIdCategorieMere($idCategorie);
+    $this->setLibelleCategorieMere($libelleCategorie);
   }
 
   // Getters
@@ -155,11 +151,11 @@ class Enchere extends Component {
       throw new Exception("Create : L'enchère $this->id existe déjà dans la bd");
     }
 
-    if ($this->getIdCategorieMere() == null) {
+    if ($this->getLibelleCategorieMere() == null) {
       throw new Exception("Create : La catégorie mère de l'enchère est null");
     }
 
-    if ($this->getIdCategorieMere() == -1) {
+    if (!$this->getCategorieMere()->isInDB()) {
       throw new Exception("Create : La catégorie mère de l'enchère n'existe pas dans la bd");
     }
 
@@ -177,8 +173,8 @@ class Enchere extends Component {
     $dateFinConservation->add(DateInterval::createFromDateString(Enchere::TEMPS_CONSERVATION));
 
     // préparation de la query
-    $query = 'INSERT INTO Enchere(libelle, dateDebut, prixDepart, prixRetrait, images, description, idCategorie, dateFinConservation) VALUES (?,?,?,?,?,?,?,?)';
-    $data = [$this->libelle, $this->dateDebut->getTimestamp(), $this->prixDepart, $this->prixRetrait, $imagesString, $this->description, $this->getIdCategorieMere(), $dateFinConservation->getTimestamp()];
+    $query = 'INSERT INTO Enchere(libelle, dateDebut, prixDepart, prixRetrait, images, description, libelleCategorie, dateFinConservation) VALUES (?,?,?,?,?,?,?,?)';
+    $data = [$this->libelle, $this->dateDebut->getTimestamp(), $this->prixDepart, $this->prixRetrait, $imagesString, $this->description, $this->getLibelleCategorieMere(), $dateFinConservation->getTimestamp()];
 
     // récupération du résultat de l'insertion 
     $r = $dao->exec($query, $data);
@@ -238,7 +234,7 @@ class Enchere extends Component {
     $dateDebut->setTimestamp($row['dateDebut']);
 
     // création d'un objet enchère avec les informations de la bd
-    $enchere = new Enchere($row['libelle'], $dateDebut, $row['prixDepart'], $row['prixRetrait'], $images[0], $row['description'], $row['idCategorie']);
+    $enchere = new Enchere($row['libelle'], $dateDebut, $row['prixDepart'], $row['prixRetrait'], $images[0], $row['description'], $row['libelleCategorie']);
 
     // on set la derniereEnchere si elle est dans la bd
     if (isset($row['loginUtilisateurDerniereEnchere'])) {
@@ -269,11 +265,11 @@ class Enchere extends Component {
       throw new Exception("Update : L'enchère n'existe pas dans la bd");
     }
 
-    if ($this->getIdCategorieMere() == null) {
+    if ($this->getLibelleCategorieMere() == null) {
         throw new Exception("Update : La catégorie mère de l'enchère $this->id est null");
     }
 
-    if ($this->getIdCategorieMere() == -1) {
+    if (!$this->getCategorieMere()->isInDB()) {
       throw new Exception("Update : La catégorie mère de l'enchère $this->id n'existe pas dans la bd");
     }
 
@@ -288,11 +284,11 @@ class Enchere extends Component {
 
     // si l'enchere a une derniere enchère, on l'inclut dans l'update
     if (isset($this->derniereEnchere)) {
-      $query = 'UPDATE Enchere SET libelle = ?, idCategorie = ?, dateDebut = ?, prixDepart = ?, prixRetrait = ?, loginUtilisateurDerniereEnchere = ?, images = ?, description = ? WHERE id = ?';
-      $data = [$this->libelle, $this->getIdCategorieMere(), $this->dateDebut->getTimestamp(), $this->prixDepart, $this->prixRetrait, $this->derniereEnchere->getUtilisateur()->getLogin(), $imagesString, $this->description, $this->id];
+      $query = 'UPDATE Enchere SET libelle = ?, libelleCategorie = ?, dateDebut = ?, prixDepart = ?, prixRetrait = ?, loginUtilisateurDerniereEnchere = ?, images = ?, description = ? WHERE id = ?';
+      $data = [$this->libelle, $this->getLibelleCategorieMere(), $this->dateDebut->getTimestamp(), $this->prixDepart, $this->prixRetrait, $this->derniereEnchere->getUtilisateur()->getLogin(), $imagesString, $this->description, $this->id];
     } else {
-      $query = 'UPDATE Enchere SET libelle = ?, idCategorie = ?, dateDebut = ?, prixDepart = ?, prixRetrait = ?, images = ?, description = ? WHERE id = ?';
-      $data = [$this->libelle, $this->getIdCategorieMere(), $this->dateDebut->getTimestamp(), $this->prixDepart, $this->prixRetrait, $imagesString, $this->description, $this->id];
+      $query = 'UPDATE Enchere SET libelle = ?, libelleCategorie = ?, dateDebut = ?, prixDepart = ?, prixRetrait = ?, images = ?, description = ? WHERE id = ?';
+      $data = [$this->libelle, $this->getLibelleCategorieMere(), $this->dateDebut->getTimestamp(), $this->prixDepart, $this->prixRetrait, $imagesString, $this->description, $this->id];
     }
 
     $nbLignesMod = $dao->exec($query, $data);

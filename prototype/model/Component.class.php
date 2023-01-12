@@ -5,25 +5,25 @@
  * Utilisée par les classes Categorie (contenant) et Enchere (contenu)
  */
 abstract class Component {
-    // l'id de la categorie mère du component
+    // le libelle de la categorie mère du component
     // null si ce component est le component racine 
-    protected int|null $idCategorieMere;
+    protected ?string $libelleCategorieMere;
 
     // Méthodes pour la gestion de la catégorie mère
-    public function getIdCategorieMere() : int|null {
-        return (isset($this->idCategorieMere)) ? $this->idCategorieMere : null;
+    public function getLibelleCategorieMere() : ?string {
+        return (isset($this->libelleCategorieMere)) ? $this->libelleCategorieMere : null;
     }
 
-    public function getCategorieMere() : Categorie|null {
-        return (isset($this->idCategorieMere)) ? Categorie::read($this->idCategorieMere) : null;
+    public function getCategorieMere() : ?Categorie {
+        return (isset($this->libelleCategorieMere)) ? Categorie::read($this->libelleCategorieMere) : null;
     }
 
-    public function setIdCategorieMere(?int $idCategorie): void {
-        $this->idCategorieMere = $idCategorie;
+    public function setLibelleCategorieMere(?string $libelleCategorie): void {
+        $this->libelleCategorieMere = $libelleCategorie;
     }
 
     public function setCategorieMere(?Categorie $categorie): void {
-        $this->idCategorieMere = (isset($categorie)) ? $categorie->getId() : null;
+        $this->libelleCategorieMere = (isset($categorie)) ? $categorie->getLibelle() : null;
     }
 
     // Méthodes pour la gestion des fils

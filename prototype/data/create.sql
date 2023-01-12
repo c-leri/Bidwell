@@ -9,10 +9,9 @@ CREATE TABLE Utilisateur (
 );
 
 CREATE TABLE Categorie (
-	id INTEGER PRIMARY KEY AUTOINCREMENT,
-	libelle TEXT NOT NULL,
-	idMere INTEGER,		-- NULL si c'est la Categorie racine
-	FOREIGN KEY (idMere) REFERENCES Categorie(id)
+	libelle TEXT PRIMARY KEY,
+	libelleMere INTEGER,		-- NULL si c'est la Categorie racine
+	FOREIGN KEY (libelleMere) REFERENCES Categorie(libelle)
 );
 
 CREATE TABLE Enchere (
@@ -24,9 +23,9 @@ CREATE TABLE Enchere (
 	loginUtilisateurDerniereEnchere TEXT,
 	images TEXT NOT NULL,
 	description TEXT NOT NULL,
-	idCategorie INTEGER NOT NULL,
+	libelleCategorie INTEGER NOT NULL,
 	dateFinConservation INTEGER NOT NULL,
-	FOREIGN KEY (idCategorie) REFERENCES Categorie(id),
+	FOREIGN KEY (libelleCategorie) REFERENCES Categorie(libelle),
 	FOREIGN KEY (loginUtilisateurDerniereEnchere) REFERENCES Utilisateur(login)
 );
 
