@@ -99,8 +99,20 @@ class Utilisateur {
 
     // Autres méthodes
 
+
+    public function isInDB() : bool {
+        // Récupération de la classe DAO
+        $dao = DAO::get();
+        $str = '?';
+        // Initialisation de la requête et du tableau de valeurs
+        $requete = 'SELECT * FROM Utilisateur WHERE login= '.$str;
+        $valeurs = [$this->getLogin()];
+        // Exécution de la requête
+        $table = $dao->query($requete, $valeurs);
+        return count($table) != 0;
+    }
     /**
-     * Vérifie si l'utilisateur est enregistré dans la bd
+     * Vérifie si l'attribut est enregistré dans la bd
      */
     public function isAttributeInDB($attribute) : bool {
         // Récupération de la classe DAO
