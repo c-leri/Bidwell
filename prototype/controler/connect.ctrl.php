@@ -9,7 +9,6 @@ include_once(__DIR__."/../framework/View.class.php");
 // Récupérations des données du formulaire
 $login=$_POST['login'] ?? '';
 $password = $_POST['password'] ?? '';
-$submit = $_POST['submit'] ?? '';
 
 // Ouverture de la session
 session_start();
@@ -24,11 +23,17 @@ $view->display("/main.view.php");
 //C'est terminé !
 exit(0);
 }
+////////////////////////////////////////////////////////////////////////////
+// Construction de la vue
+////////////////////////////////////////////////////////////////////////////
 $view = new View();
-// On n'est pas déjà connecté, on examine ce qu'on doit faire
-switch($submit){
 
-case 'login':
+// Charge la vue
+$view->display("connect.view.php");
+
+/*
+// On n'est pas déjà connecté, on examine ce qu'on doit faire
+$view = new View();
 // Vérification du login et mot de passe
 if(1 || ($login=="martin")&&($password=='1234')){
 $_SESSION['login']=$login;
@@ -38,17 +43,5 @@ $view->display("main.view.php");
 // Retourne sur le login
 $view->display("connect.view.php");
 }
-break;
-case 'new':
-// Fonctionalité non implementée
-$view->display("main.view.php");
-break;
-
-default:
-// Envoit sur le login
-$view->display("connect.view.php");
-
-}
-// Charge la vue
-$view->display("connect.view.php");
+*/
 ?>

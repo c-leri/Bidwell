@@ -30,11 +30,9 @@ class Utilisateur {
     public function __construct(string $login, string $email, string $numeroTelephone)
     {
         $this->login = $login;
-
         $this->nom = '';
         $this->setEmail($email);
         $this->setNumeroTelephone($numeroTelephone);
-
         $this->nbJetons = 0;
     }
 
@@ -78,7 +76,7 @@ class Utilisateur {
      */
     public function setNumeroTelephone(string $numeroTelephone) : void {
         if (strlen($numeroTelephone) != 10) {
-            throw new Exception("Un numéro de téléphone doit être composée de 10 chiffres");
+            throw new Exception("Un numéro de téléphone doit être composée de 10 chiffres" . strlen($numeroTelephone));
         }
 
         $this->numeroTelephone = $numeroTelephone;
@@ -86,13 +84,13 @@ class Utilisateur {
 
     // Gestion de la connexion
 
-    /**
-     *
-     * @throws Exception si l'utilisateur n'est pas trouvé dans la bd
-     */
     public static function connectionValide(string $login, string $password) : bool {
-        $utilisateur = Utilisateur::read($login);
-        return $utilisateur->mdpValide($password);
+        try {
+            $utilisateur = Utilisateur::read($login);
+            return $utilisateur->mdpValide($password);
+        } catch (Exception $e) {
+            return false;
+        }
     }
 
     public function mdpValide(string $password) : bool {
@@ -101,20 +99,30 @@ class Utilisateur {
 
     // Autres méthodes
 
-    /**
-     * Vérifie si l'utilisateur est enregistré dans la bd
-     */
+
     public function isInDB() : bool {
         // Récupération de la classe DAO
         $dao = DAO::get();
-
+        $str = '?';
         // Initialisation de la requête et du tableau de valeurs
-        $requete = 'SELECT * FROM Utilisateur WHERE login = ?';
-        $valeurs = [$this->login];
-
+        $requete = 'SELECT * FROM Utilisateur WHERE login= '.$str;
+        $valeurs = [$this->getLogin()];
         // Exécution de la requête
         $table = $dao->query($requete, $valeurs);
-
+        return count($table) != 0;
+    }
+    /**
+     * Vérifie si l'attribut est enregistré dans la bd
+     */
+    public function isAttributeInDB($attribute) : bool {
+        // Récupération de la classe DAO
+        $dao = DAO::get();
+        $str = '?';
+        // Initialisation de la requête et du tableau de valeurs
+        $requete = 'SELECT * FROM Utilisateur WHERE '. $attribute .'= '.$str;
+        $valeurs = [$this->$attribute];
+        // Exécution de la requête
+        $table = $dao->query($requete, $valeurs);
         return count($table) != 0;
     }
 

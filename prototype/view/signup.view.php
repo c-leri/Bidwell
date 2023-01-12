@@ -24,30 +24,25 @@
     <main class="connect">
         <div class="left">
             <h2> S'inscrire </h2>
-            <form id="signin-form" accept-charset="utf-8" action="" method="post" name="register-form" >
+            <form id="signin-form" accept-charset="utf-8" action="" method="post" name="register-form">
                 <h3>Nom d'utilisateur</h3>
-                <input type="text" dir="auto" spellcheck="false" autocomplete="off" required minlength="4" maxlength="16" >
-                <p class="error username-error"></p>
-
+                <input id="username" name="username" type="text" dir="auto" spellcheck="false" autocomplete="off" required minlength="4" maxlength="16" placeholder="Nom d'utilisateur">
+                <p id="errorusername"></p>
                 <h3>Mot de passe</h3>
-                <input id="password" type="password" dir="auto" spellcheck="false" autocomplete="off"  required minlength="8" maxlength="16">
-                <p class="error password-error"></p>
+                <input id="password" name="password" type="password" dir="auto" spellcheck="false" autocomplete="off"  required minlength="8" maxlength="16" placeholder="Mot de passe">
 
                 <h3>Confirmer le mot de passe</h3>
-                <input id="confirm_password" type="password" dir="auto" spellcheck="false" autocomplete="off" required minlength="8" maxlength="16">
-                <p class="error confirm-password-error"></p>
+                <input id="confirm_password" type="password" dir="auto" spellcheck="false" autocomplete="off" required minlength="8" maxlength="16" placeholder="Confirmer le mot de passe">
 
                 <h3>Mail</h3>
-                <input id="mail" type="email" dir="auto" spellcheck="false" autocomplete="off" required maxlength="32">
-                <p class="error mail-error"></p>
-
+                <input id="mail" name="email" type="email" dir="auto" spellcheck="false" autocomplete="off" required maxlength="32" placeholder="Adresse mail">
+                <p id="erroremail"></p>
                 <h3>Téléphone</h3>
-                <input id="tel" type="tel" dir="auto" spellcheck="false" autocomplete="off" required pattern="[0-9]{10}">
-                <p class="error phone-error"></p>
-
+                <input id="tel" name="phone" type="tel" dir="auto" spellcheck="false" autocomplete="off" required pattern="[0-9]{10}" placeholder="Numéro de téléphone">
+                <p id="errornumtel"></p>
                 <button type="submit" name="submit">Confirmer</button>
             </form>
-            <script src="../js/form_checker.js"></script>
+            <script src="../js/signupChecker.js"></script>
         </div>
 
 
@@ -63,10 +58,10 @@
             <div id="bot">
                 <h2> Liens utiles </h2>
                 <ul>
-                    <li><a href="#">Conditions d’utilisation</a></li>
-                    <li><a href="#">Cookies</a></li>
-                    <li><a href="#">Mentions légales</a></li>
-                    <li><a href="#">Politique de confidentalité</a></li>
+                <li><a href="#">Conditions d'utilisation</a></li>
+                <li><a href="#">Cookies</a></li>
+                <li><a href="#">Mentions légales</a></li>
+                <li><a href="#">Politique de confidentalité</a></li>
                 </ul>
             </div>
         </div>
