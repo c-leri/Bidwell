@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 #!/usr/bin/env php -a
 
 <?php
@@ -116,17 +115,3 @@ try {
 	KO("Erreur dans la suppression de la participation.");
 }
 ?>
-
-=======
-<?php
-// Test de la classe Participation
-require_once __DIR__.'/../model/Participation.class.php';
-// Fonctions d'aide
-require_once(__DIR__ . "/Helper.php");
-
-try {
-    
-} catch (Exception $e) {
-    KO('Erreur sur Participation'.$e->getMessage());
-}
->>>>>>> 17f84b81eaa5545a7f9fdaf197db39c23a07d784

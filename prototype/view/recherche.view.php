@@ -44,7 +44,7 @@
             <div class="dropdown">
                 <p> Trier par </p>
                 <form action="">
-                    <select name="tri" id="tri" onchange="showCustomer()">
+                    <select name="tri" id="tri" onchange="showItems()">
                         <option value="creation">Date de création</option>
                         <option value="nom">Nom</option>
                         <option value="prix">Prix</option>
@@ -73,11 +73,7 @@
             </div>
 
             <div class="annonces">
-                <?php for ($i = 0; $i < 12; $i++) {
-                    ?>
-
-
-                <?php } ?>
+                
             </div>
 
             <div class="numPage">
