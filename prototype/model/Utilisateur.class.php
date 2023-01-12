@@ -1,5 +1,5 @@
 <?php
-
+require_once __DIR__."/DAO.class.php";
 /**
  * La classe Utilisateur modélise les utilisateurs enregistrés sur l'application à partir d'un login, d'un mot de passe hashé, d'un nom
  * d'un e-mail, d'un numéro de téléphone et d'un nombre de jetons.
@@ -168,9 +168,14 @@ class Utilisateur {
         // Exécution de la requête
         $table = $dao->query($requete, $valeurs);
 
-        // Levée d'une exception si la requête ne renvoie pas d'utilisateur
-        if (count($table) != 1) {
-            throw new Exception("Read : L'utilisateur " . $login . " n'existe pas dans la bd");
+        // throw une exception si on ne trouve pas l'utilisateur
+        if (count($table) == 0) {
+            throw new Exception("Read : Utilisateur $login non trouvée");
+        }
+    
+        // throw une exception si on trouve plusieurs utilisateurs
+        if (count($table) > 1) {
+            throw new Exception("Read : Utilisateur $login existe en ".count($table).' exemplaires');
         }
 
         $tuple = $table[0];

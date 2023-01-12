@@ -27,16 +27,23 @@ class Enchere extends Component {
   private $images = array();                    // liste des noms des fichers contenant les images
   private string $description;                  // nom du fichier contenant la description
 
-  // constructeur
-  public function __construct(string $libelle, DateTime $dateDebut, float $prixDepart, float $prixRetrait, string $imagePrincipale, string $description, Categorie $categorie) {
+  /**
+   * Constructeur
+   * @throws Exception si la catégorie n'est pas dans la bd
+   */
+  public function __construct(string $libelle, DateTime $dateDebut, float $prixDepart, float $prixRetrait, string $imagePrincipale, string $description, int $idCategorie) {
+    if ($idCategorie == -1) {
+      throw new Exception("Constructeur : Il ne faut pas initialiser une enchère avec une catégorie qui n'est pas dans la bd");
+    }
+
     $this->id = -1;
     $this->libelle = $libelle;
-    $this->dateDebut = $dateDebut; 
+	  $this->setDateDebut($dateDebut);
     $this->prixDepart = $prixDepart;
     $this->prixRetrait = $prixRetrait;
     $this->images[0] = $imagePrincipale;
     $this->description = $description;
-    $this->setParent($categorie);
+    $this->setIdCategorieMere($idCategorie);
   }
 
   // Getters
@@ -94,6 +101,15 @@ class Enchere extends Component {
     $this->description = $description;
   }
 
+  public function setDateDebut(DateTime $date) : void {
+	  $currentDate = new DateTime();
+	  if ($date > $currentDate) {
+		  $this->dateDebut = $date;
+	  } else {
+		  throw new Exception($date->format('Y-m-d') . " est antérieure à la date courante : " . $currentDate->format('Y-m-d'));
+	  }
+  }
+
   // Gestion des participations
   public function addParticipation(Participation $participation) : void {
     $this->participations[] = $participation;
@@ -119,7 +135,7 @@ class Enchere extends Component {
    * Vérifie si l'enchère est enregistrée dans la bd
    */
   public function isInDB() : bool {
-    return $this->id == -1;
+    return $this->id != -1;
   }
 
   /////////////////////////////////////////////
@@ -136,14 +152,14 @@ class Enchere extends Component {
    */
   public function create() : void {
     if ($this->id != -1) {
-        throw new Exception("Create : L'enchère $this->id existe déjà dans la bd");
+      throw new Exception("Create : L'enchère $this->id existe déjà dans la bd");
     }
 
-    if ($this->getParent() == null) {
+    if ($this->getIdCategorieMere() == null) {
       throw new Exception("Create : La catégorie mère de l'enchère est null");
     }
 
-    if ($this->getParent()->getId() == -1) {
+    if ($this->getIdCategorieMere() == -1) {
       throw new Exception("Create : La catégorie mère de l'enchère n'existe pas dans la bd");
     }
 
@@ -162,7 +178,7 @@ class Enchere extends Component {
 
     // préparation de la query
     $query = 'INSERT INTO Enchere(libelle, dateDebut, prixDepart, prixRetrait, images, description, idCategorie, dateFinConservation) VALUES (?,?,?,?,?,?,?,?)';
-    $data = [$this->libelle, $this->dateDebut->getTimestamp(), $this->prixDepart, $this->prixRetrait, $imagesString, $this->description, $this->getParent()->getId(), $dateFinConservation->getTimestamp()];
+    $data = [$this->libelle, $this->dateDebut->getTimestamp(), $this->prixDepart, $this->prixRetrait, $imagesString, $this->description, $this->getIdCategorieMere(), $dateFinConservation->getTimestamp()];
 
     // récupération du résultat de l'insertion 
     $r = $dao->exec($query, $data);
@@ -175,6 +191,9 @@ class Enchere extends Component {
     // on récupère l'id de l'enchère dans la bd
     $id = (int) $dao->lastInsertId();
     $this->id = $id;
+
+    // maintenant que l'enchere a un id, on la rajoute comme fille de sa catégorie
+    $this->getCategorieMere()->add($this);
   }
 
   /////////////////// READ ////////////////////
@@ -209,12 +228,17 @@ class Enchere extends Component {
     // split le contenu du string images de la bd en un tableaux de string contenant le nom des fichiers contenant les images
     $images = explode(' ', $row['images']);
 
+    // on retire les strings vides de $images
+    while (($key = array_search("", $images)) !== false) {
+      unset($images[$key]);
+    }
+
     // on récupère le DateTime correspondant au timestamp stocké dans la bd
     $dateDebut = new DateTime();
     $dateDebut->setTimestamp($row['dateDebut']);
 
     // création d'un objet enchère avec les informations de la bd
-    $enchere = new Enchere($row['libelle'], $dateDebut, $row['prixDepart'], $row['prixRetrait'], $images[0], $row['description'], Categorie::read($row['idCategorie']));
+    $enchere = new Enchere($row['libelle'], $dateDebut, $row['prixDepart'], $row['prixRetrait'], $images[0], $row['description'], $row['idCategorie']);
 
     // on set la derniereEnchere si elle est dans la bd
     if (isset($row['loginUtilisateurDerniereEnchere'])) {
@@ -245,11 +269,11 @@ class Enchere extends Component {
       throw new Exception("Update : L'enchère n'existe pas dans la bd");
     }
 
-    if ($this->getParent() == null) {
+    if ($this->getIdCategorieMere() == null) {
         throw new Exception("Update : La catégorie mère de l'enchère $this->id est null");
     }
 
-    if ($this->getParent()->getId() == -1) {
+    if ($this->getIdCategorieMere() == -1) {
       throw new Exception("Update : La catégorie mère de l'enchère $this->id n'existe pas dans la bd");
     }
 
@@ -265,10 +289,10 @@ class Enchere extends Component {
     // si l'enchere a une derniere enchère, on l'inclut dans l'update
     if (isset($this->derniereEnchere)) {
       $query = 'UPDATE Enchere SET libelle = ?, idCategorie = ?, dateDebut = ?, prixDepart = ?, prixRetrait = ?, loginUtilisateurDerniereEnchere = ?, images = ?, description = ? WHERE id = ?';
-      $data = [$this->libelle, $this->getParent()->getId(), $this->dateDebut->getTimestamp(), $this->prixDepart, $this->prixRetrait, $this->derniereEnchere->getUtilisateur()->getLogin(), $imagesString, $this->description, $this->id];
+      $data = [$this->libelle, $this->getIdCategorieMere(), $this->dateDebut->getTimestamp(), $this->prixDepart, $this->prixRetrait, $this->derniereEnchere->getUtilisateur()->getLogin(), $imagesString, $this->description, $this->id];
     } else {
       $query = 'UPDATE Enchere SET libelle = ?, idCategorie = ?, dateDebut = ?, prixDepart = ?, prixRetrait = ?, images = ?, description = ? WHERE id = ?';
-      $data = [$this->libelle, $this->getParent()->getId(), $this->dateDebut->getTimestamp(), $this->prixDepart, $this->prixRetrait, $imagesString, $this->description, $this->id];
+      $data = [$this->libelle, $this->getIdCategorieMere(), $this->dateDebut->getTimestamp(), $this->prixDepart, $this->prixRetrait, $imagesString, $this->description, $this->id];
     }
 
     $nbLignesMod = $dao->exec($query, $data);
@@ -303,3 +327,4 @@ class Enchere extends Component {
     $this->id = -1;
   }
 }
+

@@ -4,10 +4,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="description" content="Site de vente aux enchères de particulier à particulier">
-    <meta name="keywords"
-        content="Bidwell, Bidwell.fr, Vente aux enchères, Vente aux enchères en ligne, Art, Bijouterie, Joaillerie, Mobilier, Mode, Bijoux, Sculptures, Monnais, Pierres, Objets de collection">
-    <meta name="author"
-        content="Paul Sode, Gatien Caillet, Célestin Bouchet, Antoine Vuillet, Clément Mazet, Hippolyte Chauvin">
+    <meta name="keywords" content="Bidwell, Bidwell.fr, Vente aux enchères, Vente aux enchères en ligne, Art, Bijouterie, Joaillerie, Mobilier, Mode, Bijoux, Sculptures, Monnais, Pierres, Objets de collection">
+    <meta name="author" content="Paul Sode, Gatien Caillet, Célestin Bouchet, Antoine Vuillet, Clément Mazet, Hippolyte Chauvin">
     <title>Connexion</title>
     <link rel="stylesheet" href="../view/design/styleGeneral.css">
     <link rel="stylesheet" href="../view/design/styleConnect.css">
@@ -56,7 +54,7 @@
                     <button type="submit">Connexion</button>
                 </form>
             </div>
-
+            <hr>
             <div id="bot">
                 <h2> Liens utiles </h2>
                 <ul>
@@ -68,8 +66,8 @@
             </div>
         </div>
         <div class="right">
-        <h2> FAQ </h2>
-        <p>truc style de Paul</p>
+            <h2> FAQ </h2>
+            <p>truc style de Paul</p>
         </div>
     </main>
     <footer>

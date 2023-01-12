@@ -12,8 +12,6 @@
     div.nav-left img {
         display: block;
     }
-    
-    
 
     /* - Div de la barre du haut  - */
     nav#navbar-top {
@@ -34,7 +32,7 @@
 
     /* - Boutons du milieu et droite de la barre du haut - */
     nav#navbar-top div.nav-center a,
-    nav#navbar-top div.nav-right #nav-right-signup a {
+    nav#navbar-top div.nav-right #nav-right-signup a, div#nav-right-my_account a{
         text-decoration: none;
         color: var(--couleur-noir);
         background-color: var(--couleur-jaune);
@@ -86,7 +84,7 @@
     }
 
     /* - Premier bouton de droite - */
-    div#nav-right-signin a, div#nav-right-cancel a {
+    div#nav-right-signin a, div#nav-right-cancel a, div#nav-right-logout a {
         text-decoration: none;
         border-radius: 1rem;
         white-space: nowrap;

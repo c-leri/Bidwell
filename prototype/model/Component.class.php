@@ -5,17 +5,25 @@
  * Utilisée par les classes Categorie (contenant) et Enchere (contenu)
  */
 abstract class Component {
-    // le parent du component
+    // l'id de la categorie mère du component
     // null si ce component est le component racine 
-    protected Component|null $parent;
+    protected int|null $idCategorieMere;
 
-    // Méthodes pour la gestion du parent 'parent'
-    public function getParent() : Component|null {
-        return (isset($this->parent)) ? $this->parent : null;
+    // Méthodes pour la gestion de la catégorie mère
+    public function getIdCategorieMere() : int|null {
+        return (isset($this->idCategorieMere)) ? $this->idCategorieMere : null;
     }
 
-    public function setParent(?Component $parent): void {
-        $this->parent = $parent;
+    public function getCategorieMere() : Categorie|null {
+        return (isset($this->idCategorieMere)) ? Categorie::read($this->idCategorieMere) : null;
+    }
+
+    public function setIdCategorieMere(?int $idCategorie): void {
+        $this->idCategorieMere = $idCategorie;
+    }
+
+    public function setCategorieMere(?Categorie $categorie): void {
+        $this->idCategorieMere = (isset($categorie)) ? $categorie->getId() : null;
     }
 
     // Méthodes pour la gestion des fils
