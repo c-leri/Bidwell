@@ -1,14 +1,18 @@
 <?php
+namespace Bidwell\Bidwell\Test;
+
 // Test de la classe DAO
-require_once(__DIR__ . '/../model/DAO.class.php');
-// Fonctions d'aide
-require_once(__DIR__ . '/Helper.php');
+use Bidwell\Bidwell\Model\DAO;
+
+use Exception;
+
+require_once __DIR__.'/../../vendor/autoload.php';
 
 try {
     // Constructeur
     print("Création d'un objet DAO : ");
     $dao = DAO::get();
-    OK();
+    Helper::OK();
 
     ////////////////// CREATE ///////////////////
 
@@ -21,21 +25,14 @@ try {
     if ($res != 1) {
         throw new Exception("Insertion d'une première Catégorie : $res nombre de lignes insérées, Attendu : 1");
     }
-    $idCategorie1 = $dao->lastInsertId();
 
     // Insertion d'une deuxième Catégorie
-    $query = 'SELECT id FROM Categorie  WHERE idMere IS NULL';
-    $data = [];
-    $table = $dao->query($query, $data);
-    $idMere = $table[0][0];
-
-    $query = 'INSERT INTO Categorie(libelle, idMere) VALUES(?,?)';
-    $data = ['filleTest', $idMere];
+    $query = 'INSERT INTO Categorie(libelle, libelleMere) VALUES(?,?)';
+    $data = ['filleTest', 'mereTest'];
     $res = $dao->exec($query, $data);
     if ($res != 1) {
         throw new Exception("Insertion d'une deuxième Catégorie : $res nombre de lignes insérées, Attendu : 1");
     }
-    $idCategorie2 = $dao->lastInsertId();
 
     // Insertion d'un Utilisateur
     $mdpHash = password_hash('mdp', PASSWORD_BCRYPT);
@@ -48,15 +45,15 @@ try {
     }
 
     // Insertion d'une Enchère
-    $query = 'INSERT INTO Enchere(libelle, dateDebut, prixDepart, prixRetrait, images, description, idCategorie, dateFinConservation) VALUES(?,?,?,?,?,?,?,?)';
-    $data = ['testInsert', 20, 100, 0, 'testInsert.png', 'testInsert.txt', 1, 0];
+    $query = 'INSERT INTO Enchere(loginCreateur, libelle, dateDebut, prixDepart, prixRetrait, images, description, libelleCategorie, dateFinConservation) VALUES(?,?,?,?,?,?,?,?,?)';
+    $data = ['loginTest', 'testInsert', 20, 100, 0, 'testInsert.png', 'testInsert.txt', 'filleTest', 0];
     $res = $dao->exec($query, $data);
     if ($res != 1) {
         throw new Exception("Insertion d'une Enchère : $res nombre de lignes insérées, Attendu : 1");
     }
     $idEnchere = $dao->lastInsertId();
 
-    OK();
+    Helper::OK();
 
     /////////////////// READ ////////////////////
 
@@ -67,20 +64,20 @@ try {
     $value = $dao->query($query, $data);
     $expected = array(
         array(
-        'login' => 'loginTest',
-        0 => 'loginTest',
-        'mdpHash' => $mdpHash,
-        1 => $mdpHash,
-        'nom' => 'test',
-        2 => 'test',
-        'email' => 'test@example.com',
-        3 => 'test@example.com',
-        'numeroTelephone' => '0146829164',
-        4 => '0146829164',
-        'nbJetons' => 0,
-        5 => 0,
-        'dateFinConservation' => 0,
-        6 => 0
+            'login' => 'loginTest',
+            0 => 'loginTest',
+            'mdpHash' => $mdpHash,
+            1 => $mdpHash,
+            'nom' => 'test',
+            2 => 'test',
+            'email' => 'test@example.com',
+            3 => 'test@example.com',
+            'numeroTelephone' => '0146829164',
+            4 => '0146829164',
+            'nbJetons' => 0,
+            5 => 0,
+            'dateFinConservation' => 0,
+            6 => 0
         )
     );
     if ($value != $expected) {
@@ -89,20 +86,20 @@ try {
         var_dump($expected);
         throw new Exception("Utilisateur $login non trouvé");
     }
-    
-    OK();
+
+    Helper::OK();
 
     ////////////////// UPDATE ///////////////////
 
     print("Test d'une modification par exec : ");
     $query = 'UPDATE Utilisateur SET mdpHash = ?, nom = ?, email = ?, numeroTelephone = ?, nbJetons = ? WHERE login = ?';
-    $data = ['mdpHashœœ', 'utilisateurUpdate', 'test2@example.com', '0123456789', 50, 'loginTest'];
+    $data = ['mdpHash', 'utilisateurUpdate', 'test2@example.com', '0123456789', 50, 'loginTest'];
     $res = $dao->exec($query, $data);
     if ($res != 1) {
         throw new Exception("$res nombre de lignes modifiées, Attendu : 1");
     }
 
-    OK();
+    Helper::OK();
 
     ////////////////// DELETE ///////////////////
 
@@ -125,15 +122,15 @@ try {
     }
 
     // Suppression des Catégories
-    $query = 'DELETE FROM Categorie WHERE id = ? OR id = ?';
-    $data = [$idCategorie1, $idCategorie2];
+    $query = 'DELETE FROM Categorie WHERE libelle = ? OR libelle = ?';
+    $data = ['mereTest', 'filleTest'];
     $res = $dao->exec($query, $data);
     if ($res != 2) {
         throw new Exception("Suppression des Catégories : $res nombre de lignes supprimées, Attendu : 2");
     }
 
-    OK();
+    Helper::OK();
 
 } catch(Exception $e) {
-    KO("Erreur sur DAO : ".$e->getMessage());
+    Helper::KO("Erreur sur DAO : ".$e->getMessage());
 }

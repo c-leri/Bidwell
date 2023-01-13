@@ -1,0 +1,16 @@
+{
+    "name": "bidwell/bidwell",
+    "autoload": {
+        "psr-4": {
+            "Bidwell\\Bidwell\\": "src/",
+            "Bidwell\\Bidwell\\Model\\": "src/Model/",
+            "Bidwell\\Bidwell\\Test\\": "src/Test/",
+            "Bidwell\\Bidwell\\Framework\\": "src/Framework/",
+            "Bidwell\\Bidwell\\Controler\\": "src/Controler/",
+            "Bidwell\\Bidwell\\Api\\": "src/Api/"
+        }
+    },
+    "require": {
+      "ext-pdo": "*"
+    }
+}
