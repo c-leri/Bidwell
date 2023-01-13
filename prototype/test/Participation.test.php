@@ -96,11 +96,11 @@ try {
 
 /**
  * Test de la méthode update()
- *  - La méthode incrementeEncheri est utilisée pour modifier un attribut
+ *  - La méthode setInstantDerniereEnchere est utilisée pour modifier un attribut
  */
 print('Test update() : ');
 try {
-	$participation->incrementeEncheri();
+	$participation->setInstantDeniereEnchere(new DateTime());
 	$participation->update();
 	$participationRead = Participation::read($enchere, $utilisateur);
 	if ($participation != $participationRead) {
