@@ -9,7 +9,6 @@ $login = $_POST["login"] ?? '';
 $password = $_POST["password"] ?? '';
 if(isset($login)&&isset($password)){
     $reponse = new stdClass();
-    
     if(Utilisateur::connectionValide($login,$password)){
         session_start();
         $_SESSION['login']=$login;
@@ -17,9 +16,7 @@ if(isset($login)&&isset($password)){
     }else{
         $reponse->sucess =0;
         try{
-            
            $utilisateur = Utilisateur::read($login);
-          
            //Ancune Exception levée, l'utilisateur existe, le problème est donc un mdp incorrecte, on le signale à l'utilisateur
             $reponse->loginerror =0;
             $reponse->passworderror =1;
@@ -30,8 +27,6 @@ if(isset($login)&&isset($password)){
             $reponse->passworderror =0;
             $reponse->loginerrormsg="Le nom d'utilisateur ".$login ." n'existe pas";
         }
-      
-
     }
     $json = json_encode($reponse);
     echo $json;

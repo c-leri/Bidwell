@@ -1,25 +1,83 @@
 
 
-//Affiche ou cache les options du dropdown des catégorie
-function showFunction() {
-  document.getElementById("categorieDropdown").classList.toggle("show");
+//Affiche ou cache les options du dropdown des catégorie ou localisation
+function showFunction(nomDropDown) {
+  document.getElementById(nomDropDown+"Dropdown").classList.toggle("show");
 }
 
-
+//Met à jour le dropdown des localisations en contactant une api
+function updateLocalisationDropdown(input){
+  const localisationanchor =  document.getElementById("ajoutbuttonanchorlocalisation"),
+  localisationDropDown = document.getElementById("localisationDropdown");
+//Création des buttons contenant code postal+ ville en fonction de l'input utilisateur
+    //1- Récupérer les infos via l'api
+    var requete = new XMLHttpRequest();
+    //Précise quel controleur php le client va contacter via ajax ainsi que la méthode utilisée
+    requete.open("POST", " https://vicopo.selfbuild.fr/search/"+input.value, true); //True pour que l'exécution du script continue pendant le chargement, false pour attendre.
+    //Header utile au bon fonctionnement de la requête
+    requete.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    requete.onload = function() {
+      const rep = JSON.parse(this.responseText);
+      console.log(rep);
+      console.log("ok");
+      //2-Créer les boutons
+      for (let i = 0; i<8 && i < rep.cities.length ; i++) {
+        //Création bouton
+        button = document.createElement("button");
+        button.textContent= rep.cities[i].city + " ("+rep.cities[i].code+")";
+        button.addEventListener('click',function(e){
+          confirmFunction(e,'localisation');
+        });
+        button.id = "bl"+i;
+        //Insertion sur la page
+        localisationDropDown.insertBefore(button, localisationanchor);
+      } 
+     
+    }
+    requete.send();
+}
+function updateCategorieDropdown(input){
+  const categorienanchor =  document.getElementById("ajoutbuttonanchorcategorie"),
+  categorieDropDown = document.getElementById("categorieDropdown");
+  //Recup les catégorie via requete ajax
+  console.log("AAAAAA");
+  var requete = new XMLHttpRequest();
+//Précise quel controleur php le client va contacter via ajax ainsi que la méthode utilisée
+requete.open("POST", "../controler/creationPart2.ctrl.php", true);//Header utile au bon fonctionnement de la requête
+requete.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+requete.onload = function() {
+  const rep = JSON.parse(this.responseText);
+  console.log(rep);
+}
+requete.send();
+}
+//Supprime les boutons du dropdown
+function removebuttons(name){
+  i =0
+    while (document.getElementById("b"+i)!=null) {
+      document.getElementById("b"+name.substring(0,1)+i).remove();
+      i++;
+    }
+}
 //----------------------------------------------------------//
-
-
-//Filtre les catégories du dropdown des catégories en fonction du texte entré dans l'input
-function filterFunction() {
-  var input, filter, button, i;
-  input = document.getElementById("categorieInput");
-
+//Filtre les catégories du dropdown des catégories et localisation en fonction du texte entré dans l'input
+function filterFunction(name) {
+  removebuttons(name);
+  var input, filter, buttons, i;
+  input = document.getElementById(name+"Input");
+  if(name=="localisation" && input.value.length>=2){
+    //Gère l'input localisation uniquement pour contacter l'api etc
+    updateLocalisationDropdown(input);
+  }else if(name=="categorie"){
+    console.log("kateguri");
+    updateCategorieDropdown(input);
+  }
   //Pour filtrer, met tout en majuscule pour que ce soit plus simple
   filter = input.value.toUpperCase();
-  div = document.getElementById("categorieDropdown");
+  div = document.getElementById(name+"Dropdown");
   buttons = div.getElementsByTagName("button");
 
-  //Pour chaque bouton concernés (dans la division catégorieDropdown), vérifie si son texte correspond au texte de l'input
+  //Pour chaque bouton concernés (dans la division nameDropdown), vérifie si son texte correspond au texte de l'input
   //Si oui, lelaisse affiché, sinon le cache
   for (i = 0; i < buttons.length; i++) {
     txtValue = buttons[i].textContent || buttons[i].innerText;
@@ -30,24 +88,19 @@ function filterFunction() {
     }
   }
 }
-
-
 //----------------------------------------------------------//
 
 
 //Renvoie le texte du bouton sélectionné dans l'input des catégories
-function confirmFunction(event) {
+function confirmFunction(event,name) {
+  event.preventDefault();
     var source, output;
-
     //Cherche quel bouton est à l'origine de l'événement qui a lancé la fonction
     source = event.target || event.srcElement;
-
-    output = document.getElementById("categorieInput");
+    output = document.getElementById(name+"Input");
     output.value = source.textContent || source.innerText;
-
-
     //Ferme la liste des catégories
-    showFunction();
+    showFunction(name);
 }
 
 

@@ -316,10 +316,10 @@ class Enchere {
 
     // préparation de la query
     if ($categorie == '') {
-      $query = "SELECT * FROM Enchere WHERE libelle LIKE ? ORDER BY $order $ordre LIMIT ?, ?";
+      $query = "SELECT * FROM Enchere WHERE libelle LIKE ? ORDER BY $order COLLATE NOCASE $ordre LIMIT ?, ?";
       $data = ['%' . $pattern . '%', $decalage, $pageSize];
     } else {
-      $query = "SELECT * FROM Enchere WHERE categorie = ? AND libelle LIKE ? ORDER BY $order $ordre LIMIT ?, ?";
+      $query = "SELECT * FROM Enchere WHERE categorie = ? AND libelle LIKE ? ORDER BY $order COLLATE NOCASE $ordre LIMIT ?, ?";
       $data = [$categorie, '%' . $pattern . '%', $decalage, $pageSize];
     }
     // récupération de la table de résultat
