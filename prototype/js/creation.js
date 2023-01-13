@@ -36,7 +36,7 @@ function filterFunction() {
 
 
 //Renvoie le texte du bouton sélectionné dans l'input des catégories
-function confirmFunction() {
+function confirmFunction(event) {
     var source, output;
 
     //Cherche quel bouton est à l'origine de l'événement qui a lancé la fonction
@@ -69,17 +69,43 @@ output.onload = function() {
   };
 
 
-//----------------------------------------------------------//
-const prixretrait = document.getElementById("prixretrait"),
-prixbase = document.getElementById("prixbase");
-prixbase.onkeyup = validatePrices;
+//--------------------------PARTIE GESTION ERREUR UTILISATEUR--------------------------------//
 
-function validatePrices(event){
-  event.preventDefault();
-  console.log("OUAI")
-  if(prixbase.value >= prixretrait.value*1.1) {
-    prixretrait.setCustomValidity("Le prix de base doit être au moins 10% supérieur au prix de retrait");
+
+
+
+
+function validatePrices(){
+  const prixretrait = document.getElementById("prixretrait"),
+errorretrait = document.getElementById("errorretrait"),
+prixbase = document.getElementById("prixbase");
+//Si 90% du prix de base > prix retrait
+    if(parseFloat(prixbase.value)*0.9 >= parseFloat(prixretrait.value)) {
+      errorretrait.innerHTML = "";
+      return true;
   } else {
-    prixretrait.setCustomValidity('');
+    errorretrait.innerHTML = "Veuillez insérer un prix de retrait inférieur à 90% du prix de base (soit un prix inférieur ou égal à "+parseFloat(prixbase.value)*0.9+")";
+    prixbase.scrollIntoView();
+    return false;
   }
+}
+
+function validateCheckBoxes(){
+  const cbdirect = document.getElementById("cbdirect"),
+  cbcolis = document.getElementById("cbcolis"),
+  errorcb = document.getElementById("errorcb");
+  //Si au moins une case est cochée c'est ok, sinon on le signale à l'utilisateur
+  if(cbdirect.checked || cbcolis.checked){
+    errorcb.innerHTML = "";
+  }else{
+    errorcb.innerHTML = "Veuillez cocher au moins une des deux cases";
+  }
+
+}
+
+function validateInfos(event){
+  event.preventDefault();
+  let prix = validatePrices();
+  let informationsEnvoieCheckBoxes = validateCheckBoxes();
+  return prix && informationsEnvoieCheckBoxes;
 }

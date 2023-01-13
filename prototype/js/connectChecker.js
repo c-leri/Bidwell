@@ -2,10 +2,11 @@
 const login = document.getElementById("login"),
 errorlogin =  document.getElementById("errorlogin"),
 password = document.getElementById("password"),
-errorpassword =  document.getElementById("errorpassword"),
-form= document.getElementById("connect-form");
+errorpassword =  document.getElementById("errorpassword");
 
 function validateConnection(event){
+  
+    let ok = true;
     //Empêche le form de reload la page et niquer la requête ajax
     event.preventDefault();
     var requete = new XMLHttpRequest();
@@ -25,12 +26,14 @@ function validateConnection(event){
            //Si login inexistant
           if(rep.loginerror){
             errorlogin.innerHTML = rep.loginerrormsg;
+            ok=false;
           }else{
             errorlogin.innerHTML = "";
           }
           //Si mot de passe incorrect
           if(rep.passworderror){
             errorpassword.innerHTML = rep.passworderrormsg;
+            ok=false;
           }else{
             errorpassword.innerHTML = "";
           }
@@ -39,5 +42,5 @@ function validateConnection(event){
       }
       //Envoie la requête au serveur avec en paramètres les valeurs des inputs
     requete.send("login="+login.value+"&password="+password.value);
+    return ok;
 }
-form.onsubmit = validateConnection;

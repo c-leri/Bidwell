@@ -34,7 +34,7 @@
         </nav>
     </header>
     <main class="creation">
-        <form action="">
+        <form action="main.ctrl.php" onsubmit="return validateInfos(event)" method="get">
             <div class="nom">
                 <h2> Nom de l'annonce </h2>
 
@@ -100,7 +100,7 @@
                     annonces</p>
             </div>
             <div class="base">
-
+            <h2> Prix de base </h2>
                 <input id="prixbase" type="number" name="base" required min="1" max="99999" placeholder="Prix espéré" value="500">
 
                 <p> Définissez le prix auquel vous souhaiteriez vendre votre article. Prenez en compte la valeur réelle
@@ -112,8 +112,8 @@
             <div class="retrait">
                 <h2> Prix de retrait de l'annonce </h2>
 
-                <input id="prixretrait" type="number" name="retrait" required min="1" max="99999" placeholder="Prix de retrait" value="20">
-
+                <input id="prixretrait" type="number" name="retrait" required min="1" max="99999" placeholder="Prix de retrait">
+                <p id="errorretrait"></p>
                 <p> Notre site utilise en système d'enchère qui comprend une partie descendantes. De ce fait, le prix de
                     votre article pourrait diminuer par rapport au prix de base. Définissez le prix auquel vous ne
                     seriez plus prêt à vendre votre article.</p>
@@ -127,14 +127,14 @@
                 <h2> Informations d'envoi </h2>
                 <ul>
                     <li> Je suis prêt à remettre cet article en main propre
-                        <input type="checkbox" name="retraitDirect">
+                        <input id="cbdirect" type="checkbox" name="retraitDirect">
                     </li>
 
 
                     <li> Je suis prêt à envoyer ce colis vers d'autres villes de France
-                        <input type="checkbox" name="retraitColis">
+                        <input id="cbcolis" type="checkbox" name="retraitColis">
                     </li>
-
+                    <p id="errorcb"></p>
 
                     <li> Définissez vos méthodes de remise de votre bien. Accepter d'envoyer votre bien vers d'autre ville
                         peut grandement augmenter le nombre d'acheteurs potentiels, mais nécessite une organisation plus
@@ -173,8 +173,10 @@
                 </ul>
             </div>
 
-            <button type="submit" name="submit">Créer annonce</button>
+            <button type="submit">Créer annonce</button>
         </form>
+        <script src="../js/creation.js"></script>
+
     </main>
 
     <footer>
@@ -182,5 +184,4 @@
     </footer>
 
 </body>
-<script src="../js/creation.js"></script>
 </html>

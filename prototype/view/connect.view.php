@@ -28,7 +28,7 @@
         <div class="left">
             <h2> Se connecter </h2>
 
-            <form id="connect-form" accept-charset="utf-8" action="" method="post">
+            <form id="connect-form" accept-charset="utf-8" action="" method="post" onsubmit="return validateConnection(event)">
                 <h3>Nom d'utilisateur</h3>
                 <input id="login" type="text" dir="auto" spellcheck="false" autocomplete="false" placeholder="Nom d'utilisateur" name="login" value="<?=$_SESSION['login'] ?? ''?>">
                 <p id="errorlogin"></p>
