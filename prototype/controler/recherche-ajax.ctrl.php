@@ -1,5 +1,7 @@
 <?php
 //Inclusion de la base de donnée
+require(__DIR__ . "/../model/DAO.class.php");
+
 $dao = DAO::get();
 
 //Vérifie si le type sélectionné edst "enchère" ou "utilisateur"
@@ -27,33 +29,33 @@ if ($_GET['type'] == 'Enchere') {
                 $tri = "libelle";
                 break;
         }
-
+    
+        
         //Si le type est "enchère", alors vérifie si des catégories ont étées sélectionnées ou non et les transforme en un seul string
         if (isset($_GET["categories"])) {
 
             $categories = implode(' OR ', $_GET["categories"]);
 
-        }
-
-        //Prépare la requête SQL avec les informations nécessaires à l'affichage
-        $sql = "SELECT libelle, cateogorie, dateDebut, prixDepart, loginCreateur, description
+            //Prépare la requête SQL avec les informations nécessaires à l'affichage
+        $sql = "SELECT libelle, libelleCategorie, dateDebut, prixDepart, loginCreateur, description
         FROM Enchere WHERE categorie = ? ORDER BY ? ASC LIMIT ?, 20";
 
         //Execute la requête et place le résultat dans $resultat
-        $result = $dao->execute($sql, [$categories, $tri, $_GET['page'] * 20]);
+        $result = $dao->query($sql, [$categories, $tri, ($_GET['page']-1) * 20]);
+        } else {
+
+            //Si aucune catégorie sélectionnée
+            //Prépare la requête SQL avec les informations nécessaires à l'affichage
+            $sql = "SELECT libelle, libelleCategorie, dateDebut, prixDepart, loginCreateur, description
+            FROM Enchere ORDER BY ? ASC LIMIT ?, 20";
+    
+            //Execute la requête et place le résultat dans $resultat
+            $result = $dao->query($sql, [$tri, ($_GET['page']-1) * 20]);
+      
+        }
+
         
-
-    } else {
-
-        //Si aucune catégorie sélectionnée
-        //Prépare la requête SQL avec les informations nécessaires à l'affichage
-        $sql = "SELECT libelle, cateogorie, dateDebut, prixDepart, loginCreateur, description
-        FROM Enchere ORDER BY ? ASC LIMIT ?, 20";
-
-        //Execute la requête et place le résultat dans $resultat
-        $result = $dao->execute($sql, [$tri, $_GET['page'] * 20]);
-  
-    }
+    } 
 
 } else {
     //Si le type est "Utilisateur", prépare la requête SQL avec les informations nécessaires à l'affichage
@@ -61,8 +63,7 @@ if ($_GET['type'] == 'Enchere') {
     FROM Utilisateur ORDER BY login LIMIT ?, 20";
 
     //Execute la requête et place le résultat dans $resultat
-    $answer = $dao->execute($sql, [$_GET['page'] * 20]);
-    $result = $answer->fetchAll();
+    $answer = $dao->query($sql, [($_GET['page']-1)* 20]); 
 }
 
 //Initialisation de variable qui sera renvoyée
