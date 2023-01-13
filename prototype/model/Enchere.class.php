@@ -2,6 +2,7 @@
 
 require_once __DIR__.'/Categorie.class.php';
 require_once __DIR__.'/DAO.class.php';
+require_once __DIR__ . '/Utilisateur.class.php';
 
 /**
  * Classe représentant la notion d'enchère
