@@ -3,7 +3,6 @@
 require_once(__DIR__ . "/../model/Utilisateur.class.php");
 // Fonctions d'aide
 require_once(__DIR__ . "/Helper.php");
-
 try{
     // Constructeur
     print('Test du constructeur : ');

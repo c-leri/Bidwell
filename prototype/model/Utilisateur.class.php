@@ -1,7 +1,6 @@
 <?php
 require_once __DIR__."/DAO.class.php";
 require_once __DIR__.'/Participation.class.php';
-
 /**
  * La classe Utilisateur modélise les utilisateurs enregistrés sur l'application à partir d'un login, d'un mot de passe hashé, d'un nom
  * d'un e-mail, d'un numéro de téléphone et d'un nombre de jetons.

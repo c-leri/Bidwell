@@ -5,15 +5,8 @@ CREATE TABLE Utilisateur (
 	email TEXT NOT NULL,
 	numeroTelephone TEXT UNIQUE NOT NULL,
 	nbJetons INTEGER NOT NULL,
-	text-decoration: none;
-        color: var(--couleur-noir);
-        background-color: var(--couleur-jaune);
-        border-radius: 1rem;
-        white-space: nowrap;
-        display: block;
-        padding: 0.5rem 0.5rem; INTEGER NOT NULL
+	dateFinConservation INTEGER NOT NULL
 );
-
 CREATE TABLE Categorie (
 	libelle TEXT PRIMARY KEY,
 	libelleMere INTEGER,		-- NULL si c'est la Categorie racine
