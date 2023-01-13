@@ -20,7 +20,7 @@ try {
 	print('Test du constructeur : ');
 
 	try {
-		$enchere = new Enchere($utilisateur, 'testConstructeur', $date, 500, 0, 'testConstructeur.png', 'testConstructeur.txt', $categorie->getId());
+		$enchere = new Enchere($utilisateur, 'testConstructeur', $date, 500, 0, 'testConstructeur.png', 'testConstructeur.txt', $categorie);
 	} catch (Exception $e) {
 		echo("Contenu de la variable :");
 		var_dump($enchere);
@@ -29,13 +29,13 @@ try {
 
 	try {
 		$dateIncorrecte = DateTime::createFromFormat('d-m-Y', '01-01-2023');
-		$enchere = new Enchere($utilisateur, 'testConstructeur2', $dateIncorrecte, 500, 0, 'testConstructeur2.png', 'testConstructeur2.txt', $categorie->getId());
+		$enchere = new Enchere($utilisateur, 'testConstructeur2', $dateIncorrecte, 500, 0, 'testConstructeur2.png', 'testConstructeur2.txt', $categorie);
 		KO("La catégorie a été créée malgré la date incorrecte.");
 	} catch (Exception $e) {}
 
 	try {
 		$categorieInexistante = new Categorie('inexistance');
-		$enchere = new Enchere($utilisateur, 'testConstructeur3', $dateIncorrecte, 500, 0, 'testConstructeur3.png', 'testConstructeur3.txt', $categorieInexistante->getId());
+		$enchere = new Enchere($utilisateur, 'testConstructeur3', $dateIncorrecte, 500, 0, 'testConstructeur3.png', 'testConstructeur3.txt', $categorieInexistante);
 		KO("La catégorie a été créée malgré la catégorie non sérialisée");
 	} catch (Exception $e) {}
 
@@ -46,7 +46,7 @@ try {
 	/////////////////////////////////////////////
 
 	// Création d'une enchère pour le test des méthodes CRUD
-	$enchere = new Enchere($utilisateur, 'Enchere 3', $date, 500, 200, 'enchere3.png', 'enchere3.txt', $categorie->getId());
+	$enchere = new Enchere($utilisateur, 'Enchere 3', $date, 500, 200, 'enchere3.png', 'enchere3.txt', $categorie);
 
 	/////////////// CREATE + READ ////////////////
 	print('Test create() et read() : ');

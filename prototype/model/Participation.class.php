@@ -14,30 +14,51 @@ class Participation {
     private const TEMPS_CONSERVATION = '5 years'; // temps de conservation des données dans la bd
 
     // Attributs
-    private Enchere $enchere;
-    private Utilisateur $utilisateur;
+    private int $idEnchere;
+    private string $loginUtilisateur;
     private int $nbEncheres;
     private float|null $montantDerniereEnchere;
     // booleen qui signifie si l'utilisateur est enregistré dans la base
     private bool $isInDB;
 
     // Constructeur
+    /**
+     * @throws Exception si l'enchère ou l'utilisateur ne sont pas enregistrés dans la bd
+     */
     public function __construct(Enchere $enchere, Utilisateur $utilisateur) {
-        $this->enchere = $enchere;
-        $this->utilisateur = $utilisateur;
+        $this->setEnchere($enchere);
+        $this->setUtilisateur($utilisateur);
         $this->nbEncheres = 0;
+        $this->montantDerniereEnchere = null;
         $this->isInDB = false;
-        $enchere->addParticipation($this);
-        $utilisateur->addParticipation($this);
     }
 
     // Getters
     public function getEnchere() : Enchere {
-        return $this->enchere;
+        return Enchere::read($this->idEnchere);
     }
 
     public function getUtilisateur() : Utilisateur {
-        return $this->utilisateur;
+        return Utilisateur::read($this->loginUtilisateur);
+    }
+
+    // Setters
+    /**
+     * @throws Exception si l'enchère n'est pas enregistrée dans la bd
+     */
+    public function setEnchere(Enchere $enchere) : void {
+        if (!$enchere->isInDB())
+            throw new Exception("L'enchère n'est pas enregistrée dans la bd");
+        $this->idEnchere = $enchere->getId();
+    }
+
+    /**
+     * @throws Exception si l'utilisateur n'est pas enregistré dans la bd
+     */
+    public function setUtilisateur(Utilisateur $utilisateur) : void {
+        if (!$utilisateur->isInDB())
+            throw new Exception("L'utilisateur n'est pas enregistré dans la bd");
+        $this->loginUtilisateur = $utilisateur->getLogin();
     }
 
     // Autres méthodes
@@ -76,7 +97,7 @@ class Participation {
 
         // préparation de la query
         $query = 'INSERT INTO Participation(idEnchere, loginUtilisateur, nbEncheres, dateFinConservation) VALUES (?,?,?,?)';
-        $data = [$this->enchere->getId(), $this->utilisateur->getLogin(), $this->nbEncheres, $dateFinConservation->getTimestamp()];
+        $data = [$this->idEnchere, $this->loginUtilisateur, $this->nbEncheres, $dateFinConservation->getTimestamp()];
 
         // récupération du résultat de l'insertion 
         $r = $dao->exec($query, $data);
@@ -100,7 +121,7 @@ class Participation {
         $dao = DAO::get();
 
         // préparation de la query
-        $query = 'SELECT * FROM Participation WHERE idEnchere = ?, loginUtilisateur = ?';
+        $query = 'SELECT * FROM Participation WHERE idEnchere = ? AND loginUtilisateur = ?';
         $data = [$enchere->getId(), $utilisateur->getLogin()];
 
         // récupération de la table de résultat
@@ -200,7 +221,7 @@ class Participation {
      */
     public function update() : void {
         if (!$this->isInDB()) {
-            throw new Exception("Update : La participation de l'utilisateur {$this->utilisateur->getLogin()} à l'enchère {$this->enchere->getId()} n'existe pas dans la bd");
+            throw new Exception("Update : La participation de l'utilisateur $this->loginUtilisateur à l'enchère $this->idEnchere n'existe pas dans la bd");
         }
 
         // récupération du dao
@@ -209,10 +230,10 @@ class Participation {
         // update le montant de la dernière enchère s'il existe
         if (isset($this->montantDerniereEnchere)) {
             $query = 'UPDATE Participation SET nbEncheres = ?, montantDerniereEnchere = ? WHERE idEnchere = ? AND loginUtilisateur = ?';
-            $data = [$this->nbEncheres, $this->montantDerniereEnchere, $this->enchere->getId(), $this->utilisateur->getLogin()];
+            $data = [$this->nbEncheres, $this->montantDerniereEnchere, $this->idEnchere, $this->loginUtilisateur];
         } else {
             $query = 'UPDATE Participation SET nbEncheres = ? WHERE idEnchere = ? AND loginUtilisateur = ?';
-            $data = [$this->nbEncheres, $this->enchere->getId(), $this->utilisateur->getLogin()];
+            $data = [$this->nbEncheres, $this->idEnchere, $this->loginUtilisateur];
         }
 
         // Exécution de la requête
@@ -220,7 +241,7 @@ class Participation {
 
         // Vérification de la bonne exécution de la requête
         if ($nbLignesMod > 1) {
-            throw new Exception("Update : Nombre de ligne modifiée != 1 lors de la modification de la participation de l'utilisateur {$this->utilisateur->getLogin()} à l'enchère {$this->enchere->getId()}");
+            throw new Exception("Update : Nombre de ligne modifiée != 1 lors de la modification de la participation de l'utilisateur $this->loginUtilisateur à l'enchère $this->idEnchere");
         }
     }
 
@@ -232,15 +253,15 @@ class Participation {
      */
     public function delete() : void {
         if (!$this->isInDB()) {
-            throw new Exception("Delete : La participation de l'utilisateur {$this->utilisateur->getLogin()} à l'enchère {$this->enchere->getId()} n'existe pas dans la bd");
+            throw new Exception("Delete : La participation de l'utilisateur $this->loginUtilisateur à l'enchère $this->idEnchere n'existe pas dans la bd");
         }
 
         // récupération du dao
         $dao = DAO::get();
 
         // Initialisation de la requête et du tableau de valeurs
-        $query = 'DELETE FROM Participation WHERE idEnchere = ?, loginUtilisateur = ?';
-        $data = [$this->enchere->getId(), $this->utilisateur->getLogin()];
+        $query = 'DELETE FROM Participation WHERE idEnchere = ? AND loginUtilisateur = ?';
+        $data = [$this->idEnchere, $this->loginUtilisateur];
 
         // Exécution de la requête
         $dao->exec($query, $data);
