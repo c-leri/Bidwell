@@ -1,0 +1,44 @@
+/* --- Page du compte --- */
+main.compte {
+    color: var(--couleur-blanc);
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+}
+
+/* -- Design -- */
+hr {
+    margin: 1rem 0rem 1rem 0rem;
+    height: 0.1rem;
+    background-color: var(--couleur-blanc);
+    border: none;
+}
+
+/* -- Titre -- */
+main.compte h2{
+    margin-top: 2rem;
+    margin-left: 2rem;
+}
+
+/* -- Liste -- */
+main.compte ul{
+    height: 50vh;
+    list-style-type: none;
+    margin-top: 2rem;
+    margin-left: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+/* -- Button -- */
+main.compte button{
+    text-decoration: none;
+    color: var(--couleur-noir);
+    background-color: var(--couleur-jaune);
+    border: 0.1rem solid var(--couleur-noir);
+    border-radius: 1rem;
+    white-space: nowrap;
+    display: block;
+    padding: 0.5rem 0.5rem;
+}

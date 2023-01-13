@@ -6,7 +6,7 @@
 }
 
 
-/* The search field */
+/* Barre de recherche*/
 #myInput {
   box-sizing: border-box;
   background-position: 14px 12px;
@@ -16,7 +16,7 @@
   border: none;
 }
 
-/* Dropdown Content (Hidden by Default) */
+/* Dropdown Content */
 .dropdown-content {
   display: none;
   position: absolute;
@@ -25,19 +25,18 @@
   z-index: 1;
 }
 
-/* Links inside the dropdown */
+/* Button du dropdown*/
 .dropdown-content button {
   color: black;
   padding: 12px 16px;
   display: block;
 }
 
-/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
 .show {
   display: block;
 }
 
-
+/* -- Images -- */
 .addedImages {
   width: 100%;
   display: flex;
@@ -98,10 +97,6 @@ hr {
   border: none;
 }
 
-/* main.creation p {
-  display: inline-block;
-} */
-
 main.creation input[type=checkbox] {
   width: 1rem;
   height: 1rem;
@@ -118,13 +113,13 @@ main.creation input[type=number] {
 
 main.creation ul {
   list-style-type: none;
-  ;
 }
 
 main.creation li {
   margin: 1rem;
 }
 
+/* -- Titre -- */
 main.creation h2 {
   margin: 0.5rem 0rem 0.5rem 0rem;
 }

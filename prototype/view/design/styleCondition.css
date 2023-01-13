@@ -1,5 +1,6 @@
 
 @media only screen and (min-width: 960px) {
+    /* -- Bandeau -- */
     #prevention{
         background-color: #9c3576;
         border : solid #ff5c00 0.2rem;
@@ -16,12 +17,14 @@
         margin: 1% 5% 1% 5%;
         color : white;
     }
-
+    
+    /* -- Paragraphes -- */
     .conditions p{
         background-color: #4f1975;
         padding: 0.4em;
     }
 
+    /* -- Liste -- */
     .conditions ul{
         background-color: #4f1975;
         padding-top:0.2em;
@@ -29,6 +32,7 @@
         padding-left: 1.2em;
     }
 
+    /* -- Arrondire les paragraphes-- */
     #Generalites p, #Frais p, #Contenus p, #Protection p, #Indemnite p{
         border-radius: 1rem;
     }
