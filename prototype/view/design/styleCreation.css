@@ -5,6 +5,9 @@
   cursor: pointer;
 }
 
+#categorieDropdown button {
+  width: 100%;
+}
 
 /* Barre de recherche*/
 #myInput {
@@ -134,6 +137,23 @@ main.creation input[name=submit] {
 }
 
 /*Messages erreurs inputs fait par clément*/
-#errorretrait,#errorcb{
+#errorretrait,
+#errorcb {
   background-color: var(--couleur-rouge);
+  border-radius: 1rem;
+  margin: 0 10rem 0 10rem;
+}
+
+main.creation button {
+  text-decoration: none;
+  color: var(--couleur-noir);
+  background-color: var(--couleur-jaune);
+  border-radius: 1rem;
+  white-space: nowrap;
+  display: block;
+  padding: 0.5rem 0.5rem;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 1rem;
+  border: 0.1rem solid var(--couleur-noir);
 }

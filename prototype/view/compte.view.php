@@ -11,7 +11,7 @@
     <title>Conditions d'utilisation</title>
     <link rel="stylesheet" href="../view/design/styleGeneral.css">
     <link rel="stylesheet" href="../view/design/styleMenu.css">
-    <link rel="stylesheet" href="../view/design/styleFooter2.css">
+    <link rel="stylesheet" href="../view/design/styleFooter.css">
     <link rel="stylesheet" href="../view/design/styleCompte.css">
     <link rel="icon" type="image/x-icon" href="../view/design/img/favicon.ico">
 
@@ -39,8 +39,26 @@
             <li>Numéro de téléphone associé : numeroTelephone </li>
             <li> Jetons : nbJetons </li>
             <li> Nous conservons vos informations jusqu'au : dateFinConservation </li>
-            <li> <button type="submit"> Supprimer compte </button> </li>
         </ul>
+        <h2>Vos enchères : </h2>
+        <div class="vosEncheres">
+        <?php for ($i = 0; $i < 12; $i++) {
+                    ?>
+                    
+                    <article>
+                    <a href="consultation.ctrl.php">
+                        <img src="../view/design/img/default_image.png" alt="">
+                        </a>
+                        <h1>WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW</h1>
+                        <div class="variablesEnchere">
+                            <p class="temps-restant">temps restant</p>
+                            <p class="prix-actuel">prix actuel</p>
+                        </div>
+                    </article>
+                    
+                <?php } ?>
+                </div>
+                <button type="submit"> Supprimer compte </button>
     </main>
     <footer>
         <?php include(__DIR__ . '/footer.viewpart.php') ?>
