@@ -16,7 +16,6 @@ try{
     }catch(Exception $e){
         $numtel = '0123456789';
         $utilisatest= new Utilisateur($login,$email,$numtel);
-        OK();
     }
 
     if($utilisatest->getLogin() != $login){
@@ -24,6 +23,7 @@ try{
         ." -Login de l'utilisateur : {$utilisatest->getLogin()}"
         ." - Attendu : $login");
     }
+    
     OK();
 
     ////////////////// SETTERS //////////////////
@@ -45,7 +45,6 @@ try{
             . " -Mot de passe de l'utilisateur : {$pss}"
             . " -Mot de passe donné : {$fpss}");
     }
-    OK();
 
     //setNom
     $nom = 'Nomtest';
@@ -69,9 +68,7 @@ try{
         . " -Email donné : Emailtest@gmail.com");
     }
 
-
-
-
+    OK();
 
     /////////////// CREATE + READ ////////////////
     print('Test create() et read() : ');

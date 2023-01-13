@@ -23,8 +23,6 @@ class Utilisateur {
     private string $numeroTelephone;
     // informations pour les enchères
     private int $nbJetons;
-    private array $encheresCreees = array();
-    private array $participations = array();
     // booleen qui signifie si l'utilisateur est enregistré dans la base
     private bool $isInDB;
 
@@ -62,6 +60,14 @@ class Utilisateur {
 
     public function getNbJetons() : int {
         return $this->nbJetons;
+    }
+
+    public function getParticipations() : array {
+        return Participation::readFromUtilisateur($this);
+    }
+
+    public function getEnchereCreees() : array {
+        return Enchere::readFromCreateur($this);
     }
 
     // Setters
@@ -102,35 +108,6 @@ class Utilisateur {
 
     public function mdpValide(string $password) : bool {
         return password_verify($password, $this->mdpHash);
-    }
-
-    // Gestion des participations
-    /**
-     * @throws Exception si l'utilisateur n'est pas enregistré dans la bd
-     */
-    public function addParticipation(Participation $participation) : void {
-        if (!$this->isInDB())
-            throw new Exception("L'utilisateur $this->login doit exister dans la bd pour participer à une enchère");
-        $this->participations[$participation->getEnchere()->getId().$participation->getUtilisateur()->getLogin()] = $participation;
-    }
-
-    public function removeParticipation(Participation $participation) : void {
-        unset($this->participations[$participation->getEnchere()->getId().$participation->getUtilisateur()->getLogin()]);
-    }
-
-    // Gestion des enchères créées
-
-    /**
-     * @throws Exception si l'utilisateur n'est pas enregistré dans la bd
-     */
-    public function addEnchereCreee(Enchere $enchere) : void {
-        if (!$this->isInDB())
-            throw new Exception("L'utilisateur $this->login doit exister dans la bd pour créer une enchère");
-        $this->encheresCreees[$enchere->getId()] = $enchere;
-    }
-
-    public function removeEnchereCreee(Enchere $enchere) : void {
-        unset($this->encheresCreees[$enchere->getId()]);
     }
 
     // Autres méthodes
@@ -229,14 +206,6 @@ class Utilisateur {
         $out->mdpHash = $tuple['mdpHash'];
         $out->nbJetons = $tuple['nbJetons'];
         $out->isInDB = true;
-
-        foreach(Enchere::readFromCreateur($out) as $enchereCreee) {
-            $out->addEnchereCreee($enchereCreee);
-        }
-
-        foreach(Participation::readFromUtilisateur($out) as $participation) {
-            $out->addParticipation($participation);
-        }
 
         return $out;
     }

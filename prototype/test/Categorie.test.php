@@ -18,32 +18,6 @@ try {
     }
     OK();
 
-    ///////////// GESTION DES FILS //////////////
-    print('Test gestion des fils : ');
-
-    // add()
-    $categorieFille = new Categorie('filleTest');
-    $categorie->add($categorieFille);
-    if ($categorieFille->getLibelleCategorieMere() != $categorie->getLibelle()) {
-        print("\nCategorie mere :");
-        var_dump($categorie);
-        print("Categorie fille :");
-        var_dump($categorieFille);
-        KO('Test add() : $categorieFille->getParent() != $categorie');
-    }
-
-    // remove()
-    $categorie->remove($categorieFille);
-    if ($categorie->getLibelleCategorieMere() !== null) {
-        print("\nCategorie mere :\n");
-        var_dump($categorie);
-        print("Categorie fille :\n");
-        var_dump($categorieFille);
-        KO('Test remove() : $categorieFille->getParent() != null');
-    }
-
-    OK();
-
     /////////////// CREATE + READ ////////////////
     print('Test create() et read() : ');
 
@@ -52,7 +26,7 @@ try {
     $categorieMere->create();
 
     // read() catégorie mère
-    $categorieMereRead = Categorie::read($categorieMere->getLibelle(), true);
+    $categorieMereRead = Categorie::read($categorieMere->getLibelle());
     if ($categorieMere != $categorieMereRead) {
         print("\nCategorie créée :\n");
         var_dump($categorieMere);
@@ -66,7 +40,7 @@ try {
     $categorieFille->create();
 
     // read() catégorie fille
-    $categorieFilleRead = Categorie::read($categorieFille->getLibelle(), true);
+    $categorieFilleRead = Categorie::read($categorieFille->getLibelle());
     if ($categorieFille != $categorieFilleRead) {
         print("\nCategorie créée :\n");
         var_dump($categorieFille);
@@ -98,9 +72,9 @@ try {
 
     // update() avec des enchères
     $dateDebut = DateTime::createFromFormat('Y-m-d', '2050-12-24');
-    $enchere1 = new Enchere($utilisateur, 'enchere1', $dateDebut, 500, 0, 'enchere1.png', 'enchere1.txt', $categorieFille->getLibelle());
+    $enchere1 = new Enchere($utilisateur, 'enchere1', $dateDebut, 500, 0, 'enchere1.png', 'enchere1.txt', $categorieFille);
     $enchere1->create();
-    $enchere2 = new Enchere($utilisateur, 'enchere2', $dateDebut, 500, 0, 'enchere2.png', 'enchere2.txt', $categorieFille->getLibelle());
+    $enchere2 = new Enchere($utilisateur, 'enchere2', $dateDebut, 500, 0, 'enchere2.png', 'enchere2.txt', $categorieFille);
     $enchere2->create();
     $categorieFille->update();
     $categorieFilleRead = Categorie::read($categorieFille->getLibelle());
@@ -113,11 +87,12 @@ try {
     }
 
     // update() catégorie mère
-    $categorieFille->add($categorieMere);       // $categorieFille devient la mère de $categorieMere
-    $categorieMere->remove($categorieFille);    // on retire le fait que $categorieFille est la fille de $categorieMere pour éviter une boucle
-    $categorieFille->update();                  // devrait aussi update $categorieMere
+    $categorieMere->setCategorieMere($categorieFille);       // $categorieFille devient la mère de $categorieMere
+    $categorieFille->setCategorieMere(null);                 // on retire le fait que $categorieFille est la fille de $categorieMere pour éviter une boucle
+    $categorieFille->update();
+    $categorieMere->update();
 
-    $categorieFilleRead = Categorie::read($categorieFille->getLibelle(), true);
+    $categorieFilleRead = Categorie::read($categorieFille->getLibelle());
     if ($categorieFille != $categorieFilleRead) {
         print("\nCategorie mise à jour :\n");
         var_dump($categorieFille);
@@ -126,7 +101,7 @@ try {
         KO('Test update() : categorie mise à jour != catégorie lue');
     }
 
-    $categorieMereRead = Categorie::read($categorieMere->getLibelle(), true);
+    $categorieMereRead = Categorie::read($categorieMere->getLibelle());
     if ($categorieMere != $categorieMereRead) {
         print("\nCategorie mise à jour :\n");
         var_dump($categorieMere);
@@ -154,7 +129,7 @@ try {
     // on vérifie que $categorieFille n'est plus la catégorie mère de $catégorieMere
     // il faut read les catégories filles pour que la modification soit effective
     $categorieMere->sync();
-    if ($categorieMere->getLibelleCategorieMere() !== null) {
+    if ($categorieMere->getCategorieMere() !== null) {
         var_dump($categorieMere);
         KO("Test delete() : la catégorie mère ne devrait pas être encore set si il a été delete");
     }

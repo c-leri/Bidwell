@@ -132,3 +132,8 @@ main.creation input[name=submit] {
   display: block;
   padding: 0.5rem 0.5rem;
 }
+
+/*Messages erreurs inputs fait par clément*/
+#errorretrait,#errorcb{
+  background-color: var(--couleur-rouge);
+}

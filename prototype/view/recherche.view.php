@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="../view/design/styleFooter.css">
     <link rel="stylesheet" href="../view/design/styleRecherche.css">
     <link rel="icon" type="image/x-icon" href="../view/design/img/favicon.ico">
-    <script src="../js/recherche.js"></script>
+    
 
 </head>
 
@@ -31,13 +31,13 @@
 
             <div class="choix">
                 <div>
-                    <input type="radio" id="Enchere" name="typeSelected" value="Enchere" style="display:none" checked>
-                    <label for="annonces">Annonces</label>
+                    <input type="radio" id="Enchere" name="typeSelected" value="Enchere" style="display:none" onclick="showItems()" checked>
+                    <label for="Enchere">Annonces</label>
                 </div>
 
                 <div>
-                    <input type="radio" id="Utilisateur" name="typeSelected" value="Utilisateur" style="display:none">
-                    <label for="utilisateurs">Utilisateurs</label>
+                    <input type="radio" id="Utilisateur" name="typeSelected" value="Utilisateur" style="display:none" onclick="showItems()">
+                    <label for="Utilisateur">Utilisateurs</label>
                 </div>
             </div>
 
@@ -45,9 +45,9 @@
                 <p> Trier par </p>
                 <form action="">
                     <select name="tri" id="tri" onchange="showItems()">
-                        <option value="creation">Date de création</option>
-                        <option value="nom">Nom</option>
-                        <option value="prix">Prix</option>
+                        <option value="dateDepart">Date de création</option>
+                        <option value="libelle">Nom</option>
+                        <option value="prixDepart">Prix</option>
                     </select>
                 </form>
             </div>
@@ -72,7 +72,7 @@
                         <button id="next">></button>
             </div>
 
-            <div class="annonces">
+            <div class="annonces" id="annonces"> <!-- Ne pas retirer l'ID sinon JS cassé-->
                 
             </div>
 
@@ -99,3 +99,5 @@
 </body>
 
 </html>
+
+<script src="../js/recherche.js"></script>
