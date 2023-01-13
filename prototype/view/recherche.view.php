@@ -25,7 +25,7 @@
         <?php include(__DIR__ . '/menu.viewpart.php') ?>
     </header>
 
-    <main>
+    <main class="recherche">
         <div class="top">
             <h2> Filtrer </h2>
 

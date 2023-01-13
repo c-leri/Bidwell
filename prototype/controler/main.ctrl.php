@@ -7,8 +7,8 @@ include_once(__DIR__."/../framework/View.class.php");
 // Construction de la vue
 ////////////////////////////////////////////////////////////////////////////
 $view = new View();
-session_start();
-$_SESSION["login"] = "gatou";
+// session_start();
+// $_SESSION["login"] = "gatou";
 // Charge la vue
 $view->display("main.view.php");
 ?>

@@ -45,3 +45,30 @@
     font-weight: bold;
     text-decoration: underline; 
   }
+
+main.recherche .top {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-content: center;
+  margin-right: 5rem;
+  margin-top: 1rem;
+}
+
+main.recherche .choix, main.recherche .dropdown{
+  display: flex;
+  flex-direction: row;
+}
+
+main.recherche .choix > div:nth-child(1) > label{
+  border-right: 0.15rem solid var(--couleur-noir);
+}
+
+main.recherche .choix label {
+  padding: 0 1rem 0 1rem;
+  font-size: 1.5rem;
+}
+
+main.recherche .dropdown p {
+  margin-right: 1rem;
+}
