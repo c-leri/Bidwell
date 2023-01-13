@@ -22,44 +22,39 @@
 <body>
     <!-- Menu -->
     <header>
-        <?php 
-        if(isset($_SESSION['login'])){
+        <?php
+        if (isset($_SESSION['login'])) {
             include(__DIR__ . '/menu_connecte.viewpart.php');
-        }else{
+        } else {
             include(__DIR__ . '/menu.viewpart.php');
         }
-        include(__DIR__ . '/sous-menu_categorie.viewpart.php') 
-        ?>
+        include(__DIR__ . '/sous-menu_categorie.viewpart.php')
+            ?>
     </header>
     <main class="pagePrincipale">
         <div id="slider">
-            <a href="#"><img src="../view/design/img/default_image.png" alt="Besoin d'aide" id="slide" style="background-repeat: repeat"></a>
+            <a href="#"><img src="../view/design/img/default_image.png" alt="Besoin d'aide" id="slide"
+                    style="background-repeat: repeat"></a>
             <div id="precedent" onclick="ChangeSlide(-1)">
-                <</div>
+                < </div>
                     <div id="suivant" onclick="ChangeSlide(1)">></div>
             </div>
 
             <hr>
             <script src="../js/slider.js"></script>
         </div>
-            <h2>Populaire en ce moment</h2>
-            <div class="ventesPopulaires">
-                <?php for ($i = 0; $i < 12; $i++) {
-                    ?>
-                    
-                    <article>
-                    <a href="consultation.ctrl.php">
-                        <img src="../view/design/img/default_image.png" alt="">
-                        </a>
-                        <h1>WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW</h1>
-                        <div class="variablesEnchere">
-                            <p class="temps-restant">temps restant</p>
-                            <p class="prix-actuel">prix actuel</p>
-                        </div>
-                    </article>
-                    
-                <?php } ?>
-            </div>
+        <h2>Nouvelles enchères</h2>
+        <div class="ventesPopulaires" id="new">
+
+        </div>
+
+        <hr>
+
+        <h2>Enchères bientôt terminées</h2>
+        <div class="ventesPopulaires" id="old">
+
+        </div>
+        <script src="../js/main.js"></script>
     </main>
     <footer>
         <?php include(__DIR__ . '/footer.viewpart.php') ?>
