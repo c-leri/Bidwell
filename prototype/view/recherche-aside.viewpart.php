@@ -1,31 +1,7 @@
 <div class="container">
-    <h2> Catégories </h2>
-    <!-- <div class="dropdown">
-    <button class="dropbtn" onclick="showFunction()">+</button>
-    <div class="dropdown-content">
-        <button id="artDecoratif" onclick="">Art Décoratif</button>
-        <button id="prix" onclick="">Prix de départ</button>
-    </div> -->
-
-    <!-- Ajouter la liste des catégories avec des bons dropdowns qui sont pas mal faits -->
-    <h3> <a href="">Catégorie1 </a></h3>
-    <ul>
-        <li> <a href="">Sous-catégorie1</a></li>
-        <li> <a href="">Sous-catégorie2</a></li>
-        <li> <a href="">Sous-catégorie3</a></li>
-    </ul>
-    <h3> <a href="">Catégorie2 </a></h3>
-    <ul>
-        <li> <a href="">Sous-catégorie1</a></li>
-        <li> <a href="">Sous-catégorie2</a></li>
-        <li> <a href="">Sous-catégorie3</a></li>
-    </ul>
-    <h3> <a href="">Catégorie3 </a></h3>
-    <ul>
-        <li> <a href="">Sous-catégorie1</a></li>
-        <li> <a href="">Sous-catégorie2</a></li>
-        <li> <a href="">Sous-catégorie3</a></li>
-    </ul>
+    <div class="smallContainer">
+        test
+    </div>
     <hr>
     <h2> Prix </h2>
     <ul>
@@ -39,5 +15,5 @@
     <hr>
     <h2>Lieu</h2>
     <p>Recherche par département</p>
-    <input type="number" name="code" required placeholder="Code postal" value="ex : 38000">
+    <input type="number" name="code" required placeholder="Code postal" value="38000">
 </div>

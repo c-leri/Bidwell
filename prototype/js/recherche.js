@@ -6,7 +6,7 @@
 //    // |  \\
 //   //  .   \\
 //  //////\\\\\\  Filtre par catégorie pas encore implanté
-window.onload = showItems();
+window.onload = initPage();
 
 function showItems() {
 
@@ -47,3 +47,24 @@ function showItems() {
     xhttp.open("GET", "recherche-ajax.ctrl.php?tri=" + tri + "&type=" + type + "&page=" + numPage);
     xhttp.send();
   }
+
+  function initPage(){
+    const xhttp = new XMLHttpRequest();
+    xhttp.onload = function() {
+      console.log(this.responseText);
+      document.getElementsByClassName("smallContainer")[0].innerHTML = this.responseText;
+    }
+    xhttp.open("GET", "recherche-aside-ajax.ctrl.php");
+    xhttp.send();
+
+    
+
+    showItems();
+  }
+
+
+  function showCategory(numero){
+
+    let list = document.getElementsByClassName('categoryDropdown');
+    list[numero].lastChild.classList.toggle("active");
+}

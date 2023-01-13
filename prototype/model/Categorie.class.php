@@ -29,6 +29,10 @@ class Categorie {
     return $this->libelle;
   }
 
+  public function getLibelleColle() : string {
+    return trim($this->libelle);
+  }
+
   public function getCategorieMere() : Categorie|null {
     return $this->categorieMere;
   }
@@ -171,6 +175,54 @@ class Categorie {
 
       // on lui attribut sa catégorie mère
       $categorie->categorieMere = $categorieMere;
+
+      $categorie->isInDB = true;
+
+      $out[] = $categorie;
+    }
+
+    return $out;
+  }
+
+  public static function readOnlyCategorieMere() : array {
+    // récupératoin du dao
+    $dao = DAO::get();
+
+    // préparation de la query
+    $query = 'SELECT * FROM Categorie WHERE libelleMere == ""';
+    $data = [];
+
+    // récupération de la table de résultat
+    $table = $dao->query($query, $data);
+
+    $out = array();
+    foreach ($table as $row) {
+      // création d'un objet catégorie avec les informations de la bd
+      $categorie = new Categorie($row['libelle']);
+
+      $categorie->isInDB = true;
+
+      $out[] = $categorie;
+    }
+
+    return $out;
+  }
+
+  public static function readOnlyCategorieFille() : array {
+    // récupératoin du dao
+    $dao = DAO::get();
+
+    // préparation de la query
+    $query = 'SELECT * FROM Categorie WHERE libelleMere != ""';
+    $data = [];
+
+    // récupération de la table de résultat
+    $table = $dao->query($query, $data);
+
+    $out = array();
+    foreach ($table as $row) {
+      // création d'un objet catégorie avec les informations de la bd
+      $categorie = new Categorie($row['libelle'], new Categorie($row['libelleMere']));
 
       $categorie->isInDB = true;
 

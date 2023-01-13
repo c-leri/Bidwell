@@ -54,8 +54,10 @@
             <aside>
                 <?php include(__DIR__ . '/recherche-aside.viewpart.php') ?>
 
+                
+
             </aside>
-            <div class="annonces">
+            <div class="annonces" id='annonces'> <!-- Retire id='annonces' pour les annonces de base-->
                 <?php for ($i = 0; $i < 12; $i++) {
                 ?>
 
