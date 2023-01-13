@@ -42,6 +42,7 @@ CREATE TABLE Participation (
 	loginUtilisateur TEXT,
 	nbEncheres INTEGER NOT NULL,
 	montantDerniereEnchere REAL,
+	instantDerniereEnchere INTEGER,
 	dateFinConservation INTEGER NOT NULL,
 	PRIMARY KEY (idEnchere, loginUtilisateur),
 	FOREIGN KEY (idEnchere) REFERENCES Enchere(id),

@@ -144,7 +144,7 @@ class Categorie {
 
     // on read la catégorie mère si elle existe
     $libelleMere = $row['libelleMere'];
-    if (isset($libelleMere)) {
+    if (isset($libelleMere) && $libelleMere != '') {
       $categorie->categorieMere = Categorie::read($libelleMere);
     }
 

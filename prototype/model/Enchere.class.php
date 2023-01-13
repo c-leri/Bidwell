@@ -2,6 +2,7 @@
 
 require_once __DIR__.'/Categorie.class.php';
 require_once __DIR__.'/DAO.class.php';
+require_once __DIR__ . '/Utilisateur.class.php';
 
 /**
  * Classe représentant la notion d'enchère
@@ -22,6 +23,7 @@ class Enchere {
   private string $libelle;
   private DateTime $dateDebut;
   private float $prixDepart;                    // prix auquel commence l'enchère, utilisé dans les calculs d'augmentation du prix 
+  private float $prixHaut;                      // prix auquel (re)commence le décompte
   private float $prixRetrait;                   // prix de fin de l'enchère si personne n'enchérit
   private Participation|null $derniereEnchere;  // dernière enchère, null jusqu'à la première enchère
   private array $images = array();              // liste des noms des fichers contenant les images
@@ -38,6 +40,7 @@ class Enchere {
     $this->libelle = $libelle;
 	  $this->setDateDebut($dateDebut);
     $this->prixDepart = $prixDepart;
+    $this->prixHaut = $prixDepart;
     $this->prixRetrait = $prixRetrait;
     $this->images[0] = $imagePrincipale;
     $this->description = $description;
@@ -94,6 +97,33 @@ class Enchere {
     return $this->categorie;
   }
 
+  /**
+   * @return DateTime correspondant à l'instant de la fin de l'enchère (datedebut + 1 heure)
+   */
+  private function getInstantFin() : DateTime {
+    $instantFin = $this->dateDebut;
+    $instantFin->add(DateInterval::createFromDateString('1 hour'));
+    return $instantFin;
+  }
+
+  /**
+   * Calcul le ratio representant l'avancée temporelle de l'enchère entre le prix haut et le prix de retrait
+   */
+  private function getRatioTempsActuel() : int {
+    $maintenant = new DateTime();
+    $differenceMaintenantFin = (int) $maintenant->format('Uv') - (int) $this->getInstantFin()->format('Uv');
+    return (isset($this->derniereEnchere))
+      ? $differenceMaintenantFin / ((int) $this->derniereEnchere->getInstantDerniereEnchere()->format('Uv') - (int) $this->getInstantFin()->format('Uv'))
+      : $differenceMaintenantFin / (int) DateInterval::createFromDateString('1 hour')->format('Uv');
+  }
+
+  /**
+   * @return float le prix courant de l'enchère
+   */
+  public function getPrixCourant() : float {
+    return $this->prixRetrait + $this->getRatioTempsActuel() * ($this->prixHaut - $this->prixRetrait);
+  }
+
   public function getParticipations() : array {
     return Participation::readFromEnchere($this);
   }
@@ -101,6 +131,7 @@ class Enchere {
   // Setters
   public function setDerniereEnchere(Participation $participation) : void {
     $this->derniereEnchere = $participation;
+    // TODO: notifier tous les utilisateurs
   }
 
   public function setLibelle(string $libelle) : void {
@@ -266,6 +297,42 @@ class Enchere {
     return $out;
   }
 
+  public static function readLike(string $categorie, string $pattern, string $tri, string $ordre ,int $page, int $pageSize) : array {
+    // récupératoin du dao
+    $dao = DAO::get();
+
+    switch ($tri) {
+      case 'date':
+        $order = 'dateDebut';
+        break;
+      case 'prix':
+        $order = 'prixDepart';
+        break;
+      default:
+        $order = 'libelle';
+    }
+
+    $decalage = ($page - 1) * $pageSize;
+
+    // préparation de la query
+    if ($categorie == '') {
+      $query = "SELECT * FROM Enchere WHERE libelle LIKE ? ORDER BY $order $ordre LIMIT ?, ?";
+      $data = ['%' . $pattern . '%', $decalage, $pageSize];
+    } else {
+      $query = "SELECT * FROM Enchere WHERE categorie = ? AND libelle LIKE ? ORDER BY $order $ordre LIMIT ?, ?";
+      $data = [$categorie, '%' . $pattern . '%', $decalage, $pageSize];
+    }
+    // récupération de la table de résultat
+    $table = $dao->query($query, $data);
+
+    $out = array();
+    foreach($table as $row) {
+      $out[] = Enchere::constructFromDB($row);
+    }
+
+    return $out;
+  }
+
   private static function constructFromDB(array $row) : Enchere {
     // split le contenu du string images de la bd en un tableaux de string contenant le nom des fichiers contenant les images
     $images = explode(' ', $row['images']);
@@ -283,9 +350,8 @@ class Enchere {
     $enchere = new Enchere(Utilisateur::read($row['loginCreateur']), $row['libelle'], $dateDebut, $row['prixDepart'], $row['prixRetrait'], $images[0], $row['description'], Categorie::read($row['libelleCategorie']));
 
     // on set la derniereEnchere si elle est dans la bd
-    if (isset($row['loginUtilisateurDerniereEnchere'])) {
-      $derniereEnchere = Participation::read($enchere, Utilisateur::read($row['loginUtilisateurDerniereEnchere']));
-      $enchere->setDerniereEnchere($derniereEnchere);
+    if (isset($row['loginUtilisateurDerniereEnchere']) && $row['loginUtilisateurDerniereEnchere'] != '') {
+      $enchere->derniereEnchere = Participation::read($enchere, Utilisateur::read($row['loginUtilisateurDerniereEnchere']));
     }
 
     // on ajoute les images restantes dans la liste de string

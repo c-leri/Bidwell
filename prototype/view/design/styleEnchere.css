@@ -1,12 +1,8 @@
 :root {
     --dot-diameter: 300px;
     --circle-border-width: 3px;
-    --default-color: var(--couleur-gris-clair);
 }
 
-span {
-    color: transparent;
-}
 
 .container {
     margin: auto;
@@ -17,6 +13,7 @@ span {
     justify-items: center;
     align-content: stretch;
     align-items: center;
+    position: relative;
 }
 
 .flex-col {
@@ -37,25 +34,18 @@ span {
     fill: none;
     stroke: white;
     stroke-dasharray: 75 100;
-    stroke-linecap: round;
 }
 
 .circle-container__background {
-    fill: none;
-    stroke: var(--default-color);
     stroke-width: var(--circle-border-width);
-    stroke-dasharray: 75 100;
     stroke-linecap: round;
 }
 
 .circle-container__progress {
-    fill: none;
-    stroke-linecap: round;
     stroke: url(#gradient);
-    stroke-dasharray: 75 100;
     stroke-linecap: round;
     stroke-width: var(--circle-border-width);
-    transition: stroke-dashoffset 1s ease-in-out;
+    /*transition: stroke-dashoffset 1s ease-in-out; Non utilisé pour l'instant, à décommenter à un moment?*/
 }
 
 .stop1 {
@@ -67,6 +57,11 @@ span {
     stop-color: green;
 }
 
+.temps{
+    position: absolute;
+    right:5rem;
+    top:3rem;
+}
 
 .prix {
     display: flex;
@@ -78,30 +73,21 @@ span {
 
 #encherebutton { 
     position: absolute;
-    top: 9rem;   
+    top: 4rem;
     height: 10rem;
     line-height: 80px;
     width: 10rem;
     font-size: 2em;
     font-weight: bold;
     color: white;
-    text-align: center;
-    cursor: pointer;
     border-radius: 50%; 
     border: none;
-    font-family: Avenir, Arial, sans-serif;
     background: red;
     text-shadow: 0 3px 1px rgba(122,17,8,.8);
     box-shadow: 0 8px 0 rgb(183,9,0), 0 15px 20px rgba(0,0,0,.35);
-    text-transform: uppercase;
-    transition: .4s all ease-in;
-    outline: none; 
-    -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
 
-button span { position: relative; }
-/* fix for IE 11 (and IE8+, although the earlier versions are harder to address) stupidly moving the inner button text on click */
-.pressed { 
+#encherebutton:active { 
   padding-top: 3px;
   transform: translateY(4px);
   box-shadow: 0 4px 0 rgb(183,0,0),
