@@ -27,7 +27,7 @@
                 </a>
         </div>
         <div id="nav-right-my_account">
-            <a href="">
+            <a href="compte.ctrl.php">
                 Mon compte
             </a>
         </div>

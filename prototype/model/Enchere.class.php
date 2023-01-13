@@ -296,7 +296,7 @@ class Enchere {
     return $out;
   }
 
-  public static function readLike(string $pattern, string $tri, int $page, int $pageSize) : array {
+  public static function readLike(string $categorie, string $pattern, string $tri, string $ordre ,int $page, int $pageSize) : array {
     // récupératoin du dao
     $dao = DAO::get();
 
@@ -314,9 +314,13 @@ class Enchere {
     $decalage = ($page - 1) * $pageSize;
 
     // préparation de la query
-    $query = 'SELECT * FROM Enchere WHERE libelle LIKE ? ORDER BY ? LIMIT ?, ?';
-    $data = ['%'. $pattern .'%', $order, $decalage, $pageSize];
-
+    if ($categorie == '') {
+      $query = "SELECT * FROM Enchere WHERE libelle LIKE ? ORDER BY $order COLLATE NOCASE $ordre LIMIT ?, ?";
+      $data = ['%' . $pattern . '%', $decalage, $pageSize];
+    } else {
+      $query = "SELECT * FROM Enchere WHERE categorie = ? AND libelle LIKE ? ORDER BY $order COLLATE NOCASE $ordre LIMIT ?, ?";
+      $data = [$categorie, '%' . $pattern . '%', $decalage, $pageSize];
+    }
     // récupération de la table de résultat
     $table = $dao->query($query, $data);
 
@@ -345,7 +349,7 @@ class Enchere {
     $enchere = new Enchere(Utilisateur::read($row['loginCreateur']), $row['libelle'], $dateDebut, $row['prixDepart'], $row['prixRetrait'], $images[0], $row['description'], Categorie::read($row['libelleCategorie']));
 
     // on set la derniereEnchere si elle est dans la bd
-    if (isset($row['loginUtilisateurDerniereEnchere'])) {
+    if (isset($row['loginUtilisateurDerniereEnchere']) && $row['loginUtilisateurDerniereEnchere'] != '') {
       $enchere->derniereEnchere = Participation::read($enchere, Utilisateur::read($row['loginUtilisateurDerniereEnchere']));
     }
 

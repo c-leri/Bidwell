@@ -182,7 +182,7 @@ class Utilisateur {
         // Initialisation de la requête et du tableau de valeurs
         $requete = 'SELECT * FROM Utilisateur WHERE login = ?';
         $valeurs = [$login];
-
+        
         // Exécution de la requête
         $table = $dao->query($requete, $valeurs);
 

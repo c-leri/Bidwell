@@ -49,15 +49,9 @@
                 <h2> Catégorie de l'annonce </h2>
 
                 <div class="dropdown">
-                    <input type="text" class="dropbtn" id="categorieInput" name="categorie" placeholder="Choisissez une catégorie" onclick="showFunction()" onkeyup="filterFunction()" required value="Timbres">
+                    <input type="text" class="dropbtn" id="categorieInput" name="categorie" placeholder="Choisissez une catégorie" onclick="showFunction('categorie')" onkeyup="filterFunction('categorie')" required value="Timbres">
                     <div id="categorieDropdown" class="dropdown-content">
-                        <button onclick="confirmFunction()">Art graphique</button>
-                        <button onclick="confirmFunction()">Art décoratif</button>
-                        <button onclick="confirmFunction()">Bijoux et montres</button>
-                        <button onclick="confirmFunction()">Livres et manuscrits</button>
-                        <button onclick="confirmFunction()">Mobiliers</button>
-                        <button onclick="confirmFunction()">Timbres</button>
-                        <button onclick="confirmFunction()">Pierre précieuses</button>
+                    <div id="ajoutbuttonanchorcategorie"></div>
                     </div>
 
                     <p> Ajouter une catégorie appropriée à votre annonce lui permettra d'être plus facilement trouvée par
@@ -112,7 +106,7 @@
             <div class="retrait">
                 <h2> Prix de retrait de l'annonce </h2>
 
-                <input id="prixretrait" type="number" name="retrait" required min="1" max="99999" placeholder="Prix de retrait">
+                <input id="prixretrait" type="number" name="retrait" required min="1" max="99999" placeholder="Prix de retrait" value="250">
                 <p id="errorretrait"></p>
                 <p> Notre site utilise en système d'enchère qui comprend une partie descendantes. De ce fait, le prix de
                     votre article pourrait diminuer par rapport au prix de base. Définissez le prix auquel vous ne
@@ -144,11 +138,13 @@
 
 
             <div class="localisation">
-                <h2> Localisation du bien (code postal) </h2>
+                <h2> Localisation</h2>
+                <input type="text" class="dropbtn" id="localisationInput" name="code" placeholder="Entrez un code postal ou une ville" onclick="showFunction('localisation')" onkeyup="filterFunction('localisation')" required>
+                    <div id="localisationDropdown" class="dropdown-content">
+                        <div id="ajoutbuttonanchorlocalisation"></div>
+                    </div>
 
-                <input type="number" name="code" required placeholder="Code postal" value="38000">
-
-                <p> Renseigner le numéro de votre commune permet aux utilisateurs de savoir si la remise en main propre
+                <p> Renseigner votre commune permet aux utilisateurs de savoir si la remise en main propre
                     est une option possible par rapport à leur emplacement. <br>
                     Votre adresse exacte ne sera pas connue.</p>
             </div>

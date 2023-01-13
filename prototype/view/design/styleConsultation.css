@@ -1,102 +1,101 @@
-@media only screen and (min-width: 960px) {
-    main.consultation {
-        color: var(--couleur-blanc)
-    }
+main.consultation {
+    color: var(--couleur-blanc)
+}
 
-    /* -- Images --*/
-    main.consultation .images img:hover {
-        transform: scale(2);
-    }
+/* -- Images --*/
+main.consultation .images img:hover {
+    transform: scale(2);
+}
 
-    main.consultation .images img {
-        transition: transform 0.1s ease;
-        width: 10rem;
-        height: 10rem;
-        border-radius: 1rem;
-    }
+main.consultation .images img {
+    transition: transform 0.1s ease;
+    width: 10rem;
+    height: 10rem;
+    border-radius: 1rem;
+}
 
-    main.consultation .images {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: nowrap;
-        justify-content: space-around;
-        background-color: var(--couleur-blanc30);
-        padding: 0.5rem 0.5rem 0.5rem 0.5rem;
-        margin: 0.5rem;
-        border-radius: 1rem;
-    }
+main.consultation .images {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    background-color: var(--couleur-blanc30);
+    padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+    margin: 0.5rem;
+    border-radius: 1rem;
+}
 
-    /* -- -- */
-    main.consultation .top {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        margin: 1rem;
-    }
+/* -- Nom et image -- */
+main.consultation .top {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 1rem;
+}
 
-    main.consultation .presentation {
-        display: flex;
-        flex-direction: column;
-        background-color: var(--couleur-blanc30);
-        padding: 0.5rem 0.8rem 0.5rem 0.8rem;
-        border-radius: 1rem;
-        margin-right: 0.5rem;
-    }
+main.consultation .presentation {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--couleur-blanc30);
+    padding: 0.5rem 0.8rem 0.5rem 0.8rem;
+    border-radius: 1rem;
+    margin-right: 0.5rem;
+}
 
-    main.consultation .presentation img {
-        width: 20rem;
-        height: 20rem;
-        border-radius: 1rem;
-        margin-bottom: 0.5rem;
-    }
+main.consultation .presentation img {
+    width: 20rem;
+    height: 20rem;
+    border-radius: 1rem;
+    margin-bottom: 0.5rem;
+}
 
-    main.consultation .enchere {
-        background-color: var(--couleur-blanc30);
-        padding: 0.5rem 0.8rem 0.5rem 0.8rem;
-        border-radius: 1rem;
-        width: 50%;
-    }
+/* -- Enchère -- */
+main.consultation .enchere {
+    background-color: var(--couleur-blanc30);
+    padding: 0.5rem 0.8rem 0.5rem 0.8rem;
+    border-radius: 1rem;
+    width: 50%;
+}
 
-    /* -- -- */
-    main.consultation .descr h2 {
-        margin-left: 0.5rem;
-    }
+/* -- description -- */
+main.consultation .descr h2 {
+    margin-left: 0.5rem;
+}
 
-    main.consultation .descr {
-        background-color: var(--couleur-noir30);
-        padding: 0.5rem 0.8rem 0.5rem 0.8rem;
-    }
+main.consultation .descr {
+    background-color: var(--couleur-noir30);
+    padding: 0.5rem 0.8rem 0.5rem 0.8rem;
+}
 
-    main.consultation .description {
-        background-color: var(--couleur-blanc30);
-        padding: 0.5rem 0.5rem 0.5rem 0.5rem;
-        margin: 0.5rem;
-        border-radius: 1rem;
-    }
+main.consultation .description {
+    background-color: var(--couleur-blanc30);
+    padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+    margin: 0.5rem;
+    border-radius: 1rem;
+}
 
-    /* -- -- */
-    main.consultation .complement {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
+/* -- Complements -- */
+main.consultation .complement {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 
-    }
+}
 
-    main.consultation .informations,
-    main.consultation .vendeur {
-        background-color: var(--couleur-noir30);
-        padding: 0.5rem 0.8rem 0.5rem 0.8rem;
-        border-radius: 1rem;
-        margin: 0.5rem;
-        width: 50%;
-    }
+main.consultation .informations,
+main.consultation .vendeur {
+    background-color: var(--couleur-noir30);
+    padding: 0.5rem 0.8rem 0.5rem 0.8rem;
+    border-radius: 1rem;
+    margin: 0.5rem;
+    width: 50%;
+}
 
-    main.consultation .complement ul {
-        list-style-type: none;
-        margin: 0.2rem;
-    }
+main.consultation .complement ul {
+    list-style-type: none;
+    margin: 0.2rem;
+}
 
-    main.consultation .complement li {
-        margin-left: 0.5rem;
-    }
+main.consultation .complement li {
+    margin-left: 0.5rem;
 }
