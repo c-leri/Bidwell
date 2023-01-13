@@ -131,7 +131,6 @@ class Enchere {
   // Setters
   public function setDerniereEnchere(Participation $participation) : void {
     $this->derniereEnchere = $participation;
-    // TODO: notifier tous les utilisateurs
   }
 
   public function setLibelle(string $libelle) : void {

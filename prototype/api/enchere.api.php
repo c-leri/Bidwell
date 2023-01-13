@@ -25,3 +25,8 @@ if (!isset($_POST['idEnchere'])) {
         $out['error'] = $e->getMessage();
     }
 }
+
+// Change le status en cas d'erreur
+if (isset($out['error'])) {
+    header($_SERVER['SERVER_PROTOCOL'].' 400 ' . $out['error']);
+}
