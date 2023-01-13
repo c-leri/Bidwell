@@ -196,15 +196,46 @@ class Utilisateur {
             throw new Exception("Read : Utilisateur $login existe en ".count($table).' exemplaires');
         }
 
-        $tuple = $table[0];
+        return Utilisateur::constructFromDB($table[0]);
+    }
 
+    public static function readLike(string $pattern, string $tri, int $page, int $pageSize) : array {
+        // Récupération de la classe DAO
+        $dao = DAO::get();
+
+        switch ($tri) {
+            case 'nom':
+                $order = 'nom';
+                break;
+            default:
+                $order = 'login';
+        }
+
+        $decalage = ($page - 1) * $pageSize;
+
+        // Initialisation de la requête et du tableau de valeurs
+        $requete = 'SELECT * FROM Utilisateur WHERE login LIKE ? OR nom LIKE ? ORDER BY ? LIMIT ?, ?';
+        $valeurs = ['%'.$pattern.'%', '%'.$pattern.'%', $order, $decalage, $pageSize];
+
+        // Exécution de la requête
+        $table = $dao->query($requete, $valeurs);
+
+        $out = array();
+        foreach ($table as $row) {
+            $out[] = Utilisateur::constructFromDB($row);
+        }
+
+        return $out;
+    }
+
+    private static function constructFromDB(array $row) : Utilisateur {
         // crée un utilisateur à partir de la ligne du tableau
-        $out = new Utilisateur($tuple['login'], $tuple['email'], $tuple['numeroTelephone']);
+        $out = new Utilisateur($row['login'], $row['email'], $row['numeroTelephone']);
 
         // set les informations qui ne sont pas dans le constructeur
-        $out->nom = $tuple['nom'];
-        $out->mdpHash = $tuple['mdpHash'];
-        $out->nbJetons = $tuple['nbJetons'];
+        $out->nom = $row['nom'];
+        $out->mdpHash = $row['mdpHash'];
+        $out->nbJetons = $row['nbJetons'];
         $out->isInDB = true;
 
         return $out;

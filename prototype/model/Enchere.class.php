@@ -130,6 +130,7 @@ class Enchere {
   // Setters
   public function setDerniereEnchere(Participation $participation) : void {
     $this->derniereEnchere = $participation;
+    // TODO: notifier tous les utilisateurs
   }
 
   public function setLibelle(string $libelle) : void {
@@ -295,6 +296,38 @@ class Enchere {
     return $out;
   }
 
+  public static function readLike(string $pattern, string $tri, int $page, int $pageSize) : array {
+    // récupératoin du dao
+    $dao = DAO::get();
+
+    switch ($tri) {
+      case 'date':
+        $order = 'dateDebut';
+        break;
+      case 'prix':
+        $order = 'prixDepart';
+        break;
+      default:
+        $order = 'libelle';
+    }
+
+    $decalage = ($page - 1) * $pageSize;
+
+    // préparation de la query
+    $query = 'SELECT * FROM Enchere WHERE libelle LIKE ? ORDER BY ? LIMIT ?, ?';
+    $data = ['%'. $pattern .'%', $order, $decalage, $pageSize];
+
+    // récupération de la table de résultat
+    $table = $dao->query($query, $data);
+
+    $out = array();
+    foreach($table as $row) {
+      $out[] = Enchere::constructFromDB($row);
+    }
+
+    return $out;
+  }
+
   private static function constructFromDB(array $row) : Enchere {
     // split le contenu du string images de la bd en un tableaux de string contenant le nom des fichiers contenant les images
     $images = explode(' ', $row['images']);
@@ -313,8 +346,7 @@ class Enchere {
 
     // on set la derniereEnchere si elle est dans la bd
     if (isset($row['loginUtilisateurDerniereEnchere'])) {
-      $derniereEnchere = Participation::read($enchere, Utilisateur::read($row['loginUtilisateurDerniereEnchere']));
-      $enchere->setDerniereEnchere($derniereEnchere);
+      $enchere->derniereEnchere = Participation::read($enchere, Utilisateur::read($row['loginUtilisateurDerniereEnchere']));
     }
 
     // on ajoute les images restantes dans la liste de string

@@ -73,10 +73,17 @@ class Participation {
     // Autres méthodes
 
     /**
-     * Incrémente le compteur d'enchères posées par $utilisateur sur $enchere
+     * Trigger tous les événements lié au fait que $utilisateur enchérisse sur $enchère
+     *  - incrémentre nbEnchere
+     *  - change montantDerniereEnchere au prix courant de l'enchère et instantDerniereEnchere à maintenant
+     *  - changer la derniere Enchere de $enchere $this
      */
-    public function incrementeEncheri() : void {
+    public function encherir() : void {
         $this->nbEncheres++;
+        $enchere = Enchere::read($this->idEnchere);
+        $this->montantDerniereEnchere = $enchere->getPrixCourant();
+        $this->instantDerniereEnchere = new DateTime();
+        $enchere->setDerniereEnchere($this);
     }
 
     /**
