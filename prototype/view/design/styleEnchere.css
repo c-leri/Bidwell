@@ -1,12 +1,8 @@
 :root {
     --dot-diameter: 300px;
     --circle-border-width: 3px;
-    --default-color: var(--couleur-gris-clair);
 }
 
-span {
-    color: transparent;
-}
 
 .container {
     margin: auto;
@@ -37,25 +33,18 @@ span {
     fill: none;
     stroke: white;
     stroke-dasharray: 75 100;
-    stroke-linecap: round;
 }
 
 .circle-container__background {
-    fill: none;
-    stroke: var(--default-color);
     stroke-width: var(--circle-border-width);
-    stroke-dasharray: 75 100;
     stroke-linecap: round;
 }
 
 .circle-container__progress {
-    fill: none;
-    stroke-linecap: round;
     stroke: url(#gradient);
-    stroke-dasharray: 75 100;
     stroke-linecap: round;
     stroke-width: var(--circle-border-width);
-    transition: stroke-dashoffset 1s ease-in-out;
+    /*transition: stroke-dashoffset 1s ease-in-out; Non utilisé pour l'instant, à décommenter à un moment?*/
 }
 
 .stop1 {
@@ -66,7 +55,6 @@ span {
 .stop2 {
     stop-color: green;
 }
-
 
 .prix {
     display: flex;
@@ -100,8 +88,8 @@ span {
 }
 
 button span { position: relative; }
-/* fix for IE 11 (and IE8+, although the earlier versions are harder to address) stupidly moving the inner button text on click */
-.pressed { 
+
+#encherebutton:focus { 
   padding-top: 3px;
   transform: translateY(4px);
   box-shadow: 0 4px 0 rgb(183,0,0),
