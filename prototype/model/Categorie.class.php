@@ -15,6 +15,8 @@ class Categorie extends Component {
   private string $libelle;
   // Fils du modèle composite
   protected array $children;
+  // booleen qui signifie si l'utilisateur est enregistré dans la base
+  private bool $isInDB;
 
   // constructeur
   public function __construct(string $libelle, Categorie $categorieMere = null)
@@ -26,6 +28,7 @@ class Categorie extends Component {
     } else {
       $this->setLibelleCategorieMere(null);
     }
+    $this->isInDB = false;
   }
 
   // Getters
@@ -54,17 +57,7 @@ class Categorie extends Component {
    * Vérifie si la catégorie est enregistrée dans la bd
    */
   public function isInDB() : bool {
-    // Récupération de la classe DAO
-    $dao = DAO::get();
-
-    // Initialisation de la requête et du tableau de valeurs
-    $requete = 'SELECT * FROM Categorie WHERE libelle = ?';
-    $valeurs = [$this->libelle];
-
-    // Exécution de la requête
-    $table = $dao->query($requete, $valeurs);
-
-    return count($table) != 0;
+    return $this->isInDB;
   }
 
   /**
@@ -80,7 +73,7 @@ class Categorie extends Component {
    * Fonction qui renvoie la catégorie par défaut 'Autre'
    * Wrapper de read() qui crée la catégorie si elle n'existe pas déjà
    */
-  public function getCategorieAutre() : Categorie {
+  public static function getCategorieAutre() : Categorie {
     try {
       return Categorie::read('Autre');
     } catch (Exception $e) {
@@ -127,13 +120,15 @@ class Categorie extends Component {
 
     // on rajoute la catégorie dans la liste d'instances de Categorie
     Categorie::$instances[$this->libelle] = $this;
+
+    $this->isInDB = true;
   }
 
   /////////////////// READ ////////////////////
 
   /**
    * Récupère une catégorie dans la bd à partir de son libelle
-   * @param forceDansBD spécifie si on veut obligatoirement lire dans la bd et pas dans le tableau d'instances, faux par défaut
+   * @param bool $forceDansBD spécifie si on veut obligatoirement lire dans la bd et pas dans le tableau d'instances, faux par défaut
    * @throws Exception si on ne trouve pas la catégorie dans la bd ou si plusieurs catégories ont le même libelle dans la bd
    */
   public static function read(string $libelle, bool $forceDansBD = false) : Categorie {
@@ -195,6 +190,8 @@ class Categorie extends Component {
       }
     }
 
+    $categorie->isInDB = true;
+
     return $categorie;
   }
 
@@ -255,7 +252,8 @@ class Categorie extends Component {
     // les enchère ont alors comme catégorie 'Autre'
     foreach ($this->children as $child) {
       $child->setCategorieMere(($child instanceof Enchere) ? Categorie::getCategorieAutre() : null);
-      $child->update();
+      if ($child->isInDB())
+        $child->update();
     }
 
     // récupération du dao
@@ -269,5 +267,7 @@ class Categorie extends Component {
 
     // on retire le fait que cette catégorie est fille dans sa mère
     $this->getCategorieMere()?->remove($this);
+
+    $this->isInDB = false;
   }
 }

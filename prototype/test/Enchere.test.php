@@ -1,20 +1,26 @@
 <?php
 // Test la classe Enchere
-require_once(__DIR__ . "/../model/Enchere.class.php");
+require_once __DIR__.'/../model/Enchere.class.php';
+require_once __DIR__.'/../model/Utilisateur.class.php';
 // Fonctions d'aide
-require_once(__DIR__ . "/Helper.php");
+require_once __DIR__.'/Helper.php';
 
 try {
-	// Création d'une nouvelle caégorie
+	// catégorie pour la création d'enchère
 	$categorie = new Categorie('test');
 	$categorie->create();
 	$date = DateTime::createFromFormat('d-m-Y', '04-05-2024');
+
+	// utilisateur pour la création d'enchère
+    $utilisateur = new Utilisateur('testEnchere', 'test.categorie@example.com', '0606060606');
+    $utilisateur->setPassword('motDePasse');
+    $utilisateur->create();
 
 	// Constructeur
 	print('Test du constructeur : ');
 
 	try {
-		$enchere = new Enchere('testConstructeur', $date, 500, 0, 'testConstructeur.png', 'testConstructeur.txt', $categorie->getId());
+		$enchere = new Enchere($utilisateur, 'testConstructeur', $date, 500, 0, 'testConstructeur.png', 'testConstructeur.txt', $categorie->getId());
 	} catch (Exception $e) {
 		echo("Contenu de la variable :");
 		var_dump($enchere);
@@ -23,13 +29,13 @@ try {
 
 	try {
 		$dateIncorrecte = DateTime::createFromFormat('d-m-Y', '01-01-2023');
-		$enchere = new Enchere('testConstructeur2', $dateIncorrecte, 500, 0, 'testConstructeur2.png', 'testConstructeur2.txt', $categorie->getId());
+		$enchere = new Enchere($utilisateur, 'testConstructeur2', $dateIncorrecte, 500, 0, 'testConstructeur2.png', 'testConstructeur2.txt', $categorie->getId());
 		KO("La catégorie a été créée malgré la date incorrecte.");
 	} catch (Exception $e) {}
 
 	try {
 		$categorieInexistante = new Categorie('inexistance');
-		$enchere = new Enchere('testConstructeur3', $dateIncorrecte, 500, 0, 'testConstructeur3.png', 'testConstructeur3.txt', $categorieInexistante->getId());
+		$enchere = new Enchere($utilisateur, 'testConstructeur3', $dateIncorrecte, 500, 0, 'testConstructeur3.png', 'testConstructeur3.txt', $categorieInexistante->getId());
 		KO("La catégorie a été créée malgré la catégorie non sérialisée");
 	} catch (Exception $e) {}
 
@@ -40,7 +46,7 @@ try {
 	/////////////////////////////////////////////
 
 	// Création d'une enchère pour le test des méthodes CRUD
-	$enchere = new Enchere('Enchere 3', $date, 500, 200, 'enchere3.png', 'enchere3.txt', $categorie->getId());
+	$enchere = new Enchere($utilisateur, 'Enchere 3', $date, 500, 200, 'enchere3.png', 'enchere3.txt', $categorie->getId());
 
 	/////////////// CREATE + READ ////////////////
 	print('Test create() et read() : ');
@@ -97,8 +103,12 @@ try {
 	$enchere->delete();
 	try {
 		Enchere::read($idEnchere);
-		KO("Erreur sur Enchere : Test delete() : lire une enchère supprimée devrait renvoyer une erreur");
+		KO("Test delete() : lire une enchère supprimée devrait renvoyer une erreur");
 	} catch (Exception $e) {}
+
+	// on supprime l'Utilisateur et la catégorie créés pour les tests
+	$utilisateur->delete();
+	$categorie->delete();
 
 	OK();
 

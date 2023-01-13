@@ -30,19 +30,26 @@
             <h2> Filtrer </h2>
 
             <div class="choix">
-                <button id="annonces" onclick=""> Annonces </button>
-                |
-                <button id="utilisateurs" onclick=""> Utilisateurs </button>
+                <div>
+                    <input type="radio" id="Enchere" name="typeSelected" value="Enchere" style="display:none" checked>
+                    <label for="annonces">Annonces</label>
+                </div>
+
+                <div>
+                    <input type="radio" id="Utilisateur" name="typeSelected" value="Utilisateur" style="display:none">
+                    <label for="utilisateurs">Utilisateurs</label>
+                </div>
             </div>
 
             <div class="dropdown">
                 <p> Trier par </p>
-                <button class="dropbtn">+</button>
-                <div class="dropdown-content">
-                    <button id="date" onclick="">Date de création</button>
-                    <button id="nom" onclick="">Nom</button>
-                    <button id="prix" onclick="">Prix de départ</button>
-                </div>
+                <form action="">
+                    <select name="tri" id="tri" onchange="showItems()">
+                        <option value="creation">Date de création</option>
+                        <option value="nom">Nom</option>
+                        <option value="prix">Prix</option>
+                    </select>
+                </form>
             </div>
         </div>
 
@@ -53,7 +60,8 @@
 
         <div class="liste">
             <div class="numPage">
-                <button id="back"> < </button>
+                <button id="back">
+                    < </button>
                         <button id="first">1</button>
                         <button id="second">2</button>
                         <button id="third">3</button>
@@ -65,29 +73,12 @@
             </div>
 
             <div class="annonces">
-                <?php for ($i = 0; $i < 12; $i++) {
-                    ?>
-
-                    <article>
-                        <a href="consultation.ctrl.php">
-                            <img src="../view/design/img/default_image.png" alt="">
-                        </a>
-                        <h1>Ceci est un titre</h1>
-                        <div class="variablesAnnonce">
-                            <p class="categorie">catégorie</p>
-                            <p class="temps-restant">temps restant</p>
-                            <p class="prix-actuel">prix actuel</p>
-                            <p class="createur">Utilisateur</p>
-                            <p>Description</p>
-                            <p class="description">Ceci est un lorem ipsum.</p>
-                        </div>
-                    </article>
-
-                <?php } ?>
+                
             </div>
 
             <div class="numPage">
-                <button id="back"> < </button>
+                <button id="back">
+                    < </button>
                         <button id="first">1</button>
                         <button id="second">2</button>
                         <button id="third">3</button>

@@ -1,5 +1,7 @@
 <?php
 require_once __DIR__."/DAO.class.php";
+require_once __DIR__.'/Participation.class.php';
+
 /**
  * La classe Utilisateur modélise les utilisateurs enregistrés sur l'application à partir d'un login, d'un mot de passe hashé, d'un nom
  * d'un e-mail, d'un numéro de téléphone et d'un nombre de jetons.
@@ -21,6 +23,10 @@ class Utilisateur {
     private string $numeroTelephone;
     // informations pour les enchères
     private int $nbJetons;
+    private array $encheresCreees = array();
+    private array $participations = array();
+    // booleen qui signifie si l'utilisateur est enregistré dans la base
+    private bool $isInDB;
 
     // constructeur
 
@@ -34,6 +40,7 @@ class Utilisateur {
         $this->setEmail($email);
         $this->setNumeroTelephone($numeroTelephone);
         $this->nbJetons = 0;
+        $this->isInDB = false;
     }
 
     // Getters
@@ -97,20 +104,40 @@ class Utilisateur {
         return password_verify($password, $this->mdpHash);
     }
 
-    // Autres méthodes
-
-
-    public function isInDB() : bool {
-        // Récupération de la classe DAO
-        $dao = DAO::get();
-        $str = '?';
-        // Initialisation de la requête et du tableau de valeurs
-        $requete = 'SELECT * FROM Utilisateur WHERE login= '.$str;
-        $valeurs = [$this->getLogin()];
-        // Exécution de la requête
-        $table = $dao->query($requete, $valeurs);
-        return count($table) != 0;
+    // Gestion des participations
+    /**
+     * @throws Exception si l'utilisateur n'est pas enregistré dans la bd
+     */
+    public function addParticipation(Participation $participation) : void {
+        if (!$this->isInDB())
+            throw new Exception("L'utilisateur $this->login doit exister dans la bd pour participer à une enchère");
+        $this->participations[$participation->getEnchere()->getId().$participation->getUtilisateur()->getLogin()] = $participation;
     }
+
+    public function removeParticipation(Participation $participation) : void {
+        unset($this->participations[$participation->getEnchere()->getId().$participation->getUtilisateur()->getLogin()]);
+    }
+
+    // Gestion des enchères créées
+
+    /**
+     * @throws Exception si l'utilisateur n'est pas enregistré dans la bd
+     */
+    public function addEnchereCreee(Enchere $enchere) : void {
+        if (!$this->isInDB())
+            throw new Exception("L'utilisateur $this->login doit exister dans la bd pour créer une enchère");
+        $this->encheresCreees[$enchere->getId()] = $enchere;
+    }
+
+    public function removeEnchereCreee(Enchere $enchere) : void {
+        unset($this->encheresCreees[$enchere->getId()]);
+    }
+
+    // Autres méthodes
+    public function isInDB() : bool {
+        return $this->isInDB;
+    }
+
     /**
      * Vérifie si l'attribut est enregistré dans la bd
      */
@@ -161,6 +188,8 @@ class Utilisateur {
         if ($nbLignesMod != 1) {
             throw new Exception("Create : L'utilisateur $this->login n'a pas été correctement inséré.");
         }
+
+        $this->isInDB = true;
     }
 
     /////////////////// READ ////////////////////
@@ -199,6 +228,15 @@ class Utilisateur {
         $out->nom = $tuple['nom'];
         $out->mdpHash = $tuple['mdpHash'];
         $out->nbJetons = $tuple['nbJetons'];
+        $out->isInDB = true;
+
+        foreach(Enchere::readFromCreateur($out) as $enchereCreee) {
+            $out->addEnchereCreee($enchereCreee);
+        }
+
+        foreach(Participation::readFromUtilisateur($out) as $participation) {
+            $out->addParticipation($participation);
+        }
 
         return $out;
     }
@@ -253,6 +291,8 @@ class Utilisateur {
 
         // Exécution de la requête
         $dao->exec($requete, $valeurs);
+
+        $this->isInDB = false;
     }
 }
 

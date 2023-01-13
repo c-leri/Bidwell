@@ -67,20 +67,6 @@ span {
     stop-color: green;
 }
 
-.circle-button {
-    position: absolute;
-    top: 9rem;   
-    height: 10rem;
-    line-height: 80px;
-    width: 10rem;
-    font-size: 2em;
-    font-weight: bold;
-    border-radius: 50%;
-    background-color: red;
-    color: white;
-    text-align: center;
-    cursor: pointer;
-}
 
 .prix {
     display: flex;
@@ -88,4 +74,36 @@ span {
 
 .prix * {
     padding: 0 1rem 0 1rem;
+}
+
+#encherebutton { 
+    position: absolute;
+    top: 9rem;   
+    height: 10rem;
+    line-height: 80px;
+    width: 10rem;
+    font-size: 2em;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 50%; 
+    border: none;
+    font-family: Avenir, Arial, sans-serif;
+    background: red;
+    text-shadow: 0 3px 1px rgba(122,17,8,.8);
+    box-shadow: 0 8px 0 rgb(183,9,0), 0 15px 20px rgba(0,0,0,.35);
+    text-transform: uppercase;
+    transition: .4s all ease-in;
+    outline: none; 
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+button span { position: relative; }
+/* fix for IE 11 (and IE8+, although the earlier versions are harder to address) stupidly moving the inner button text on click */
+.pressed { 
+  padding-top: 3px;
+  transform: translateY(4px);
+  box-shadow: 0 4px 0 rgb(183,0,0),
+    0 8px 6px rgba(0,0,0,.45);
 }
