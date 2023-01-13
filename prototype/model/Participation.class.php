@@ -18,6 +18,7 @@ class Participation {
     private string $loginUtilisateur;
     private int $nbEncheres;
     private float|null $montantDerniereEnchere;
+    private DateTime|null $instantDerniereEnchere;
     // booleen qui signifie si l'utilisateur est enregistré dans la base
     private bool $isInDB;
 
@@ -42,6 +43,10 @@ class Participation {
         return Utilisateur::read($this->loginUtilisateur);
     }
 
+    public function getInstantDerniereEnchere() : DateTime|null {
+        return $this->instantDerniereEnchere;
+    }
+
     // Setters
     /**
      * @throws Exception si l'enchère n'est pas enregistrée dans la bd
@@ -59,6 +64,10 @@ class Participation {
         if (!$utilisateur->isInDB())
             throw new Exception("L'utilisateur n'est pas enregistré dans la bd");
         $this->loginUtilisateur = $utilisateur->getLogin();
+    }
+
+    public function setInstantDeniereEnchere(DateTime $instant): void {
+        $this->instantDerniereEnchere = $instant;
     }
 
     // Autres méthodes

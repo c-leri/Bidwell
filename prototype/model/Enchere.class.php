@@ -22,6 +22,7 @@ class Enchere {
   private string $libelle;
   private DateTime $dateDebut;
   private float $prixDepart;                    // prix auquel commence l'enchère, utilisé dans les calculs d'augmentation du prix 
+  private float $prixHaut;                      // prix auquel (re)commence le décompte
   private float $prixRetrait;                   // prix de fin de l'enchère si personne n'enchérit
   private Participation|null $derniereEnchere;  // dernière enchère, null jusqu'à la première enchère
   private array $images = array();              // liste des noms des fichers contenant les images
@@ -38,6 +39,7 @@ class Enchere {
     $this->libelle = $libelle;
 	  $this->setDateDebut($dateDebut);
     $this->prixDepart = $prixDepart;
+    $this->prixHaut = $prixDepart;
     $this->prixRetrait = $prixRetrait;
     $this->images[0] = $imagePrincipale;
     $this->description = $description;
@@ -92,6 +94,33 @@ class Enchere {
 
   public function getCategorie() : Categorie {
     return $this->categorie;
+  }
+
+  /**
+   * @return DateTime correspondant à l'instant de la fin de l'enchère (datedebut + 1 heure)
+   */
+  private function getInstantFin() : DateTime {
+    $instantFin = $this->dateDebut;
+    $instantFin->add(DateInterval::createFromDateString('1 hour'));
+    return $instantFin;
+  }
+
+  /**
+   * Calcul le ratio representant l'avancée temporelle de l'enchère entre le prix haut et le prix de retrait
+   */
+  private function getRatioTempsActuel() : int {
+    $maintenant = new DateTime();
+    $differenceMaintenantFin = (int) $maintenant->format('Uv') - (int) $this->getInstantFin()->format('Uv');
+    return (isset($this->derniereEnchere))
+      ? $differenceMaintenantFin / ((int) $this->derniereEnchere->getInstantDerniereEnchere()->format('Uv') - (int) $this->getInstantFin()->format('Uv'))
+      : $differenceMaintenantFin / (int) DateInterval::createFromDateString('1 hour')->format('Uv');
+  }
+
+  /**
+   * @return float le prix courant de l'enchère
+   */
+  public function getPrixCourant() : float {
+    return $this->prixRetrait + $this->getRatioTempsActuel() * ($this->prixHaut - $this->prixRetrait);
   }
 
   public function getParticipations() : array {
