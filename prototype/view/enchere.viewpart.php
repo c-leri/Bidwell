@@ -1,5 +1,4 @@
 <div class="container">
-    <span class="modif">
         <svg class="circle-container" viewBox="2 -2 28 36">
             <linearGradient id="gradient">
                 <stop class="stop1" offset="0%" />
@@ -13,9 +12,10 @@
             
             <!-- stroke-dashoffset = la progression de la barre (0 <= x < 75)-->
         </svg>
-    </span>
+
     <button id="encherebutton"><span>Enchérir</span></button>
-    <span class="modif">
+
+    
     <div class="temps">
             <p> Temps Restant </p>
             <p id="temps">X</p>
@@ -39,5 +39,5 @@
             <p id="max">X</p>
         </div>
     </div>
-</span>
+
 </div>

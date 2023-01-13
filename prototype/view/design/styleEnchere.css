@@ -13,6 +13,7 @@
     justify-items: center;
     align-content: stretch;
     align-items: center;
+    position: relative;
 }
 
 .flex-col {
@@ -56,6 +57,12 @@
     stop-color: green;
 }
 
+.temps{
+    position: absolute;
+    right:5rem;
+    top:3rem;
+}
+
 .prix {
     display: flex;
 }
@@ -66,25 +73,19 @@
 
 #encherebutton { 
     position: absolute;
-    top: 9rem;
+    top: 4rem;
     height: 10rem;
     line-height: 80px;
     width: 10rem;
     font-size: 2em;
     font-weight: bold;
     color: white;
-    text-align: center;
-    cursor: pointer;
     border-radius: 50%; 
     border: none;
-    font-family: Avenir, Arial, sans-serif;
     background: red;
     text-shadow: 0 3px 1px rgba(122,17,8,.8);
     box-shadow: 0 8px 0 rgb(183,9,0), 0 15px 20px rgba(0,0,0,.35);
-    -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
-
-button span { position: relative; }
 
 #encherebutton:active { 
   padding-top: 3px;
