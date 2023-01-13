@@ -164,6 +164,12 @@ class Participation {
         // on set le montantDerniereEnchere si il existe
         $participation->montantDerniereEnchere = $row['montantDerniereEnchere'];
 
+        if (isset($row['instantDerniereEnchere'])) {
+            $instantDerniereEnchere = new DateTime();
+            $instantDerniereEnchere->setTimestamp($row['instantDerniereEnchere']);
+        } else $instantDerniereEnchere = null;
+        $participation->instantDerniereEnchere = $instantDerniereEnchere;
+
         $participation->isInDB = true;
 
         return $participation;
