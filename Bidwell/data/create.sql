@@ -1,14 +1,15 @@
 CREATE TABLE Utilisateur (
-	login TEXT PRIMARY KEY,
-	mdpHash TEXT NOT NULL,
-	nom TEXT NOT NULL,
-	email TEXT NOT NULL,
-	numeroTelephone TEXT UNIQUE NOT NULL,
-	nbJetons INTEGER NOT NULL,
-	dateFinConservation INTEGER NOT NULL
+     login TEXT PRIMARY KEY,
+     mdpHash TEXT NOT NULL,
+     nom TEXT NOT NULL,
+     email TEXT NOT NULL,
+     numeroTelephone TEXT UNIQUE NOT NULL,
+     nbJetons INTEGER NOT NULL,
+     dateFinConservation INTEGER NOT NULL
 );
+
 CREATE TABLE Categorie (
-	libelle TEXT PRIMARY KEY,
+    libelle TEXT PRIMARY KEY,
     libelleMere INTEGER,		-- NULL si c'est la Categorie racine
     FOREIGN KEY (libelleMere) REFERENCES Categorie(libelle)
 );
