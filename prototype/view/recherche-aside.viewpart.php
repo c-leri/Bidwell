@@ -1,5 +1,5 @@
 <div class="container">
-    <div class="smallContainer">
+    <div class="smallContainer" id="checkboxes">
         test
     </div>
     <hr>

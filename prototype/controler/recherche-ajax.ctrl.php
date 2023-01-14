@@ -13,7 +13,7 @@ if ($_GET['type'] == 'Enchere') {
         //Si le type est "enchère", alors vérifie si des catégories ont étées sélectionnées ou non et les transforme en un seul string
         if (isset($_GET["categories"])) {
 
-            $categories = implode(' OR ', $_GET["categories"]);
+        $categories = explode(',', $_GET['categories']);
 
             //Exécute la requête SQL avec les informations nécessaires à l'affichage
             $result = Enchere::readLike($categories, "", $_GET['tri'], 'ASC', $_GET['page'], 20);
@@ -22,7 +22,7 @@ if ($_GET['type'] == 'Enchere') {
 
             //Si aucune catégorie sélectionnée
             //Exécute la requête SQL avec les informations nécessaires à l'affichage
-            $result = Enchere::readLike("", "", $_GET['tri'], 'ASC', $_GET['page'], 20);
+            $result = Enchere::readLike([], "", $_GET['tri'], 'ASC', $_GET['page'], 20);
       
         }
 

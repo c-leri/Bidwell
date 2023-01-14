@@ -14,7 +14,13 @@ function showItems() {
 //Récupère les informations des élément sde tri/filtre/type de la page
     let tri = document.getElementById("tri").value;
     let type = document.querySelector('input[name="typeSelected"]:checked').value;
-    let catégories;
+    let categories = [];
+    if (document.querySelectorAll('#checkboxes input:checked').length > 0){
+    document.querySelectorAll('#checkboxes input:checked').forEach((element) => {
+      categories.push(element.getAttribute('id'));
+    });
+  } 
+
     let numPage = 1;
 
     //Crée une nouvelle requête XMLHTTP à envoyer au serveur
@@ -26,7 +32,7 @@ function showItems() {
     }
 
     //Ouvre la requête au serveur avec pour informations le tri, le type, les catégories sélectionnées et le numéro de page
-    xhttp.open("GET", "recherche-ajax.ctrl.php?tri=" + tri + "&type=" + type + "&page=" + numPage);
+    xhttp.open("GET", "recherche-ajax.ctrl.php?categories=" + categories + "&tri=" + tri + "&type=" + type + "&page=" + numPage);
     
     //Envoie la requête au serveur
     xhttp.send();
@@ -51,7 +57,6 @@ function showItems() {
   function initPage(){
     const xhttp = new XMLHttpRequest();
     xhttp.onload = function() {
-      console.log(this.responseText);
       document.getElementsByClassName("smallContainer")[0].innerHTML = this.responseText;
     }
     xhttp.open("GET", "recherche-aside-ajax.ctrl.php");
