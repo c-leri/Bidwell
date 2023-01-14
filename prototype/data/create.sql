@@ -9,7 +9,7 @@ CREATE TABLE Utilisateur (
 );
 CREATE TABLE Categorie (
 	libelle TEXT PRIMARY KEY,
-    libelleMere INTEGER,		-- NULL si c'est la Categorie racine
+    libelleMere TEXT,		-- NULL si c'est la Categorie racine
     FOREIGN KEY (libelleMere) REFERENCES Categorie(libelle)
 );
 
