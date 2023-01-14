@@ -4,10 +4,6 @@ require_once(__DIR__ . "/../model/Categorie.class.php");
 $meres = Categorie::readOnlyCategorieMere();
 $filles = Categorie::readOnlyCategorieFille();
 
-//var_dump($meres);
-var_dump($meres);
-var_dump($filles);
-
 
 $str = "<h2> Catégories </h2>";
 
