@@ -6,7 +6,7 @@
 //    // |  \\
 //   //  .   \\
 //  //////\\\\\\  Filtre par catégorie pas encore implanté
-window.onload = showItems();
+window.onload = initPage();
 
 function showItems() {
 
@@ -14,7 +14,14 @@ function showItems() {
 //Récupère les informations des élément sde tri/filtre/type de la page
     let tri = document.getElementById("tri").value;
     let type = document.querySelector('input[name="typeSelected"]:checked').value;
-    let catégories;
+    let categories = [];
+    if (document.querySelectorAll('#checkboxes input:checked').length > 0){
+        document.querySelectorAll('#checkboxes input:checked').forEach((element) => {
+            categories.push(element.getAttribute('id'));
+        });
+    }
+    let prix = document.querySelector('input[name="prixSelected"]:checked').value;
+
     let numPage = 1;
 
     //Crée une nouvelle requête XMLHTTP à envoyer au serveur
@@ -22,19 +29,19 @@ function showItems() {
 
     //Lorsque la requête est "prête", indique que la division classe "annonce" prendre comme HTML résultat du serveur
     xhttp.onload = function() {
-      document.getElementById("annonces").innerHTML = this.responseText;
+        document.getElementById("annonces").innerHTML = this.responseText;
     }
 
     //Ouvre la requête au serveur avec pour informations le tri, le type, les catégories sélectionnées et le numéro de page
-    xhttp.open("GET", "recherche-ajax.ctrl.php?tri=" + tri + "&type=" + type + "&page=" + numPage);
-    
+    xhttp.open("GET", "recherche-ajax.ctrl.php?categories=" + categories + "&tri=" + tri + "&type=" + type + "&prix=" + prix + "&page=" + numPage);
+
     //Envoie la requête au serveur
     xhttp.send();
-  }
+}
 
-  //Fonction utilisée lorsque le numéro de page change (= même liste, articles suivant ou précédents)
-  //Fonctionne de la même manière que la fonction précédente
-  function changePage(numPage) {
+//Fonction utilisée lorsque le numéro de page change (= même liste, articles suivant ou précédents)
+//Fonctionne de la même manière que la fonction précédente
+function changePage(numPage) {
 
     let tri = document.getElementById("tri").innerText;
     let type = document.querySelector('input[name="typeSelected"]:checked').value;
@@ -42,8 +49,28 @@ function showItems() {
 
     const xhttp = new XMLHttpRequest();
     xhttp.onload = function() {
-      document.getElementsByClassName("annonces").innerHTML = this.responseText;
+        document.getElementsByClassName("annonces").innerHTML = this.responseText;
     }
     xhttp.open("GET", "recherche-ajax.ctrl.php?tri=" + tri + "&type=" + type + "&page=" + numPage);
     xhttp.send();
-  }
+}
+
+function initPage(){
+    const xhttp = new XMLHttpRequest();
+    xhttp.onload = function() {
+        document.getElementsByClassName("smallContainer")[0].innerHTML = this.responseText;
+    }
+    xhttp.open("GET", "recherche-aside-ajax.ctrl.php");
+    xhttp.send();
+
+
+
+    showItems();
+}
+
+
+function showCategory(numero){
+
+    let list = document.getElementsByClassName('categoryDropdown');
+    list[numero].lastChild.classList.toggle("active");
+}

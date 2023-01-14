@@ -22,8 +22,6 @@ try {
 	try {
 		$enchere = new Enchere($utilisateur, 'testConstructeur', $date, 500, 0, 'testConstructeur.png', 'testConstructeur.txt', $categorie);
 	} catch (Exception $e) {
-		echo("Contenu de la variable :");
-		var_dump($enchere);
 		KO("Erreur sur Enchere : ".$e->getMessage());
 	}
 

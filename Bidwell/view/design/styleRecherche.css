@@ -135,7 +135,7 @@ main.recherche .center {
 }
 
 main.recherche .center article {
-  width: 90%;
+  width: 100%;
   height: 20vh;
   display: flex;
   flex-direction: row;
@@ -167,4 +167,13 @@ main.recherche .center article img {
 
 main.recherche .center article .left, main.recherche .center article p{
   margin: 1rem;
+}
+
+/* Aside */
+#cdArtDecoratif, #cdArtGraphique{
+  display: none;
+}
+
+#cdArtDecoratif.active, #cdArtGraphique.active{
+  display: block;
 }

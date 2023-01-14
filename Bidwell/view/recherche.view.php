@@ -54,9 +54,8 @@
                 <?php include(__DIR__ . '/recherche-aside.viewpart.php') ?>
 
             </aside>
-            <div class="annonces">
-                <?php for ($i = 0; $i < 12; $i++) {
-                ?>
+            <div class="annonces" id='annonces'> <!-- Retire id='annonces' pour les annonces de base-->
+                <?php for ($i = 0; $i < 12; $i++) : ?>
 
                     <article>
                         <a href="consultation.ctrl.php">
@@ -74,7 +73,7 @@
                         <p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In libero risus, luctus vitae erat eu, bibendum malesuada tellus. Suspendisse at ante a leo laoreet iaculis. Phasellus sollicitudin egestas diam. Donec non suscipit sapien. Nam sit amet rhoncus enim. Morbi euismod lacus in pellentesque viverra. Cras nec justo porta, elementum turpis eu, elementum ante. Quisque vitae mauris eu tortor commodo eleifend. Pellentesque ac ipsum elementum lorem cursus pharetra convallis sed risus. Cras eu ex aliquet, convallis lectus ac, varius odio. Mauris sit amet sapien sed erat ullamcorper congue eget at eros.</p>
                     </article>
 
-                <?php } ?>
+                <?php endfor; ?>
             </div>
         </div>
         <div class="liste">

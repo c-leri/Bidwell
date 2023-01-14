@@ -27,6 +27,10 @@ class Categorie {
         return $this->libelle;
     }
 
+    public function getLibelleColle() : string {
+        return trim($this->libelle);
+    }
+
     public function getCategorieMere() : Categorie|null {
         return $this->categorieMere;
     }
@@ -132,20 +136,7 @@ class Categorie {
             throw new Exception("Catégorie $libelle existe en ".count($table).' exemplaires');
         }
 
-        $row = $table[0];
-
-        // création d'un objet catégorie avec les informations de la bd
-        $categorie = new Categorie($row['libelle']);
-
-        // on read la catégorie mère si elle existe
-        $libelleMere = $row['libelleMere'];
-        if (isset($libelleMere) && $libelleMere != '') {
-            $categorie->categorieMere = Categorie::read($libelleMere);
-        }
-
-        $categorie->isInDB = true;
-
-        return $categorie;
+        return Categorie::constructFromDB($table[0]);
     }
 
     public static function readFromCategorieMere(Categorie $categorieMere) : array {
@@ -161,18 +152,63 @@ class Categorie {
 
         $out = array();
         foreach ($table as $row) {
-            // création d'un objet catégorie avec les informations de la bd
-            $categorie = new Categorie($row['libelle']);
-
-            // on lui attribut sa catégorie mère
-            $categorie->categorieMere = $categorieMere;
-
-            $categorie->isInDB = true;
-
-            $out[] = $categorie;
+            $out[] = Categorie::constructFromDB($row, $categorieMere);
         }
 
         return $out;
+    }
+
+    public static function readOnlyCategorieMere() : array {
+        // récupératoin du dao
+        $dao = DAO::get();
+
+        // préparation de la query
+        $query = 'SELECT * FROM Categorie WHERE libelleMere IS NULL';
+        $data = [];
+
+        // récupération de la table de résultat
+        $table = $dao->query($query, $data);
+
+        $out = array();
+        foreach ($table as $row) {
+            $out[] = Categorie::constructFromDB($row);
+        }
+
+        return $out;
+    }
+
+    public static function readOnlyCategorieFille() : array {
+        // récupératoin du dao
+        $dao = DAO::get();
+
+        // préparation de la query
+        $query = 'SELECT * FROM Categorie WHERE libelleMere IS NOT NULL';
+        $data = [];
+
+        // récupération de la table de résultat
+        $table = $dao->query($query, $data);
+
+        $out = array();
+        foreach ($table as $row) {
+            $out[] = Categorie::constructFromDB($row);
+        }
+
+        return $out;
+    }
+
+    private static function constructFromDB(array $row, ?Categorie $categorieMere = null) : Categorie {
+        // création d'un objet catégorie avec les informations de la bd
+        $categorie = new Categorie($row['libelle']);
+
+        if (!isset($categorieMere) && isset($row['libelleMere'])) {
+            $categorieMere = Categorie::read($row['libelleMere']);
+        }
+
+        $categorie->categorieMere = $categorieMere;
+
+        $categorie->isInDB = true;
+
+        return $categorie;
     }
 
     ////////////////// UPDATE ///////////////////

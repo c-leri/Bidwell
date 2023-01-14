@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="../../view/design/styleSous-Menu_Categorie.css">
     <link rel="stylesheet" href="../../view/design/styleFooter.css">
     <link rel="stylesheet" href="../../view/design/stylePagePrincipale.css">
-    <link rel="icon" type="image/x-icon" href="../view/design/img/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="../../view/design/img/favicon.ico">
 
 </head>
 
