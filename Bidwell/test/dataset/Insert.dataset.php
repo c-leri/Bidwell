@@ -1,17 +1,12 @@
 <?php
 // Fichier rajoutant des données dans la bd pour tester les interfaces du site
 
-namespace Bidwell\Bidwell\Test;
-
 // Inclusion du modèle
-use Bidwell\Bidwell\Model\Categorie;
-use Bidwell\Bidwell\Model\Enchere;
-use Bidwell\Bidwell\Model\Utilisateur;
+use Bidwell\Model\Categorie;
+use Bidwell\Model\Enchere;
+use Bidwell\Model\Utilisateur;
 
-use DateTime;
-use Exception;
-
-require_once __DIR__.'/../../vendor/autoload.php';
+require_once __DIR__ . '/../../vendor/autoload.php';
 
 try {
     // Utilisateurs

@@ -1,6 +1,4 @@
 <?php
-namespace Bidwell\Bidwell\Test;
-
 class Helper
 {
     // Sort sur le flux des erreurs pour ne pas déclencher la production du header

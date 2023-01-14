@@ -7,11 +7,11 @@
     <meta name="keywords" content="Bidwell, Bidwell.fr, Vente aux enchères, Vente aux enchères en ligne, Art, Bijouterie, Joaillerie, Mobilier, Mode, Bijoux, Sculptures, Monnais, Pierres, Objets de collection">
     <meta name="author" content="Paul Sode, Gatien Caillet, Célestin Bouchet, Antoine Vuillet, Clément Mazet, Hippolyte Chauvin">
     <title>Connexion</title>
-    <link rel="stylesheet" href="../../view/design/styleGeneral.css">
-    <link rel="stylesheet" href="../../view/design/styleConnect.css">
-    <link rel="stylesheet" href="../../view/design/styleMenu.css">
-    <link rel="icon" type="image/x-icon" href="../../view/design/img/favicon.ico">
-    <link rel="stylesheet" href="../../view/design/styleFooter2.css">
+    <link rel="stylesheet" href="../View/design/styleGeneral.css">
+    <link rel="stylesheet" href="../View/design/styleConnect.css">
+    <link rel="stylesheet" href="../View/design/styleMenu.css">
+    <link rel="icon" type="image/x-icon" href="../View/design/img/favicon.ico">
+    <link rel="stylesheet" href="../View/design/styleFooter2.css">
 </head>
 
 
@@ -42,7 +42,7 @@
                 <p id="errornumtel"></p>
                 <button type="submit" name="submit">Confirmer</button>
             </form>
-            <script src="../../js/signupChecker.js"></script>
+            <script src="../JS/signupChecker.js"></script>
         </div>
 
 

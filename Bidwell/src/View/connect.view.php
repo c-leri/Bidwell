@@ -9,11 +9,11 @@
     <meta name="author"
         content="Paul Sode, Gatien Caillet, Célestin Bouchet, Antoine Vuillet, Clément Mazet, Hippolyte Chauvin">
     <title>Connexion</title>
-    <link rel="stylesheet" href="../../view/design/styleGeneral.css">
-    <link rel="stylesheet" href="../../view/design/styleConnect.css">
-    <link rel="stylesheet" href="../../view/design/styleMenu.css">
-    <link rel="icon" type="image/x-icon" href="../../view/design/img/favicon.ico">
-    <link rel="stylesheet" href="../../view/design/styleFooter2.css">
+    <link rel="stylesheet" href="../View/design/styleGeneral.css">
+    <link rel="stylesheet" href="../View/design/styleConnect.css">
+    <link rel="stylesheet" href="../View/design/styleMenu.css">
+    <link rel="icon" type="image/x-icon" href="../View/design/img/favicon.ico">
+    <link rel="stylesheet" href="../View/design/styleFooter2.css">
 
 </head>
 
@@ -41,7 +41,7 @@
                 <a href="">Mot de passe oublié ?</a>
                 <button type="submit">Se connecter</button>
             </form>
-            <script src="../../js/connectChecker.js"></script>
+            <script src="../JS/connectChecker.js"></script>
 
         </div>
         

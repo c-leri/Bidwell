@@ -1,8 +1,6 @@
 <?php
-namespace Bidwell\Bidwell\Controler;
-
 // Inclusion du modèle
-use Bidwell\Bidwell\Model\Categorie;
+use Bidwell\Model\Categorie;
 
 require_once __DIR__.'/../../vendor/autoload.php';
 

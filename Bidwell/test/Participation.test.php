@@ -1,16 +1,13 @@
 <?php
-namespace Bidwell\Bidwell\Test;
-
 // Test de la classe Participation
-use Bidwell\Bidwell\Model\Participation;
-use Bidwell\Bidwell\Model\Categorie;
-use Bidwell\Bidwell\Model\Enchere;
-use Bidwell\Bidwell\Model\Utilisateur;
+use Bidwell\Model\Participation;
+use Bidwell\Model\Categorie;
+use Bidwell\Model\Enchere;
+use Bidwell\Model\Utilisateur;
 
-use DateTime;
-use Exception;
+require_once __DIR__ . '/../vendor/autoload.php';
 
-require_once __DIR__.'/../../vendor/autoload.php';
+require_once __DIR__ . '/Helper.php';
 
 try {
 // Création d'une instance de la classe Utilisateur et Enchere

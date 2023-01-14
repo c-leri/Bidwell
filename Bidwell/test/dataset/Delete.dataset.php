@@ -1,16 +1,12 @@
 <?php
 // Fichier retirant les données de test de la bd
 
-namespace Bidwell\Bidwell\Test;
-
 // Inclusion du modèle
-use Bidwell\Bidwell\Model\Categorie;
-use Bidwell\Bidwell\Model\DAO;
-use Bidwell\Bidwell\Model\Utilisateur;
+use Bidwell\Model\Categorie;
+use Bidwell\Model\DAO;
+use Bidwell\Model\Utilisateur;
 
-use Exception;
-
-require_once __DIR__.'/../../vendor/autoload.php';
+require_once __DIR__ . '/../../vendor/autoload.php';
 
 try {
     $dao = DAO::get();

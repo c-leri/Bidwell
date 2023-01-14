@@ -1,8 +1,6 @@
 <?php
-namespace Bidwell\Bidwell\Controler;
-
 // Inclusion du framework
-use Bidwell\Bidwell\Framework\View;
+use Bidwell\Framework\View;
 
 require_once __DIR__.'/../../vendor/autoload.php';
 
@@ -20,7 +18,7 @@ if(isset($_SESSION['login'])){
 $login=$_SESSION['login'];
 // Charge la page de l'application et termine
 $view = new View();
-$view->display("/main.view.php");
+$view->display("main.view.php");
 //C'est terminé !
 exit(0);
 }

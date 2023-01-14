@@ -9,12 +9,12 @@
     <meta name="author"
         content="Paul Sode, Gatien Caillet, Célestin Bouchet, Antoine Vuillet, Clément Mazet, Hippolyte Chauvin">
     <title>Main</title>
-    <link rel="stylesheet" href="../../view/design/styleGeneral.css">
-    <link rel="stylesheet" href="../../view/design/styleMenu.css">
-    <link rel="stylesheet" href="../../view/design/styleSous-Menu_Categorie.css">
-    <link rel="stylesheet" href="../../view/design/styleFooter.css">
-    <link rel="stylesheet" href="../../view/design/stylePagePrincipale.css">
-    <link rel="icon" type="image/x-icon" href="../../view/design/img/favicon.ico">
+    <link rel="stylesheet" href="../View/design/styleGeneral.css">
+    <link rel="stylesheet" href="../View/design/styleMenu.css">
+    <link rel="stylesheet" href="../View/design/styleSous-Menu_Categorie.css">
+    <link rel="stylesheet" href="../View/design/styleFooter.css">
+    <link rel="stylesheet" href="../View/design/stylePagePrincipale.css">
+    <link rel="icon" type="image/x-icon" href="../View/design/img/favicon.ico">
 
 </head>
 
@@ -33,7 +33,7 @@
     </header>
     <main class="pagePrincipale">
         <div id="slider">
-            <a href="#"><img src="../../view/design/img/default_image.png" alt="Besoin d'aide" id="slide"
+            <a href="#"><img src="../View/design/img/default_image.png" alt="Besoin d'aide" id="slide"
                     style="background-repeat: repeat"></a>
             <div id="precedent" onclick="ChangeSlide(-1)">
                 < </div>
@@ -41,7 +41,7 @@
             </div>
 
             <hr>
-            <script src="../../js/slider.js"></script>
+            <script src="../JS/slider.js"></script>
         </div>
         <h2>Nouvelles enchères</h2>
         <div class="ventesPopulaires" id="new">
@@ -54,7 +54,7 @@
         <div class="ventesPopulaires" id="old">
 
         </div>
-        <script src="../../js/main.js"></script>
+        <script src="../JS/main.js"></script>
     </main>
     <footer>
         <?php include(__DIR__ . '/footer.viewpart.php') ?>

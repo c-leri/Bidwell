@@ -7,11 +7,11 @@
     <meta name="keywords" content="Bidwell, Bidwell.fr, Vente aux enchères, Vente aux enchères en ligne, Art, Bijouterie, Joaillerie, Mobilier, Mode, Bijoux, Sculptures, Monnais, Pierres, Objets de collection">
     <meta name="author" content="Paul Sode, Gatien Caillet, Célestin Bouchet, Antoine Vuillet, Clément Mazet, Hippolyte Chauvin">
     <title>Vendre un article</title>
-    <link rel="stylesheet" href="../../view/design/styleGeneral.css">
-    <link rel="stylesheet" href="../../view/design/styleMenu.css">
-    <link rel="stylesheet" href="../../view/design/styleFooter.css">
-    <link rel="icon" type="image/x-icon" href="../../view/design/img/favicon.ico">
-    <link rel="stylesheet" href="../../view/design/styleCreation.css">
+    <link rel="stylesheet" href="../View/design/styleGeneral.css">
+    <link rel="stylesheet" href="../View/design/styleMenu.css">
+    <link rel="stylesheet" href="../View/design/styleFooter.css">
+    <link rel="icon" type="image/x-icon" href="../View/design/img/favicon.ico">
+    <link rel="stylesheet" href="../View/design/styleCreation.css">
 </head>
 
 <body>
@@ -20,7 +20,7 @@
         <nav id="navbar-top">
             <div class="nav-left">
                 <a href="main.ctrl.php">
-                    <img src="../../view/design/img/logo.png" alt="logo">
+                    <img src="../View/design/img/logo.png" alt="logo">
                 </a>
             </div>
 
@@ -78,7 +78,7 @@
                     <?php for ($i = 1; $i < 9; $i++) {
                     ?>
                         <article>
-                            <img id=<?= "output" . $i ?> src="../../view/design/img/default_image.png">
+                            <img id=<?= "output" . $i ?> src="../View/design/img/default_image.png">
                             <p id=<?= "p" . $i ?>> Image n°<?= $i?> </p> 
 
                         </article>
@@ -170,7 +170,7 @@
 
             <button type="submit">Créer annonce</button>
         </form>
-        <script src="../../js/creation.js"></script>
+        <script src="../JS/creation.js"></script>
 
     </main>
 

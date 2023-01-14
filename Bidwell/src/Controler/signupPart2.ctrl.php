@@ -1,10 +1,6 @@
 <?php
-namespace Bidwell\Bidwell\Controler;
-
 // Inclusion du modèle
-use Bidwell\Bidwell\Model\Utilisateur;
-use Exception;
-use stdClass;
+use Bidwell\Model\Utilisateur;
 
 require_once __DIR__.'/../../vendor/autoload.php';
 

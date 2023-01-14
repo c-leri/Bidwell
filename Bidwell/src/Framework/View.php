@@ -1,5 +1,5 @@
 <?php
-namespace Bidwell\Bidwell\Framework;
+namespace Bidwell\Framework;
 
 // Classe minimaliste pour normaliser l'usage d'une vue
 // Cette classe est inspiré du moteur et compilateur de modèle Smarty
@@ -23,7 +23,7 @@ class View {
   function display(string $filename) : void {
 
     // Ajoute le chemin relatif vers le fichier de la vue
-    $p = "../../view/".$filename;
+    $p = "../View/".$filename;
 
     // Tous les attributs de l'objet sont dupliqués en des variables
     // locales à la fonction display. Cela simplifie l'expression des

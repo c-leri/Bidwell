@@ -1,6 +1,6 @@
 <?php
 
-namespace Bidwell\Bidwell\Model;
+namespace Bidwell\Model;
 
 use DateInterval;
 use DateTime;

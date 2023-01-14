@@ -2,7 +2,7 @@
 <nav id="navbar-top">
     <div class="nav-left">
         <a href="main.ctrl.php">
-            <img src="../../view/design/img/logo.png" alt="logo">
+            <img src="../View/design/img/logo.png" alt="logo">
         </a>
     </div>
 

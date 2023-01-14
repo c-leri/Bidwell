@@ -9,11 +9,11 @@
     <meta name="author"
         content="Paul Sode, Gatien Caillet, Célestin Bouchet, Antoine Vuillet, Clément Mazet, Hippolyte Chauvin">
     <title>Conditions d'utilisation</title>
-    <link rel="stylesheet" href="../../view/design/styleGeneral.css">
-    <link rel="stylesheet" href="../../view/design/styleMenu.css">
-    <link rel="stylesheet" href="../../view/design/styleFooter.css">
-    <link rel="stylesheet" href="../../view/design/styleCompte.css">
-    <link rel="icon" type="image/x-icon" href="../../view/design/img/favicon.ico">
+    <link rel="stylesheet" href="../View/design/styleGeneral.css">
+    <link rel="stylesheet" href="../View/design/styleMenu.css">
+    <link rel="stylesheet" href="../View/design/styleFooter.css">
+    <link rel="stylesheet" href="../View/design/styleCompte.css">
+    <link rel="icon" type="image/x-icon" href="../View/design/img/favicon.ico">
 
 </head>
 
@@ -47,7 +47,7 @@
                     
                     <article>
                     <a href="consultation.ctrl.php">
-                        <img src="../../view/design/img/default_image.png" alt="">
+                        <img src="../View/design/img/default_image.png" alt="">
                         </a>
                         <h1>WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW</h1>
                         <div class="variablesEnchere">

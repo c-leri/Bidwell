@@ -7,11 +7,11 @@
     <meta name="keywords" content="Bidwell, Bidwell.fr, Vente aux enchères, Vente aux enchères en ligne, Art, Bijouterie, Joaillerie, Mobilier, Mode, Bijoux, Sculptures, Monnaies, Pierres, Objets de collection">
     <meta name="author" content="Paul Sode, Gatien Caillet, Célestin Bouchet, Antoine Vuillet, Clément Mazet, Hippolyte Chauvin">
     <title>Consultation d'un article</title>
-    <link rel="stylesheet" href="../../view/design/styleGeneral.css">
-    <link rel="stylesheet" href="../../view/design/styleMenu.css">
-    <link rel="stylesheet" href="../../view/design/styleFooter.css">
-    <link rel="stylesheet" href="../../view/design/styleRecherche.css">
-    <link rel="icon" type="image/x-icon" href="../../view/design/img/favicon.ico">
+    <link rel="stylesheet" href="../View/design/styleGeneral.css">
+    <link rel="stylesheet" href="../View/design/styleMenu.css">
+    <link rel="stylesheet" href="../View/design/styleFooter.css">
+    <link rel="stylesheet" href="../View/design/styleRecherche.css">
+    <link rel="icon" type="image/x-icon" href="../View/design/img/favicon.ico">
 
 
 </head>
@@ -59,7 +59,7 @@
 
                     <article>
                         <a href="consultation.ctrl.php">
-                            <img src="../../view/design/img/default_image.png" alt="">
+                            <img src="../View/design/img/default_image.png" alt="">
                         </a>
                         <div class="left">
                             <h1>Titre Retirer quand CSS finit svp</h1>
@@ -105,4 +105,4 @@
 
 </html>
 
-<script src="../../js/recherche.js"></script>
+<script src="../JS/recherche.js"></script>

@@ -1,6 +1,4 @@
 <?php
-namespace Bidwell\Bidwell\Controler;
-
 // Ouverture de la session
 session_start();
 

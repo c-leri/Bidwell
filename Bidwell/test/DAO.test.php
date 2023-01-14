@@ -1,12 +1,10 @@
 <?php
-namespace Bidwell\Bidwell\Test;
-
 // Test de la classe DAO
-use Bidwell\Bidwell\Model\DAO;
+use Bidwell\Model\DAO;
 
-use Exception;
+require_once __DIR__ . '/../vendor/autoload.php';
 
-require_once __DIR__.'/../../vendor/autoload.php';
+require_once __DIR__ . '/Helper.php';
 
 try {
     // Constructeur

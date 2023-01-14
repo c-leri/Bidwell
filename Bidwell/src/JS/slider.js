@@ -1,4 +1,4 @@
-const slide = ["../../view/design/img/default_image.png", "../../view/design/img/burger.png"];
+const slide = ["../../View/design/img/default_image.png", "../../View/design/img/burger.png"];
 let numero = 0;
 
 function ChangeSlide(sens) {

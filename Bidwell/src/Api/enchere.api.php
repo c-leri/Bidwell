@@ -1,9 +1,7 @@
 <?php
-namespace Bidwell\Bidwell\Api;
-
-use Bidwell\Bidwell\Model\Enchere;
-use Bidwell\Bidwell\Model\Participation;
-use Bidwell\Bidwell\Model\Utilisateur;
+use Bidwell\Model\Enchere;
+use Bidwell\Model\Participation;
+use Bidwell\Model\Utilisateur;
 
 use Exception;
 

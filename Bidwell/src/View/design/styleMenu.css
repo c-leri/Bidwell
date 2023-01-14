@@ -71,7 +71,7 @@ div.nav-search form>input {
 }
 
 #button-submit {
-    background: url(../design/img/search.png) no-repeat;
+    background: url(img/search.png) no-repeat;
     background-size: 100%;
     width: 1.5rem;
     height: 1.5rem;
