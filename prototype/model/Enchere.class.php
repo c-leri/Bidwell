@@ -296,7 +296,7 @@ class Enchere {
     return $out;
   }
 
-  public static function readLike(array $categories, string $pattern, string $tri, string $ordre ,int $page, int $pageSize) : array {
+  public static function readLike(array $categories, string $pattern, string $tri, int $prix, string $ordre ,int $page, int $pageSize) : array {
     // récupératoin du dao
     $dao = DAO::get();
 
@@ -311,19 +311,48 @@ class Enchere {
         $order = 'libelle';
     }
 
+    switch ($prix){
+      case 1:
+        $intervalle = 'AND prixDepart < 10';
+        break;
+
+        case 2;
+        $intervalle = 'AND prixDepart BETWEEN 10 AND 20';
+        break;
+
+        case 3;
+        $intervalle = 'AND prixDepart BETWEEN 20 AND 50';
+        break;
+
+        case 4;
+        $intervalle = 'AND prixDepart BETWEEN 50 AND 100';
+        break;
+
+        case 5;
+        $intervalle = 'AND prixDepart BETWEEN 100 AND 500';
+        break;
+
+        case 6;
+        $intervalle = 'AND prixDepart > 500';
+        break;
+      default:
+        $intervalle = '';
+        break;
+    }
+
     $decalage = ($page - 1) * $pageSize;
 
     // préparation de la query selon le nombre de catégories sélectionnées (0, 1 ou plusieurs)
     //Si 0, simple requête ne demandant pas de filtre par catégorie
     if (!isset($categories[0]) || $categories[0] == '') { 
 
-      $query = "SELECT * FROM Enchere WHERE libelle LIKE ? ORDER BY $order COLLATE NOCASE $ordre LIMIT ?, ?";
+      $query = "SELECT * FROM Enchere WHERE libelle LIKE ? $intervalle ORDER BY $order COLLATE NOCASE $ordre LIMIT ?, ?";
       $data = ['%' . $pattern . '%', $decalage, $pageSize];
 
       //Si 1, ajout du filtre par la catégorie unique
     } else if (sizeof($categories) == 1) {
 
-      $query = "SELECT * FROM Enchere WHERE libelleCategorie = ? AND libelle LIKE ? ORDER BY $order COLLATE NOCASE $ordre LIMIT ?, ?";
+      $query = "SELECT * FROM Enchere WHERE libelleCategorie = ? AND libelle LIKE ? $intervalle ORDER BY $order COLLATE NOCASE $ordre LIMIT ?, ?";
       $data = [$categories[0], '%' . $pattern . '%', $decalage, $pageSize];
 
       //Si plus de 1, nécessité de préparer une requête qui contient autant de '?' que nécessaire ($nb) et d'attribuer autant d'éléments dans $data
@@ -337,12 +366,11 @@ class Enchere {
       $nb .= '?';
       $data[] = end($categories);
 
-      $query = "SELECT * FROM Enchere WHERE libelleCategorie IN (" . $nb . ") AND libelle LIKE ? ORDER BY $order COLLATE NOCASE $ordre LIMIT ?, ?";
+      $query = "SELECT * FROM Enchere WHERE libelleCategorie IN (" . $nb . ") AND libelle LIKE ? $intervalle ORDER BY $order COLLATE NOCASE $ordre LIMIT ?, ?";
 
       $data[] = '%' . $pattern . '%';
       $data[] = $decalage;
       $data[] = $pageSize;
-      var_dump($data);
     }
     // récupération de la table de résultat
     $table = $dao->query($query, $data);

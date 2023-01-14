@@ -9,20 +9,23 @@ $dao = DAO::get();
 if ($_GET['type'] == 'Enchere') {
 
     $tri = $_GET['tri'] !== 'NULL' ? $_GET["tri"] : 'date';
-    
+    $prix = $_GET['prix'] !== 'NULL' ? $_GET["prix"] : 0;
+
         //Si le type est "enchère", alors vérifie si des catégories ont étées sélectionnées ou non et les transforme en un seul string
         if (isset($_GET["categories"])) {
 
         $categories = explode(',', $_GET['categories']);
 
+    
+
             //Exécute la requête SQL avec les informations nécessaires à l'affichage
-            $result = Enchere::readLike($categories, "", $_GET['tri'], 'ASC', $_GET['page'], 20);
+            $result = Enchere::readLike($categories, "", $_GET['tri'], $prix, 'ASC', $_GET['page'], 20);
 
         } else {
 
             //Si aucune catégorie sélectionnée
             //Exécute la requête SQL avec les informations nécessaires à l'affichage
-            $result = Enchere::readLike([], "", $_GET['tri'], 'ASC', $_GET['page'], 20);
+            $result = Enchere::readLike([], "", $_GET['tri'], $prix,'ASC', $_GET['page'], 20);
       
         }
 

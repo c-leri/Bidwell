@@ -20,6 +20,7 @@ function showItems() {
       categories.push(element.getAttribute('id'));
     });
   } 
+  let prix = document.querySelector('input[name="prixSelected"]:checked').value;
 
     let numPage = 1;
 
@@ -32,7 +33,7 @@ function showItems() {
     }
 
     //Ouvre la requête au serveur avec pour informations le tri, le type, les catégories sélectionnées et le numéro de page
-    xhttp.open("GET", "recherche-ajax.ctrl.php?categories=" + categories + "&tri=" + tri + "&type=" + type + "&page=" + numPage);
+    xhttp.open("GET", "recherche-ajax.ctrl.php?categories=" + categories + "&tri=" + tri + "&type=" + type + "&prix=" + prix + "&page=" + numPage);
     
     //Envoie la requête au serveur
     xhttp.send();

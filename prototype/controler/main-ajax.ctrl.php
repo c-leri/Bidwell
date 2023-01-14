@@ -4,7 +4,7 @@ require(__DIR__ . "/../model/Enchere.class.php");
 
 $ordre = $_GET['ordre'] === 'ASC' ? 'ASC' : 'DESC';
 
-$result = Enchere::readLike([], "", "date", $ordre, 1, 12);
+$result = Enchere::readLike([], "", "date", 0, $ordre, 1, 12);
 
 //Initialisation de variable qui sera renvoyée
 $str = "";
