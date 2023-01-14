@@ -1,14 +1,14 @@
 <!--Sous partie du menu de la page principale -->
 <nav id="navbar-bot">
     <ul>
-        <li><a href="">
+        <li><a href="recherche.ctrl.php">
                 <img src="../../view/design/img/burger.png" alt="burger"> Tous les articles
             </a></li>
-        <li><a href="">
-                Art décoratif
+        <li><a href="recherche.ctrl.php?categories=aussiTestEnfant">
+                AussiTestEnfant
             </a></li>
-        <li><a href="">
-                Art graphique
+        <li><a href="recherche.ctrl.php?categories=artDecoratif">
+                Art Décoratif
             </a></li>
         <li><a href="">
                 Bijouterie

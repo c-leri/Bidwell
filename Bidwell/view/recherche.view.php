@@ -62,8 +62,8 @@
                             <img src="../../view/design/img/default_image.png" alt="">
                         </a>
                         <div class="left">
-                            <h1>Titre--------------------</h1>
-                            <h2>Catégorie--------------------</h2>
+                            <h1>Titre Retirer quand CSS finit svp</h1>
+                            <h2>Catégorie Retirer quand CSS finit svp</h2>
                             <ul>
                                 <li> Temps restant</li>
                                 <li> Prix actuel</li>
