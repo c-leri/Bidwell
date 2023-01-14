@@ -4,6 +4,7 @@ namespace Bidwell\Bidwell\Controler;
 // Inclusion du modèle
 use Bidwell\Bidwell\Model\DAO;
 use Bidwell\Bidwell\Model\Enchere;
+use Bidwell\Bidwell\Model\Utilisateur;
 
 require_once __DIR__.'/../../vendor/autoload.php';
 
