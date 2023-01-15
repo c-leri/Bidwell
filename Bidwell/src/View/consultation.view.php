@@ -28,7 +28,7 @@
             <div class="presentation">
                 <img src="../View/design/img/default_image.png" alt="mainimage">
 
-                <p> Nom de l'article </p>
+                <p> <?= $nom ?> </p>
             </div>
 
             <div class="enchere">
@@ -41,33 +41,7 @@
         <div class="descr">
             <h2>Description</h2>
 
-            <p class="description"> Ceci est un lorem ipsum qui est pas fait pour être long parce que j'ai la flemme
-                mais en fait c'est fait pour faire comme si on faisait une vraie annonce mais là c'est pas le cas en
-                fait.  Ceci est un lorem ipsum qui est pas fait pour être long parce que j'ai la flemme
-                mais en fait c'est fait pour faire comme si on faisait une vraie annonce mais là c'est pas le cas en
-                fait. Ceci est un lorem ipsum qui est pas fait pour être long parce que j'ai la flemme
-                mais en fait c'est fait pour faire comme si on faisait une vraie annonce mais là c'est pas le cas en
-                fait. Ceci est un lorem ipsum qui est pas fait pour être long parce que j'ai la flemme
-                mais en fait c'est fait pour faire comme si on faisait une vraie annonce mais là c'est pas le cas en fait c'est fait pour faire comme si on faisait une vraie annonce mais là c'est pas le cas en
-                fait.  Ceci est un lorem ipsum qui est pas fait pour être long parce que j'ai la flemme
-                mais en fait c'est fait pour faire comme si on faisait une vraie annonce mais là c'est pas le cas en
-                fait. Ceci est un lorem ipsum qui est pas fait pour être long parce que j'ai la flemme
-                mais en fait c'est fait pour faire comme si on faisait une vraie annonce mais là c'est pas le cas en
-                fait. Ceci est un lorem ipsum qui est pas fait pour être long parce que j'ai la flemme
-                mais en fait c'est fait pour faire comme si on faisait une vraie annonce mais là c'est pas le cas en fait c'est fait pour faire comme si on faisait une vraie annonce mais là c'est pas le cas en
-                fait.  Ceci est un lorem ipsum qui est pas fait pour être long parce que j'ai la flemme
-                mais en fait c'est fait pour faire comme si on faisait une vraie annonce mais là c'est pas le cas en
-                fait. Ceci est un lorem ipsum qui est pas fait pour être long parce que j'ai la flemme
-                mais en fait c'est fait pour faire comme si on faisait une vraie annonce mais là c'est pas le cas en
-                fait. Ceci est un lorem ipsum qui est pas fait pour être long parce que j'ai la flemme
-                mais en fait c'est fait pour faire comme si on faisait une vraie annonce mais là c'est pas le cas en fait c'est fait pour faire comme si on faisait une vraie annonce mais là c'est pas le cas en
-                fait.  Ceci est un lorem ipsum qui est pas fait pour être long parce que j'ai la flemme
-                mais en fait c'est fait pour faire comme si on faisait une vraie annonce mais là c'est pas le cas en
-                fait. Ceci est un lorem ipsum qui est pas fait pour être long parce que j'ai la flemme
-                mais en fait c'est fait pour faire comme si on faisait une vraie annonce mais là c'est pas le cas en
-                fait. Ceci est un lorem ipsum qui est pas fait pour être long parce que j'ai la flemme
-                mais en fait c'est fait pour faire comme si on faisait une vraie annonce mais là c'est pas le cas en
-                fait.</p>
+            <p class="description"> <?= $description ?> </p>
 
             <div class="images">
                 <?php for ($i = 0; $i < 7; $i++) {

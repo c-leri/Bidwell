@@ -234,6 +234,16 @@ class Enchere
         return $this->createur;
     }
 
+    /*
+    public function getAutorisation() : array {
+        return $this->autorisation;
+    }
+    
+    public function getLivraison() : array {
+        return $this->livraison;
+    }
+    */
+
     public function getDateDebut(): DateTime
     {
         return $this->dateDebut;
@@ -275,6 +285,10 @@ class Enchere
     {
         if (!isset($this->images[$id])) throw new Exception("Pas d'image d'id $id.");
         return $this->images[$id];
+    }
+
+    public function getImages() : array {
+        return $this->images;
     }
 
     public function getDescription(): string
@@ -320,16 +334,20 @@ class Enchere
     private function getRatioTempsActuel(): int
     {
         $maintenant = new DateTime();
-        $differenceMaintenantFin = (int)$maintenant->format('Uv') - (int)$this->getInstantFin()->format('Uv');
-        return (isset($this->derniereEnchere))
-            ? $differenceMaintenantFin / ((int)$this->derniereEnchere->getInstantDerniereEnchere()->format('Uv') - (int)$this->getInstantFin()->format('Uv'))
-            : $differenceMaintenantFin / (int)DateInterval::createFromDateString('1 hour')->format('Uv');
+        if ($maintenant > $this->getDateDebut()) {
+            $differenceMaintenantFin = (int) $maintenant->format('Uv') - (int) $this->getInstantFin()->format('Uv');
+            return (isset($this->derniereEnchere))
+                ? $differenceMaintenantFin / ((int) $this->derniereEnchere->getInstantDerniereEnchere()->format('Uv') - (int) $this->getInstantFin()->format('Uv'))
+                : $differenceMaintenantFin / (int) DateInterval::createFromDateString('1 hour')->format('Uv');
+        } else {
+            return 1;
+        }
     }
 
     /**
      * @return DateTime correspondant à l'instant de la fin de l'enchère (datedebut + 1 heure)
      */
-    private function getInstantFin(): DateTime
+    public function getInstantFin(): DateTime
     {
         $instantFin = $this->dateDebut;
         $instantFin->add(DateInterval::createFromDateString('1 hour'));

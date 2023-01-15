@@ -6,7 +6,7 @@
             </linearGradient>
             <circle class="circle-container__background" r="16" cx="16" cy="16">
             </circle>
-            <circle class="circle-container__progress" r="16" cx="16" cy="16" style="stroke-dashoffset: 0"
+            <circle class="circle-container__progress" r="16" cx="16" cy="16" style="stroke-dashoffset: <?= $affichage ?>"
                 shape-rendering="geometricPrecision">
             </circle>
             
@@ -18,25 +18,25 @@
     
     <div class="temps">
             <p> Temps Restant </p>
-            <p id="temps">X</p>
+            <p id="temps"><?= $tempsRestant ?></p>
         </div>
 
     <div class="prix">
         <div>
-            <p>Prix Minimum</p>
-            <p id="min">X</p>
+            <p> Prix de retrait </p>
+            <p id="min"><?= $prixRetrait ?>€</p>
 
         </div>
         <div>
 
             <p>Prix Actuel</p>
-            <p id="act">X</p>
+            <p id="act"><?= $prixActuel ?>€ </p>
 
         </div>
         <div>
 
-            <p>Prix Maximum</p>
-            <p id="max">X</p>
+            <p> Prix de départ </p>
+            <p id="max"><?= $prixDepart ?>€</p>
         </div>
     </div>
 
