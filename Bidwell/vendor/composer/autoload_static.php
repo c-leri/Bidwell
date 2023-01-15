@@ -9,32 +9,27 @@ class ComposerStaticInit6800dc7836c3e3e7b4dbde0f72e81f53
     public static $prefixLengthsPsr4 = array (
         'B' => 
         array (
-            'Bidwell\\Bidwell\\Test\\' => 21,
-            'Bidwell\\Bidwell\\Model\\' => 22,
-            'Bidwell\\Bidwell\\Framework\\' => 26,
-            'Bidwell\\Bidwell\\Controler\\' => 26,
-            'Bidwell\\Bidwell\\' => 16,
+            'Bidwell\\Test\\' => 13,
+            'Bidwell\\Model\\' => 14,
+            'Bidwell\\Framework\\' => 18,
+            'Bidwell\\' => 8,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'Bidwell\\Bidwell\\Test\\' => 
+        'Bidwell\\Test\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src/Test',
         ),
-        'Bidwell\\Bidwell\\Model\\' => 
+        'Bidwell\\Model\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src/Model',
         ),
-        'Bidwell\\Bidwell\\Framework\\' => 
+        'Bidwell\\Framework\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src/Framework',
         ),
-        'Bidwell\\Bidwell\\Controler\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/src/Controler',
-        ),
-        'Bidwell\\Bidwell\\' => 
+        'Bidwell\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src',
         ),

@@ -1,8 +1,6 @@
 <?php
-namespace Bidwell\Bidwell\Controler;
-
 // Inclusion du framework
-use Bidwell\Bidwell\Framework\View;
+use Bidwell\Framework\View;
 
 require_once __DIR__.'/../../vendor/autoload.php';
 

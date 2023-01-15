@@ -6,9 +6,8 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
-    'Bidwell\\Bidwell\\Test\\' => array($baseDir . '/src/Test'),
-    'Bidwell\\Bidwell\\Model\\' => array($baseDir . '/src/Model'),
-    'Bidwell\\Bidwell\\Framework\\' => array($baseDir . '/src/Framework'),
-    'Bidwell\\Bidwell\\Controler\\' => array($baseDir . '/src/Controler'),
-    'Bidwell\\Bidwell\\' => array($baseDir . '/src'),
+    'Bidwell\\Test\\' => array($baseDir . '/src/Test'),
+    'Bidwell\\Model\\' => array($baseDir . '/src/Model'),
+    'Bidwell\\Framework\\' => array($baseDir . '/src/Framework'),
+    'Bidwell\\' => array($baseDir . '/src'),
 );

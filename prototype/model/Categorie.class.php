@@ -189,7 +189,7 @@ class Categorie {
     $dao = DAO::get();
 
     // préparation de la query
-    $query = 'SELECT * FROM Categorie WHERE libelleMere == ""';
+    $query = 'SELECT * FROM Categorie WHERE libelleMere IS NULL';
     $data = [];
 
     // récupération de la table de résultat
@@ -213,7 +213,7 @@ class Categorie {
     $dao = DAO::get();
 
     // préparation de la query
-    $query = 'SELECT * FROM Categorie WHERE libelleMere != ""';
+    $query = 'SELECT * FROM Categorie WHERE libelleMere IS NOT NULL';
     $data = [];
 
     // récupération de la table de résultat

@@ -1,10 +1,8 @@
 <?php
-namespace Bidwell\Bidwell\Controler;
-
 // Inclusion du modèle
-use Bidwell\Bidwell\Model\DAO;
-use Bidwell\Bidwell\Model\Enchere;
-use Bidwell\Bidwell\Model\Utilisateur;
+use Bidwell\Model\DAO;
+use Bidwell\Model\Enchere;
+use Bidwell\Model\Utilisateur;
 
 require_once __DIR__.'/../../vendor/autoload.php';
 
@@ -52,7 +50,7 @@ if ($_GET['type'] == 'Enchere') {
 
         $str .= "<article>";
         $str .= '<a href="consultation.ctrl.php?id='. $result[$i]->getId() .'">';
-        $str .= '<img src="../../view/design/img/default_image.png" alt="">';
+        $str .= '<img src="../View/design/img/default_image.png" alt="">';
         $str .= "</a>";
         $str .='<div class="left">';
         $str .= "<h1>" . $result[$i]->getLibelle() . "</h1>";

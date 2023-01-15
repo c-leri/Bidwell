@@ -1,0 +1,32 @@
+/* --- General --- */
+*,
+::before,
+::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --couleur-jaune: #FFD600;
+    --couleur-noir: black;
+    --couleur-violet: purple;
+    --couleur-rouge: rgb(255, 50, 50);
+    --couleur-blanc: white;
+    --couleur-gris-clair: rgb(200, 200, 200);
+    --couleur-blanc30: rgba(255, 255, 255, 30%);
+    ;
+    --couleur-noir80: rgba(0, 0, 0, 80%);
+    --couleur-noir30: rgba(0, 0, 0, 30%);
+    --couleur-marron: rgb(25, 25, 25);
+}
+
+body {
+    width: 100%;
+    font-family: Arial, Helvetica, sans-serif;
+    background-image: url(img/bg1.png);
+}
+
+button:hover {
+    cursor: pointer;
+}

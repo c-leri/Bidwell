@@ -1,14 +1,15 @@
 <?php
-namespace Bidwell\Bidwell\Controler;
-
 // Inclusion du modèle
-use Bidwell\Bidwell\Model\Categorie;
+use Bidwell\Model\Categorie;
 
 require_once __DIR__.'/../../vendor/autoload.php';
 
 $meres = Categorie::readOnlyCategorieMere();
 $filles = Categorie::readOnlyCategorieFille();
 
+if (isset($_GET['categories']) && $_GET['categories'] != ''){
+    $categorie = $_GET['categories'];
+}
 
 $str = "<h2> Catégories </h2>";
 
@@ -31,7 +32,14 @@ for ($i = 0; $i < sizeof($meres); $i++){
 
 
         for($k = 0; $k < sizeof($fillesDeMere); $k++){
-            $str .= '<input type="checkbox" id="' . $fillesDeMere[$k]->getLibelleColle() . '" onclick="showItems()"></checkbox>';
+            $str .= '<input type="checkbox" id="' . $fillesDeMere[$k]->getLibelleColle() . '" onclick="showItems()"';
+            
+            if (isset($categorie) && $categorie == $fillesDeMere[$k]->getLibelleColle()) {
+                $str.= " checked";
+            }
+
+            $str .= '></checkbox>';
+        
             $str .= '<label for="'.$fillesDeMere[$k]->getLibelleColle() .'">'. $fillesDeMere[$k]->getLibelle() .'</label>';
         }
         $str .= '<style type="text/css">' . ' #cd' . $meres[$i]->getLibelleColle() . '{ display: none; }';

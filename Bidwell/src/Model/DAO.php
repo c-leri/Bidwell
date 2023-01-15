@@ -1,5 +1,5 @@
 <?php
-namespace Bidwell\Bidwell\Model;
+namespace Bidwell\Model;
 
 use Exception;
 use PDO;
