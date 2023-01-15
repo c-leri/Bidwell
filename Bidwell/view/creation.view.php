@@ -37,7 +37,7 @@
             <div class="nom">
                 <h2> Nom de l'annonce </h2>
 
-                <input type="text" name="nom" required minlength="4" maxlength="60" placeholder="Choisissez un nom" value="nomannonce">
+                <input id="nom" type="text" required minlength="4" maxlength="60" placeholder="Choisissez un nom">
 
                 <p> Le nom de l'annonce est l'information principale que rechercheront les autres utilisateurs. Donner un
                     nom simple et explicite augmente grandement les chances de vendre un article. </p>
@@ -46,22 +46,17 @@
 
             <div class="categorie">
                 <h2> Catégorie de l'annonce </h2>
-
-                <div class="dropdown">
-                    <input type="text" class="dropbtn" id="categorieInput" name="categorie" placeholder="Choisissez une catégorie" onclick="showFunction('categorie')" onkeyup="filterFunction('categorie')" required value="Timbres">
-                    <div id="categorieDropdown" class="dropdown-content">
-                    <div id="ajoutbuttonanchorcategorie"></div>
-                    </div>
-
+                    <select id="categorieSelect" required>
+                        <option id="optionanchor"></option>
+                    </select>
                     <p> Ajouter une catégorie appropriée à votre annonce lui permettra d'être plus facilement trouvée par
                         les utilisateurs qui pourraient être intéressés. </p>
-                </div>
             </div>
 
             <div class="description">
                 <h2> Description de l'annonce </h2>
 
-                <input type="text" name="descr" required minlength="50" maxlength="4000" placeholder="Insérez une description (minimum 50 caractères)" value="Description de fou Description de fou Description de fou Description de fou Description de fou ">
+                <input id="description" type="text" name="descr" required minlength="50" maxlength="4000" placeholder="Insérez une description (minimum 50 caractères)" >
 
                 <p> Une description complète et détailée de votre bien sera perçue comme de plus grande qualité par les
                     autres utilisateurs. Donnez envie d'acheter votre article et mettez en avant ses informations
@@ -72,7 +67,7 @@
             <div class="images">
                 <h2> Ajouter des images </h2>
 
-                <input type="file" accept="image/*" onchange="loadFile(event)" required>
+                <input id="imagesInput" type="file" accept="image/*" onchange="loadFile(event)" multiple required enctype="multipart/form-data">
 
                 <div class="addedImages"> <!-- déso pour le nom je savais pas quoi mettre -->
                     <?php for ($i = 1; $i < 9; $i++) {
@@ -84,7 +79,7 @@
                         </article>
 
                     <?php } ?>
-
+                    <p id="errorimgs"></p>
                 </div>
 
                 <p> Ajouter plusieurs images à votre annonce permet d'augmenter la confiance des autres utilisateurs
@@ -94,7 +89,7 @@
             </div>
             <div class="base">
             <h2> Prix de base </h2>
-                <input id="prixbase" type="number" name="base" required min="1" max="99999" placeholder="Prix espéré" value="500">
+                <input id="prixbase" type="number" name="base" required min="1" max="99999" placeholder="Prix espéré">
 
                 <p> Définissez le prix auquel vous souhaiteriez vendre votre article. Prenez en compte la valeur réelle
                     de votre article et pensez à ce que vous seriez prêt à mettre à la place de l'acheteur.</p>
@@ -105,7 +100,7 @@
             <div class="retrait">
                 <h2> Prix de retrait de l'annonce </h2>
 
-                <input id="prixretrait" type="number" name="retrait" required min="1" max="99999" placeholder="Prix de retrait" value="250">
+                <input id="prixretrait" type="number" name="retrait" required min="1" max="99999" placeholder="Prix de retrait">
                 <p id="errorretrait"></p>
                 <p> Notre site utilise en système d'enchère qui comprend une partie descendantes. De ce fait, le prix de
                     votre article pourrait diminuer par rapport au prix de base. Définissez le prix auquel vous ne
@@ -138,11 +133,11 @@
 
             <div class="localisation">
                 <h2> Localisation</h2>
-                <input type="text" class="dropbtn" id="localisationInput" name="code" placeholder="Entrez un code postal ou une ville" onclick="showFunction('localisation')" onkeyup="filterFunction('localisation')" required>
-                    <div id="localisationDropdown" class="dropdown-content">
-                        <div id="ajoutbuttonanchorlocalisation"></div>
-                    </div>
-
+                <input id="localisationInput" type="text" placeholder="Entrez un code postal ou une ville"  list="localisationDatalist" onkeyup="filter()" required>
+                 <datalist id="localisationDatalist">
+                        <option id="optionanchorlocalisation"></option>
+                 </datalist>
+                 <p id="errorlocalisation"></p>
                 <p> Renseigner votre commune permet aux utilisateurs de savoir si la remise en main propre
                     est une option possible par rapport à leur emplacement. <br>
                     Votre adresse exacte ne sera pas connue.</p>

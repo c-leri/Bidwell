@@ -195,6 +195,13 @@ class Categorie {
 
         return $out;
     }
+    public static function readLibelleCategorieFilles(): array{
+        $dao = DAO::get();
+        $query = 'SELECT libelle FROM Categorie WHERE libelleMere IS NOT NULL';
+        // récupération de la table de résultat
+        $table = $dao->query($query,array()); 
+        return $table;  
+    }
 
     private static function constructFromDB(array $row, ?Categorie $categorieMere = null) : Categorie {
         // création d'un objet catégorie avec les informations de la bd
@@ -277,4 +284,6 @@ class Categorie {
 
         $this->isInDB = false;
     }
+
+  
 }

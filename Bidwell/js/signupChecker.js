@@ -36,14 +36,14 @@ function validateAlreadyInBaseOrNot(){
     erroremail =  document.getElementById("erroremail"),
     tel = document.getElementById("tel"),
     errortel =  document.getElementById("errornumtel");
-    const ok = true;
-    const requete = new XMLHttpRequest();
+    var ok = true;
+    let requete = new XMLHttpRequest();
     //Précise quel controleur php le client va contacter via ajax ainsi que la méthode utilisée
     requete.open("POST", "signupPart2.ctrl.php", true); //True pour que l'exécution du script continue pendant le chargement, false pour attendre.
     //Header utile au bon fonctionnement de la requête
     requete.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     requete.onload = function() {
-        var ok= true;
+        ok= true;
         //Si l'utilisateur est déjà dans la base le serveur répond le message d'erreur correspondant
         console.log(this.responseText);
         const rep = JSON.parse(this.responseText);

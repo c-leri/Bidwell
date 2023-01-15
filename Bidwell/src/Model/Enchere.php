@@ -116,7 +116,7 @@ class Enchere
         return $enchere;
     }
 
-    public function addImage(string $image): void
+    public function addImage( $image): void
     {
         $this->images[] = $image;
     }
@@ -387,11 +387,7 @@ class Enchere
         $dao = DAO::get();
 
         // transforme le tableau d'images en un string avec les images séparées par des espaces
-        $imagesString = '';
-        foreach ($this->images as $image) {
-            $imagesString .= $image . ' ';
-        }
-
+        $imagesString = implode(" ",$this->images);
         // variable correspondant à la date de fin de conservation de l'enchère dans la bd
         $dateFinConservation = new DateTime();
         $dateFinConservation->add(DateInterval::createFromDateString(Enchere::TEMPS_CONSERVATION));

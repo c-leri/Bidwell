@@ -1,31 +1,3 @@
-/* Dropdown Button */
-.dropbtn {
-  color: var(--couleur-noir);
-  border: none;
-  cursor: pointer;
-}
-
-#categorieDropdown button {
-  width: 100%;
-}
-
-/* Dropdown Content */
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: transparent;
-}
-
-/* Button du dropdown*/
-.dropdown-content button {
-  color: black;
-  padding: 12px 16px;
-  display: block;
-}
-
-.show {
-  display: block;
-}
 
 /* -- Images -- */
 .addedImages {
@@ -126,7 +98,9 @@ main.creation input[name=submit] {
 
 /*Messages erreurs inputs fait par clément*/
 #errorretrait,
-#errorcb {
+#errorcb,
+#errorlocalisation,
+#errorimgs {
   background-color: var(--couleur-rouge);
   border-radius: 1rem;
   margin: 0 10rem 0 10rem;

@@ -5,7 +5,6 @@ password = document.getElementById("password"),
 errorpassword =  document.getElementById("errorpassword");
 
 function validateConnection(event){
-  
     let ok = true;
     //Empêche le formulaire de reload la page et niquer la requête ajax
     event.preventDefault();
