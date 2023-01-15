@@ -1,4 +1,5 @@
 <?php
+
 // Inclusion du framework
 use Bidwell\Framework\View;
 

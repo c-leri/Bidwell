@@ -2,6 +2,7 @@
 
 namespace Bidwell\Model;
 
+use Bidwell\Model\Participation;
 use DateInterval;
 use DateTime;
 use Exception;

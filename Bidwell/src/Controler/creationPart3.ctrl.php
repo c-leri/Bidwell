@@ -1,8 +1,8 @@
 <?php 
 
-use Bidwell\Bidwell\Model\Utilisateur;
-use Bidwell\Bidwell\Model\Enchere;
-use Bidwell\Bidwell\Model\Categorie;
+use Bidwell\Model\Enchere;
+use Bidwell\Model\Categorie;
+use Bidwell\Model\Utilisateur;
 
 require_once __DIR__.'/../../vendor/autoload.php';
 
