@@ -10,7 +10,7 @@ try {
     // Constructeur
     print("Création d'un objet DAO : ");
     $dao = DAO::get();
-    Helper::OK();
+    OK();
 
     ////////////////// CREATE ///////////////////
 
@@ -51,7 +51,7 @@ try {
     }
     $idEnchere = $dao->lastInsertId();
 
-    Helper::OK();
+    OK();
 
     /////////////////// READ ////////////////////
 
@@ -85,7 +85,7 @@ try {
         throw new Exception("Utilisateur $login non trouvé");
     }
 
-    Helper::OK();
+    OK();
 
     ////////////////// UPDATE ///////////////////
 
@@ -97,7 +97,7 @@ try {
         throw new Exception("$res nombre de lignes modifiées, Attendu : 1");
     }
 
-    Helper::OK();
+    OK();
 
     ////////////////// DELETE ///////////////////
 
@@ -127,8 +127,8 @@ try {
         throw new Exception("Suppression des Catégories : $res nombre de lignes supprimées, Attendu : 2");
     }
 
-    Helper::OK();
+    OK();
 
 } catch(Exception $e) {
-    Helper::KO("Erreur sur DAO : ".$e->getMessage());
+    KO("Erreur sur DAO : ".$e->getMessage());
 }

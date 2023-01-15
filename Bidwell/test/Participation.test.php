@@ -38,9 +38,9 @@ try {
     print('Test constructeur : ');
     try {
         $participation = new Participation($enchere, $utilisateur);
-        Helper::OK();
+        OK();
     } catch (Exception $e) {
-        Helper::KO("La création de l'instance a échoué : " . $e->getMessage());
+        KO("La création de l'instance a échoué : " . $e->getMessage());
     }
 
     /**
@@ -50,9 +50,9 @@ try {
     print('Test isInDB() : ');
     if ($participation->isInDB()) {
         var_dump($participation);
-        Helper::KO("L'enchère n'est pas dans la base de données, mais la fonction a renvoyé vrai.");
+        KO("L'enchère n'est pas dans la base de données, mais la fonction a renvoyé vrai.");
     } else {
-        Helper::OK();
+        OK();
     }
 
 // Test des méthodes CRUD
@@ -65,9 +65,9 @@ try {
     try {
         $readTest = Participation::read($enchere, $utilisateur);
         var_dump($readTest);
-        Helper::KO("La méthode aurait du lever une exception.");
+        KO("La méthode aurait du lever une exception.");
     } catch (Exception) {
-        Helper::OK();
+        OK();
     }
 
     /**
@@ -76,9 +76,9 @@ try {
     print('Test create() : ');
     try {
         $participation->create();
-        Helper::OK();
+        OK();
     } catch (Exception $e) {
-        Helper::KO("L'insertion a échoué : " . $e->getMessage());
+        KO("L'insertion a échoué : " . $e->getMessage());
     }
 
     /**
@@ -88,9 +88,9 @@ try {
     print('Test read() 2 : ');
     try {
         Participation::read($enchere, $utilisateur);
-        Helper::OK();
+        OK();
     } catch (Exception $e) {
-        Helper::KO("La lecture a échoué : " . $e->getMessage());
+        KO("La lecture a échoué : " . $e->getMessage());
     }
 
     /**
@@ -109,9 +109,9 @@ try {
             var_dump($participationRead);
             throw new Exception("La participation lue dans la base de données est incorrecte.");
         }
-        Helper::OK();
+        OK();
     } catch (Exception $e) {
-        Helper::KO("Erreur dans la mise à jour de la base de données : " . $e->getMessage());
+        KO("Erreur dans la mise à jour de la base de données : " . $e->getMessage());
     }
 
     /**
@@ -123,10 +123,10 @@ try {
         try {
             Participation::read($enchere, $utilisateur);
         } catch (Exception) {
-            Helper::OK();
+            OK();
         }
     } catch (Exception $e) {
-        Helper::KO("Erreur dans la suppression de la participation : " . $e->getMessage());
+        KO("Erreur dans la suppression de la participation : " . $e->getMessage());
     }
 
 // On supprime les objets qu'on a créés pour les tests
@@ -134,5 +134,5 @@ try {
     $utilisateur->delete();
     $enchere->delete();
 } catch (Exception $e) {
-    Helper::KO('Erreur sur Participation : '.$e->getMessage());
+    KO('Erreur sur Participation : '.$e->getMessage());
 }

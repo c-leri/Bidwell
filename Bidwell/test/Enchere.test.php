@@ -25,22 +25,22 @@ try {
     try {
         new Enchere($utilisateur, 'testConstructeur', $date, 500, 0, 'testConstructeur.png', 'testConstructeur.txt', $categorie);
     } catch (Exception $e) {
-        Helper::KO("Erreur sur Enchere : ".$e->getMessage());
+        KO("Erreur sur Enchere : ".$e->getMessage());
     }
 
     try {
         $dateIncorrecte = DateTime::createFromFormat('d-m-Y', '01-01-2023');
         new Enchere($utilisateur, 'testConstructeur2', $dateIncorrecte, 500, 0, 'testConstructeur2.png', 'testConstructeur2.txt', $categorie);
-        Helper::KO("La catégorie a été créée malgré la date incorrecte.");
+        KO("La catégorie a été créée malgré la date incorrecte.");
     } catch (Exception) {}
 
     try {
         $categorieInexistante = new Categorie('inexistance');
         new Enchere($utilisateur, 'testConstructeur3', $dateIncorrecte, 500, 0, 'testConstructeur3.png', 'testConstructeur3.txt', $categorieInexistante);
-        Helper::KO("La catégorie a été créée malgré la catégorie non sérialisée");
+        KO("La catégorie a été créée malgré la catégorie non sérialisée");
     } catch (Exception) {}
 
-    Helper::OK();
+    OK();
 
     /////////////////////////////////////////////
     //                  CRUD                   //
@@ -65,7 +65,7 @@ try {
         throw new Exception('Test create() et read() : enchère crée != enchère lue');
     }
 
-    Helper::OK();
+    OK();
 
     /////////////////// READ ////////////////////
     print('Test read() : ');
@@ -73,9 +73,9 @@ try {
     // read() enchère inexistante
     try {
         Enchere::read(55555555);
-        Helper::KO("Erreur sur Enchere : Test read() : lecture d'une Enchère inexistante devrait renvoyer une exception");
+        KO("Erreur sur Enchere : Test read() : lecture d'une Enchère inexistante devrait renvoyer une exception");
     } catch (Exception) {
-        Helper::OK();
+        OK();
     }
 
     ////////////////// UPDATE ///////////////////
@@ -94,7 +94,7 @@ try {
         throw new Exception("L'enchère lue ne correspond pas à l'enchère mise à jour.");
     }
 
-    Helper::OK();
+    OK();
 
     ////////////////// DELETE ///////////////////
     print('Test delete() : ');
@@ -104,15 +104,15 @@ try {
     $enchere->delete();
     try {
         Enchere::read($idEnchere);
-        Helper::KO("Test delete() : lire une enchère supprimée devrait renvoyer une erreur");
+        KO("Test delete() : lire une enchère supprimée devrait renvoyer une erreur");
     } catch (Exception) {}
 
     // on supprime l'Utilisateur et la catégorie créés pour les tests
     $utilisateur->delete();
     $categorie->delete();
 
-    Helper::OK();
+    OK();
 
 } catch (Exception $e) {
-    Helper::KO('Erreur sur Enchere : '.$e->getMessage());
+    KO('Erreur sur Enchere : '.$e->getMessage());
 }

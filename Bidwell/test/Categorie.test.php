@@ -14,11 +14,11 @@ try {
     $nomCategorie = 'testConstructeur';
     $categorie = new Categorie($nomCategorie);
     if ($categorie->getLibelle() != $nomCategorie) {
-        Helper::KO("Test du constructeur :\n"
+        KO("Test du constructeur :\n"
             ." - Nom de la catégorie : {$categorie->getLibelle()}"
             ." - Attendu : $nomCategorie");
     }
-    Helper::OK();
+    OK();
 
     /////////////// CREATE + READ ////////////////
     print('Test create() et read() : ');
@@ -34,7 +34,7 @@ try {
         var_dump($categorieMere);
         print("Categorie lue :\n");
         var_dump($categorieMereRead);
-        Helper::KO('Test create() et read() : categorie créée != catégorie lue');
+        KO('Test create() et read() : categorie créée != catégorie lue');
     }
 
     // create() catégorie fille
@@ -48,10 +48,10 @@ try {
         var_dump($categorieFille);
         print("\nCategorie lue :\n");
         var_dump($categorieFilleRead);
-        Helper::KO('Test create() et read() : categorie créée != catégorie lue');
+        KO('Test create() et read() : categorie créée != catégorie lue');
     }
 
-    Helper::OK();
+    OK();
 
     /////////////////// READ ////////////////////
     print('Test read() : ');
@@ -59,9 +59,9 @@ try {
     // read() catégorie inexistante
     try {
         Categorie::read("Cette Categorie n'existe pas");
-        Helper::KO("Test read() : lecture d'une catégorie inexistante devrait renvoyer une exception");
+        KO("Test read() : lecture d'une catégorie inexistante devrait renvoyer une exception");
     } catch (Exception) {
-        Helper::OK();
+        OK();
     }
 
     ////////////////// UPDATE ///////////////////
@@ -85,7 +85,7 @@ try {
         var_dump($categorieFille);
         print("\nCategorie lue :\n");
         var_dump($categorieFilleRead);
-        Helper::KO('Test update() : categorie mise à jour != catégorie lue');
+        KO('Test update() : categorie mise à jour != catégorie lue');
     }
 
     // update() catégorie mère
@@ -100,7 +100,7 @@ try {
         var_dump($categorieFille);
         print("\nCategorie lue :\n");
         var_dump($categorieFilleRead);
-        Helper::KO('Test update() : categorie mise à jour != catégorie lue');
+        KO('Test update() : categorie mise à jour != catégorie lue');
     }
 
     $categorieMereRead = Categorie::read($categorieMere->getLibelle());
@@ -109,10 +109,10 @@ try {
         var_dump($categorieMere);
         print("\nCategorie lue :\n");
         var_dump($categorieMereRead);
-        Helper::KO('Test update() : categorie mise à jour != catégorie lue');
+        KO('Test update() : categorie mise à jour != catégorie lue');
     }
 
-    Helper::OK();
+    OK();
 
     ////////////////// DELETE ///////////////////
     print('Test delete() : ');
@@ -122,18 +122,18 @@ try {
     $categorieFille->delete();
     try {
         Categorie::read($libelleCategorieFille);
-        Helper::KO("Test delete() : read une catégorie delete devrait renvoyer une exception");
+        KO("Test delete() : read une catégorie delete devrait renvoyer une exception");
     } catch (Exception) {}
     if ($categorieFille->isInDB()) {
         var_dump($categorieFille);
-        Helper::KO("Test delete() : la catégorie ne devrait plus être dans la bd après un delete");
+        KO("Test delete() : la catégorie ne devrait plus être dans la bd après un delete");
     }
     // on vérifie que $categorieFille n'est plus la catégorie mère de $catégorieMere
     // il faut read les catégories filles pour que la modification soit effective
     $categorieMere->sync();
     if ($categorieMere->getCategorieMere() !== null) {
         var_dump($categorieMere);
-        Helper::KO("Test delete() : la catégorie mère ne devrait pas être encore set si il a été delete");
+        KO("Test delete() : la catégorie mère ne devrait pas être encore set si il a été delete");
     }
 
     // test delete() sur une catégorie fille
@@ -141,17 +141,17 @@ try {
     $categorieMere->delete();
     try {
         Categorie::read($libelleCategorieMere);
-        Helper::KO("Test delete() : read une catégorie delete devrait renvoyer une exception");
+        KO("Test delete() : read une catégorie delete devrait renvoyer une exception");
     } catch (Exception) {}
     if ($categorieMere->isInDB()) {
         var_dump($categorieMere);
-        Helper::KO("Test delete() : la catégorie ne devrait plus être dans la bd après un delete");
+        KO("Test delete() : la catégorie ne devrait plus être dans la bd après un delete");
     }
 
     // test delete() sur une catégorie non dans la bd
     try {
         $categorie->delete();
-        Helper::KO("Test delete() : delete une catégorie non dans la base devrait renvoyer une exception");
+        KO("Test delete() : delete une catégorie non dans la base devrait renvoyer une exception");
     } catch (Exception) {}
 
     // on supprime les Enchères et l'Utilisateur créés pour les tests
@@ -159,8 +159,8 @@ try {
     $enchere2->delete();
     $utilisateur->delete();
 
-    Helper::OK();
+    OK();
 
 } catch (Exception $e) {
-    Helper::KO("Erreur sur Categorie : ".$e->getMessage());
+    KO("Erreur sur Categorie : ".$e->getMessage());
 }

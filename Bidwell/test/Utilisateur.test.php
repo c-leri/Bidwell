@@ -14,7 +14,7 @@ try{
     $numtel='but';
     try{
         $utilisatest= new Utilisateur($login,$email,$numtel);
-        Helper::KO("Numéro de téléphone : $numtel accepté");
+        KO("Numéro de téléphone : $numtel accepté");
     }catch(Exception){
         $numtel = '0123456789';
         $utilisatest= new Utilisateur($login,$email,$numtel);
@@ -26,7 +26,7 @@ try{
             ." - Attendu : $login");
     }
 
-    Helper::OK();
+    OK();
 
     ////////////////// SETTERS //////////////////
     print('Test des setters : ');
@@ -70,7 +70,7 @@ try{
             . " -Email donné : Emailtest@gmail.com");
     }
 
-    Helper::OK();
+    OK();
 
     /////////////// CREATE + READ ////////////////
     print('Test create() et read() : ');
@@ -95,7 +95,7 @@ try{
         var_dump($utilisateurRead);
         throw new Exception('Test create() et read() : utilisateur créé != utilisateur lu');
     }
-    Helper::OK();
+    OK();
 
 
     /////////////////// READ ////////////////////
@@ -104,18 +104,18 @@ try{
     //Read d'un utilisateur inexistant
     try {
         Utilisateur::read('boyoboy');
-        Helper::KO("Erreur sur Utilisateur : Test read() : lecture d'un untilisateur inexistante devrait renvoyer une exception");
+        KO("Erreur sur Utilisateur : Test read() : lecture d'un untilisateur inexistante devrait renvoyer une exception");
     } catch (Exception) {
-        Helper::OK();
+        OK();
     }
 
     //Méthodes différentes
     //connectionValide
     print('Test connectionValide() : ');
     if(Utilisateur::connectionValide($login,$gpss)){
-        Helper::KO("Erreur sur Utilisateur : Test connectionValide() : Demande de validation d'un faux mot de passe");
+        KO("Erreur sur Utilisateur : Test connectionValide() : Demande de validation d'un faux mot de passe");
     } elseif(Utilisateur::connectionValide($login,$pss)){
-        Helper::OK();
+        OK();
     }else{
         throw new Exception('Test connection valide renvoie une erreur même en cas de réussite');
     }
@@ -138,7 +138,7 @@ try{
         throw new Exception('Test update() : utilisateur mise à jour != utilisateur lu');
     }
 
-    Helper::OK();
+    OK();
 
 
     ////////////////// DELETE ///////////////////
@@ -147,11 +147,11 @@ try{
     $utisilateur->delete();
     try{
         Utilisateur::read($utisilateur->getLogin());
-        Helper::KO("Erreur sur Utilisateur : Test read() : lecture d'un untilisateur delete devrait renvoyer une exception");
+        KO("Erreur sur Utilisateur : Test read() : lecture d'un untilisateur delete devrait renvoyer une exception");
     } catch (Exception) {
-        Helper::OK();
+        OK();
     }
 
 } catch(Exception $e){
-    Helper::KO("Erreur sur information : ".$e->getMessage());
+    KO("Erreur sur information : ".$e->getMessage());
 }
