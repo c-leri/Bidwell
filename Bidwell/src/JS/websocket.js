@@ -25,9 +25,16 @@ conn.onmessage = function (e) {
     // on renvoie au serveur un message avec le code qu'il a envoyé et en y ajoutant le login de l'utilisateur
     } else if (message.type === 'login') {
         conn.send(JSON.stringify({type: "login", code: message.code, value: login}));
+    } else if (message.type === '' /* notification autre utilisateur a enchéri */) {
+        // TODO changer les valeurs de l'interface pour refléter le fait qu'un utilisateur a enchéri
     }
 }
 
 function encherir(e) {
-    
+    // si l'utilisateur n'est pas connecté, on le redirige vers la page de connexion
+    if (login == '') {
+        self.location = 'connect.ctrl.php';
+    } else {
+        // TODO envoyer le numéro de l'enchère sur laquelle l'utilisateur enchéri
+    }
 }

@@ -47,11 +47,10 @@ class WebSocketServer implements MessageComponentInterface
         try {
             // on décode le message
             $message = json_decode($msg);
-            var_dump($message);
 
             // si le message n'a pas de type ou de valeur, il n'est pas conforme
             if (!isset($message->type) || !isset($message->value)) {
-                echo "Message non conforme sans type envoyé par {$from->resourceId} : $message";
+                echo "Message non conforme sans type envoyé par la connection {$from->resourceId} : $message\n";
             } else {
                 switch ($message->type) {
                     // message indiquant si l'utilisateur est connecté
@@ -78,11 +77,21 @@ class WebSocketServer implements MessageComponentInterface
                                 $this->users[$from->resourceId] = Utilisateur::read($message->value);
                                 var_dump($this->users);
                             } catch (\Exception $e) {
-                                echo "Problème lors de la lecture de l'utilisateur de la connection $from->resourceId : " . $e->getMessage();
+                                echo "Problème lors de la lecture de l'utilisateur de la connection $from->resourceId : {$e->getMessage()}\n";
                             }
                         }
                         break;
+                    // message envoyé quand un utilisateur enchéri
+                    case 'enchere':
+                        if (!isset($this->users[$from->resourceId])) {
+                            echo "La connection $from->resourceId a essayé de participer à une enchère alors qu'elle n'est pas connecté";
+                        } else {
+                            // TODO recupérer l'enchère et modifier les valeurs en lien avec l'enchère (prix qui remonte, dernier enchérisseur qui change...)
+                            // TODO envoyer ces changements aux autres utilisateurs
+                        }
+                        break;
                     default:
+                        echo "Message de type non conforme envoyé par la connection $from->resourceId : $message\n";
                         break;
                 }
             }
@@ -94,10 +103,10 @@ class WebSocketServer implements MessageComponentInterface
     }
 
     public function onClose(ConnectionInterface $conn) {
-        $this->clients->detach($conn);
+        echo "Connection {$conn->resourceId} has disconnected\n";
         unset($this->codes[$conn->resourceId]);
         unset($this->users[$conn->resourceId]);
-        echo "Connection {$conn->resourceId} has disconnected\n";
+        $this->clients->detach($conn);
     }
 
     public function onError(ConnectionInterface $conn, \Exception $e) {
