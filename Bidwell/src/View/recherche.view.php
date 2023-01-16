@@ -54,48 +54,10 @@
                 <?php include(__DIR__ . '/recherche-aside.viewpart.php') ?>
 
             </aside>
-            <div class="annonces" id='annonces'> <!-- Retire id='annonces' pour les annonces de base-->
-                <?php for ($i = 0; $i < 12; $i++) : ?>
-
-                    <article>
-                        <a href="consultation.ctrl.php">
-                            <img src="../View/design/img/default_image.png" alt="">
-                        </a>
-                        <div class="left">
-                            <h1>Titre Retirer quand CSS finit svp</h1>
-                            <h2>Catégorie Retirer quand CSS finit svp</h2>
-                            <ul>
-                                <li> Temps restant</li>
-                                <li> Prix actuel</li>
-                                <li> Par JpDUpont</li>
-                            </ul>
-                        </div>
-                        <p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In libero risus, luctus vitae erat eu, bibendum malesuada tellus. Suspendisse at ante a leo laoreet iaculis. Phasellus sollicitudin egestas diam. Donec non suscipit sapien. Nam sit amet rhoncus enim. Morbi euismod lacus in pellentesque viverra. Cras nec justo porta, elementum turpis eu, elementum ante. Quisque vitae mauris eu tortor commodo eleifend. Pellentesque ac ipsum elementum lorem cursus pharetra convallis sed risus. Cras eu ex aliquet, convallis lectus ac, varius odio. Mauris sit amet sapien sed erat ullamcorper congue eget at eros.</p>
-                    </article>
-
-                <?php endfor; ?>
+            <div class="annonces" id='annonces'>
+                
             </div>
         </div>
-        <div class="liste">
-            <div class="numPage">
-                <button id="back">
-                    < </button>
-                        <button id="first">1</button>
-                        <button id="second">2</button>
-                        <button id="third">3</button>
-                        <button id="fourth">4</button>
-                        <button id="fifth">5</button>
-                        --
-                        <button id="max">X</button>
-                        <button id="next">></button>
-            </div>
-
-            <div class="annonces" id="annonces"> <!-- Ne pas retirer l'ID sinon JS cassé-->
-
-                </div>
-
-        </div>
-
     </main>
 
     <footer>
