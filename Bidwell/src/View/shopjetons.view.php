@@ -73,15 +73,15 @@
         </div>
 </div>
 
-        <div id="myModal" class="modal">
+        <form id="myModal" class="modal" action="shopAchat.ctrl.php" method="post">
             <div class="modal-content">
                 <span class="close" onclick="stop()">&times;</span>
                 <p>Some text in the Modal..</p>
-                <button id="myConfirmation" onclick="conf()">Confirmer</button>
+                <button type="submit" id="myConfirmation" name="valeur" value="" onclick="conf()">Confirmer</button>
                 <button id="myCancel" onclick="stop()">Annuler</button>
             </div>
             <script src="../js/shop.js"></script>
-        </div>
+        </form>
     </main>
 
     <footer>

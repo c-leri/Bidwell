@@ -10,6 +10,7 @@ function addCategoriesToSelectList(){
   requete.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   requete.onload = function() {
     const rep = JSON.parse(this.responseText);
+    console.log(rep);
     for (let i = 0; i < rep.arrayCategories.length ; i++) {
       //Création option
       option = document.createElement("option");
