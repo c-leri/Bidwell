@@ -113,11 +113,11 @@ main.recherche aside li {
   margin-top: 0.2rem;
 }
 
-main.recherche aside label {
+main.recherche label {
   cursor:pointer;
 }
 
-main.recherche aside label:hover {
+main.recherche label:hover {
   color: var(--couleur-jaune);
 }
 
