@@ -20,12 +20,17 @@ try {
     }
     OK();
 
-    /////////////// CREATE + READ ////////////////
-    print('Test create() et read() : ');
+    /////////// CREATE + ISINDB + READ ///////////
+    print('Test create(), isInDB() et read() : ');
 
     // create() catégorie mère
     $categorieMere = new Categorie('testCreateMere');
     $categorieMere->create();
+
+    // isInDB() catégorie mère
+    if (!$categorieMere->isInDB()) {
+        KO("Test create() et isInDB() : isInDB() devrait être true après un create()");
+    }
 
     // read() catégorie mère
     $categorieMereRead = Categorie::read($categorieMere->getLibelle());
@@ -40,6 +45,11 @@ try {
     // create() catégorie fille
     $categorieFille = new Categorie('testCreateFille', $categorieMere);
     $categorieFille->create();
+
+    // isInDB() catégorie fille
+    if (!$categorieFille->isInDB()) {
+        KO("Test create() et isInDB() : isInDB() devrait être true après un create()");
+    }
 
     // read() catégorie fille
     $categorieFilleRead = Categorie::read($categorieFille->getLibelle());
@@ -64,6 +74,15 @@ try {
         OK();
     }
 
+    //////////// GET_CATEGORIE_AUTRE ////////////
+    print('Test getCategorieAutre() : ');
+
+    $autre = Categorie::getCategorieAutre();
+    if (!isset($autre) || $autre->getLibelle() != 'Autre') {
+        var_dump($autre);
+        KO("Test getCategorieAutre() : la bonne catégorie n'a pas été trouvée");
+    }
+
     ////////////////// UPDATE ///////////////////
     print('Test update() : ');
 
@@ -74,9 +93,9 @@ try {
 
     // update() avec des enchères
     $dateDebut = DateTime::createFromFormat('Y-m-d', '2050-12-24');
-    $enchere1 = new Enchere($utilisateur, 'enchere1', $dateDebut, 500, 0, 'enchere1.png', 'enchere1.txt', $categorieFille);
+    $enchere1 = new Enchere($utilisateur, 'enchere1', $dateDebut, 500, 0, 'enchere1.png', 'enchere1.txt', $categorieFille, 'false,false', 'true,false', '38190');
     $enchere1->create();
-    $enchere2 = new Enchere($utilisateur, 'enchere2', $dateDebut, 500, 0, 'enchere2.png', 'enchere2.txt', $categorieFille);
+    $enchere2 = new Enchere($utilisateur, 'enchere2', $dateDebut, 500, 0, 'enchere2.png', 'enchere2.txt', $categorieFille, 'false,true', 'true,true', '38100');
     $enchere2->create();
     $categorieFille->update();
     $categorieFilleRead = Categorie::read($categorieFille->getLibelle());
