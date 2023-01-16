@@ -23,7 +23,6 @@
     <!-- Menu -->
     <header>
     <?php 
-    session_start();
     if(isset($_SESSION['login'])){
         include(__DIR__ . '/menu_connecte.viewpart.php');
     }else{
@@ -32,14 +31,17 @@
     ?>
     </header>
     <main class="compte">
-        <h2>Compte de nom</h2>
+        <h2>Compte de <?= $login ?></h2>
         <hr>
         <ul>
-            <li>Connecté en tant que : login </li>
-            <li>Connecté avec l'adresse : email </li>
-            <li>Numéro de téléphone associé : numeroTelephone </li>
-            <li> Jetons : nbJetons </li>
-            <li> Nous conservons vos informations jusqu'au : dateFinConservation </li>
+            <div id="infos">
+                <li class='lines'>Connecté en tant que :<?= $login ?> </li>
+                <li class='lines centered'> Jetons :  <?= $nbJetons ?> </li>
+                <li class='lines'>Connecté avec l'adresse : <?= $email ?> </li>
+                <a class='lines centered' href='shop.ctrl.php'> Acheter des Jetons </a>
+            </div>
+            <li>Numéro de téléphone associé : <?= $numtel ?> </li>
+            <li> Nous conservons vos informations pendant encore : <?= $dateFin?> </li>
         </ul>
         <h2>Vos enchères : </h2>
         <div class="vosEncheres">

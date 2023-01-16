@@ -34,40 +34,40 @@
 
             <div class="pack">
                 <p>72</p>
-            <button class="buy" onclick="affish()">5,99€</button>
+            <button class="buy" onclick="affish(72)">5,99€</button>
             </div>
 
             <div class="pack">
                 <p>134 +10% = 150</p>
-            <button class="buy" onclick="affish()">10,99€</button>
+            <button class="buy" onclick="affish(150)">10,99€</button>
             </div>
 
             <div class="pack">
                 <p>250 +20%=300</p>
-            <button class="buy" onclick="affish()">20,99€</button>
+            <button class="buy" onclick="affish(300)">20,99€</button>
             </div>
             
             <div class="pack">
                 <p>600 +30%= 780</p>
-            <button class="buy" onclick="affish()">49,99€</button>
+            <button class="buy" onclick="affish(780)">49,99€</button>
             </div>
 
             <div class="pack">
                 <p>1200+40%=1700</p>
-            <button class="buy" onclick="affish()">99,99€</button>
+            <button class="buy" onclick="affish(1700)">99,99€</button>
             </div>
 
         </div>
 
-        <form id="myModal" class="modal" action="shopAchat.ctrl.php" method="post">
+        <div id="myModal" class="modal">
             <div class="modal-content">
                 <span class="close" onclick="stop()">&times;</span>
-                <p>Some text in the Modal..</p>
-                <button type="submit" id="myConfirmation" name="valeur" value="" onclick="conf()">Confirmer</button>
+                <p id='letext'>Some text in the Modal..</p>
+                <button id="myConfirm" onclick="conf()">Confirmer</button>
                 <button id="myCancel" onclick="stop()">Annuler</button>
             </div>
             <script src="../js/shop.js"></script>
-        </form>
+</div>
     </main>
 
     <footer>
