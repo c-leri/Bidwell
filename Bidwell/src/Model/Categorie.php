@@ -139,6 +139,12 @@ class Categorie {
         return Categorie::constructFromDB($table[0]);
     }
 
+	/**
+	 * La fonction readFromCategorieMere() sert à récupérer les catégories
+	 * en fonction de leur catégorie mère.
+	 * @param categoriMere: categorie mère des catégories à récupérer
+	 * @return: Tableau de catégories dont la catégorie mère est categorieMere
+	 */
     public static function readFromCategorieMere(Categorie $categorieMere) : array {
         // récupératoin du dao
         $dao = DAO::get();
