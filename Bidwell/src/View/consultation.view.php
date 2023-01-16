@@ -76,20 +76,27 @@
         <?php include(__DIR__ . '/footer.viewpart.php') ?>
     </footer>
 
+    <!-- input hidden qui stock le login de l'utilisateur pour l'authentification dans le serveur de websockets -->
+    <?php session_start(); ?>
+    <input type="hidden" id="login" style="display: none;" value="<?= $_SESSION['login'] ?>" />
+    <?php session_write_close(); ?>
+
     <body>
 
 
-    <script>
-    document.forms.form01.range.addEventListener('change', e => {
-  let numlines = parseInt(e.target.value);
-  let numdots = (numlines < 1) ? 0 : numlines+1;
-  document.querySelector('#styles').innerHTML = `
-    .lines use:nth-child(-n+${numlines}) {
-      stroke: DarkSlateBlue;
-    }
-    .dots use:nth-child(-n+${numdots}) {
-      stroke: DarkSlateBlue;
-    }`;  
-});</script>
+    <script type="text/javascript">
+        document.forms.form01.range.addEventListener('change', e => {
+        let numlines = parseInt(e.target.value);
+        let numdots = (numlines < 1) ? 0 : numlines+1;
+        document.querySelector('#styles').innerHTML = `
+            .lines use:nth-child(-n+${numlines}) {
+                stroke: DarkSlateBlue;
+            }
+            .dots use:nth-child(-n+${numdots}) {
+                stroke: DarkSlateBlue;
+            }`;  
+        });
+    </script>
+    <script type="text/javascript" src="../JS/websocket.js"></script>
 
 </html>

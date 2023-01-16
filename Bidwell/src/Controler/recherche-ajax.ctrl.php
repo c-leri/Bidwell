@@ -28,7 +28,7 @@ if ($_GET['type'] == 'Enchere') {
 
         //Si aucune catégorie sélectionnée
         //Exécute la requête SQL avec les informations nécessaires à l'affichage
-        $result = Enchere::readLike([], "", $_GET['tri'], $prix,'ASC', $_GET['page'], 20);
+        $result = Enchere::readLike([], "", $_GET['tri'], $prix, 'ASC', $_GET['page'], 20);
 
     }
 
