@@ -1,6 +1,8 @@
 <?php
 namespace Bidwell\Server;
 
+use Bidwell\Model\Enchere;
+use Bidwell\Model\Participation;
 use Bidwell\Model\Utilisateur;
 use Ratchet\Http\HttpServer;
 use Ratchet\MessageComponentInterface;
@@ -86,8 +88,17 @@ class WebSocketServer implements MessageComponentInterface
                         if (!isset($this->users[$from->resourceId])) {
                             echo "La connection $from->resourceId a essayé de participer à une enchère alors qu'elle n'est pas connecté";
                         } else {
-                            // TODO recupérer l'enchère et modifier les valeurs en lien avec l'enchère (prix qui remonte, dernier enchérisseur qui change...)
-                            // TODO envoyer ces changements aux autres utilisateurs
+                            // recupère l'enchère et la participation et appel la méthode encherir() qui fais les modifications liées au fait qu'un utilisateur enchérisse
+                            $enchere = Enchere::read($message->value);
+                            $participation = Participation::get($enchere, $this->users[$from->resourceId]);
+                            $participation->encherir();
+
+                            // notifie tous les autres utilisateurs
+                            foreach ($this->clients as $client) {
+                                if ($client !== $from) {
+                                    $client->send('{"type": "enchere", "value": ' . $participation->getMontantDerniereEnchere() . '}}');
+                                }
+                            }
                         }
                         break;
                     default:
