@@ -10,6 +10,12 @@
 }
 
 #pop-up-cookies {
+    display: none; 
+
+}
+
+#pop-up-cookies.active {
+
     position: fixed;
     top: 50%;
     left: 50%;
@@ -35,10 +41,6 @@
 
 #pop-up-cookies input {
     margin-left: 1rem;
-}
-
-#pop-up-cookies.active {
-    display: none;
 }
 
 #pop-up-cookies .d-flex {

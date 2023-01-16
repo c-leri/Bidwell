@@ -22,7 +22,6 @@
     <!-- Menu -->
     <header>
         <?php
-        session_start();
         if (isset($_SESSION['login'])) {
             include(__DIR__ . '/menu_connecte.viewpart.php');
         } else {
@@ -32,29 +31,7 @@
         ?>
     </header>
     <main class="pagePrincipale">
-        <!-- Test de cookies -->
-        <div id="fond-cookies">
-            <div id="pop-up-cookies">
-
-                <div class="info-cookies">
-                    <p>Notre site conserve des données personnelles permettant de vous identifier. Par conséquent, si vous n'acceptez pas les cookies vous ne pourrez pas profiter de toutes les fonctionnalités de notre site.
-                    </p>
-                    <ul>
-                        <li> Nous permettre de garder vos données personnelles.
-                            <input type="checkbox" name="okCookies">
-                        </li>
-                    </ul>
-                    <p>
-                        Certains cookies sont nécessaires à des fins techniques, ils sont donc dispensés de consentement.
-                    </p>
-                </div>
-
-                <div class="d-flex">
-                    <button class="valider-cookies" onclick="stop()">Valider votre choix</button>
-                    <button class="refuser-cookies" onclick="stop()">Tout refuser</button>
-                </div>
-            </div>
-        </div>
+        <?php include(__DIR__ . '/cookie.viewpart.php'); ?>
 
         <div id="slider">
             <a href="#"><img src="../View/design/img/default_image.png" alt="Besoin d'aide" id="slide" style="background-repeat: repeat"></a>
@@ -77,7 +54,6 @@
         <div class="ventesPopulaires" id="old">
 
         </div>
-        <script src="../JS/main.js"></script>
     </main>
     <footer>
         <?php include(__DIR__ . '/footer.viewpart.php') ?>
@@ -86,3 +62,5 @@
 
 
 </html>
+
+<script src="../JS/main.js"></script>

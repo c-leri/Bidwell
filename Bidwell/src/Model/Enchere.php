@@ -343,7 +343,8 @@ class Enchere
         $instantFin = $this->dateDebut;
         $instantFin->add(DateInterval::createFromDateString('1 hour'));
         return $instantFin;
-    }
+    }       
+
 
     public function getParticipations(): array
     {
@@ -394,6 +395,7 @@ class Enchere
 
         // récupération du dao
         $dao = DAO::get();
+
 
         // transforme le tableau d'images en un string avec les images séparées par des espaces
         $imagesString = implode(" ",$this->images);

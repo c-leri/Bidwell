@@ -1,5 +1,4 @@
-window.onload = showItems("ASC", "new");
-window.onload = showItems("DESC", "old");
+window.onload = initPage();
 
 function showItems(ordre, cible) {
 
@@ -11,32 +10,40 @@ function showItems(ordre, cible) {
   xhttp.send();
 }
 
-// Fermeture de la page 
-function stop() {
-  document.getElementById("fond-cookies").style.display = "none";
+function setCookie(nomCookie, valeurCookie, joursAvExpiration) {
+  const d = new Date();
+  d.setTime(d.getTime() + (joursAvExpiration * 24 * 60 * 60 * 1000));
+  let jours = "expires=" + d.toUTCString();
+  document.cookie = nomCookie + "=" + valeurCookie + ";" + jours + ";path=/";
 }
 
-// pop up de cookies
-window.onload = function () {
-  // si cookies deja acceptés
-  if (document.cookie.indexOf("cookies-acceptes=") = true) {
-    document.getElementById("pop-up-cookies").toggle(active);
+function getCookie(nomCookie) {
+  let nom = nomCookie + "=";
+  let decodedCookie = decodeURIComponent(document.cookie);
+  let liste = decodedCookie.split(';');
+  for (let i = 0; i < liste.length; i++) {
+    let leCookie = liste[i];
+    while (leCookie.charAt(0) == ' ') {
+      leCookie = leCookie.substring(1);
+    }
+    if (leCookie.indexOf(nom) == 0) {
+      return leCookie.substring(nom.length, leCookie.length);
+    }
+  }
+  return "";
+}
+
+function checkCookie() {
+  let username = getCookie("username");
+  if (username != "") {
+    document.getElementById("fond-cookies").style.display = "none"; //La classe est active de base, donc la désactive
+    }
   }
 
-};
-  // accepter cookies
-  document.getElementsByClassName("accept-cookies").on("click", function () {
-    //   document.cookie = "cookies-acceptes=true;";
-    document.getElementById("pop-up-cookies").toggle(active);
-  });
+function initPage() {
+  showItems("ASC", "new");
+  showItems("DESC", "old");
 
-  // refuser cookies
-  document.getElementsByClassName("refuser-cookies").addEventListener("click", event => {
-    document.getElementById("pop-up-cookies").toggle(active);
-  });
 
-  // configurer cookies
-  document.getElementsByClassName("configurer-cookies").on("click", function () {
-    document.getElementById("pop-up-cookies").toggle(active);
-  });
-
+  checkCookie();
+}
