@@ -198,3 +198,12 @@ main.recherche .numPage {
   margin-left: auto;
   margin-right: auto;
 }
+
+main.recherche .numPage button{
+  text-decoration: none;
+  color: var(--couleur-noir);
+  background-color: var(--couleur-jaune);
+  border-radius: 1rem;
+  padding: 0.2rem;
+  border: 0.1rem solid var(--couleur-noir);
+}
