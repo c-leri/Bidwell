@@ -8,3 +8,5 @@ sqlite3_analyzer.exe
 *.jpeg
 *.jpg
 *.webp
+vendor/
+composer.lock
