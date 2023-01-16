@@ -8,11 +8,6 @@ require_once __DIR__.'/../../vendor/autoload.php';
 ////////////////////////////////////////////////////////////////////////////
 // Récupération des informations à afficher
 ////////////////////////////////////////////////////////////////////////////
-
-session_start();
-$login = $_SESSION['login'] ?? '';
-
-
 $id = isset($_GET['id']) ? $_GET['id'] : null;
 
 if ($id == null) {
@@ -92,7 +87,6 @@ $view->assign('description', $description);
 $view->assign('images', $images);
 
 $view->assign('createur', $createur);
-$view->assign('login', $login);
 
 $view->assign('mail', $mail);
 $view->assign('tel', $tel);

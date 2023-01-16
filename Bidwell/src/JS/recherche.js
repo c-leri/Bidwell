@@ -4,22 +4,19 @@
 //Fonction permettant de chercher un paramètredans l'URL de la page
 //Puis, initialise l'AJAX de la page
 
-//En gros, fait que le JavaScript peut récupérer le $_GETs  
+//En gros, fait que le JavaScript peut récupérer le $_GETs 
 window.onload = function () {
-    var parts = window.location.search.substr(1).split("&");
-    var $_GET = {};
-    for (var i = 0; i < parts.length; i++) {
-        var temp = parts[i].split("=");
-        $_GET[decodeURIComponent(temp[0])] = decodeURIComponent(temp[1]);
-}
+    const params = new Proxy(new URLSearchParams(window.location.search), {
+        get: (searchParams, prop) => searchParams.get(prop),
+    });
 
-initPage($_GET['categories']);
+    initPage(params.categories);
 }
 
 function showItems() {
 
 
-//Récupère les informations des éléments de tri/filtre/type de la page
+    //Récupère les informations des éléments de tri/filtre/type de la page
 
 //Tri : Quel type de tri est appliqué (par nom, date, prix, ...)
     let tri = document.getElementById("tri").value;
