@@ -39,9 +39,7 @@ class WebSocketServer implements MessageComponentInterface
         $this->clients->attach($conn);  
         echo "New connection! ({$conn->resourceId})\n";
 
-        // on génére un code aléatoire et on l'envoie au client dans un message de demande de connexion
-        $this->codes[$conn->resourceId] = rand();
-        $login = '{"type": "login", "code": "' . $this->codes[$conn->resourceId] . '"}';
+        $login = '{"type": "isConnected"}';
         $conn->send($login);
     }
 
@@ -51,34 +49,42 @@ class WebSocketServer implements MessageComponentInterface
             $message = json_decode($msg);
             var_dump($message);
 
-            // si le message est de type login, on procède à l'authentification
-            if (isset($message->type) && $message->type == 'login') {
-                // on vérifie que le code du message correspond au code attribué à cette connexion
-                if ($message->code == $this->codes[$from->resourceId]) {
-                    try {
-                        // on stock dans le tableau l'utilisateur correspondant au login contenu dans le message
-                        $this->users[$from->resourceId] = Utilisateur::read($message->text);
-                        // on a plus besoin de stocker le code de connexion de l'utilisateur
-                        unset($this->codes[$from->resourceId]);
-                        // on notifie l'utilisateur de la réussite de la connexion
-                        $from->send('{"type": "message", "text": "Connection réalisé avec succès!"}');
-                    } catch (\Exception $e) {
-                        echo "Problème lors de la récupération de l'utilisateur : " . $e->getMessage();
-                    }
-                // si le code n'est pas bon on deconnecte l'utilisateur
-                } else {
-                    unset($this->codes[$from->resourceId]);
-                    $from->close();
-                }
-            // on deconnecte l'utilisateur si il n'est pas login et qu'il essaye d'envoyer un message
-            } else if (!isset($this->users[$from->resourceId])) {
-                unset($this->codes[$from->resourceId]);
-                $from->close();
-            // si le message n'a pas de type, il n'est pas conforme, erreur
-            } else if (!isset($message->type)) {
-                echo "Message non conforme envoyé par la connection {$from->resourceId}";
+            // si le message n'a pas de type ou de valeur, il n'est pas conforme
+            if (!isset($message->type) || !isset($message->value)) {
+                echo "Message non conforme sans type envoyé par {$from->resourceId} : $message";
             } else {
-                
+                switch ($message->type) {
+                    // message indiquant si l'utilisateur est connecté
+                    case 'isConnected':
+                        $connected = $message->value;
+                        // si l'utilisateur est connecté on demande son login
+                        if ($connected) {
+                            // on génére un code aléatoire puis on l'envoie au client en lui de donner son login
+                            $this->codes[$from->resourceId] = rand();
+                            $from->send('{"type": "login", "code": "' . $this->codes[$from->resourceId] . '"}');
+                        }
+                        break;
+                    // message contenant le login de l'utilisateur
+                    case 'login':
+                        // si il n'y a pas de code ou qu'il n'est pas bon, on deconnecte l'utilisateur
+                        if (!isset($message->code) || $message->code != $this->codes[$from->resourceId]) {
+                            echo "La connection $from->resourceId a essayé de s'authentifier avec un code eronné";
+                            $from->close();
+                        } else {
+                            // on retire le code de cet utilisateur du tableau, on n'en a plus besoin
+                            unset($this->codes[$from->resourceId]);
+                            // on essaye de récupérer l'Utilisateur correspondant au login dans la bd
+                            try {
+                                $this->users[$from->resourceId] = Utilisateur::read($message->value);
+                                var_dump($this->users);
+                            } catch (\Exception $e) {
+                                echo "Problème lors de la lecture de l'utilisateur de la connection $from->resourceId : " . $e->getMessage();
+                            }
+                        }
+                        break;
+                    default:
+                        break;
+                }
             }
         } catch (\Exception) {
             echo "Problème lors de la lecture du message envoyé par la connection {$from->resourceId}";

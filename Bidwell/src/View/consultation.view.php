@@ -20,7 +20,7 @@
 <body>
     <!-- Menu -->
     <header>
-        <?php include(__DIR__ . '/menu.viewpart.php') ?>
+        <?php include ($login === '') ? __DIR__ . '/menu.viewpart.php' : __DIR__.  '/menu_connecte.viewpart.php' ?>
     </header>
     
     <main class="consultation">
@@ -76,10 +76,7 @@
         <?php include(__DIR__ . '/footer.viewpart.php') ?>
     </footer>
 
-    <!-- input hidden qui stock le login de l'utilisateur pour l'authentification dans le serveur de websockets -->
-    <?php session_start(); ?>
-    <input type="hidden" id="login" style="display: none;" value="<?= $_SESSION['login'] ?>" />
-    <?php session_write_close(); ?>
+    <input type="hidden" id="login" style="display: none;" value="<?= $login ?>" />
 
     <body>
 
