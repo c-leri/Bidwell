@@ -43,8 +43,8 @@
 
             <div class="d-flex">
                 <button class="accepter-cookies" class="d-block">Accepter</button>
-                <button class="refuser-cookies" class="d-block">Refuser</button>
                 <button class="configurer-cookies" class="d-block">Configurer</button>
+                <button class="refuser-cookies" class="d-block">Refuser</button>
             </div>
         </div>
 

@@ -19,10 +19,10 @@
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    justify-content: space-around;
+    justify-content: center;
 }
 
-#pop-up-cookies .accepter-cookies, #pop-up-cookies .configurer-cookies{
+#pop-up-cookies .accepter-cookies, #pop-up-cookies .configurer-cookies, #pop-up-cookies .refuser-cookies{
     color: var(--couleur-noir);
     background-color: var(--couleur-jaune);
     border-radius: 1rem;
@@ -30,18 +30,9 @@
     display: block;
     padding: 0.5rem 0.5rem;
     border: 0.1rem var(--couleur-noir) solid;
+    margin: 0.2rem;
 }
 
-#pop-up-cookies .refuser-cookies {
-    text-decoration: none;
-    border-radius: 1rem;
-    white-space: nowrap;
-    display: block;
-    padding: 0.5rem 0.5rem;
-    color: var(--couleur-blanc);
-    background-color: var(--couleur-noir);
-    border: 0.15rem var(--couleur-blanc) solid;
-}
 
 
 
