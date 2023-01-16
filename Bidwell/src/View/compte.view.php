@@ -23,6 +23,7 @@
     <!-- Menu -->
     <header>
     <?php 
+    session_start();
     if(isset($_SESSION['login'])){
         include(__DIR__ . '/menu_connecte.viewpart.php');
     }else{
