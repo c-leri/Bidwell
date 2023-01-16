@@ -4,10 +4,12 @@
         "psr-4": {
             "Bidwell\\": "src/",
             "Bidwell\\Model\\": "src/Model/",
-            "Bidwell\\Framework\\": "src/Framework/"
+            "Bidwell\\Framework\\": "src/Framework/",
+            "Bidwell\\Server\\": "src/Server/"
         }
     },
     "require": {
-      "ext-pdo": "*"
+      "ext-pdo": "*",
+      "cboden/ratchet": "^0.4.4"
     }
 }

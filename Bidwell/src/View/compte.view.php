@@ -23,6 +23,7 @@
     <!-- Menu -->
     <header>
     <?php 
+    session_start();
     if(isset($_SESSION['login'])){
         include(__DIR__ . '/menu_connecte.viewpart.php');
     }else{
@@ -39,26 +40,12 @@
             <li>Numéro de téléphone associé : numeroTelephone </li>
             <li> Jetons : nbJetons </li>
             <li> Nous conservons vos informations jusqu'au : dateFinConservation </li>
+            <li> <button> Acheter des jetons </button> </li>
         </ul>
         <h2>Vos enchères : </h2>
         <div class="vosEncheres">
-        <?php for ($i = 0; $i < 12; $i++) {
-                    ?>
-                    
-                    <article>
-                    <a href="consultation.ctrl.php">
-                        <img src="../View/design/img/default_image.png" alt="">
-                        </a>
-                        <h1>WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW</h1>
-                        <div class="variablesEnchere">
-                            <p class="temps-restant">temps restant</p>
-                            <p class="prix-actuel">prix actuel</p>
-                        </div>
-                    </article>
-                    
-                <?php } ?>
                 </div>
-                <button type="submit"> Supprimer compte </button>
+                <button type="submit"> Supprimer votre compte </button>
     </main>
     <footer>
         <?php include(__DIR__ . '/footer.viewpart.php') ?>

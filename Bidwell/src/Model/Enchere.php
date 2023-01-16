@@ -235,16 +235,6 @@ class Enchere
         return $this->createur;
     }
 
-    /*
-    public function getAutorisation() : array {
-        return $this->autorisation;
-    }
-    
-    public function getLivraison() : array {
-        return $this->livraison;
-    }
-    */
-
     public function getDateDebut(): DateTime
     {
         return $this->dateDebut;

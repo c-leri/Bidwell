@@ -98,6 +98,20 @@ class Utilisateur {
         $this->numeroTelephone = $numeroTelephone;
     }
 
+    /**
+     * fonction pour ajouter des jetons à l'Utilisateur
+     */
+    public function addJetons(int $achat) : void {
+        $this->nbJetons += $achat;
+    }
+
+    /**
+     * fonction pour retirer des jetons à l'Utilisateur
+     */
+    public function subJetons(int $retrait) : void {
+        $this->nbJetons -= $retrait;
+    }
+
     // Gestion de la connexion
 
     public static function connectionValide(string $login, string $password) : bool {
