@@ -58,7 +58,7 @@
             <div id="bot">
                 <h2> Liens utiles </h2>
                 <ul>
-                <li><a href="#">Conditions d'utilisation</a></li>
+                <li><a href="condition.ctrl.php">Conditions d'utilisation</a></li>
                 <li><a href="#">Cookies</a></li>
                 <li><a href="#">Mentions légales</a></li>
                 <li><a href="#">Politique de confidentalité</a></li>
@@ -67,7 +67,8 @@
         </div>
         <div class="right">
             <h2> FAQ </h2>
-            <p>truc style de Paul</p>
+            <h3>Comment me connecter si j'ai déjà un compte ?</h3>
+            <p>Le bouton "connexion" vous permet de vous connecter à tout moment une fois que vous avez créer un compte.</p>
         </div>
     </main>
     <footer>

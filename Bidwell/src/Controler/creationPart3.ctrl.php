@@ -18,12 +18,14 @@ $prixRetrait = $_POST["prixretrait"] ?? '';
 $imgs = $_POST["imgs"] ?? '';
 $imgsArray = explode(",", $imgs);//Array contenant les urls des images
 //$imgs = str_replace(","," ",$imgs); a décommenter si on veut mettre des espaces plutot que des virgules
-//Faire addimage
+$infosEnvoie = $_POST["infosEnvoie"] ?? '';
+$infosContact = $_POST["infosContact"] ?? '';
 $categorielibelle = $_POST["categorie"] ?? '';
 $categorie = Categorie::read($categorielibelle);
 $description = $_POST["description"] ?? ''; 
+$localisation = $_POST["localisation"] ?? ''; 
 //CREATION ENCHERE
-$enchere = new Enchere($user,$nomAnnonce,$dateDebut,$prixBase,$prixRetrait,$imgsArray[0],$description,$categorie);
+$enchere = new Enchere($user,$nomAnnonce,$dateDebut,$prixBase,$prixRetrait,$imgsArray[0],$description,$categorie,$infosContact,$infosEnvoie,$localisation);
 $enchere->addImage($imgs);
 $enchere->create();
 $reponse->sucess = 1;

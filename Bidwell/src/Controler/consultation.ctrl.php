@@ -33,7 +33,7 @@ if ($id == null) {
 
     // Calcul du nombre à envoyer à l'affichage pour la barre d'enchère
     // Vous pouvez redéfinir prixact en une valeur comprise netre prixfin et prixdep pour tester
-    //$prixact = 35;
+    //$prixact = 400;
     $pourcent = (1 - ($prixact - $prixfin) / ($prixdep - $prixfin) ) * 74;
     $affichage = round($pourcent, 1, PHP_ROUND_HALF_DOWN);
 

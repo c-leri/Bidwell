@@ -25,9 +25,9 @@ CREATE TABLE Enchere (
     images TEXT NOT NULL,
     description TEXT NOT NULL,
     libelleCategorie INTEGER NOT NULL,
-    lieu INTEGER NOT NULL,
-    envoi TEXT NOT NULL,
-    autorisations TEXT,
+    lieu TEXT  NOT NULL,
+    infosenvoi TEXT NOT NULL, --de la forme: boolean,boolean celui de gauche correspond a une remise en main propre, celui de droite un envoie
+    infoscontact TEXT NOT NULL, --de la forme: boolean,boolean celui de gauche pour email et droite pour tel
     dateFinConservation INTEGER NOT NULL,
     FOREIGN KEY (loginCreateur) REFERENCES Utilisateur(login),
     FOREIGN KEY (libelleCategorie) REFERENCES Categorie(libelle),

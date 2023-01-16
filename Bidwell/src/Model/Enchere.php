@@ -33,12 +33,14 @@ class Enchere
     private array $images = array();              // liste des noms des fichers contenant les images
     private string $description;                  // nom du fichier contenant la description
     private Categorie $categorie;
-
+    private string $localisation;
+    private string $infosContact;
+    private string $infosEnvoie;
     /**
      * Constructeur
      * @throws Exception si la catégorie n'est pas dans la bd
      */
-    public function __construct(Utilisateur $createur, string $libelle, DateTime $dateDebut, float $prixDepart, float $prixRetrait, string $imagePrincipale, string $description, Categorie $categorie)
+    public function __construct(Utilisateur $createur, string $libelle, DateTime $dateDebut, float $prixDepart, float $prixRetrait, string $imagePrincipale, string $description, Categorie $categorie,$infosContact,$infosEnvoie,$localisation)
     {
         $this->id = -1;
         $this->createur = $createur;
@@ -50,6 +52,9 @@ class Enchere
         $this->images[0] = $imagePrincipale;
         $this->description = $description;
         $this->categorie = $categorie;
+        $this->infosContact =$infosContact;
+        $this->infosEnvoie =$infosEnvoie;
+        $this->localisation = $localisation;
     }
 
     // Getters
@@ -98,7 +103,7 @@ class Enchere
         $dateDebut->setTimestamp($row['dateDebut']);
 
         // création d'un objet enchère avec les informations de la bd
-        $enchere = new Enchere(Utilisateur::read($row['loginCreateur']), $row['libelle'], $dateDebut, $row['prixDepart'], $row['prixRetrait'], $images[0], $row['description'], Categorie::read($row['libelleCategorie']));
+        $enchere = new Enchere(Utilisateur::read($row['loginCreateur']), $row['libelle'], $dateDebut, $row['prixDepart'], $row['prixRetrait'], $images[0], $row['description'], Categorie::read($row['libelleCategorie']),$row['infoscontact'],$row['infosenvoi'],$row['lieu']);
 
         // on set la derniereEnchere si elle est dans la bd
         if (isset($row['loginUtilisateurDerniereEnchere']) && $row['loginUtilisateurDerniereEnchere'] != '') {
@@ -286,6 +291,18 @@ class Enchere
     {
         return $this->description;
     }
+    public function getInfosEnvoie(): string
+    {
+        return $this->infosEnvoie;
+    }
+    public function getInfosContact(): string
+    {
+        return $this->infosContact;
+    }
+    public function getLocalisation(): string
+    {
+        return $this->localisation;
+    }
 
     // Setters
 
@@ -293,6 +310,8 @@ class Enchere
     {
         $this->description = $description;
     }
+
+   
 
     public function getDescriptionURL(): string
     {
@@ -402,10 +421,10 @@ class Enchere
         // variable correspondant à la date de fin de conservation de l'enchère dans la bd
         $dateFinConservation = new DateTime();
         $dateFinConservation->add(DateInterval::createFromDateString(Enchere::TEMPS_CONSERVATION));
-
+        //TODO modifier query et data pour integrer infos envoi et contact
         // préparation de la query
-        $query = 'INSERT INTO Enchere(loginCreateur, libelle, dateDebut, prixDepart, prixRetrait, images, description, libelleCategorie, dateFinConservation) VALUES (?,?,?,?,?,?,?,?,?)';
-        $data = [$this->createur->getLogin(), $this->libelle, $this->dateDebut->getTimestamp(), $this->prixDepart, $this->prixRetrait, $imagesString, $this->description, $this->categorie->getLibelle(), $dateFinConservation->getTimestamp()];
+        $query = 'INSERT INTO Enchere(loginCreateur, libelle, dateDebut, prixDepart, prixRetrait, images, description, libelleCategorie, dateFinConservation, lieu, infosenvoi,infoscontact) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)';
+        $data = [$this->createur->getLogin(), $this->libelle, $this->dateDebut->getTimestamp(), $this->prixDepart, $this->prixRetrait, $imagesString, $this->description, $this->categorie->getLibelle(), $dateFinConservation->getTimestamp(),$this->getLocalisation(),$this->getInfosEnvoie(),$this->getInfosContact()];
 
         // récupération du résultat de l'insertion
         $r = $dao->exec($query, $data);
