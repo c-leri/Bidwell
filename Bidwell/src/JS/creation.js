@@ -193,7 +193,7 @@ function validateInfos(event){
     
     for (let i = 0; i < tmp_files.size ; i++) {
       var file = tmp_files.get(Array.from(tmp_files.keys())[i]);
-      files.append('file'+i,file, (Date.now()*(Math.floor(Math.random() * 7)+1))+file["name"].replace(/[^\w]/g, ''));
+      files.append('file'+i,file, (Date.now()*(Math.floor(Math.random() * 7)+1))+file["name"].replace(/[^0-9a-zA-Z.]/g, ''));
 
     }
       //Vérifie que les images upload sont correctes
