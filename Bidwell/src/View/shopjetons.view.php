@@ -28,7 +28,14 @@
     </header>
     <main class="Prix">
 
-        <h1>Achats de jetons</h1>
+        <div class="possede">
+            <p> Vous avez actuellement </p>
+            <p> X jetons</p>
+            <p> Les jetons vous permettent d'enchérir plus d'une fois sur une même enchère. Acheter des jetons supplémentaires vous permet d'augmenter vos chances de remporter une enchère. </p>
+</div>
+
+        <div class="achat">
+        <h2>Acheter des jetons</h2>
 
         <div id="bundles">
 
@@ -57,7 +64,10 @@
             <button class="buy" onclick="affish(1700)">99,99€</button>
             </div>
 
+            <p class="petit"> En achetant des jetons, vous obtenez une licence limitée, non remboursable, non transférable et révocable pour utiliser ces jetons.qui n'ont aucune valeur en monnaie réelle. </p>
+
         </div>
+</div>
 
         <div id="myModal" class="modal">
             <div class="modal-content">

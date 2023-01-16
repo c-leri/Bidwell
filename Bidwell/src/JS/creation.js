@@ -10,6 +10,7 @@ function addCategoriesToSelectList(){
   requete.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   requete.onload = function() {
     const rep = JSON.parse(this.responseText);
+//    console.log(rep);
     for (let i = 0; i < rep.arrayCategories.length ; i++) {
       //Création option
       option = document.createElement("option");
@@ -22,7 +23,6 @@ function addCategoriesToSelectList(){
 }
   requete.send();
 }
-
 //Supprime toutes les options des suggestions de localisation, utile pour les update
 function removeOptions(){
   i =0
@@ -40,7 +40,7 @@ function filter() {
   if(input.value.length>=2){
     const optionanchorlocalisation =  document.getElementById("optionanchorlocalisation"),
     datalist = document.getElementById("localisationDatalist");
-  //Création des buttons contenant code postal+ ville en fonction de l'input utilisateur
+  //Création des options contenant code postal+ ville en fonction de l'input utilisateur
       //1- Récupérer les infos via l'api
     let requete = new XMLHttpRequest();
       requete.open("POST", " https://vicopo.selfbuild.fr/search/"+input.value, true);
@@ -62,8 +62,6 @@ function filter() {
       }
       requete.send();
   }
- 
-  
 }
 //----------------------------------------------------------//
 //--------------------------PARTIE GESTION ERREUR UTILISATEUR--------------------------------//
@@ -107,22 +105,49 @@ function validateLocalisation(){
   errorlocalisation.innerHTML="";
   return true;
 }
+var compteur = 0;
+const imgInput=  document.getElementById("imagesInput");
 
+function removeImg(id){
+ let output = document.getElementById("output"+id); 
+ output.src = "../View/design/img/default_image.png";
+ document.getElementById("p"+id).style = "display: block;";
+ compteur--;
+ //Supprimer de tmp files
+ for (let filename of tmp_files.keys()) {
+  if(filename.at(0)==id){
+    tmp_files.delete(filename);
+    imgInput.value ="";
+    break;
+  }
+}
+}
 
 //----------------------------------------------------------//
 //Affiche le fichier uploadé
-var compteur = 1;
 var tmp_files = new Map();
+var arrayIndexes = new Array();
 const errorImgs= document.getElementById("errorimgs");
+function getFirstFreeSpot(){
+  let i =0;
+  while(i<8 && document.getElementById("output"+i).src != "http://localhost:3000/Bidwell/src/View/design/img/default_image.png"){
+    console.log(i<8 && document.getElementById("output"+i).src);
+    console.log("../View/design/img/default_image.png");
+
+    i++;
+  }
+  return i;
+}
 function loadFile(event) {
 
   //Si ya deja 8 images on empeche l'utilisateur de load un fichier
   if (compteur <= 8){
     //Pour chaque fichier contenu dans l'input, on l'ajoute a tmp files si il y est pas déjà
-    const imgInput=  document.getElementById("imagesInput");
     for (let i = 0; i < imgInput.files.length ; i++) {
-      if(!tmp_files.has(imgInput.files[i]["name"])){
-        extension = imgInput.files[i]["name"].substr(imgInput.files[i]["name"].lastIndexOf('.')+1).toLowerCase();
+      var filename = imgInput.files[i]["name"];
+      //Check que le fichier nest pas deja dans tmp files
+      if(!tmp_files.has(filename)){
+        extension = filename.substr(imgInput.files[i]["name"].lastIndexOf('.')+1).toLowerCase();
         //check la taille du fichier pour pas faire crash le serveur on limite a 8méga
         if(imgInput.files[i]["size"]>800000){
           errorImgs.innerHTML = "La taille du fichier de ne doit pas excéder 8 Mo";
@@ -130,17 +155,14 @@ function loadFile(event) {
             errorImgs.innerHTML = "Les images doivent être au format png, jpg, jpeg ou webp";
         }else{
           errorImgs.innerHTML = "";
-          console.log("nouveau fichier");/*
-          Object.defineProperty(imgInput.files[i], 'name', {
-            writable: true,
-            value: imgInput.files[i]+Date.now()
-          });*/
-          tmp_files.set(imgInput.files[i]["name"],imgInput.files[i]);
-          console.log(tmp_files);
-  
+          
           //Affichage à l'utilisateur dans un tag img(output)
-          let output = document.getElementById('output' + compteur);
-          document.getElementById("p"+compteur).style = "display:none;";
+          let id =getFirstFreeSpot();
+          console.log("nouveau fichier");
+          tmp_files.set(id+filename,imgInput.files[i]);
+          console.log(tmp_files);
+          let output = document.getElementById('output' + id);
+          document.getElementById("p"+id).style = "display:none;";
           compteur++;
           output.src = URL.createObjectURL(event.target.files[i]);
           output.onload = function() {URL.revokeObjectURL(output.src)}
@@ -166,27 +188,37 @@ function validateInfos(event){
 
   // Create form data
   var files = new FormData();
-  for (let i = 0; i < tmp_files.size ; i++) {
-    let file = tmp_files.get(Array.from(tmp_files.keys())[i]);
-    files.append('file'+i,file, (Date.now()*(Math.floor(Math.random() * 7)+1))+file["name"]);
+  if(tmp_files.size!=0){
+    
+    for (let i = 0; i < tmp_files.size ; i++) {
+      var file = tmp_files.get(Array.from(tmp_files.keys())[i]);
+      files.append('file'+i,file, (Date.now()*(Math.floor(Math.random() * 7)+1))+file["name"]);
+    }
+      //Vérifie que les images upload sont correctes
+    let requete = new XMLHttpRequest();
+    requete.open("POST", "upload.ctrl.php", false);
+    requete.onload = function() {
+    const rep = JSON.parse(this.responseText);   
+    if(rep.success){
+      //Recup tableau urls image 
+      urls = rep.imgsurls;
+      images = true;
+    }else{
+      errorImgs.innerHTML = rep.errormsg;
+      select.scrollIntoView();
+      images = false;
+    }
+    }
+    requete.send(files);
+  }else{
+    //Aucune image upload: on le signale à l'utilisateur
+    errorImgs.innerHTML = "Veuillez ajouter au moins une image";
+    select.scrollIntoView();
+    images = false;
   }
+ 
 
-  //Vérifie que les images upload sont correctes
-  let requete = new XMLHttpRequest();
-      requete.open("POST", "upload.ctrl.php", false);
-      requete.onload = function() {
-      const rep = JSON.parse(this.responseText);   
-      if(rep.success){
-        //Recup tableau urls image 
-        urls = rep.imgsurls;
-        images = true;
-      }else{
-        errorImgs.innerHTML = rep.errormsg;
-        select.scrollIntoView();
-        images = false;
-      }
-      }
-      requete.send(files);
+  
       
   let ok =images && prix &&  informationsEnvoieCheckBoxes && localisation;
   if(ok){
@@ -203,7 +235,10 @@ function validateInfos(event){
     requete.open("POST", "creationPart3.ctrl.php", true);
     requete.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     requete.onload = function() {
+      console.log("rep : "+this.responseText);
+
         const rep = JSON.parse(this.responseText);
+        
         if(rep.sucess){
            self.location = "main.ctrl.php";
         }

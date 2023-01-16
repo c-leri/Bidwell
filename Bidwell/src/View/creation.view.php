@@ -37,7 +37,7 @@
             <div class="nom">
                 <h2> Nom de l'annonce </h2>
 
-                <input id="nom" type="text" required minlength="4" maxlength="60" placeholder="Choisissez un nom">
+                <input id="nom" type="text" required minlength="4" maxlength="60" placeholder="Choisissez un nom" value="Annonce waou">
 
                 <p> Le nom de l'annonce est l'information principale que rechercheront les autres utilisateurs. Donner un
                     nom simple et explicite augmente grandement les chances de vendre un article. </p>
@@ -56,7 +56,7 @@
             <div class="description">
                 <h2> Description de l'annonce </h2>
 
-                <input id="description" type="text" name="descr" required minlength="50" maxlength="4000" placeholder="Insérez une description (minimum 50 caractères)" >
+                <input id="description" type="text" name="descr" required minlength="50" maxlength="4000" value="descriptionAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" placeholder="Insérez une description (minimum 50 caractères)" >
 
                 <p> Une description complète et détailée de votre bien sera perçue comme de plus grande qualité par les
                     autres utilisateurs. Donnez envie d'acheter votre article et mettez en avant ses informations
@@ -67,14 +67,15 @@
             <div class="images">
                 <h2> Ajouter des images </h2>
 
-                <input id="imagesInput" type="file" accept="image/*" onchange="loadFile(event)" multiple required enctype="multipart/form-data">
+                <input id="imagesInput" type="file" accept="image/*" onchange="loadFile(event)" multiple enctype="multipart/form-data">
 
                 <div class="addedImages"> <!-- déso pour le nom je savais pas quoi mettre -->
-                    <?php for ($i = 1; $i < 9; $i++) {
+                    <?php for ($i = 0; $i < 8; $i++) {
                     ?>
                         <article>
                             <img id=<?= "output" . $i ?> src="../View/design/img/default_image.png">
-                            <p id=<?= "p" . $i ?>> Image n°<?= $i?> </p> 
+                            <button id=<?= "button" . $i ?> type="button" onclick=removeImg(<?=$i?>)>Supprimer</button>
+                            <p id=<?= "p" . $i ?>> Image n°<?= $i+1?> </p> 
 
                         </article>
 
@@ -89,7 +90,7 @@
             </div>
             <div class="base">
             <h2> Prix de base </h2>
-                <input id="prixbase" type="number" name="base" required min="1" max="99999" placeholder="Prix espéré">
+                <input id="prixbase" type="number" name="base" required min="1" max="99999" value="600" placeholder="Prix espéré">
 
                 <p> Définissez le prix auquel vous souhaiteriez vendre votre article. Prenez en compte la valeur réelle
                     de votre article et pensez à ce que vous seriez prêt à mettre à la place de l'acheteur.</p>
@@ -100,7 +101,7 @@
             <div class="retrait">
                 <h2> Prix de retrait de l'annonce </h2>
 
-                <input id="prixretrait" type="number" name="retrait" required min="1" max="99999" placeholder="Prix de retrait">
+                <input id="prixretrait" type="number" name="retrait" required min="1" max="99999" value="200" placeholder="Prix de retrait">
                 <p id="errorretrait"></p>
                 <p> Notre site utilise en système d'enchère qui comprend une partie descendantes. De ce fait, le prix de
                     votre article pourrait diminuer par rapport au prix de base. Définissez le prix auquel vous ne
@@ -120,7 +121,7 @@
 
 
                     <li> Je suis prêt à envoyer ce colis vers d'autres villes de France
-                        <input id="cbcolis" type="checkbox" name="retraitColis">
+                        <input id="cbcolis" type="checkbox" name="retraitColis"  checked>
                     </li>
                     <p id="errorcb"></p>
 
@@ -133,7 +134,7 @@
 
             <div class="localisation">
                 <h2> Localisation</h2>
-                <input id="localisationInput" type="text" placeholder="Entrez un code postal ou une ville"  list="localisationDatalist" onkeyup="filter()" required>
+                <input id="localisationInput" type="text" placeholder="Entrez un code postal ou une ville" value="38450" list="localisationDatalist" onkeyup="filter()" required>
                  <datalist id="localisationDatalist">
                         <option id="optionanchorlocalisation"></option>
                  </datalist>

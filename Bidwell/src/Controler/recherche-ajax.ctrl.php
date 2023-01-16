@@ -1,12 +1,10 @@
 <?php
 // Inclusion du modèle
-use Bidwell\Model\DAO;
 use Bidwell\Model\Enchere;
 use Bidwell\Model\Utilisateur;
 
 require_once __DIR__.'/../../vendor/autoload.php';
 
-$dao = DAO::get();
 
 //Vérifie si le type sélectionné edst "enchère" ou "utilisateur"
 if ($_GET['type'] == 'Enchere') {
@@ -54,7 +52,7 @@ if ($_GET['type'] == 'Enchere') {
         $str .= "</a>";
         $str .='<div class="left">';
         $str .= "<h1>" . $result[$i]->getLibelle() . "</h1>";
-        $str .= "<h2>". $result[$i]->getCategorie()->getLibelle() . "</h2>";
+        $str .= "<h3>". $result[$i]->getCategorie()->getLibelle() . "</h3>";
         $str .= "<ul>";
         $str .=    "<li>" . $result[$i]->getDateDebut()->format("Y-m-d") . "</li>";
         $str .=    "<li>" . $result[$i]->getPrixDepart() . "€</li>";
