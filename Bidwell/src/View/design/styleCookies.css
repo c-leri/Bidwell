@@ -1,4 +1,10 @@
 #pop-up-cookies {
+    display: none; 
+
+}
+
+#pop-up-cookies.active {
+
     position: fixed;
     bottom: 1rem;
     left: 1rem;
@@ -9,10 +15,6 @@
     padding: 0.5rem;
     box-shadow: 0 0 1rem rgba(0, 0, 0, 0.5);
     display: block;
-}
-
-#pop-up-cookies.active {
-    display: none; 
 }
 
 #pop-up-cookies .d-flex {

@@ -33,20 +33,7 @@
     </header>
     <main class="pagePrincipale">
         <!-- Test de cookies -->
-        <div id="pop-up-cookies">
-
-            <div class="info-cookies">
-                <p>Nous collection ... pendant ... temps etc wwwwwwwwwwwww wwwwwwwwwwwwwwwwww wwwwwwww
-                    wwwwwwwwwwwwwwwwww wwwwwwwwwwwwwwwwwwwwwwwwwww wwwwwww wwwwwwwww
-                </p>
-            </div>
-
-            <div class="d-flex">
-                <button class="accepter-cookies" class="d-block">Accepter</button>
-                <button class="refuser-cookies" class="d-block">Refuser</button>
-                <button class="configurer-cookies" class="d-block">Configurer</button>
-            </div>
-        </div>
+        <?php include(__DIR__ . '/cookie.viewpart.php'); ?>
 
         <div id="slider">
             <a href="#"><img src="../View/design/img/default_image.png" alt="Besoin d'aide" id="slide" style="background-repeat: repeat"></a>
@@ -69,7 +56,6 @@
         <div class="ventesPopulaires" id="old">
 
         </div>
-        <script src="../JS/main.js"></script>
     </main>
     <footer>
         <?php include(__DIR__ . '/footer.viewpart.php') ?>
@@ -78,3 +64,5 @@
 
 
 </html>
+
+<script src="../JS/main.js"></script>

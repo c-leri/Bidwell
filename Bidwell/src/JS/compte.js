@@ -23,4 +23,4 @@ function showItems(compte) {
     
         //Envoie la requête au serveur
         xhttp.send();
-    }
+    }                                                                                  
