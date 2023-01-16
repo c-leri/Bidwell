@@ -9,7 +9,7 @@ session_start();
 $login=$_SESSION["login"];
 $myUtilisateur=Utilisateur::read($login);
 //On lui rajoute ses jetons.
-$myUtilisateur->addJetons($_POST['valeur']);
+$myUtilisateur->addJetons($_GET['valeur']);
 $myUtilisateur->update();
 
 $view = new View();
