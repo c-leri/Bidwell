@@ -255,6 +255,41 @@ class Utilisateur {
         return $out;
     }
 
+    //Fonction utilisée pour trouver dans combien de temps il reste où les données sont conservées.
+    public function getTempsRestant() : string {
+        // Récupération de la classe DAO
+        $dao = DAO::get();
+        
+        if (!$this->isInDB()) {
+            throw new Exception("lecture du temps restant : L'utilisateur $this->login n'existe pas dans la bd");
+        }
+        // Initialisation de la requête et du tableau de valeurs
+        $requete = 'SELECT dateFinConservation FROM Utilisateur WHERE login LIKE ?';
+        $valeur = [$this->getLogin()];
+
+        // Exécution de la requête
+        $table = $dao->query($requete, $valeur);
+
+        // throw une exception si on ne trouve pas l'utilisateur
+        if (count($table) == 0) {
+            throw new Exception("Read : Utilisateur $login non trouvée");
+        }
+
+        // throw une exception si on trouve plusieurs utilisateurs
+        if (count($table) > 1) {
+            throw new Exception("Read : Utilisateur $login existe en ".count($table).' exemplaires');
+        }
+
+        //Calcul de la différence entre la date de fin de conservation des données et la date actuelle.
+        $tempsrestant = new DateTime();
+        $tempsrestant->setTimestamp($table[0][0]);
+        $date = new DateTime();
+        $diff = date_diff($date,$tempsrestant);
+
+        //Renvoi d'un string sous forme année/mois/jours.
+        return $diff->format('%y ans, %m mois, %d jours');
+    }
+
     ////////////////// UPDATE ///////////////////
 
     /**

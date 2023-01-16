@@ -22,7 +22,6 @@ main.compte h2{
 
 /* -- Liste -- */
 main.compte ul{
-    height: 20vh;
     list-style-type: none;
     margin-top: 2rem;
     margin-left: 2rem;
@@ -98,4 +97,34 @@ main.compte button{
 
 .vosEncheres a:visited {
     color: var(--couleur-gris-clair);
+}
+
+#infos{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+.lines{
+    width: 50%;
+}
+
+a.lines{
+    text-decoration: none;    
+    color: var(--couleur-noir);
+    background-color: var(--couleur-jaune);
+    border-radius: 1rem;
+    display: block;
+    width: 15%;
+    margin-top: 1rem;
+    margin-left: auto;
+    margin-right:auto;
+}
+
+.centered{
+    text-align: center;
+}
+
+li{
+    margin-top: 1rem;
 }
