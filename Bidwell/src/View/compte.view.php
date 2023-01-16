@@ -35,7 +35,7 @@
         <hr>
         <ul>
             <div id="infos">
-                <li class='lines'>Connecté en tant que :<?= $login ?> </li>
+                <li class='lines'>Connecté en tant que : <?= $login ?> </li>
                 <li class='lines centered'> Jetons :  <?= $nbJetons ?> </li>
                 <li class='lines'>Connecté avec l'adresse : <?= $email ?> </li>
                 <a class='lines centered' href='shop.ctrl.php'> Acheter des Jetons </a>

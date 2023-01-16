@@ -121,6 +121,9 @@ main.recherche label:hover {
   color: var(--couleur-jaune);
 }
 
+main.recherche aside input {
+  margin-bottom: 0.5rem;
+}
 main.recherche aside button {
   background-color: rgba(0, 0, 0, 0%);
   border: none;
@@ -150,7 +153,7 @@ main.recherche .center {
 
 main.recherche .center article {
   width: 100%;
-  height: 10rem;
+  height: 15rem;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
@@ -173,8 +176,8 @@ main.recherche .center article li {
 }
 
 main.recherche .center article img {
-  width: 10rem;
-  height: 10rem;
+  width: 15rem;
+  height: 15rem;
   border-radius: 1rem;
   display: block;
 }
@@ -182,7 +185,13 @@ main.recherche .center article img {
 main.recherche .center article .left, main.recherche .center article p{
   margin: 1rem;
 }
-
+main.recherche .center article .left{
+  width: 30%;
+}
+main.recherche .center article p{
+  width: 50%;
+  word-wrap:break-word;
+}
 /* Aside */
 #cdArtDecoratif, #cdArtGraphique{
   display: none;
