@@ -113,9 +113,23 @@ main.recherche aside li {
   margin-top: 0.2rem;
 }
 
-main.recherche aside a {
-  text-decoration: none;
+main.recherche label {
+  cursor:pointer;
+}
+
+main.recherche label:hover {
+  color: var(--couleur-jaune);
+}
+
+main.recherche aside button {
+  background-color: rgba(0, 0, 0, 0%);
+  border: none;
+  font-size: 1.5rem;
   color: var(--couleur-blanc);
+}
+
+main.recherche aside button:hover {
+color: var(--couleur-jaune);
 }
 
 hr {
@@ -136,18 +150,18 @@ main.recherche .center {
 
 main.recherche .center article {
   width: 100%;
-  height: 20vh;
+  height: 10rem;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
-  margin: 1rem;
+  margin: 0.5rem;
   border-radius: 1rem;
   background: var(--couleur-noir30);
   padding-bottom: 0.5rem;
 }
 
 main.recherche .center article h1 {
-  margin-bottom: 0.8rem;
+  margin-bottom: 0.5rem;
 }
 
 main.recherche .center article ul {
@@ -155,12 +169,12 @@ main.recherche .center article ul {
 }
 
 main.recherche .center article li {
-  margin-top: 0.5rem;
+  margin-top: 0.2rem;
 }
 
 main.recherche .center article img {
-  width: 20vh;
-  height: 20vh;
+  width: 10rem;
+  height: 10rem;
   border-radius: 1rem;
   display: block;
 }
@@ -176,4 +190,20 @@ main.recherche .center article .left, main.recherche .center article p{
 
 #cdArtDecoratif.active, #cdArtGraphique.active{
   display: block;
+}
+
+main.recherche .numPage {
+  display: block;
+  width: 10%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+main.recherche .numPage button{
+  text-decoration: none;
+  color: var(--couleur-noir);
+  background-color: var(--couleur-jaune);
+  border-radius: 1rem;
+  padding: 0.2rem;
+  border: 0.1rem solid var(--couleur-noir);
 }

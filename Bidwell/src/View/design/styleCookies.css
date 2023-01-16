@@ -1,0 +1,40 @@
+#pop-up-cookies {
+    display: none; 
+
+}
+
+#pop-up-cookies.active {
+
+    position: fixed;
+    bottom: 1rem;
+    left: 1rem;
+    background: var(--couleur-blanc);
+    z-index: 2;
+    border-radius: 1rem;
+    width: 30%;
+    padding: 0.5rem;
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.5);
+    display: block;
+}
+
+#pop-up-cookies .d-flex {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+}
+
+#pop-up-cookies .accepter-cookies, #pop-up-cookies .configurer-cookies, #pop-up-cookies .refuser-cookies{
+    color: var(--couleur-noir);
+    background-color: var(--couleur-jaune);
+    border-radius: 1rem;
+    white-space: nowrap;
+    display: block;
+    padding: 0.5rem 0.5rem;
+    border: 0.1rem var(--couleur-noir) solid;
+    margin: 0.2rem;
+}
+
+
+
+
