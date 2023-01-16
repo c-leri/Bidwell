@@ -82,16 +82,16 @@ prixbase = document.getElementById("prixbase");
   }
 }
 
-function validateCheckBoxes(){
-  const cbdirect = document.getElementById("cbdirect"),
-  cbcolis = document.getElementById("cbcolis"),
-  errorcb = document.getElementById("errorcb");
+function validateCheckBoxes(cb11,cb22,errorp1){
+  const cb1 = document.getElementById(cb11),
+  cb2 = document.getElementById(cb22),
+  errorp = document.getElementById(errorp1);
   //Si au moins une case est cochée c'est ok, sinon on le signale à l'utilisateur
-  if(cbdirect.checked || cbcolis.checked){
-    errorcb.innerHTML = "";
+  if(cb1.checked || cb2.checked){
+    errorp.innerHTML = "";
     return true;
   }
-  errorcb.innerHTML = "Veuillez cocher au moins une des deux cases";
+  errorp.innerHTML = "Veuillez cocher au moins une des deux cases";
   return false;
 }
 function validateLocalisation(){
@@ -180,7 +180,8 @@ function loadFile(event) {
 function validateInfos(event){
   event.preventDefault();
   let prix = validatePrices();
-  let informationsEnvoieCheckBoxes = validateCheckBoxes();
+  let informationsEnvoieCheckBoxes = validateCheckBoxes("cbcolis","cbdirect","errorcbenvoie");
+  let informationsContactCheckBoxes = validateCheckBoxes("cbemail","cbtel","errorcbcontact");
   let localisation = validateLocalisation();
   var images = false;//Retourne array avec les urls des images et booleen a la fin qui indique la reussite ou non
   const errorImgs= document.getElementById("errorimgs"),
@@ -220,8 +221,9 @@ function validateInfos(event){
 
   
       
-  let ok =images && prix &&  informationsEnvoieCheckBoxes && localisation;
+  let ok =images && prix &&  informationsEnvoieCheckBoxes && localisation && informationsContactCheckBoxes;
   if(ok){
+    console.log("forme valide");
     //les infos remplies sont valides : Création de l'enchère
     //première étape : récupérer toutes les données de formes et les envoyer a un controler php qui s'occupera de créer concretement l'enchere en base
     //deuxième étape : renvoyer l'utilisateur sur la page de consultation de son enchère créé
@@ -229,7 +231,10 @@ function validateInfos(event){
     prixbase = document.getElementById("prixbase").value,
     prixretrait = document.getElementById("prixretrait").value;
     categorie = document.getElementById("categorieSelect").value;    
-    description = document.getElementById("description").value;    
+    description = document.getElementById("description").value;
+    infosEnvoie = document.getElementById("cbcolis").checked+","+document.getElementById("cbdirect").checked;
+    infosContact = document.getElementById("cbemail").checked+","+document.getElementById("cbtel").checked;
+    localisation = document.getElementById("localisationInput").value;
     //Envoie php
     let requete = new XMLHttpRequest();
     requete.open("POST", "creationPart3.ctrl.php", true);
@@ -244,7 +249,7 @@ function validateInfos(event){
         }
     }
     //Envoie la requête au serveur avec en paramètres les valeurs des inputs
-    requete.send("nom="+nom+"&prixbase="+prixbase+"&prixretrait="+prixretrait+"&imgs="+urls+"&categorie="+categorie+"&description="+description);
+    requete.send("nom="+nom+"&prixbase="+prixbase+"&prixretrait="+prixretrait+"&imgs="+urls+"&categorie="+categorie+"&description="+description+"&infosEnvoie="+infosEnvoie+"&infosContact="+infosContact+"&localisation="+localisation);
     return true;
   }else{
     console.log("nope form pas valide");
