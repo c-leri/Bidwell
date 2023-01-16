@@ -184,9 +184,14 @@ main.recherche .center article img {
 
 main.recherche .center article .left, main.recherche .center article p{
   margin: 1rem;
+}
+main.recherche .center article .left{
   width: 30%;
 }
-
+main.recherche .center article p{
+  width: 50%;
+  word-wrap:break-word;
+}
 /* Aside */
 #cdArtDecoratif, #cdArtGraphique{
   display: none;
