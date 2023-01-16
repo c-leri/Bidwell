@@ -17,6 +17,7 @@ $prixBase = $_POST["prixbase"] ?? '';
 $prixRetrait = $_POST["prixretrait"] ?? '';
 $imgs = $_POST["imgs"] ?? '';
 $imgsArray = explode(",", $imgs);//Array contenant les urls des images
+//echo $imgsArray[0];
 //$imgs = str_replace(","," ",$imgs); a décommenter si on veut mettre des espaces plutot que des virgules
 $infosEnvoie = $_POST["infosEnvoie"] ?? '';
 $infosContact = $_POST["infosContact"] ?? '';
@@ -26,7 +27,9 @@ $description = $_POST["description"] ?? '';
 $localisation = $_POST["localisation"] ?? ''; 
 //CREATION ENCHERE
 $enchere = new Enchere($user,$nomAnnonce,$dateDebut,$prixBase,$prixRetrait,$imgsArray[0],$description,$categorie,$infosContact,$infosEnvoie,$localisation);
-$enchere->addImage($imgs);
+for ($i = 1; $i < count($imgsArray);$i++){
+    $enchere->addImage($imgsArray[$i]);
+}
 $enchere->create();
 $reponse->sucess = 1;
 $json = json_encode($reponse);

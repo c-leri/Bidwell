@@ -193,7 +193,8 @@ function validateInfos(event){
     
     for (let i = 0; i < tmp_files.size ; i++) {
       var file = tmp_files.get(Array.from(tmp_files.keys())[i]);
-      files.append('file'+i,file, (Date.now()*(Math.floor(Math.random() * 7)+1))+file["name"]);
+      files.append('file'+i,file, (Date.now()*(Math.floor(Math.random() * 7)+1))+file["name"].replace(/[^\w]/g, ''));
+
     }
       //Vérifie que les images upload sont correctes
     let requete = new XMLHttpRequest();
@@ -241,7 +242,7 @@ function validateInfos(event){
     requete.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     requete.onload = function() {
       console.log("rep : "+this.responseText);
-
+      console.log(this.responseText);
         const rep = JSON.parse(this.responseText);
         
         if(rep.sucess){

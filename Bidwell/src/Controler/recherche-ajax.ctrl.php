@@ -61,7 +61,7 @@ if ($type == 'Enchere') {
 
         $str .= "<article>";
         $str .= '<a href="consultation.ctrl.php?id='. $result[$i]->getId() .'">';
-        $str .= '<img src="../View/design/img/default_image.png" alt="">';
+        $str .= '<img src="'.$result[$i]->getImage(0).'" alt="">';
         $str .= "</a>";
         $str .='<div class="left">';
         $str .= "<h1>" . $result[$i]->getLibelle() . "</h1>";

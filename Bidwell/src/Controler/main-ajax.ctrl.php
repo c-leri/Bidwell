@@ -12,11 +12,11 @@ $result = Enchere::readLike([], "", "date", 0, $ordre, 1, 12);
 
 //Initialisation de variable qui sera renvoyée
 $str = "";
- 
 
 
 //Pour chaque ligne de résultat, prépare son affichage en l'ajoutant à la variable renvoyée
     for ($i = 0; $i < sizeof($result); $i++) {
+       
         $str .= "<article>";
         $str .= '<a href="consultation.ctrl.php?id='. $result[$i]->getId() .'">'; //Changer en lien de l'annonce
         $str .= '<img src="'. $result[$i]->getImage(0).'">'; //Changer en lien de l'image correspondante

@@ -195,7 +195,7 @@ class Enchere
 
     public function addImage($image): void
     {
-        $this->images[] = $image;
+        array_push($this->images, $image);
     }
 
     public function removeImage(int $id): void

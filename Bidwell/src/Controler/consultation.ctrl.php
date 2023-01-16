@@ -33,9 +33,7 @@ if ($id == null) {
     $affichage = round($pourcent, 1, PHP_ROUND_HALF_DOWN);
 
     $description = $enchere->getDescription();
-    $images = $enchere->getImages();
-
-
+    $images = $enchere->getImages();  
     $createur = $enchere->getCreateur();
 
     $autorisations = explode(",", $enchere->getInfosContact());
@@ -83,7 +81,7 @@ $view->assign('prixRetrait', $prixfin);
 $view->assign('tempsRestant', $tempsRes);
 $view->assign('affichage', $affichage);
 
-$view->assign('description', $description);
+$view->assign('description',  $description);
 $view->assign('images', $images);
 
 $view->assign('createur', $createur);
