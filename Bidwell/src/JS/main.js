@@ -11,6 +11,11 @@ function showItems(ordre, cible) {
   xhttp.send();
 }
 
+// Fermeture de la page 
+function stop() {
+  document.getElementById("fond-cookies").style.display = "none";
+}
+
 // pop up de cookies
 window.onload = function () {
   // si cookies deja acceptés

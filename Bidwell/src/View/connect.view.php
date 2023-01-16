@@ -58,7 +58,7 @@
             <div id="bot">
                 <h2> Liens utiles </h2>
                 <ul>
-                <li><a href="#">Conditions d’utilisation</a></li>
+                <li><a href="condition.ctrl.php">Conditions d’utilisation</a></li>
                 <li><a href="#">Cookies</a></li>
                 <li><a href="#">Mentions légales</a></li>
                 <li><a href="#">Politique de confidentalité</a></li>
@@ -67,7 +67,9 @@
         </div>
         <div class="right">
         <h2> FAQ </h2>
-        <p>truc style de Paul</p>
+        <h3>Comment me créer un compte ?</h3>
+        <p>Il suffit de cliquer sur le bouton "inscription" en haut à droite de la page.</p>
+        <h3></h3>
         </div>
     </main>
     <footer>
