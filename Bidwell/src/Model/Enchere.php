@@ -33,19 +33,21 @@ class Enchere
     private array $images = array();              // liste des noms des fichers contenant les images
     private string $description;                  // nom du fichier contenant la description
     private Categorie $categorie;
-    private string $localisation;
     private string $infosContact;
     private string $infosEnvoie;
+    private string $localisation;
+
+    // Constructeurs
+
     /**
-     * Constructeur
      * @throws Exception si la catégorie n'est pas dans la bd
      */
-    public function __construct(Utilisateur $createur, string $libelle, DateTime $dateDebut, float $prixDepart, float $prixRetrait, string $imagePrincipale, string $description, Categorie $categorie,$infosContact,$infosEnvoie,$localisation)
+    public function __construct(Utilisateur $createur, string $libelle, DateTime $dateDebut, float $prixDepart, float $prixRetrait, string $imagePrincipale, string $description, Categorie $categorie, string $infosContact, string $infosEnvoie, string $localisation)
     {
         $this->id = -1;
         $this->createur = $createur;
         $this->libelle = $libelle;
-        $this->setDateDebut($dateDebut);
+        $this->dateDebut = $dateDebut;
         $this->prixDepart = $prixDepart;
         $this->prixHaut = $prixDepart;
         $this->prixRetrait = $prixRetrait;
@@ -57,37 +59,9 @@ class Enchere
         $this->localisation = $localisation;
     }
 
-    // Getters
-
     /**
-     * Récupère une enchère dans la bd à partir de son id
-     * @throws Exception si on ne trouve pas l'enchère dans la bd ou si plusieurs enchères on le même id dans la bd
+     * Construit une enchère à partir d'une ligne de la bd
      */
-    public static function read(int $id): Enchere
-    {
-        // récupératoin du dao
-        $dao = DAO::get();
-
-        // préparation de la query
-        $query = 'SELECT * FROM Enchere WHERE id = ?';
-        $data = [$id];
-
-        // récupération de la table de résultat
-        $table = $dao->query($query, $data);
-
-        // throw une exception si on ne trouve pas l'enchère
-        if (count($table) == 0) {
-            throw new Exception("Read : Enchere $id non trouvée");
-        }
-
-        // throw une exception si on trouve plusieurs enchères
-        if (count($table) > 1) {
-            throw new Exception("Read : Enchere $id existe en " . count($table) . ' exemplaires');
-        }
-
-        return Enchere::constructFromDB($table[0]);
-    }
-
     private static function constructFromDB(array $row): Enchere
     {
         // split le contenu du string images de la bd en un tableaux de string contenant le nom des fichiers contenant les images
@@ -122,9 +96,254 @@ class Enchere
         return $enchere;
     }
 
-    public function addImage( $image): void
+    // Getters
+    
+
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    public function getCreateur(): Utilisateur
+    {
+        return $this->createur;
+    }
+
+    public function getLibelle(): string
+    {
+        return $this->libelle;
+    }
+
+    public function getDateDebut(): DateTime
+    {
+        return $this->dateDebut;
+    }
+
+    public function getPrixDepart(): float
+    {
+        return $this->prixDepart;
+    }
+
+    public function getPrixRetrait(): float
+    {
+        return $this->prixRetrait;
+    }
+
+    public function getDescription(): string
+    {
+        return $this->description;
+    }
+
+    public function getInfosEnvoie(): string
+    {
+        return $this->infosEnvoie;
+    }
+
+    public function getInfosContact(): string
+    {
+        return $this->infosContact;
+    }
+
+    public function getLocalisation(): string
+    {
+        return $this->localisation;
+    }
+
+    public function getDescriptionURL(): string
+    {
+        return $this::ADRESSE_DESCRIPTIONS . $this->description;
+    }
+
+    public function getCategorie(): Categorie
+    {
+        return $this->categorie;
+    }
+
+    public function getParticipations(): array
+    {
+        return Participation::readFromEnchere($this);
+    }
+
+    // Setters
+
+    public function setLibelle(string $libelle): void
+    {
+        $this->libelle = $libelle;
+    }  
+
+    public function setDescription(string $description): void
+    {
+        $this->description = $description;
+    }
+
+    public function setDerniereEnchere(Participation $participation): void
+    {
+        $this->derniereEnchere = $participation;
+    }
+
+    public function setCategorie(Categorie $categorie): void
+    {
+        $this->categorie = $categorie;
+    }
+
+    // Gestion des images
+
+    public function setImagePrincipale(string $image): void
+    {
+        $this->images[0] = $image;
+    }
+
+    public function addImage($image): void
     {
         $this->images[] = $image;
+    }
+
+    public function removeImage(int $id): void
+    {
+        if (!isset($this->images[$id])) throw new Exception("Pas d'image d'id $id.");
+        unset($this->images[$id]);
+    }
+
+    public function getImageURL(int $id): string
+    {
+        return $this::ADRESSE_IMAGES . $this->getImage($id);
+    }
+
+    /**
+     * méthode pour récupérer l'image en case $id du tableau d'images
+     * @throws Exception si la case $id de $images est vide
+     */
+    public function getImage(int $id): string
+    {
+        if (!isset($this->images[$id])) throw new Exception("Pas d'image d'id $id.");
+        return $this->images[$id];
+    }
+
+    public function getImages() : array {
+        return $this->images;
+    } 
+
+    // Autres méthodes
+
+    /**
+     * Vérifie si l'enchère est enregistrée dans la bd
+     */
+    public function isInDB(): bool
+    {
+        return $this->id != -1;
+    }
+
+    /**
+     * @return float le prix courant de l'enchère
+     */
+    public function getPrixCourant(): float
+    {
+        return $this->prixRetrait + $this->getRatioTempsActuel() * ($this->prixHaut - $this->prixRetrait);
+    }
+
+    /**
+     * Calcul le ratio représentant l'avancée temporelle de l'enchère entre le prix haut et le prix de retrait
+     */
+    private function getRatioTempsActuel(): int
+    {
+        $maintenant = new DateTime();
+        if ($maintenant > $this->getDateDebut()) {
+            $differenceMaintenantFin = (int) $maintenant->format('Uv') - (int) $this->getInstantFin()->format('Uv');
+            return (isset($this->derniereEnchere))
+                ? $differenceMaintenantFin / ((int) $this->derniereEnchere->getInstantDerniereEnchere()->format('Uv') - (int) $this->getInstantFin()->format('Uv'))
+                : $differenceMaintenantFin / (int) DateInterval::createFromDateString('1 hour')->format('Uv');
+        } else {
+            return 1;
+        }
+    }  
+
+    /**
+     * @return DateTime correspondant à l'instant de la fin de l'enchère (datedebut + 1 heure)
+     */
+    public function getInstantFin(): DateTime
+    {
+        $instantFin = $this->dateDebut;
+        $instantFin->add(DateInterval::createFromDateString('1 hour'));
+        return $instantFin;
+    }  
+
+    /////////////////////////////////////////////
+    //                  CRUD                   //
+    /////////////////////////////////////////////
+
+    ////////////////// CREATE ///////////////////
+
+    /**
+     * Enregistre l'enchère dans la bd
+     * @throws Exception si l'enchère est déjà dans la bd,
+     * si la catégorie de n'enchère est null ou si ell n'est pas dans la bd
+     * ou si l'insertion échoue
+     */
+    public function create(): void
+    {
+        if ($this->id != -1) {
+            throw new Exception("Create : L'enchère $this->id existe déjà dans la bd");
+        }
+
+        if (!$this->categorie->isInDB()) {
+            throw new Exception("Create : La catégorie de l'enchère n'existe pas dans la bd");
+        }
+
+        // récupération du dao
+        $dao = DAO::get();
+
+
+        // transforme le tableau d'images en un string avec les images séparées par des espaces
+        $imagesString = implode(" ",$this->images);
+        // variable correspondant à la date de fin de conservation de l'enchère dans la bd
+        $dateFinConservation = new DateTime();
+        $dateFinConservation->add(DateInterval::createFromDateString(Enchere::TEMPS_CONSERVATION));
+        // préparation de la query
+        $query = 'INSERT INTO Enchere(loginCreateur, libelle, dateDebut, prixDepart, prixRetrait, images, description, libelleCategorie, dateFinConservation, lieu, infosenvoi,infoscontact) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)';
+        $data = [$this->createur->getLogin(), $this->libelle, $this->dateDebut->getTimestamp(), $this->prixDepart, $this->prixRetrait, $imagesString, $this->description, $this->categorie->getLibelle(), $dateFinConservation->getTimestamp(),$this->getLocalisation(),$this->getInfosEnvoie(),$this->getInfosContact()];
+
+        // récupération du résultat de l'insertion
+        $r = $dao->exec($query, $data);
+
+        // si on n'a pas exactement une ligne insérée, throw une exception
+        if ($r != 1) {
+            throw new Exception("Create : L'insertion de l'enchère a échouée");
+        }
+
+        // on récupère l'id de l'enchère dans la bd
+        $id = (int)$dao->lastInsertId();
+        $this->id = $id;
+    }
+
+    /////////////////// READ ////////////////////
+
+    /**
+     * Récupère une enchère dans la bd à partir de son id
+     * @throws Exception si on ne trouve pas l'enchère dans la bd ou si plusieurs enchères on le même id dans la bd
+     */
+    public static function read(int $id): Enchere
+    {
+        // récupératoin du dao
+        $dao = DAO::get();
+
+        // préparation de la query
+        $query = 'SELECT * FROM Enchere WHERE id = ?';
+        $data = [$id];
+
+        // récupération de la table de résultat
+        $table = $dao->query($query, $data);
+
+        // throw une exception si on ne trouve pas l'enchère
+        if (count($table) == 0) {
+            throw new Exception("Read : Enchere $id non trouvée");
+        }
+
+        // throw une exception si on trouve plusieurs enchères
+        if (count($table) > 1) {
+            throw new Exception("Read : Enchere $id existe en " . count($table) . ' exemplaires');
+        }
+
+        return Enchere::constructFromDB($table[0]);
     }
 
     public static function readFromCreateur(Utilisateur $createur): array
@@ -228,233 +447,6 @@ class Enchere
         }
 
         return $out;
-    }
-
-    public function getId(): int
-    {
-        return $this->id;
-    }
-
-    public function getCreateur(): Utilisateur
-    {
-        return $this->createur;
-    }
-
-    public function getDateDebut(): DateTime
-    {
-        return $this->dateDebut;
-    }
-
-    /**
-     * @throws Exception si la date est inférieure à la date actuelle
-     */
-    public function setDateDebut(DateTime $date): void
-    {
-        $currentDate = new DateTime();
-        if ($date > $currentDate) {
-            $this->dateDebut = $date;
-        } else {
-            throw new Exception($date->format('Y-m-d') . " est antérieure à la date courante : " . $currentDate->format('Y-m-d'));
-        }
-    }
-
-    public function getPrixDepart(): float
-    {
-        return $this->prixDepart;
-    }
-
-    public function getPrixRetrait(): float
-    {
-        return $this->prixRetrait;
-    }
-
-    public function getImageURL(int $id): string
-    {
-        return $this::ADRESSE_IMAGES . $this->getImage($id);
-    }
-
-    /**
-     * méthode pour récupérer l'image en case $id du tableau d'images
-     * @throws Exception si la case $id de $images est vide
-     */
-    public function getImage(int $id): string
-    {
-        if (!isset($this->images[$id])) throw new Exception("Pas d'image d'id $id.");
-        return $this->images[$id];
-    }
-
-    public function getImages() : array {
-        return $this->images;
-    }
-
-    public function getDescription(): string
-    {
-        return $this->description;
-    }
-    public function getInfosEnvoie(): string
-    {
-        return $this->infosEnvoie;
-    }
-    public function getInfosContact(): string
-    {
-        return $this->infosContact;
-    }
-    public function getLocalisation(): string
-    {
-        return $this->localisation;
-    }
-
-    // Setters
-
-    public function setDescription(string $description): void
-    {
-        $this->description = $description;
-    }
-
-   
-
-    public function getDescriptionURL(): string
-    {
-        return $this::ADRESSE_DESCRIPTIONS . $this->description;
-    }
-
-    public function getCategorie(): Categorie
-    {
-        return $this->categorie;
-    }
-
-    public function setCategorie(Categorie $categorie): void
-    {
-        $this->categorie = $categorie;
-    }
-
-    /**
-     * @return float le prix courant de l'enchère
-     */
-    public function getPrixCourant(): float
-    {
-        return $this->prixRetrait + $this->getRatioTempsActuel() * ($this->prixHaut - $this->prixRetrait);
-    }
-
-    // Gestion des images
-
-    /**
-     * Calcul le ratio représentant l'avancée temporelle de l'enchère entre le prix haut et le prix de retrait
-     */
-    private function getRatioTempsActuel(): int
-    {
-        $maintenant = new DateTime();
-        if ($maintenant > $this->getDateDebut()) {
-            $differenceMaintenantFin = (int) $maintenant->format('Uv') - (int) $this->getInstantFin()->format('Uv');
-            return (isset($this->derniereEnchere))
-                ? $differenceMaintenantFin / ((int) $this->derniereEnchere->getInstantDerniereEnchere()->format('Uv') - (int) $this->getInstantFin()->format('Uv'))
-                : $differenceMaintenantFin / (int) DateInterval::createFromDateString('1 hour')->format('Uv');
-        } else {
-            return 1;
-        }
-    }
-
-    /**
-     * @return DateTime correspondant à l'instant de la fin de l'enchère (datedebut + 1 heure)
-     */
-    public function getInstantFin(): DateTime
-    {
-        $instantFin = $this->dateDebut;
-        $instantFin->add(DateInterval::createFromDateString('1 hour'));
-        return $instantFin;
-    }       
-
-
-    public function getParticipations(): array
-    {
-        return Participation::readFromEnchere($this);
-    }
-
-    // Autres méthodes
-
-    public function setDerniereEnchere(Participation $participation): void
-    {
-        $this->derniereEnchere = $participation;
-    }
-
-    /////////////////////////////////////////////
-    //                  CRUD                   //
-    /////////////////////////////////////////////
-
-    ////////////////// CREATE ///////////////////
-
-    public function setImagePrincipale(string $image): void
-    {
-        $this->images[0] = $image;
-    }
-
-    /////////////////// READ ////////////////////
-
-    public function removeImage(int $id): void
-    {
-        if (!isset($this->images[$id])) throw new Exception("Pas d'image d'id $id.");
-        unset($this->images[$id]);
-    }
-
-    /**
-     * Enregistre l'enchère dans la bd
-     * @throws Exception si l'enchère est déjà dans la bd,
-     * si la catégorie de n'enchère est null ou si ell n'est pas dans la bd
-     * ou si l'insertion échoue
-     */
-    public function create(): void
-    {
-        if ($this->id != -1) {
-            throw new Exception("Create : L'enchère $this->id existe déjà dans la bd");
-        }
-
-        if (!$this->categorie->isInDB()) {
-            throw new Exception("Create : La catégorie de l'enchère n'existe pas dans la bd");
-        }
-
-        // récupération du dao
-        $dao = DAO::get();
-
-
-        // transforme le tableau d'images en un string avec les images séparées par des espaces
-        $imagesString = implode(" ",$this->images);
-        // variable correspondant à la date de fin de conservation de l'enchère dans la bd
-        $dateFinConservation = new DateTime();
-        $dateFinConservation->add(DateInterval::createFromDateString(Enchere::TEMPS_CONSERVATION));
-        //TODO modifier query et data pour integrer infos envoi et contact
-        // préparation de la query
-        $query = 'INSERT INTO Enchere(loginCreateur, libelle, dateDebut, prixDepart, prixRetrait, images, description, libelleCategorie, dateFinConservation, lieu, infosenvoi,infoscontact) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)';
-        $data = [$this->createur->getLogin(), $this->libelle, $this->dateDebut->getTimestamp(), $this->prixDepart, $this->prixRetrait, $imagesString, $this->description, $this->categorie->getLibelle(), $dateFinConservation->getTimestamp(),$this->getLocalisation(),$this->getInfosEnvoie(),$this->getInfosContact()];
-
-        // récupération du résultat de l'insertion
-        $r = $dao->exec($query, $data);
-
-        // si on n'a pas exactement une ligne insérée, throw une exception
-        if ($r != 1) {
-            throw new Exception("Create : L'insertion de l'enchère a échouée");
-        }
-
-        // on récupère l'id de l'enchère dans la bd
-        $id = (int)$dao->lastInsertId();
-        $this->id = $id;
-    }
-
-    /**
-     * Vérifie si l'enchère est enregistrée dans la bd
-     */
-    public function isInDB(): bool
-    {
-        return $this->id != -1;
-    }
-
-    public function getLibelle(): string
-    {
-        return $this->libelle;
-    }
-
-    public function setLibelle(string $libelle): void
-    {
-        $this->libelle = $libelle;
     }
 
     ////////////////// UPDATE ///////////////////
