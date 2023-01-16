@@ -116,14 +116,14 @@
                 <h2> Informations d'envoi </h2>
                 <ul>
                     <li> Je suis prêt à remettre cet article en main propre
-                        <input id="cbdirect" type="checkbox" name="retraitDirect">
+                        <input id="cbdirect" type="checkbox" name="retraitDirect" checked>
                     </li>
 
 
                     <li> Je suis prêt à envoyer ce colis vers d'autres villes de France
                         <input id="cbcolis" type="checkbox" name="retraitColis"  checked>
                     </li>
-                    <p id="errorcb"></p>
+                    <p id="errorcbenvoie"></p>
 
                     <li> Définissez vos méthodes de remise de votre bien. Accepter d'envoyer votre bien vers d'autre ville
                         peut grandement augmenter le nombre d'acheteurs potentiels, mais nécessite une organisation plus
@@ -149,14 +149,14 @@
                 <h2> Contact avec les acheteurs </h2>
                 <ul>
                     <li> J'accepte que mon e-mail soit affiché sur la page de mon annonce
-                        <input type="checkbox" name="okEmail">
+                        <input id="cbemail" type="checkbox" name="okEmail" checked>
                     </li>
 
 
                     <li> J'accepte que mon numéro de téléphone soit affiché sur la page de mon annonce
-                        <input type="checkbox" name="okTel">
+                        <input id="cbtel" type="checkbox" name="okTel" checked>
                     </li>
-
+                    <p id="errorcbcontact"></p>
 
                     <li> Permettre aux autres utilisateurs de vous contacter en cas de question sur votre annonce permet
                         d'augmenter leur confiance envers vous et votre bien.

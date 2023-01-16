@@ -98,7 +98,8 @@ main.creation input[name=submit] {
 
 /*Messages erreurs inputs fait par clément*/
 #errorretrait,
-#errorcb,
+#errorcbenvoie,
+#errorcbcontact,
 #errorlocalisation,
 #errorimgs {
   background-color: var(--couleur-rouge);

@@ -31,10 +31,10 @@ try {
     $categorieFille2->create();
 
     // Encheres
-    $enchere1 = new Enchere($utilisateur2, "Statuette de Boodah en bois", DateTime::createFromFormat('d-m-Y', '30-08-2030'), 500, 10, 'boodah.png', 'boodah.txt', $categorieFille1);
+    $enchere1 = new Enchere($utilisateur2, "Statuette de Boodah en bois", DateTime::createFromFormat('d-m-Y', '30-08-2030'), 500, 10, 'boodah.png', 'boodah.txt', $categorieFille1,"true,true","true,true","Grenoble rpz");
     $enchere1->create();
 
-    $enchere2 = new Enchere($utilisateur1, "La Nuit Étoilée - Van Gogh ORIGINALE", DateTime::createFromFormat('d-m-Y', '11-09-2025'), 10000, 5000, 'nuitetoilee.png', 'boodah.txt', $categorieFille2);
+    $enchere2 = new Enchere($utilisateur1, "La Nuit Étoilée - Van Gogh ORIGINALE", DateTime::createFromFormat('d-m-Y', '11-09-2025'), 10000, 5000, 'nuitetoilee.png', 'boodah.txt', $categorieFille2,"true,false","true,false","Lyon");
     $enchere2->create();
 } catch (Exception $e) {
     echo "Problème lors de l'insertion du dataset : " . $e->getMessage();

@@ -1,4 +1,6 @@
 <?php
+
+use Bidwell\Framework\View;
 // Inclusion du modèle
 use Bidwell\Model\Utilisateur;
 

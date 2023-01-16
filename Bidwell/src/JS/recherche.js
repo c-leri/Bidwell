@@ -39,7 +39,6 @@ function showItems() {
     let prix = document.querySelector('input[name="prixSelected"]:checked').value;
 
     //Le numéro de la page à afficher (= Décalage des annonces affichées)
-    let numPage = 1;
 
     //Crée une nouvelle requête XMLHTTP à envoyer au serveur
     const xhttp = new XMLHttpRequest();
@@ -50,7 +49,7 @@ function showItems() {
     }
 
     //Ouvre la requête au serveur avec pour informations le tri, le type, les catégories sélectionnées et le numéro de page
-    xhttp.open("GET", "recherche-ajax.ctrl.php?categories=" + categories + "&tri=" + tri + "&type=" + type + "&prix=" + prix + "&page=" + numPage);
+    xhttp.open("GET", "recherche-ajax.ctrl.php?categories=" + categories + "&tri=" + tri + "&type=" + type + "&prix=" + prix + "&numPage=" + 1);
 
     //Envoie la requête au serveur
     xhttp.send();
@@ -60,7 +59,7 @@ function showItems() {
 
 
 
-//Fonction utilisée lorsque le numéro de page change (= même liste, articles suivant ou précédents)
+//Fonction utilisée lorsque le numéro de page change (= même liste, articles suivants ou précédents)
 //Fonctionne de la même manière que la fonction précédente
 function changePage(numPage) {
 
@@ -79,14 +78,13 @@ function changePage(numPage) {
     }
 
     //Prix : Quel rayon de prix a été sélectionné (Moins de 10€, de 10 à 20, ...)
-    let prix = document.querySelector('input[name="prixSelected"]:checked').value;
-
+    let prix = document.querySelector('input[name="prixSelected"]:checked').value;  
 
     const xhttp = new XMLHttpRequest();
     xhttp.onload = function() {
         document.getElementsByClassName("annonces").innerHTML = this.responseText;
     }
-    xhttp.open("GET", "recherche-ajax.ctrl.php?categories=" + categories + "&tri=" + tri + "&type=" + type + "&prix=" + prix + "&page=" + numPage);
+    xhttp.open("GET", "recherche-ajax.ctrl.php?categories=" + categories + "&tri=" + tri + "&type=" + type + "&prix=" + prix + "&numPage=" + numPage);
     xhttp.send();
 }
 

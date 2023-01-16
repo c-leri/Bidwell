@@ -10,11 +10,10 @@ function showItems(ordre, cible) {
   xhttp.send();
 }
 
-function setCookie(nomCookie, valeurCookie, joursAvExpiration) {
-  const d = new Date();
-  d.setTime(d.getTime() + (joursAvExpiration * 24 * 60 * 60 * 1000));
-  let jours = "expires=" + d.toUTCString();
-  document.cookie = nomCookie + "=" + valeurCookie + ";" + jours + ";path=/";
+function setCookie(nomCookie, valeurCookie) {
+  const d = new Date().setFullYear(new Date().getFullYear+5);
+  let jours = "expires=" + d.toString();
+  document.cookie = nomCookie + "=" + valeurCookie + ";" + jours + ";path=/;SameSite=Strict";
 }
 
 function getCookie(nomCookie) {
@@ -36,9 +35,25 @@ function getCookie(nomCookie) {
 function checkCookie() {
   let username = getCookie("username");
   if (username != "") {
-    document.getElementById("pop-up-cookies").classList.toggle("active"); //La classe est active de base, donc la désactive
+    stop();
     }
   }
+
+function stop() {
+  document.getElementById("fond-cookies").style.display = "none";
+}
+
+// Pour que le bouton "Valider votre choix" soit disabled ou pas
+var okCookies = document.getElementById('okCookies');
+var valider_cookies = document.getElementById('valider-cookies');
+okCookies.onchange = function() {
+  valider_cookies.disabled  = !this.checked;;
+};
+
+function actionValiderCookies(nomCookie, valeurCookie, joursAvExpiration) {
+  setCookie(nomCookie, valeurCookie, joursAvExpiration);
+  stop();
+}
 
 function initPage() {
   showItems("ASC", "new");

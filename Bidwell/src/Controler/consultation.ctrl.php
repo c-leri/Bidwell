@@ -8,6 +8,11 @@ require_once __DIR__.'/../../vendor/autoload.php';
 ////////////////////////////////////////////////////////////////////////////
 // Récupération des informations à afficher
 ////////////////////////////////////////////////////////////////////////////
+
+session_start();
+$login = $_SESSION['login'] ?? '';
+
+
 $id = isset($_GET['id']) ? $_GET['id'] : null;
 
 if ($id == null) {
@@ -28,7 +33,7 @@ if ($id == null) {
 
     // Calcul du nombre à envoyer à l'affichage pour la barre d'enchère
     // Vous pouvez redéfinir prixact en une valeur comprise netre prixfin et prixdep pour tester
-    //$prixact = 35;
+    //$prixact = 400;
     $pourcent = (1 - ($prixact - $prixfin) / ($prixdep - $prixfin) ) * 74;
     $affichage = round($pourcent, 1, PHP_ROUND_HALF_DOWN);
 
@@ -57,6 +62,7 @@ $view->assign('affichage', $affichage);
 $view->assign('description', $description);
 $view->assign('images', $images);
 $view->assign('createur', $createur);
+$view->assign('login', $login);
 
 
 // Charge la vue
