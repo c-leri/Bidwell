@@ -6,15 +6,28 @@ use Exception;
 /**
  * Classe représentant le concept de Catégorie
  * "contenant" du modèle composite (Enchere est le "contenu")
+ *  - Tant que la catégorie n'est pas présente dans la base de donnée
+ *    (méthode create()), le booléen isInDB est faux
+ *  - Une catégorie peut être fille d'une autre, elle a donc un attribut
+ *	  categorieMere qui correspond à une autre catégorie
  */
 class Categorie {
     // Attributs
     private string $libelle;
-    // booleen qui signifie si l'utilisateur est enregistré dans la base
     private bool $isInDB;
     private Categorie|null $categorieMere;
 
-    // constructeur
+
+	// Constucteur
+
+	/**
+	 * Constructeur de la classe Categorie
+	 *  - La catégorie mère eut être nulle
+	 *  - Par défaut, une catégorie n'est pas dans la base de données
+	 * @param string $libelle Libelle de la nouvelle Categorie
+	 * @param Categorie|null $categorieMere Categorie mère de la nouvelle
+	 *		  catégorie
+	 */
     public function __construct(string $libelle, Categorie $categorieMere = null)
     {
         $this->libelle = $libelle;
@@ -22,11 +35,18 @@ class Categorie {
         $this->categorieMere = $categorieMere;
     }
 
+
     // Getters
+
     public function getLibelle() : string {
         return $this->libelle;
     }
 
+	/**
+	 * Le getter getLibelleColle() permet d'obtenir le libellé d'une
+	 * catégorie sans espace.
+	 * @return string Libellé de la catégorie sans espace
+	 */
     public function getLibelleColle() : string {
         return trim($this->libelle);
     }
@@ -35,27 +55,19 @@ class Categorie {
         return $this->categorieMere;
     }
 
-    // Setters
-    public function setCategorieMere(Categorie|null $categorieMere) :void {
-        $this->categorieMere = $categorieMere;
-    }
-
-    // Autres méthodes
-
-    /**
-     * Vérifie si la catégorie est enregistrée dans la bd
-     */
     public function isInDB() : bool {
         return $this->isInDB;
     }
 
-    /**
-     * Synchronise la catégorie avec ses valeurs en bd
-     */
-    public function sync() : void {
-        $new_this = Categorie::read($this->getLibelle());
-        $this->categorieMere = $new_this->categorieMere;
+
+    // Setters
+	
+    public function setCategorieMere(Categorie|null $categorieMere) :void {
+        $this->categorieMere = $categorieMere;
     }
+
+
+    // Méthodes
 
     /**
      * Fonction qui renvoie la catégorie par défaut 'Autre'
@@ -142,7 +154,7 @@ class Categorie {
 	/**
 	 * La fonction readFromCategorieMere() sert à récupérer les catégories
 	 * en fonction de leur catégorie mère.
-	 * @param categoriMere: categorie mère des catégories à récupérer
+	 * @param categorieMere: categorie mère des catégories à récupérer
 	 * @return: Tableau de catégories dont la catégorie mère est categorieMere
 	 */
     public static function readFromCategorieMere(Categorie $categorieMere) : array {
