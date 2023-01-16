@@ -62,7 +62,6 @@ function showItems() {
 //Fonction utilisée lorsque le numéro de page change (= même liste, articles suivants ou précédents)
 //Fonctionne de la même manière que la fonction précédente
 function changePage(numPage) {
-    console.log(numPage);
 
     //Tri : Quel type de tri est appliqué (par nom, date, prix, ...)
     let tri = document.getElementById("tri").value;
@@ -84,8 +83,7 @@ function changePage(numPage) {
 
     const xhttp = new XMLHttpRequest();
     xhttp.onload = function() {
-        console.log(this.responseText);
-        document.getElementsByClassName("annonces").innerHTML = this.responseText;
+        document.getElementById("annonces").innerHTML = this.responseText;
     }
     xhttp.open("GET", "recherche-ajax.ctrl.php?categories=" + categories + "&tri=" + tri + "&type=" + type + "&prix=" + prix + "&numPage=" + numPage);
     xhttp.send();
