@@ -18,7 +18,7 @@ if(isset($_SESSION['login'])){
 $login=$_SESSION['login'];
 // Charge la page de l'application et termine
 $view = new View();
-$view->display("/main.view.php");
+$view->display("main.view.php");
 }else{
     $view = new View();
     $view->display("connect.view.php");

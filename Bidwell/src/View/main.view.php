@@ -31,7 +31,6 @@
         ?>
     </header>
     <main class="pagePrincipale">
-        <!-- Test de cookies -->
         <?php include(__DIR__ . '/cookie.viewpart.php'); ?>
 
         <div id="slider">

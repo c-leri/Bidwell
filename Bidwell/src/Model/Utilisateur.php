@@ -265,7 +265,7 @@ class Utilisateur {
         }
         // Initialisation de la requête et du tableau de valeurs
         $requete = 'SELECT dateFinConservation FROM Utilisateur WHERE login LIKE ?';
-        $valeur = [$this->getLogin()];
+        $valeur = [$this->login];
 
         // Exécution de la requête
         $table = $dao->query($requete, $valeur);
