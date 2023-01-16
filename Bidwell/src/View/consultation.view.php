@@ -26,7 +26,7 @@
     <main class="consultation">
         <div class="top">
             <div class="presentation">
-                <img src="../View/design/img/default_image.png" alt="mainimage">
+                <img src=<?= $images[0]?> alt="mainimage">
 
                 <p> <?= $nom ?> </p>
             </div>
@@ -44,9 +44,9 @@
             <p class="description"> <?= $description ?> </p>
 
             <div class="images">
-                <?php for ($i = 0; $i < 7; $i++) {
+                <?php for ($i = 1; $i < sizeof($images); $i++) {
                     ?>
-                    <img src="../View/design/img/default_image.png" alt="logo">
+                    <img src=<?= $images[$i] ?> alt="logo">
                 <?php } ?>
             </div>
         </div>
@@ -55,19 +55,19 @@
             <div class="informations">
                 <h2> Informations complémentaires </h2>
                 <ul>
-                    <li>Livraison</li>
-                    <li>Paiement</li>
-                    <li>Conditions particulières</li>
+                    <li> <?= $place?> </li>
+                    <li> <?= $dist?> </li>
+                    <li>Le paiement sera réalisé par PayPal</li>
                 </ul>
             </div>
 
             <div class="vendeur">
                 <h2> Vendeur </h2>
                 <ul>
-                    <li>Nom</li>
-                    <li>Contact (Tel)</li>
-                    <li>Contact (Mél)</li>
-                    <li>Nombre d'annonces postées</li>
+                    <li><?= $createur->getNom() ?></li>
+                    <li><?= $mail ?></li>
+                    <li><?= $tel ?></li>
+                    <!--<li>Nombre d'annonces postées</li>-->
                 </ul>
             </div>
         </div>
