@@ -6,7 +6,7 @@
             </p>
             <ul>
                 <li> Nous permettre de garder vos données personnelles.
-                    <input type="checkbox" name="okCookies">
+                    <input type="checkbox" id="okCookies">
                 </li>
             </ul>
             <p>
@@ -15,8 +15,8 @@
         </div>
 
         <div class="d-flex">
-            <button class="valider-cookies" onclick="stop()">Valider votre choix</button>
-            <button class="refuser-cookies" onclick="stop()">Tout refuser</button>
+            <input id="valider-cookies" type="submit" onclick="actionValiderCookies('infosPersonnelles', 'accepte')" value="Valider votre choix" disabled>
+            <button class="refuser-cookies" onclick="stop()">Refuser
         </div>
     </div>
 </div>
