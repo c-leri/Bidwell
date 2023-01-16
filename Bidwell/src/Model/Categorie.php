@@ -70,8 +70,10 @@ class Categorie {
     // Méthodes
 
     /**
-     * Fonction qui renvoie la catégorie par défaut 'Autre'
-     * Wrapper de read() qui crée la catégorie si elle n'existe pas déjà
+	 * La fonction getCategorieAutre() permet d'obtenir la catégorie par
+	 * défault Autre.
+     *  - Wrapper de read() qui crée la catégorie si elle n'existe pas déjà
+	 * @return Categorie Categorie par défaut Autre
      */
     public static function getCategorieAutre() : Categorie {
         try {
@@ -90,7 +92,8 @@ class Categorie {
     ////////////////// CREATE ///////////////////
 
     /**
-     * Enregistre la catégorie dans la bd
+	 * La procédure create() permet d'insérer l'instance courante de la classe
+	 * Categorie dans la base de données
      * @throws Exception si la catégorie est déjà dans la bd ou si l'insertion échoue
      */
     public function create() : void {

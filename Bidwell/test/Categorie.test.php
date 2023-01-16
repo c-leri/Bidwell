@@ -149,7 +149,6 @@ try {
     }
     // on vérifie que $categorieFille n'est plus la catégorie mère de $catégorieMere
     // il faut read les catégories filles pour que la modification soit effective
-    $categorieMere->sync();
     if ($categorieMere->getCategorieMere() !== null) {
         var_dump($categorieMere);
         KO("Test delete() : la catégorie mère ne devrait pas être encore set si il a été delete");
