@@ -36,6 +36,10 @@ try {
 
     $enchere2 = new Enchere($utilisateur1, "La Nuit Étoilée - Van Gogh ORIGINALE", DateTime::createFromFormat('d-m-Y', '11-09-2025'), 10000, 5000, 'nuitetoilee.png', 'boodah.txt', $categorieFille2,"true,false","true,false","Lyon");
     $enchere2->create();
+
+    $enchere3 = new Enchere($utilisateur1, "test", DateTime::createFromFormat('d-m-Y', '11-09-2025'), 200, 100, 'nuitetoilee.png', 'test xd', $categorieFille2,"false,true","false,true","Paris");
+    $enchere3->create();
+
 } catch (Exception $e) {
     echo "Problème lors de l'insertion du dataset : " . $e->getMessage();
 }
