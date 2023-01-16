@@ -5,9 +5,10 @@ use Bidwell\Model\Utilisateur;
 
 require_once __DIR__.'/../../vendor/autoload.php';
 
+//var_dump($_GET['prix']);
 
-$page = $_GET['numPage'];  
-var_dump($_GET['numPage']);
+$page = $_GET['numPage'];
+echo $page;
 
 //Vérifie si le type sélectionné edst "enchère" ou "utilisateur"
 if ($_GET['type'] == 'Enchere') {
@@ -25,13 +26,13 @@ if ($_GET['type'] == 'Enchere') {
 
 
         //Exécute la requête SQL avec les informations nécessaires à l'affichage
-        $result = Enchere::readLike($categories, "", $_GET['tri'], $prix, 'ASC', $page, 5);
+        $result = Enchere::readLike($categories, "", $_GET['tri'], $prix, 'ASC', $page, 2);
 
     } else {
 
         //Si aucune catégorie sélectionnée
         //Exécute la requête SQL avec les informations nécessaires à l'affichage
-        $result = Enchere::readLike([], "", $_GET['tri'], $prix,'ASC', $page, 5);
+        $result = Enchere::readLike([], "", $_GET['tri'], $prix,'ASC', $page, 2);
 
     }
 
@@ -84,6 +85,7 @@ if ($_GET['type'] == 'Enchere') {
         $str .= "</article>";
     }
 }
+
 //Renvoie le code à afficher
 echo $str;
 ?>

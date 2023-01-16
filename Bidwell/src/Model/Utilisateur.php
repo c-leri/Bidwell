@@ -272,12 +272,12 @@ class Utilisateur {
 
         // throw une exception si on ne trouve pas l'utilisateur
         if (count($table) == 0) {
-            throw new Exception("Read : Utilisateur $login non trouvée");
+            throw new Exception("Read : Utilisateur $this->login non trouvée");
         }
 
         // throw une exception si on trouve plusieurs utilisateurs
         if (count($table) > 1) {
-            throw new Exception("Read : Utilisateur $login existe en ".count($table).' exemplaires');
+            throw new Exception("Read : Utilisateur $this->login existe en ".count($table).' exemplaires');
         }
 
         //Calcul de la différence entre la date de fin de conservation des données et la date actuelle.
