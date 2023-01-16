@@ -28,36 +28,50 @@
     </header>
     <main class="Prix">
 
-        <h1>Achats de jetons</h1>
+        <div class="possede">
+            <p> Vous avez actuellement </p>
+            <p> X jetons</p>
+            <p> Les jetons vous permettent d'enchérir plus d'une fois sur une même enchère. Acheter des jetons supplémentaires vous permet d'augmenter vos chances de remporter une enchère. </p>
+</div>
+
+        <div class="achat">
+        <h2>Acheter des jetons</h2>
 
         <div id="bundles">
 
             <div class="pack">
-                <p>72</p>
-            <button class="buy" onclick="affish()">5,99€</button>
+                <p>5,99€</p>
+            <button class="buy" onclick="affish()">72 jetons</button>
             </div>
 
             <div class="pack">
-                <p>134 +10% = 150</p>
-            <button class="buy" onclick="affish()">10,99€</button>
+                <p>10,99€</p>
+            <button class="buy" onclick="affish()">134 jetons</button>
+                <p>+10% bonus</p>
             </div>
 
             <div class="pack">
-                <p>250 +20%=300</p>
-            <button class="buy" onclick="affish()">20,99€</button>
+                <p>20,99€</p>
+            <button class="buy" onclick="affish()">250 jetons</button>
+            <p>+20% bonus</p>
             </div>
             
             <div class="pack">
-                <p>600 +30%= 780</p>
-            <button class="buy" onclick="affish()">49,99€</button>
+                <p>49,99€</p>
+            <button class="buy" onclick="affish()">600 jetons</button>
+            <p>+30% bonus</p>
             </div>
 
             <div class="pack">
-                <p>1200+40%=1700</p>
-            <button class="buy" onclick="affish()">99,99€</button>
+                <p>99,99€</p>
+            <button class="buy" onclick="affish()">1200 jetons</button>
+            <p>+40% bonus</p>
             </div>
 
+            <p class="petit"> En achetant des jetons, vous obtenez une licence limitée, non remboursable, non transférable et révocable pour utiliser ces jetons.qui n'ont aucune valeur en monnaie réelle. </p>
+
         </div>
+</div>
 
         <div id="myModal" class="modal">
             <div class="modal-content">
