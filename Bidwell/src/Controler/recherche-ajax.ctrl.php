@@ -5,12 +5,22 @@ use Bidwell\Model\Utilisateur;
 
 require_once __DIR__.'/../../vendor/autoload.php';
 
+//var_dump($_GET['prix']);
 
-$page = $_GET['numPage'];  
-var_dump($_GET['numPage']);
+if (isset($_GET['numPage'])) {
+    $page = $_GET['numPage'];
+} else {
+    $page = 1;
+}
+
+if (isset($_GET['type'])){
+    $type = $_GET['type'];
+} else {
+    $type = 'Enchere';
+}
 
 //Vérifie si le type sélectionné edst "enchère" ou "utilisateur"
-if ($_GET['type'] == 'Enchere') {
+if ($type == 'Enchere') {
 
     $tri = $_GET['tri'] !== 'NULL' ? $_GET["tri"] : 'date';
     $prix = $_GET['prix'] !== 'NULL' ? $_GET["prix"] : 0;
@@ -23,15 +33,13 @@ if ($_GET['type'] == 'Enchere') {
         $categories = explode(',', $_GET['categories']);
 
 
-
         //Exécute la requête SQL avec les informations nécessaires à l'affichage
-        $result = Enchere::readLike($categories, "", $_GET['tri'], $prix, 'ASC', $page, 5);
-
+        $result = Enchere::readLike($categories, "", $_GET['tri'], $prix, 'ASC', $page, 10);
     } else {
 
         //Si aucune catégorie sélectionnée
         //Exécute la requête SQL avec les informations nécessaires à l'affichage
-        $result = Enchere::readLike([], "", $_GET['tri'], $prix,'ASC', $page, 5);
+        $result = Enchere::readLike([], "", $_GET['tri'], $prix,'ASC', $page, 10);
 
     }
 
@@ -48,7 +56,7 @@ $str = "";
 
 
 //Pour chaque ligne de résultat, prépare son affichage en l'ajoutant à la variable renvoyée
-if ($_GET['type'] == 'Enchere') {
+if ($type == 'Enchere') {
     for ($i = 0; $i < sizeof($result); $i++) {
 
         $str .= "<article>";
@@ -84,6 +92,7 @@ if ($_GET['type'] == 'Enchere') {
         $str .= "</article>";
     }
 }
+
 //Renvoie le code à afficher
 echo $str;
 ?>

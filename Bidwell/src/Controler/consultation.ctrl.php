@@ -35,10 +35,38 @@ if ($id == null) {
     $description = $enchere->getDescription();
     $images = $enchere->getImages();
 
-    //$infos = $enchere->getLivraison();
 
     $createur = $enchere->getCreateur();
-    //$autorisations = $enchere->getAutorisation();
+
+    $autorisations = explode(",", $enchere->getInfosContact());
+    if ($autorisations[0] == true){
+        $mail = $enchere->getCreateur()->getEmail();
+    } else {
+        $mail = "Le créateur de l'enchère n'a pas souahité partager son e-Mail";
+    }
+
+    if ($autorisations[1] == true){
+        $tel = $enchere->getCreateur()->getNumeroTelephone();
+    } else {
+        $tel = "Le créateur de l'enchère n'a pas souahité partager son numéro de téléphone";
+    }
+    
+
+    
+    $informations = $enchere->getInfosEnvoie();
+    if ($informations[0] == true){
+        $place = "Le créateur de l'enchère est prêt à remettre le bien en main propre";
+    } else {
+        $place = "Le créateur de l'enchère n'est PAS prêt à remettre le bien en main propre";
+    }
+
+    if ($autorisations[1] == true){
+        $dist = "Le créateur de l'enchère est prêt à envoyer le bien par colis";
+    } else {
+        $dist = "Le créateur de l'enchère n'est PAS prêt à envoyer le bien par colis";
+    }
+
+    $localisation = $enchere->getLocalisation();
 
 
 }
@@ -54,9 +82,22 @@ $view->assign('prixActuel', $prixact);
 $view->assign('prixRetrait', $prixfin);
 $view->assign('tempsRestant', $tempsRes);
 $view->assign('affichage', $affichage);
+
 $view->assign('description', $description);
 $view->assign('images', $images);
+
 $view->assign('createur', $createur);
+
+$view->assign('mail', $mail);
+$view->assign('tel', $tel);
+
+$view->assign('place', $place);
+$view->assign('dist', $dist);
+
+$view->assign('localisation', $localisation);
+
+
+
 
 
 // Charge la vue

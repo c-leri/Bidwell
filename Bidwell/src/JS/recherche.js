@@ -79,10 +79,11 @@ function changePage(numPage) {
 
     //Prix : Quel rayon de prix a été sélectionné (Moins de 10€, de 10 à 20, ...)
     let prix = document.querySelector('input[name="prixSelected"]:checked').value;  
+    
 
     const xhttp = new XMLHttpRequest();
     xhttp.onload = function() {
-        document.getElementsByClassName("annonces").innerHTML = this.responseText;
+        document.getElementById("annonces").innerHTML = this.responseText;
     }
     xhttp.open("GET", "recherche-ajax.ctrl.php?categories=" + categories + "&tri=" + tri + "&type=" + type + "&prix=" + prix + "&numPage=" + numPage);
     xhttp.send();
