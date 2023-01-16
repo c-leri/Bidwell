@@ -67,14 +67,15 @@
             <div class="images">
                 <h2> Ajouter des images </h2>
 
-                <input id="imagesInput" type="file" accept="image/*" onchange="loadFile(event)" multiple required enctype="multipart/form-data">
+                <input id="imagesInput" type="file" accept="image/*" onchange="loadFile(event)" multiple enctype="multipart/form-data">
 
                 <div class="addedImages"> <!-- déso pour le nom je savais pas quoi mettre -->
-                    <?php for ($i = 1; $i < 9; $i++) {
+                    <?php for ($i = 0; $i < 8; $i++) {
                     ?>
                         <article>
                             <img id=<?= "output" . $i ?> src="../View/design/img/default_image.png">
-                            <p id=<?= "p" . $i ?>> Image n°<?= $i?> </p> 
+                            <button id=<?= "button" . $i ?> type="button" onclick=removeImg(<?=$i?>)>Supprimer</button>
+                            <p id=<?= "p" . $i ?>> Image n°<?= $i+1?> </p> 
 
                         </article>
 

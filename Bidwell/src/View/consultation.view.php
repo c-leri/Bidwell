@@ -20,7 +20,7 @@
 <body>
     <!-- Menu -->
     <header>
-        <?php include(__DIR__ . '/menu.viewpart.php') ?>
+        <?php include ($login === '') ? __DIR__ . '/menu.viewpart.php' : __DIR__.  '/menu_connecte.viewpart.php' ?>
     </header>
     
     <main class="consultation">
@@ -76,20 +76,24 @@
         <?php include(__DIR__ . '/footer.viewpart.php') ?>
     </footer>
 
+    <input type="hidden" id="login" style="display: none;" value="<?= $login ?>" />
+
     <body>
 
 
-    <script>
-    document.forms.form01.range.addEventListener('change', e => {
-  let numlines = parseInt(e.target.value);
-  let numdots = (numlines < 1) ? 0 : numlines+1;
-  document.querySelector('#styles').innerHTML = `
-    .lines use:nth-child(-n+${numlines}) {
-      stroke: DarkSlateBlue;
-    }
-    .dots use:nth-child(-n+${numdots}) {
-      stroke: DarkSlateBlue;
-    }`;  
-});</script>
+    <script type="text/javascript">
+        document.forms.form01.range.addEventListener('change', e => {
+        let numlines = parseInt(e.target.value);
+        let numdots = (numlines < 1) ? 0 : numlines+1;
+        document.querySelector('#styles').innerHTML = `
+            .lines use:nth-child(-n+${numlines}) {
+                stroke: DarkSlateBlue;
+            }
+            .dots use:nth-child(-n+${numdots}) {
+                stroke: DarkSlateBlue;
+            }`;  
+        });
+    </script>
+    <script type="text/javascript" src="../JS/websocket.js"></script>
 
 </html>

@@ -40,32 +40,28 @@
         <div id="bundles">
 
             <div class="pack">
-                <p>5,99€</p>
-            <button class="buy" onclick="affish()">72 jetons</button>
+                <p>72</p>
+            <button class="buy" onclick="affish(72)">5,99€</button>
             </div>
 
             <div class="pack">
-                <p>10,99€</p>
-            <button class="buy" onclick="affish()">134 jetons</button>
-                <p>+10% bonus</p>
+                <p>134 +10% = 150</p>
+            <button class="buy" onclick="affish(150)">10,99€</button>
             </div>
 
             <div class="pack">
-                <p>20,99€</p>
-            <button class="buy" onclick="affish()">250 jetons</button>
-            <p>+20% bonus</p>
+                <p>250 +20%=300</p>
+            <button class="buy" onclick="affish(300)">20,99€</button>
             </div>
             
             <div class="pack">
-                <p>49,99€</p>
-            <button class="buy" onclick="affish()">600 jetons</button>
-            <p>+30% bonus</p>
+                <p>600 +30%= 780</p>
+            <button class="buy" onclick="affish(780)">49,99€</button>
             </div>
 
             <div class="pack">
-                <p>99,99€</p>
-            <button class="buy" onclick="affish()">1200 jetons</button>
-            <p>+40% bonus</p>
+                <p>1200+40%=1700</p>
+            <button class="buy" onclick="affish(1700)">99,99€</button>
             </div>
 
             <p class="petit"> En achetant des jetons, vous obtenez une licence limitée, non remboursable, non transférable et révocable pour utiliser ces jetons.qui n'ont aucune valeur en monnaie réelle. </p>
@@ -73,15 +69,15 @@
         </div>
 </div>
 
-        <form id="myModal" class="modal" action="shopAchat.ctrl.php" method="post">
+        <div id="myModal" class="modal">
             <div class="modal-content">
                 <span class="close" onclick="stop()">&times;</span>
-                <p>Some text in the Modal..</p>
-                <button type="submit" id="myConfirmation" name="valeur" value="" onclick="conf()">Confirmer</button>
+                <p id='letext'>Some text in the Modal..</p>
+                <button id="myConfirm" onclick="conf()">Confirmer</button>
                 <button id="myCancel" onclick="stop()">Annuler</button>
             </div>
             <script src="../js/shop.js"></script>
-        </form>
+</div>
     </main>
 
     <footer>

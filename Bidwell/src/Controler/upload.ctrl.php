@@ -7,8 +7,8 @@ require_once __DIR__.'/../../vendor/autoload.php';
 //
 $reponse = new stdClass();
 $reponse->success = 1;
-$uploadOk = 1;
-$target_dir = __DIR__ . "/../../data/imgs/";
+$uploadOk = 1;//http://localhost:3000/Bidwell/data/imgs/10043185297566burger.png"
+$target_dir = "./../../data/imgs/";
 //Pour chaque fichier contenu dans supertableau $_FILES
 //On vérifie la validité du fichier
 $fichiers_a_upload = Array();

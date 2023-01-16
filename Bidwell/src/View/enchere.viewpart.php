@@ -13,7 +13,7 @@
             <!-- stroke-dashoffset = la progression de la barre (0 <= x < 75)-->
         </svg>
 
-    <button id="encherebutton"><span>Enchérir</span></button>
+    <button id="encherebutton" onclick="encherir(event)"><span>Enchérir</span></button>
 
     
     <div class="temps">
