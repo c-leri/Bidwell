@@ -17,13 +17,13 @@
 
     
     <div class="temps">
-            <p> Temps Restant </p>
+            <p id="dateTitle"><?=$dateTitle?></p>
             <p id="temps"><?= $tempsRestant ?></p>
         </div>
 
     <div class="prix">
         <div>
-            <p> Prix de retrait </p>
+            <p > Prix de retrait </p>
             <p id="min"><?= $prixRetrait ?></p>
 
         </div>

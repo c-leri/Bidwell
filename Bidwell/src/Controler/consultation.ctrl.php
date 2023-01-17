@@ -20,17 +20,21 @@ if ($id == null) {
     $nom = $enchere->getLibelle();
 
     $prixdep = $enchere->getPrixDepart();
-    $prixact = $enchere->getPrixCourant();
+
     $prixfin = $enchere->getPrixRetrait();
 
     $maintenant = new DateTime();
-    if ($enchere->getDateDebut() < $maintenant) {
-        $tempsRes = $enchere->getInstantFin()->format('Uv') - $maintenant->format('Uv');
-        $date = new DateTime((string) $tempsRes);
-        $tempsRes = $date->format("g:i:s");
+    if ($enchere->getDateDebut() <= $maintenant) {
+        $prixact = $enchere->getPrixCourant();
+        $tempsRes = $maintenant->diff($enchere->getInstantFin());
+        $dateTitle = "L'enchère se terminera dans ";
+        $date = $tempsRes->format("%H:%I:%S");
     } else {
-        $tempsRes = "pas encore commencé";
-        $tempsRes .= $maintenant->format('Uv') - $enchere->getDateDebut()->format('Uv');    
+        
+        $tempsRes = $maintenant->diff($enchere->getDateDebut());
+        $prixact = $prixdep;
+        $dateTitle = "L'enchère commencera dans ";
+        $date = $tempsRes->format("%H:%I:%S");  
     }
     
 
@@ -88,7 +92,8 @@ $view->assign('nom', $nom);
 $view->assign('prixDepart', $prixdep);
 $view->assign('prixActuel', $prixact);
 $view->assign('prixRetrait', $prixfin);
-$view->assign('tempsRestant', $tempsRes);
+$view->assign('tempsRestant', $date);
+$view->assign('dateTitle', $dateTitle);
 $view->assign('affichage', $affichage);
 
 $view->assign('description',  $description);

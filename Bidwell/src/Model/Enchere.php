@@ -254,17 +254,23 @@ class Enchere
         return $this->prixRetrait + $this->getRatioTempsActuel() * ($this->prixHaut - $this->prixRetrait);
     }
 
+    private function intervalToMilliseconds(DateInterval $interval) : float {
+        return ((($interval->h * 60) + $interval->i) * 60 + $interval->s) * 1000 + $interval->f / 1000;
+    }
+
     /**
      * Calcul le ratio représentant l'avancée temporelle de l'enchère entre le prix haut et le prix de retrait
      */
-    private function getRatioTempsActuel(): int
+    private function getRatioTempsActuel(): float
     {
         $maintenant = new DateTime();
         if ($maintenant > $this->getDateDebut()) {
-            $differenceMaintenantFin = (int) $maintenant->format('Uv') - (int) $this->getInstantFin()->format('Uv');
+            $interval1H = new DateInterval('PT1H');
+            $intervalMaintenantFin = $maintenant->diff($this->getInstantFin());
+            $differenceMaintenantFin = $this->intervalToMilliseconds($intervalMaintenantFin);
             return (isset($this->derniereEnchere))
-                ? $differenceMaintenantFin / ((int) $this->derniereEnchere->getInstantDerniereEnchere()->format('Uv') - (int) $this->getInstantFin()->format('Uv'))
-                : $differenceMaintenantFin / (int) DateInterval::createFromDateString('1 hour')->format('Uv');
+                ? $differenceMaintenantFin / $this->intervalToMilliseconds($this->derniereEnchere->getInstantDerniereEnchere()->diff($this->getInstantFin()))
+                : $differenceMaintenantFin / $this->intervalToMilliseconds($interval1H);
         } else {
             return 1;
         }

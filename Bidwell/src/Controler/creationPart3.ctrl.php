@@ -12,7 +12,7 @@ session_start();
 $user = Utilisateur::read($_SESSION["login"]);
 $nomAnnonce = $_POST["nom"] ?? '';
 $dateDebut = new DateTime();
-$dateDebut->add(DateInterval::createFromDateString('24 hour'));
+$dateDebut->modify('+1 minutes');
 $prixBase = $_POST["prixbase"] ?? '';
 $prixRetrait = $_POST["prixretrait"] ?? '';
 $imgs = $_POST["imgs"] ?? '';
