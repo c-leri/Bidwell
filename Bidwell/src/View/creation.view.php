@@ -37,7 +37,7 @@
             <div class="nom">
                 <h2> Nom de l'annonce </h2>
 
-                <input id="nom" type="text" required minlength="4" maxlength="60" placeholder="Choisissez un nom" value="Annonce waou">
+                <input id="nom" type="text" required minlength="4" maxlength="60" placeholder="Choisissez un nom">
 
                 <p> Le nom de l'annonce est l'information principale que rechercheront les autres utilisateurs. Donner un
                     nom simple et explicite augmente grandement les chances de vendre un article. </p>
@@ -67,7 +67,7 @@
 
                 <input id="imagesInput" type="file" accept="image/*" onchange="loadFile(event)" multiple enctype="multipart/form-data">
 
-                <div class="addedImages"> <!-- déso pour le nom je savais pas quoi mettre -->
+                <div class="addedImages">
                     <?php for ($i = 0; $i < 8; $i++) {
                     ?>
                         <article>
@@ -88,7 +88,7 @@
             </div>
             <div class="base">
             <h2> Prix de base </h2>
-                <input id="prixbase" type="number" name="base" required min="1" max="99999" value="600" placeholder="Prix espéré">
+                <input id="prixbase" type="number" name="base" required min="1" max="99999" placeholder="Prix espéré">
 
                 <p> Définissez le prix auquel vous souhaiteriez vendre votre article. Prenez en compte la valeur réelle
                     de votre article et pensez à ce que vous seriez prêt à mettre à la place de l'acheteur.</p>
@@ -99,7 +99,7 @@
             <div class="retrait">
                 <h2> Prix de retrait de l'annonce </h2>
 
-                <input id="prixretrait" type="number" name="retrait" required min="1" max="99999" value="200" placeholder="Prix de retrait">
+                <input id="prixretrait" type="number" name="retrait" required min="1" max="99999" placeholder="Prix de retrait">
                 <p id="errorretrait"></p>
                 <p> Notre site utilise en système d'enchère qui comprend une partie descendantes. De ce fait, le prix de
                     votre article pourrait diminuer par rapport au prix de base. Définissez le prix auquel vous ne
@@ -114,12 +114,12 @@
                 <h2> Informations d'envoi </h2>
                 <ul>
                     <li> Je suis prêt à remettre cet article en main propre
-                        <input id="cbdirect" type="checkbox" name="retraitDirect" checked>
+                        <input id="cbdirect" type="checkbox" name="retraitDirect">
                     </li>
 
 
                     <li> Je suis prêt à envoyer ce colis vers d'autres villes de France
-                        <input id="cbcolis" type="checkbox" name="retraitColis"  checked>
+                        <input id="cbcolis" type="checkbox" name="retraitColis">
                     </li>
                     <p id="errorcbenvoie"></p>
 
@@ -132,7 +132,7 @@
 
             <div class="localisation">
                 <h2> Localisation</h2>
-                <input id="localisationInput" type="text" placeholder="Entrez un code postal ou une ville" value="38450" list="localisationDatalist" onkeyup="filter()" required>
+                <input id="localisationInput" type="text" placeholder="Entrez un code postal ou une ville" list="localisationDatalist" onkeyup="filter()" required>
                  <datalist id="localisationDatalist">
                         <option id="optionanchorlocalisation"></option>
                  </datalist>
@@ -147,12 +147,12 @@
                 <h2> Contact avec les acheteurs </h2>
                 <ul>
                     <li> J'accepte que mon e-mail soit affiché sur la page de mon annonce
-                        <input id="cbemail" type="checkbox" name="okEmail" checked>
+                        <input id="cbemail" type="checkbox" name="okEmail">
                     </li>
 
 
                     <li> J'accepte que mon numéro de téléphone soit affiché sur la page de mon annonce
-                        <input id="cbtel" type="checkbox" name="okTel" checked>
+                        <input id="cbtel" type="checkbox" name="okTel">
                     </li>
                     <p id="errorcbcontact"></p>
 

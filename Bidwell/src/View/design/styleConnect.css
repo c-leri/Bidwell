@@ -53,7 +53,7 @@ main.connect a {
 .left form input {
     border-radius: 0.5rem;
     border: 0.1rem solid var(--couleur-noir);
-    padding: 0.2rem;
+    padding: 0.2rem 0.5rem 0.2rem 0.5rem;
 }
 
 .left button {

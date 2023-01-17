@@ -20,8 +20,12 @@
     z-index: 2;
     border-radius: 1rem;
     width: 40%;
-    padding: 0.5rem;
+    padding: 1rem;
     box-shadow: 0 0 1rem rgba(0, 0, 0, 0.5);
+}
+
+#pop-up-cookies p{
+    text-align: center;
 }
 
 /* Liste de pop up */
@@ -30,12 +34,15 @@
 }
 
 #pop-up-cookies li {
-    text-align: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-content: center;
     margin: 1rem;
 }
 
 #pop-up-cookies input {
-    margin-left: 1rem;
+    margin-right: 1rem;
 }
 
 /* Les boutons*/

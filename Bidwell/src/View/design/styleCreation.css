@@ -141,4 +141,13 @@ main.creation button.btnSuppr {
 /* texte indiquant les numeros d'images*/
 main.creation .numImg {
   color: var(--couleur-noir);
+  background-color: var(--couleur-blanc30);
+  width: 90%;
+  padding-top:1rem;
+  padding-bottom:1rem;
+  
+}
+
+#imagesInput {
+  margin-left: 3rem;
 }

@@ -31,9 +31,14 @@ footer ul {
     margin: 0.2rem;
 }
 
+.div3 div{
+    display: flex;
+    flex-direction: row;
+}
 .div3 ul {
     display: flex;
-
+    flex-direction: column;
+    margin: 0.2rem;
 }
 
 /* lien et titre*/
