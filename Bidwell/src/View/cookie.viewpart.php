@@ -15,8 +15,8 @@
         </div>
 
         <div class="d-flex">
-            <input id="valider-cookies" type="submit" onclick="actionValiderCookies('infosPersonnelles', 'accepte')" value="Valider votre choix" disabled />
-            <button class="refuser-cookies" onclick="stop()">Refuser</button>
+            <input id="valider-cookies" type="submit" onclick="actionValiderCookies('infosPersonnelles')" value="Valider votre choix" disabled />
+            <button class="refuser-cookies" onclick="actionRefuserCookies('infosPersonelles')">Refuser</button>
         </div>
     </div>
 </div>

@@ -22,13 +22,7 @@
 <body>
     <!-- Menu -->
     <header>
-    <?php 
-    if(isset($_SESSION['login'])){
-        include(__DIR__ . '/menu_connecte.viewpart.php');
-    }else{
-        include(__DIR__ . '/menu.viewpart.php');
-    }
-    ?>
+    <?php include isset($_SESSION['login']) ? __DIR__ . '/menu_connecte.viewpart.php' : __DIR__ . '/menu.viewpart.php'; ?>
     </header>
     <main class="compte">
         <h2>Compte de <?= $login ?></h2>
