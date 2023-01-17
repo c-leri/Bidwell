@@ -8,15 +8,24 @@
 -- Utilisateur
 
 INSERT INTO Utilisateur
-VALUES("alexv", "hash1", "Alexandre Vasseur", "alexv@gmail.com", "0642791382", 2, 1831707963),
-VALUES("suzannedlb", "hash2", "Suzanne de la Besnard", "suzannedlb@gmail.com", "0604701322", 5, 1831707963),
-VALUES("rrmargaux", "hash3", "Margaux Renault-Rey", "rr.margaux@gmail.com", "0604386570", 3, 1831707963),
-VALUES("victex", "hash4", "Victor Texier", "victex@gmail.com", "0604385129", 3, 1831707963),
-VALUES("manuparis", "hash5", "Emmanuelle Paris", "manuparis@gmail.com", "0601984101", 4, 1831707963),
-VALUES("flmich", "hash6", "Michel Foucher-Lebon", "michel.fl@gmail.com", "0604780461", 5, 1831707963),
-VALUES("aaaaaaaa", "hash7", "Adrienne-Andrée Royer", "aaaaaaa@outlook.fr", "0640751914", 1, 1831707963),
-VALUES("t.couz", "hash8", "Tristan Cousin", "t.couz@outlook.fr", "0640480615", 6, 1831707963),
-VALUES("m.momo", "hash9", "Monique Marie", "marie.monique@laposte.net", "0604581695", 5, 1831707963),
+VALUES("alexv", "hash1", "Alexandre Vasseur", "alexv@gmail.com", "0642791382", 2, 1831707963);
+INSERT INTO Utilisateur
+VALUES("suzannedlb", "hash2", "Suzanne de la Besnard", "suzannedlb@gmail.com", "0604701322", 5, 1831707963);
+INSERT INTO Utilisateur
+VALUES("rrmargaux", "hash3", "Margaux Renault-Rey", "rr.margaux@gmail.com", "0604386570", 3, 1831707963);
+INSERT INTO Utilisateur
+VALUES("victex", "hash4", "Victor Texier", "victex@gmail.com", "0604385129", 3, 1831707963);
+INSERT INTO Utilisateur
+VALUES("manuparis", "hash5", "Emmanuelle Paris", "manuparis@gmail.com", "0601984101", 4, 1831707963);
+INSERT INTO Utilisateur
+VALUES("flmich", "hash6", "Michel Foucher-Lebon", "michel.fl@gmail.com", "0604780461", 5, 1831707963);
+INSERT INTO Utilisateur
+VALUES("aaaaaaaa", "hash7", "Adrienne-Andrée Royer", "aaaaaaa@outlook.fr", "0640751914", 1, 1831707963);
+INSERT INTO Utilisateur
+VALUES("t.couz", "hash8", "Tristan Cousin", "t.couz@outlook.fr", "0640480615", 6, 1831707963);
+INSERT INTO Utilisateur
+VALUES("m.momo", "hash9", "Monique Marie", "marie.monique@laposte.net", "0604581695", 5, 1831707963);
+INSERT INTO Utilisateur
 VALUES("ljack", "hash10", "Jacqueline Leger", "ljack@laposte.net", "0644182608", 5, 1831707963);
 
 -- Categorie
@@ -64,7 +73,47 @@ INSERT INTO Enchere(
 	infoscontact, 
 	dateFinConservation
 )
-VALUES("victex", "Carte Pokémon Mewtwo XY Évolutions", 1676622398, 60, 10, "1_1.webp", "Carte Pokémon rare de l'extension XY Évolutions.", "Cartes pokémon", "true", "true", 1739780798),
-VALUES("rrmargaux", "Timbre Louis Pasteur", 1676622398, 60, 10, "2_1.webp", "Timbre d'Andorre à l'effigie de Louise Pasteur", "Timbres", "true", "true", 1739780798),
-/* VALUES("alexv", "", 1676622398, 60, 10, "2_1.webp", "Timbre d'Andorre à l'effigie de Louise Pasteur", "Timbres", "true", "true", 1739780798), */
+VALUES("victex", "Carte Pokémon Mewtwo XY Évolutions", 1676622398, 60, 10, "1_1.webp", "Carte Pokémon rare de l'extension XY Évolutions.", "Cartes pokémon", "true", "true", 1739780798);
+INSERT INTO Enchere(
+	loginCreateur, 
+	libelle,
+	dateDebut,
+	prixDepart,
+	prixRetrait,
+	images, 
+	description,
+	libelleCategorie,
+	infosenvoi, 
+	infoscontact, 
+	dateFinConservation
+)
+VALUES("rrmargaux", "Timbre Louis Pasteur", 1676901481, 15, 2, "2_1.webp", "Timbre d'Andorre à l'effigie de Louise Pasteur", "Timbres", "true", "true", 1739780798);
+INSERT INTO Enchere(
+	loginCreateur, 
+	libelle,
+	dateDebut,
+	prixDepart,
+	prixRetrait,
+	images, 
+	description,
+	libelleCategorie,
+	infosenvoi, 
+	infoscontact, 
+	dateFinConservation
+)
+VALUES("alexv", "Playmobil Révolution Grecque", 1686491881, 12, 5, "3_1.webp", "Boîte de jouets Playmobils sur le thème des héros de la révolution grecque", "Playmobil", "true", "true", 1739780798);
+INSERT INTO Enchere(
+	loginCreateur, 
+	libelle,
+	dateDebut,
+	prixDepart,
+	prixRetrait,
+	images, 
+	description,
+	libelleCategorie,
+	infosenvoi, 
+	infoscontact, 
+	dateFinConservation
+)
+VALUES("flmich", "Alpine Renault A310 VE", 1678726681, 60000, 20000, "4_1.webp", "Voiture de collection de la marque Alpine, modèle A310 VE", "Voitures", "true", "true", 1739780798);
 
