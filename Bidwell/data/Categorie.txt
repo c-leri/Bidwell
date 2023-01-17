@@ -1,0 +1,24 @@
+Pierres précieuses|NULL
+Amethystes|Pierres précieuses
+Diamants|Pierres précieuses
+Emeraudes|Pierres précieuses
+Saphirs|Pierres précieuses
+Autres pierres|Pierres précieuses
+Objets de collection|NULL
+Timbres|Objets de collection
+Monnaies|Objets de collection
+Cartes pokémon|Objets de collection
+Autres cartes|Objets de collection
+Jouets|NULL
+LEGO|Jouets
+Playmobil|Jouets
+Autres jouets|Jouets
+Objets d'art|NULL
+Peinture|Objets d'art
+Sculpture|Objets d'art
+Dessins|Objets d'art
+Autres objets d'art|Objets d'art
+Autres|NULL
+Voitures|Autres
+Livres et Manuscrits|Autres
+Autre|Autres
