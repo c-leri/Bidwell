@@ -65,6 +65,6 @@ INSERT INTO Enchere(
 	dateFinConservation
 )
 VALUES("victex", "Carte Pokémon Mewtwo XY Évolutions", 1676622398, 60, 10, "1_1.webp", "Carte Pokémon rare de l'extension XY Évolutions.", "Cartes pokémon", "true", "true", 1739780798),
-VALUES("rrmargaux", "Timbre Louis Pasteur", 1676622398, 60, 10, "2_1.webp", "Timbre d'Andorre à l'effigie de Louise Pasteur", "Timbres", "true", "true", 1739780798),
-/* VALUES("alexv", "", 1676622398, 60, 10, "2_1.webp", "Timbre d'Andorre à l'effigie de Louise Pasteur", "Timbres", "true", "true", 1739780798), */
+VALUES("rrmargaux", "Timbre Louis Pasteur", 1676622398, 15, 2, "2_1.webp", "Timbre d'Andorre à l'effigie de Louise Pasteur", "Timbres", "true", "true", 1739780798),
+VALUES("alexv", "Playmobil Révolution Grecque", 1676622398, 12, 5, "3_1.webp", "Boîte de jouets Playmobils sur le thème des héros de la révolution grecque", "Playmobil", "true", "true", 1739780798);
 
