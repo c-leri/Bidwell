@@ -152,6 +152,8 @@ try{
         OK();
     }
 
+    $utilisateurRead->delete();
+
 } catch(Exception $e){
     KO("Erreur sur information : ".$e->getMessage());
 }
