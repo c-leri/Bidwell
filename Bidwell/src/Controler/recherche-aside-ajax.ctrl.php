@@ -29,9 +29,11 @@ for ($i = 0; $i < sizeof($meres); $i++){
         $str .= '<div class="categoryDropdown">';
         $str .= '<button class="categoryDropdownBtn" onclick="showCategory('.$i.')">' . $meres[$i]->getLibelle() . '</button>';
         $str .= '<div id="cd' . $meres[$i]->getLibelleColle(). '">';
+        $str .= '<ul>';
 
 
         for($k = 0; $k < sizeof($fillesDeMere); $k++){
+            $str .= '<li>';
             $str .= '<input type="checkbox" id="' . $fillesDeMere[$k]->getLibelleColle() . '" onclick="showItems()"';
             
             if (isset($categorie) && $categorie == $fillesDeMere[$k]->getLibelleColle()) {
@@ -41,10 +43,13 @@ for ($i = 0; $i < sizeof($meres); $i++){
             $str .= '></checkbox>';
         
             $str .= '<label for="'.$fillesDeMere[$k]->getLibelleColle() .'">'. $fillesDeMere[$k]->getLibelle() .'</label>';
+            $str .= '</li>';
         }
+        $str .= '</ul>';
         $str .= '<style type="text/css">' . ' #cd' . $meres[$i]->getLibelleColle() . '{ display: none; }';
         $str .= ' #cd' . $meres[$i]->getLibelleColle() . '.active{display: block;}';
-
+        $str .= ' #cd' . $meres[$i]->getLibelleColle() .' ul{list-style-type: none;}';
+        $str .= ' #cd' . $meres[$i]->getLibelleColle() .' li input{height:1rem; width:1rem; margin: 0.2rem;}';
         $str .= '</style>';
         $str .= '</div>';
         $str .= '</div>';
