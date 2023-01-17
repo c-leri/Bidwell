@@ -33,8 +33,9 @@ INSERT INTO Categorie VALUES("Dessins","Objets d'art");
 INSERT INTO Categorie VALUES("Autres objets d'art","Objets d'art");
 
 /*Autres*/
-/*INSERT INTO Categorie VALUES("Autres",NULL);*/
-INSERT INTO Categorie VALUES("Autres","Autres");
+INSERT INTO Categorie VALUES("Autres",NULL);
+/*INSERT INTO Categorie VALUES("Autres","Autres");*/
 INSERT INTO Categorie VALUES("Voitures","Autres");
 INSERT INTO Categorie VALUES("Livres et Manuscrits","Autres");
+INSERT INTO Categorie VALUES("Autre","Autres");
 
