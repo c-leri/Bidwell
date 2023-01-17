@@ -24,7 +24,15 @@ if ($id == null) {
     $prixfin = $enchere->getPrixRetrait();
 
     $maintenant = new DateTime();
-    $tempsRes = (int)$maintenant->format('Uv') - (int)$enchere->getInstantFin()->format('Uv');
+    if ($enchere->getDateDebut() < $maintenant) {
+        $tempsRes = $enchere->getInstantFin()->format('Uv') - $maintenant->format('Uv');
+        $date = new DateTime((string) $tempsRes);
+        $tempsRes = $date->format("g:i:s");
+    } else {
+        $tempsRes = "pas encore commencé";
+        $tempsRes .= $maintenant->format('Uv') - $enchere->getDateDebut()->format('Uv');    
+    }
+    
 
     // Calcul du nombre à envoyer à l'affichage pour la barre d'enchère
     // Vous pouvez redéfinir prixact en une valeur comprise netre prixfin et prixdep pour tester

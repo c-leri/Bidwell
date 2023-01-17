@@ -50,6 +50,12 @@ main.connect a {
     justify-content: space-around;
 }
 
+.left form input {
+    border-radius: 0.5rem;
+    border: 0.1rem solid var(--couleur-noir);
+    padding: 0.2rem 0.5rem 0.2rem 0.5rem;
+}
+
 .left button {
     display: block;
 }
@@ -109,6 +115,7 @@ div#bot {
     margin-left: 1rem;
 }
 
+/* Messages d'erreur */
 #erroremail,
 #errorusername,
 #errornumtel,
