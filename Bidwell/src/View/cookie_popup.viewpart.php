@@ -5,8 +5,9 @@
             <p>Notre site conserve des données personnelles permettant de vous identifier. Par conséquent, si vous n'acceptez pas les cookies vous ne pourrez pas profiter de toutes les fonctionnalités de notre site.
             </p>
             <ul>
-                <li> Nous permettre de garder vos données personnelles.
-                    <input type="checkbox" id="okCookies" />
+                <li>
+                    <input type="checkbox" id="okCookies" /> 
+                    Nous permettre de garder vos données personnelles.
                 </li>
             </ul>
             <p>
