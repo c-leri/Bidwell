@@ -60,3 +60,7 @@
     cursor:default;
     background-color: whitesmoke;
 }
+
+#fond-cookies {
+    display: none;
+}

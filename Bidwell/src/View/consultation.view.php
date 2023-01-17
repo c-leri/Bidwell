@@ -64,7 +64,7 @@
             <div class="vendeur">
                 <h2> Vendeur </h2>
                 <ul>
-                    <li><?= $createur->getNom() ?></li>
+                    <li><?= $createur->getLogin() ?></li>
                     <li><?= $mail ?></li>
                     <li><?= $tel ?></li>
                     <!--<li>Nombre d'annonces postées</li>-->
@@ -80,20 +80,6 @@
 
     <body>
 
-
-    <script type="text/javascript">
-        document.forms.form01.range.addEventListener('change', e => {
-        let numlines = parseInt(e.target.value);
-        let numdots = (numlines < 1) ? 0 : numlines+1;
-        document.querySelector('#styles').innerHTML = `
-            .lines use:nth-child(-n+${numlines}) {
-                stroke: DarkSlateBlue;
-            }
-            .dots use:nth-child(-n+${numdots}) {
-                stroke: DarkSlateBlue;
-            }`;  
-        });
-    </script>
     <script type="text/javascript" src="../JS/websocket.js"></script>
 
 </html>

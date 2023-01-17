@@ -12,7 +12,6 @@
     <link rel="stylesheet" href="../View/design/styleSous-Menu_Categorie.css">
     <link rel="stylesheet" href="../View/design/styleFooter.css">
     <link rel="stylesheet" href="../View/design/stylePagePrincipale.css">
-    <link rel="stylesheet" href="../View/design/styleCookies.css">
     <link rel="icon" type="image/x-icon" href="../View/design/img/favicon.ico">
 
 </head>
@@ -31,7 +30,7 @@
         ?>
     </header>
     <main class="pagePrincipale">
-        <?php include(__DIR__ . '/cookie.viewpart.php'); ?>
+
 
         <div id="slider">
             <a href="#"><img src="../View/design/img/default_image.png" alt="Besoin d'aide" id="slide" style="background-repeat: repeat"></a>

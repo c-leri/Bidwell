@@ -8,6 +8,8 @@ require_once __DIR__.'/../../vendor/autoload.php';
 ////////////////////////////////////////////////////////////////////////////
 // Récupération des informations à afficher
 ////////////////////////////////////////////////////////////////////////////
+$login = isset($_SESSION['login']) ? $_SESSION['login'] : null;
+
 $id = isset($_GET['id']) ? $_GET['id'] : null;
 
 if ($id == null) {
@@ -37,13 +39,13 @@ if ($id == null) {
     $createur = $enchere->getCreateur();
 
     $autorisations = explode(",", $enchere->getInfosContact());
-    if ($autorisations[0] == true){
+    if ($autorisations[0] == "true"){
         $mail = $enchere->getCreateur()->getEmail();
     } else {
         $mail = "Le créateur de l'enchère n'a pas souahité partager son e-Mail";
     }
 
-    if ($autorisations[1] == true){
+    if ($autorisations[1] == "true"){
         $tel = $enchere->getCreateur()->getNumeroTelephone();
     } else {
         $tel = "Le créateur de l'enchère n'a pas souahité partager son numéro de téléphone";
@@ -51,14 +53,16 @@ if ($id == null) {
     
 
     
-    $informations = $enchere->getInfosEnvoie();
-    if ($informations[0] == true){
+    $informations = explode(",", $enchere->getInfosEnvoie());
+    if ($informations[0] == "true"){
+       
         $place = "Le créateur de l'enchère est prêt à remettre le bien en main propre";
     } else {
         $place = "Le créateur de l'enchère n'est PAS prêt à remettre le bien en main propre";
     }
 
-    if ($autorisations[1] == true){
+    if ($autorisations[1] == "true"){
+       
         $dist = "Le créateur de l'enchère est prêt à envoyer le bien par colis";
     } else {
         $dist = "Le créateur de l'enchère n'est PAS prêt à envoyer le bien par colis";
@@ -85,6 +89,7 @@ $view->assign('description',  $description);
 $view->assign('images', $images);
 
 $view->assign('createur', $createur);
+$view->assign('login', $login);
 
 $view->assign('mail', $mail);
 $view->assign('tel', $tel);

@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="../View/design/styleGeneral.css">
     <link rel="stylesheet" href="../View/design/styleConnect.css">
     <link rel="stylesheet" href="../View/design/styleMenu.css">
+    <link rel="stylesheet" href="../View/design/styleCookies.css">
     <link rel="icon" type="image/x-icon" href="../View/design/img/favicon.ico">
     <link rel="stylesheet" href="../View/design/styleFooter2.css">
 </head>
@@ -21,6 +22,9 @@
     <header>
         <?php include(__DIR__ . '/menu.viewpart.php') ?>
     </header>
+
+    <?php include(__DIR__ . '/cookie.viewpart.php'); ?>
+
     <main class="connect">
         <div class="left">
             <h2> S'inscrire </h2>
@@ -78,3 +82,5 @@
 
 
 </html>
+
+<script type="text/javascript" src="../JS/cookie.js"></script>

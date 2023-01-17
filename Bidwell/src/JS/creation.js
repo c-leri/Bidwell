@@ -128,11 +128,12 @@ function removeImg(id){
 var tmp_files = new Map();
 var arrayIndexes = new Array();
 const errorImgs= document.getElementById("errorimgs");
+
 function getFirstFreeSpot(){
   let i =0;
-  while(i<8 && document.getElementById("output"+i).src != "http://localhost:3000/Bidwell/src/View/design/img/default_image.png"){
+  while(i<8 && document.getElementById("output"+i).src != "http://localhost:3000/Bidwell/src/View/design/img/default_image.png" && document.getElementById("output"+i).src != "http://localhost:3000/src/View/design/img/default_image.png"){
     console.log(i<8 && document.getElementById("output"+i).src);
-    console.log("../View/design/img/default_image.png");
+    console.log("../View/design/img/default_image.png");  
 
     i++;
   }
@@ -219,8 +220,11 @@ function validateInfos(event){
     images = false;
   }
  
-
-  
+  console.log(images);
+  console.log(prix);
+  console.log(informationsContactCheckBoxes);
+  console.log(localisation);
+  console.log(informationsContactCheckBoxes);
       
   let ok =images && prix &&  informationsEnvoieCheckBoxes && localisation && informationsContactCheckBoxes;
   if(ok){
