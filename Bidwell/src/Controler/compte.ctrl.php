@@ -11,11 +11,10 @@ require_once __DIR__.'/../../vendor/autoload.php';
 session_start();
 $login = $_SESSION["login"];
 $utilisateur = Utilisateur::read($login);
-$email=$utilisateur->getEmail();
+$email = $utilisateur->getEmail();
 $numtel = $utilisateur->getNumeroTelephone();
 $nbJetons = $utilisateur->getNbJetons();
 $dateFin = $utilisateur->getTempsRestant();
-
 
 ////////////////////////////////////////////////////////////////////////////
 // Construction de la vue

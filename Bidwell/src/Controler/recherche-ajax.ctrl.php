@@ -46,7 +46,7 @@ if ($type == 'Enchere') {
 } else {
     //Si le type est "Utilisateur",
     //Exécute la requête et place le résultat dans $resultat
-    $result = Utilisateur::readLike('', 'login', $page, 20);
+    $result = Utilisateur::readLike('', $page, 20);
 
 }
 
@@ -88,7 +88,6 @@ if ($type == 'Enchere') {
     for ($i = 0; $i < sizeof($result); $i++) {
         $str .= "<article>";
         $str .= "<h1>" . $result[$i]->getLogin() . "</h1>";
-        $str .= "<h1>" . $result[$i]->getNom() . "</h1>";
         $str .= "</article>";
     }
 }

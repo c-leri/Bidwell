@@ -5,7 +5,9 @@
     <div class="div1">
         <h1>BidWell</h1>
         <ul>
-            <li><a href="cookie.ctrl.php">Paramétrer les cookies</a></li>
+            <?php session_start(); if (isset($_SESSION['login'])) : ?>
+            <li><a href="compte.ctrl.php">Paramétrer les cookies</a></li>
+            <?php endif; ?>
             <li><a href="">Conditions d’utilisation</a></li>
             <li><a href="#">Mentions légales</a></li>
             <li><a href="#">Politique de confidentalité</a></li>

@@ -18,7 +18,6 @@ class Enchere
     public const TAUX_AUGMENTATION = 1.05;
 
     private const ADRESSE_IMAGES = '../../data/img/';
-    private const ADRESSE_DESCRIPTIONS = '../../data/desc/';
     private const TEMPS_CONSERVATION = '5 years'; // temps de conservation des données dans la bd
 
     // Attributs
@@ -31,7 +30,7 @@ class Enchere
     private float $prixRetrait;                   // prix de fin de l'enchère si personne n'enchérit
     private Participation|null $derniereEnchere;  // dernière enchère, null jusqu'à la première enchère
     private array $images = array();              // liste des noms des fichers contenant les images
-    private string $description;                  // nom du fichier contenant la description
+    private string $description;
     private Categorie $categorie;
     private string $infosContact;
     private string $infosEnvoie;

@@ -24,23 +24,27 @@
     <header>
     <?php include isset($_SESSION['login']) ? __DIR__ . '/menu_connecte.viewpart.php' : __DIR__ . '/menu.viewpart.php'; ?>
     </header>
-    <main class="compte">
-        <h2>Compte de <?= $login ?></h2>
-        <hr>
+    <main>
+        <h1>Compte de <?= $login ?></h1>
+        <hr />
+        <h2>Données personnelles</h2>
         <ul>
-            <div id="infos">
-                <li class='lines'>Connecté en tant que : <?= $login ?> </li>
-                <li class='lines centered'> Jetons :  <?= $nbJetons ?> </li>
-                <li class='lines'>Connecté avec l'adresse : <?= $email ?> </li>
-                <a class='lines centered' href='shop.ctrl.php'> Acheter des Jetons </a>
-            </div>
-            <li>Numéro de téléphone associé : <?= $numtel ?> </li>
-            <li> Nous conservons vos informations pendant encore : <?= $dateFin?> </li>
+            <li>Connecté avec l'adresse : <?= $email ?></li>
+            <li>Numéro de téléphone associé : <?= $numtel ?></li>
+            <li>Nous conservons vos informations pendant encore : <?= $dateFin ?></li>
+            <li>Nous conservons vos données personnelles dans l'unique but de vous authentifier, si vous souhaitez que nous arrétions de le conserver vous devrez supprimer votre compte.</li>
+            <li><button class="button" type="submit"> Supprimer votre compte </button></li>
         </ul>
-        <h2>Vos enchères : </h2>
+        <hr />
+        <h2>Jetons</h2>
+        <ul>
+            <li>Les jetons sont une monnaies propre à Bidwell qui vous permet d'enchérir plusieurs fois sur une même annonce.</li>
+            <li><a class="button" href='shop.ctrl.php'> Acheter des Jetons </a></li>
+        </ul>
+        <hr />
+        <h2>Vos Enchères</h2>
         <div class="vosEncheres">
-                </div>
-                <button type="submit"> Supprimer votre compte </button>
+        </div>
     </main>
     <footer>
         <?php include(__DIR__ . '/footer.viewpart.php') ?>

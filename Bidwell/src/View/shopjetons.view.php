@@ -94,13 +94,12 @@
                 <span class="close" onclick="stop()">&times;</span>
                 <p id='letext'>Some text in the Modal..</p>
                 <div id="lesbtns">
-                <button id="myConfirm" onclick="conf()">Confirmer</button>
-                <button id="myCancel" onclick="stop()">Annuler</button>
-                    <div id="smart-button-container">
+                <div id="smart-button-container">
                         <div style="text-align: center;">
                             <div id="paypal-button-container"></div>
                         </div>
                     </div>
+                    <button id="myCancel" onclick="stop()">Annuler</button>
                     <script src="https://www.paypal.com/sdk/js?client-id=sb&enable-funding=venmo&currency=EUR" data-sdk-integration-source="button-factory"></script>
                 </div>
             </div>
