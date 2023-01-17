@@ -66,7 +66,7 @@ class Categorie {
         $this->categorieMere = $categorieMere;
     }
 
-
+    
     // Méthodes
 
     /**
