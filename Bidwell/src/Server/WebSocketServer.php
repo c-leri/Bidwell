@@ -31,21 +31,24 @@ class WebSocketServer implements MessageComponentInterface
         $server->run();
     }
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->clients = new \SplObjectStorage;
         $this->codes = array();
     }
 
-    public function onOpen(ConnectionInterface $conn) {
+    public function onOpen(ConnectionInterface $conn)
+    {
         // on ajoute la connection à la liste de connexion
-        $this->clients->attach($conn);  
+        $this->clients->attach($conn);
         echo "New connection! ({$conn->resourceId})\n";
 
         $login = '{"type": "isConnected"}';
         $conn->send($login);
     }
 
-    public function onMessage(ConnectionInterface $from, $msg) {
+    public function onMessage(ConnectionInterface $from, $msg)
+    {
         try {
             // on décode le message
             $message = json_decode($msg);
@@ -95,9 +98,7 @@ class WebSocketServer implements MessageComponentInterface
 
                             // notifie tous les autres utilisateurs
                             foreach ($this->clients as $client) {
-                                if ($client !== $from) {
-                                    $client->send('{"type": "enchere", "value": ' . $participation->getMontantDerniereEnchere() . '}}');
-                                }
+                                $client->send('{"type": "enchere", "value": { "prixRetrait": ' . $participation->getMontantDerniereEnchere() . ', "prixHaut": ' . $enchere->getPrixHaut() . '}, "id":'. $enchere->getId() .'}}');
                             }
                         }
                         break;
@@ -113,17 +114,19 @@ class WebSocketServer implements MessageComponentInterface
         }
     }
 
-    public function onClose(ConnectionInterface $conn) {
+    public function onClose(ConnectionInterface $conn)
+    {
         echo "Connection {$conn->resourceId} has disconnected\n";
         unset($this->codes[$conn->resourceId]);
         unset($this->users[$conn->resourceId]);
         $this->clients->detach($conn);
     }
 
-    public function onError(ConnectionInterface $conn, \Exception $e) {
+    public function onError(ConnectionInterface $conn, \Exception $e)
+    {
         echo "An error has occured: {$e->getMessage()}\n";
         unset($this->codes[$conn->resourceId]);
-        unset($this->users[$conn->resourceId]); 
+        unset($this->users[$conn->resourceId]);
         $conn->close();
     }
 }

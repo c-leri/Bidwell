@@ -17,7 +17,7 @@
 
 
 
-<body>
+<body onload="checkCookie('infosPersonnelles')">
     <!-- Menu -->
     <header>
         <?php include(__DIR__ . '/menu.viewpart.php') ?>

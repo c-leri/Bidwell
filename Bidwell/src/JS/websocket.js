@@ -26,7 +26,14 @@ conn.onmessage = function (e) {
     } else if (message.type === 'login') {
         conn.send(JSON.stringify({type: "login", code: message.code, value: login}));
     } else if (message.type === 'enchere') {
-        // TODO ajax pour qui modifie les valeurs d'affichage de l'enchère
+
+        const xhttp = new XMLHttpRequest();
+        xhttp.onload = function() {
+            document.getElementById("container").innerHTML = this.responseText;
+        }
+        xhttp.open("GET", `consultation-ajax.ctrl.php?id=${message.id}&prixRetrait=${message.value.prixRetrait}&prixHaut=${message.value.prixHaut}` );
+        xhttp.send();
+        
     }
 }
 

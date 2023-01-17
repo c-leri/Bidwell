@@ -2,7 +2,7 @@
 // Test de la classe DAO
 use Bidwell\Model\DAO;
 
-require_once __DIR__ . '/../vendor/autoload.php';
+require_once dirname(__DIR__) . '/vendor/autoload.php';
 
 require_once __DIR__ . '/Helper.php';
 
@@ -43,8 +43,8 @@ try {
     }
 
     // Insertion d'une Enchère
-    $query = 'INSERT INTO Enchere(loginCreateur, libelle, dateDebut, prixDepart, prixRetrait, images, description, libelleCategorie, dateFinConservation) VALUES(?,?,?,?,?,?,?,?,?)';
-    $data = ['loginTest', 'testInsert', 20, 100, 0, 'testInsert.png', 'testInsert.txt', 'filleTest', 0];
+    $query = 'INSERT INTO Enchere(loginCreateur, libelle, dateDebut, prixDepart, prixRetrait, images, description, libelleCategorie, dateFinConservation, lieu, infosenvoi, infoscontact) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)';
+    $data = ['loginTest', 'testInsert', 20, 100, 0, 'testInsert.png', 'testInsert.txt', 'filleTest', 0, '38100', 'true,false', 'false,false'];
     $res = $dao->exec($query, $data);
     if ($res != 1) {
         throw new Exception("Insertion d'une Enchère : $res nombre de lignes insérées, Attendu : 1");

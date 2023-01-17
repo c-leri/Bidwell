@@ -21,12 +21,8 @@
     <!-- Menu -->
     <header>
         <?php
-        if (isset($_SESSION['login'])) {
-            include(__DIR__ . '/menu_connecte.viewpart.php');
-        } else {
-            include(__DIR__ . '/menu.viewpart.php');
-        }
-        include(__DIR__ . '/sous-menu_categorie.viewpart.php')
+            include isset($_SESSION['login']) ? __DIR__ . '/menu_connecte.viewpart.php' : __DIR__ . '/menu.viewpart.php';
+            include __DIR__ . '/sous-menu_categorie.viewpart.php';
         ?>
     </header>
     <main class="pagePrincipale">

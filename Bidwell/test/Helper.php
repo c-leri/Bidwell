@@ -32,5 +32,5 @@ function OK(): void
 // Affiche l'erreur en rouge
 function KO(string $message): void
 {
-    printCol("\n" . $message . "\n", 'red');
+    printCol("\n" . $message . "\n");
 }

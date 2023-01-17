@@ -4,9 +4,5 @@ database.db
 sqldiff.exe
 sqlite3.exe
 sqlite3_analyzer.exe
-*.png
-*.jpeg
-*.jpg
-*.webp
 vendor/
 composer.lock

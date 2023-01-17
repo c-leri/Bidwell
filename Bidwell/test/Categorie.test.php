@@ -4,7 +4,7 @@ use Bidwell\Model\Categorie;
 use Bidwell\Model\Enchere;
 use Bidwell\Model\Utilisateur;
 
-require_once __DIR__ . '/../vendor/autoload.php';
+require_once dirname(__DIR__) . '/vendor/autoload.php';
 
 require_once __DIR__ . '/Helper.php';
 
@@ -149,6 +149,7 @@ try {
     }
     // on vérifie que $categorieFille n'est plus la catégorie mère de $catégorieMere
     // il faut read les catégories filles pour que la modification soit effective
+    $categorieMere = Categorie::read($categorieMere->getLibelle());
     if ($categorieMere->getCategorieMere() !== null) {
         var_dump($categorieMere);
         KO("Test delete() : la catégorie mère ne devrait pas être encore set si il a été delete");

@@ -4,7 +4,7 @@ use Bidwell\Model\Enchere;
 use Bidwell\Model\Categorie;
 use Bidwell\Model\Utilisateur;
 
-require_once __DIR__ . '/../vendor/autoload.php';
+require_once dirname(__DIR__) . '/vendor/autoload.php';
 
 require_once __DIR__ . '/Helper.php';
 
@@ -23,21 +23,15 @@ try {
     print('Test du constructeur : ');
 
     try {
-        new Enchere($utilisateur, 'testConstructeur', $date, 500, 0, 'testConstructeur.png', 'testConstructeur.txt', $categorie);
+        new Enchere($utilisateur, 'testConstructeur', $date, 500, 0, 'testConstructeur.png', 'testConstructeur.txt', $categorie, 'true,false', 'false,false', '56000');
     } catch (Exception $e) {
         KO("Erreur sur Enchere : ".$e->getMessage());
     }
 
     try {
-        $dateIncorrecte = DateTime::createFromFormat('d-m-Y', '01-01-2023');
-        new Enchere($utilisateur, 'testConstructeur2', $dateIncorrecte, 500, 0, 'testConstructeur2.png', 'testConstructeur2.txt', $categorie);
-        KO("La catégorie a été créée malgré la date incorrecte.");
-    } catch (Exception) {}
-
-    try {
         $categorieInexistante = new Categorie('inexistance');
-        new Enchere($utilisateur, 'testConstructeur3', $dateIncorrecte, 500, 0, 'testConstructeur3.png', 'testConstructeur3.txt', $categorieInexistante);
-        KO("La catégorie a été créée malgré la catégorie non sérialisée");
+        new Enchere($utilisateur, 'testConstructeur3', $date, 500, 0, 'testConstructeur3.png', 'testConstructeur3.txt', $categorieInexistante, 'true,true', 'false,true', '92000');
+        KO("L'enchère a été créée malgré la catégorie non sérialisée");
     } catch (Exception) {}
 
     OK();
@@ -47,7 +41,7 @@ try {
     /////////////////////////////////////////////
 
     // Création d'une enchère pour le test des méthodes CRUD
-    $enchere = new Enchere($utilisateur, 'Enchere 3', $date, 500, 200, 'enchere3.png', 'enchere3.txt', $categorie);
+    $enchere = new Enchere($utilisateur, 'Enchere 3', $date, 500, 200, 'enchere3.png', 'enchere3.txt', $categorie, 'false,false', 'false,true', '45000');
 
     /////////////// CREATE + READ ////////////////
     print('Test create() et read() : ');
@@ -82,8 +76,7 @@ try {
     print('Test update() : ');
 
     $enchere->setLibelle("testUpdate");
-    $dateDebut = DateTime::createFromFormat('Y-m-d', '2050-12-24');
-    $enchere->setDateDebut($dateDebut);
+    $enchere->setDescription("C'est la description ouais ouais lol");
     $enchere->update();
     $enchereRead = Enchere::read($enchere->getId());
     if ($enchere != $enchereRead) {

@@ -23,8 +23,6 @@ if ($id == null) {
     $prixact = $enchere->getPrixCourant();
     $prixfin = $enchere->getPrixRetrait();
 
-    //Faudra corriger le temps restant j'invoque l'excuse de 4 heure du matin pour pas faire
-    //Mais j'imagine qu'il faudra faire une fonction directement dans Enchere pour notamment vérifier que c'est pas dans le futur
     $maintenant = new DateTime();
     $tempsRes = (int)$maintenant->format('Uv') - (int)$enchere->getInstantFin()->format('Uv');
 

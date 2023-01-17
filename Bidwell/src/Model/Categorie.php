@@ -280,9 +280,9 @@ class Categorie {
             throw new Exception("Delete : La catégorie $this->libelle n'existe pas dans la bd");
         }
 
-        // on enleve le fait que cette catégorie est mère dans tous ses fils
+        // on enlève le fait que cette catégorie est mère dans tous ses fils
         // AVANT de faire la suppression dans la bd
-        // les enchère ont alors comme catégorie 'Autre'
+        // les enchères ont alors comme catégorie 'Autre'
         foreach (Categorie::readFromCategorieMere($this) as $categorieFille) {
             $categorieFille->categorieMere = null;
             if ($categorieFille->isInDB())
