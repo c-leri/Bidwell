@@ -8,7 +8,9 @@ require_once __DIR__.'/../../vendor/autoload.php';
 ////////////////////////////////////////////////////////////////////////////
 // Récupération des informations à afficher
 ////////////////////////////////////////////////////////////////////////////
-$login = isset($_SESSION['login']) ? $_SESSION['login'] : null;
+session_start();
+$login = isset($_SESSION['login']) ? $_SESSION['login'] : '';
+session_write_close();
 
 $id = isset($_GET['id']) ? $_GET['id'] : null;
 
@@ -87,6 +89,8 @@ if ($id == null) {
 // Construction de la vue
 ////////////////////////////////////////////////////////////////////////////
 $view = new View();
+
+$view->assign('connected', isset($login));
 
 $view->assign('nom', $nom);
 $view->assign('prixDepart', $prixdep);

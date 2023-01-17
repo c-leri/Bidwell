@@ -8,7 +8,7 @@ require_once __DIR__.'/../../vendor/autoload.php';
 $reponse = new stdClass();
 $reponse->success = 1;
 $uploadOk = 1;//http://localhost:3000/Bidwell/data/imgs/10043185297566burger.png" $_SERVER['DOCUMENT_ROOT']
-$target_dir = __DIR__ . "/../../data/imgs/";
+$target_dir = __DIR__ . "/../../data/img/";
 
 //$img = str_replace("C:\Users\cleme\SAE3", "../../..", $img);
 //Pour chaque fichier contenu dans supertableau $_FILES
@@ -28,7 +28,7 @@ for ($i = 0; $i < count($_FILES); $i++) {
     }
     array_push($fichiers_a_upload,$target_file);
     array_push($indexes, $i);
-    array_push($urls, "/Bidwell/data/imgs/" . trim($_FILES["file".$i]["name"]));
+    array_push($urls, "/Bidwell/data/img/" . trim($_FILES["file".$i]["name"]));
 }
 if($uploadOk){
     for ($i = 0; $i < count($fichiers_a_upload); $i++) {

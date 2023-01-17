@@ -9,13 +9,12 @@ function addCategoriesToSelectList(){
   requete.open("POST", "creationPart2.ctrl.php", true);
   requete.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   requete.onload = function() {
-    const rep = JSON.parse(this.responseText);
-//    console.log(rep);
-    for (let i = 0; i < rep.arrayCategories.length ; i++) {
+  const rep = JSON.parse(this.responseText);
+    for (let i = 0; i < rep.array.length ; i++) {
       //Création option
       option = document.createElement("option");
-      option.textContent= rep.arrayCategories[i]["libelle"];
-      option.value = rep.arrayCategories[i]["libelle"];
+      option.textContent= rep.array[i];
+      option.value = rep.array[i];
       //Insertion sur la page
       select.insertBefore(option, optionnanchor);
     } 
@@ -31,7 +30,6 @@ function removeOptions(){
     i++;
   }
 }
-
 //----------------------------------------------------------//
 //Filtre les suggestions de localisation en fonction du texte entré dans l'input
 function filter() {
@@ -66,7 +64,20 @@ function filter() {
 //----------------------------------------------------------//
 //--------------------------PARTIE GESTION ERREUR UTILISATEUR--------------------------------//
 
-
+function validateCategories(){
+  const categorieSelect = document.getElementById("categorieSelect"),
+  errorCategorie = document.getElementById("errorcategorie"),
+  nom = document.getElementById("nom");
+  //Si la categorie selectionnée est une catégorie mère on l'indique à l'utilisateur
+      if(categorieSelect.value.includes("-")) {
+        errorCategorie.innerHTML = "Veuillez selectionner une sous catégorie";
+      nom.scrollIntoView();
+      return false;
+    } else {
+      errorCategorie.innerHTML = "";
+        return true;
+    }
+}
 function validatePrices(){
   const prixretrait = document.getElementById("prixretrait"),
 errorretrait = document.getElementById("errorretrait"),
@@ -185,6 +196,7 @@ function validateInfos(event){
   let informationsContactCheckBoxes = validateCheckBoxes("cbemail","cbtel","errorcbcontact");
   let localisation = validateLocalisation();
   var images = false;//Retourne array avec les urls des images et booleen a la fin qui indique la reussite ou non
+  let categorie = validateCategories();
   const errorImgs= document.getElementById("errorimgs"),
   select = document.getElementById("categorieSelect");//Ancre pour remonter dans la page en cas d'erreur
 
@@ -219,14 +231,14 @@ function validateInfos(event){
     select.scrollIntoView();
     images = false;
   }
- 
+ /*
   console.log(images);
   console.log(prix);
   console.log(informationsContactCheckBoxes);
   console.log(localisation);
   console.log(informationsContactCheckBoxes);
-      
-  let ok =images && prix &&  informationsEnvoieCheckBoxes && localisation && informationsContactCheckBoxes;
+      */
+  let ok =categorie && images && prix &&  informationsEnvoieCheckBoxes && localisation && informationsContactCheckBoxes;
   if(ok){
     console.log("forme valide");
     //les infos remplies sont valides : Création de l'enchère

@@ -21,7 +21,6 @@ class Utilisateur {
     private string $login;
     private string|null $mdpHash;        // le hash correspondant au mot de passe de l'utilisateur, calculé avec password_hash(), null à la création d'un utilisateur
     // informations personnelles
-    private string $nom;
     private string $email;
     private string $numeroTelephone;
     // informations pour les enchères
@@ -37,7 +36,6 @@ class Utilisateur {
     public function __construct(string $login, string $email, string $numeroTelephone)
     {
         $this->login = $login;
-        $this->nom = '';
         $this->setEmail($email);
         $this->setNumeroTelephone($numeroTelephone);
         $this->nbJetons = 0;
@@ -47,10 +45,6 @@ class Utilisateur {
     // Getters
     public function getLogin() : string {
         return $this->login;
-    }
-
-    public function getNom() : string {
-        return $this->nom;
     }
 
     public function getEmail() : string {
@@ -76,10 +70,6 @@ class Utilisateur {
     // Setters
     public function setPassword(string $password) : void {
         $this->mdpHash = password_hash($password, PASSWORD_BCRYPT);
-    }
-
-    public function setNom(string $nom) : void {
-        $this->nom = $nom;
     }
 
     public function setEmail(string $email) : void {
@@ -171,9 +161,9 @@ class Utilisateur {
         $dateFinConservation->add(DateInterval::createFromDateString(Utilisateur::TEMPS_CONSERVATION));
 
         // Initialisation de la requête SQL
-        $requete = 'INSERT INTO Utilisateur VALUES (?,?,?,?,?,?,?)';
+        $requete = 'INSERT INTO Utilisateur VALUES (?,?,?,?,?,?)';
         // Initialisation du tableau de valeurs pour la requête
-        $valeurs = [$this->login, $this->mdpHash, $this->nom, $this->email, $this->numeroTelephone, $this->nbJetons, $dateFinConservation->getTimestamp()];
+        $valeurs = [$this->login, $this->mdpHash, $this->email, $this->numeroTelephone, $this->nbJetons, $dateFinConservation->getTimestamp()];
 
         // Exécution de la requête
         $nbLignesMod = $dao->exec($requete, $valeurs);
@@ -216,20 +206,17 @@ class Utilisateur {
         return Utilisateur::constructFromDB($table[0]);
     }
 
-    public static function readLike(string $pattern, string $tri, int $page, int $pageSize) : array {
+    public static function readLike(string $pattern, int $page, int $pageSize) : array {
         // Récupération de la classe DAO
         $dao = DAO::get();
 
-        $order = match ($tri) {
-            'nom' => 'nom',
-            default => 'login',
-        };
+        $order = 'login';
 
         $decalage = ($page - 1) * $pageSize;
 
         // Initialisation de la requête et du tableau de valeurs
-        $requete = 'SELECT * FROM Utilisateur WHERE login LIKE ? OR nom LIKE ? ORDER BY ? LIMIT ?, ?';
-        $valeurs = ['%'.$pattern.'%', '%'.$pattern.'%', $order, $decalage, $pageSize];
+        $requete = 'SELECT * FROM Utilisateur WHERE login LIKE ? ORDER BY ? LIMIT ?, ?';
+        $valeurs = ['%'.$pattern.'%', $order, $decalage, $pageSize];
 
         // Exécution de la requête
         $table = $dao->query($requete, $valeurs);
@@ -247,7 +234,6 @@ class Utilisateur {
         $out = new Utilisateur($row['login'], $row['email'], $row['numeroTelephone']);
 
         // set les informations qui ne sont pas dans le constructeur
-        $out->nom = $row['nom'];
         $out->mdpHash = $row['mdpHash'];
         $out->nbJetons = $row['nbJetons'];
         $out->isInDB = true;
@@ -306,9 +292,9 @@ class Utilisateur {
         $dao = DAO::get();
 
         // Initialisation de la requête SQL
-        $requete = 'UPDATE Utilisateur SET login = ?, email = ?, mdpHash = ?, nom = ?, numeroTelephone = ?, nbJetons = ? WHERE login = ?';
+        $requete = 'UPDATE Utilisateur SET login = ?, email = ?, mdpHash = ?, numeroTelephone = ?, nbJetons = ? WHERE login = ?';
         // Initialisation du tableau de valeurs pour la requête
-        $valeurs = [$this->login, $this->email, $this->mdpHash, $this->nom, $this->numeroTelephone, $this->nbJetons, $this->login];
+        $valeurs = [$this->login, $this->email, $this->mdpHash, $this->numeroTelephone, $this->nbJetons, $this->login];
 
         // Exécution de la requête
         $nbLignesMod = $dao->exec($requete, $valeurs);

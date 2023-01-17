@@ -1,0 +1,27 @@
+main.Apropos {
+    color: var(--couleur-blanc);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-content: center;
+    height: 79vh;
+}
+
+main.Apropos article{
+    background-color: var(--couleur-blanc30);
+    border-radius: 1rem;
+    margin: 1rem;
+}
+main.Apropos article img{
+    width: 15rem;
+    height: 15rem;
+    margin: 1rem;
+    border-radius: 100%;
+}
+
+main.Apropos article h1, main.Apropos article p{
+    text-align: center;
+    margin: 0 1rem 0.5rem 1rem;
+
+}

@@ -10,18 +10,20 @@ require_once __DIR__.'/../../vendor/autoload.php';
 //Récupération des informations de l'utilisateur.
 session_start();
 $login = $_SESSION["login"];
+session_write_close();
+
 $utilisateur = Utilisateur::read($login);
-$email=$utilisateur->getEmail();
+$email = $utilisateur->getEmail();
 $numtel = $utilisateur->getNumeroTelephone();
 $nbJetons = $utilisateur->getNbJetons();
 $dateFin = $utilisateur->getTempsRestant();
-
 
 ////////////////////////////////////////////////////////////////////////////
 // Construction de la vue
 ////////////////////////////////////////////////////////////////////////////
 $view = new View();
 
+$view->assign('connected', true);
 $view->assign('login', $login);
 $view->assign('email', $email);
 $view->assign('numtel', $numtel);
