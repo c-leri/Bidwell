@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="../View/design/styleSous-Menu_Categorie.css">
     <link rel="stylesheet" href="../View/design/styleFooter.css">
     <link rel="stylesheet" href="../View/design/styleShop.css">
+    <link rel="icon" type="image/x-icon" href="../View/design/img/favicon.ico">
 
 </head>
 
@@ -103,7 +104,7 @@
                     <script src="https://www.paypal.com/sdk/js?client-id=sb&enable-funding=venmo&currency=EUR" data-sdk-integration-source="button-factory"></script>
                 </div>
             </div>
-            <script src="../js/shop.js"></script>
+            <script src="../JS/shop.js"></script>
         </div>
     </main>
 
