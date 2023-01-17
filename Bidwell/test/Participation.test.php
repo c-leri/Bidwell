@@ -5,16 +5,19 @@ use Bidwell\Model\Categorie;
 use Bidwell\Model\Enchere;
 use Bidwell\Model\Utilisateur;
 
-require_once __DIR__ . '/../vendor/autoload.php';
+require_once dirname(__DIR__) . '/vendor/autoload.php';
 
 require_once __DIR__ . '/Helper.php';
 
 try {
-// Création d'une instance de la classe Utilisateur et Enchere
+// Création et insertion d'instances des classes Utilisateur, Enchere et Categorie
 // pour les tests.
     $dateEnchere = DateTime::createFromFormat('Y-m-d H:i', '2023-02-14 15:00');
     $utilisateur = new Utilisateur("John Sus", "john.sus@amog.us", '0659715532');
+    $utilisateur->setPassword('testMDP');
+    $utilisateur->create();
     $categorie = new Categorie('Nourriture');
+    $categorie->create();
     $enchere = new Enchere(
         $utilisateur,
         "Saucisson",
@@ -23,25 +26,34 @@ try {
         200,
         "saucisson.png",
         "saucisson.txt",
-        $categorie
+        $categorie,
+        'false,true',
+        'true,true',
+        '85000'
     );
-
-// Insertion des autres objets dans la base de données
-    $categorie->create();
-    $utilisateur->setPassword('testMDP');
-    $utilisateur->create();
     $enchere->create();
 
     /**
      * Test de la création d'une instance de la classe Participation
      */
     print('Test constructeur : ');
-    try {
-        $participation = new Participation($enchere, $utilisateur);
-        OK();
-    } catch (Exception $e) {
-        KO("La création de l'instance a échoué : " . $e->getMessage());
+
+    $participation = new Participation($enchere, $utilisateur);
+    if ($participation->getEnchere() != $enchere) {
+        echo "Enchere :\n";
+        var_dump($enchere);
+        echo "Enchere de la participation :\n";
+        var_dump($participation->getEnchere());
+        KO("Test constructeur : l'enchère de la participation n'est pas la même que celle passée en paramètre");
     }
+    if ($participation->getUtilisateur() != $utilisateur) {
+        echo "Utilisateur :\n";
+        var_dump($utilisateur);
+        echo "Utilisateur de la participation :\n";
+        var_dump($participation->getUtilisateur());
+        KO("Test constructeur : l'utilisateur de la participation n'est pas le même que celui passé en paramètre");
+    }
+    OK();
 
     /**
      * Test de la fonction isInDB().

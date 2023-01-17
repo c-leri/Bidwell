@@ -37,6 +37,7 @@ function setCookie(nomCookie, valeurCookie) {
   function stop() {
     document.getElementById("fond-cookies").style.display = "none";
     //console.log("cookies acceptés");
+    self.location = 'main.ctrl.php';
   }
   function start() {
     document.getElementById("fond-cookies").style.display = "block";
@@ -44,8 +45,8 @@ function setCookie(nomCookie, valeurCookie) {
   }
   
   // Pour que le bouton "Valider votre choix" soit disabled ou pas
-  var okCookies = document.getElementById('okCookies');
-  var valider_cookies = document.getElementById('valider-cookies');
+  const okCookies = document.getElementById('okCookies');
+  const valider_cookies = document.getElementById('valider-cookies');
   okCookies.onchange = function() {
     valider_cookies.disabled  = !this.checked;;
   };

@@ -2,7 +2,7 @@
 // Test de la classe Utilisateur
 use Bidwell\Model\Utilisateur;
 
-require_once __DIR__ . '/../vendor/autoload.php';
+require_once dirname(__DIR__) . '/vendor/autoload.php';
 
 require_once __DIR__ . '/Helper.php';
 
