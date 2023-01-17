@@ -46,7 +46,6 @@ INSERT INTO Categorie VALUES("Dessins","Objets d'art");
 INSERT INTO Categorie VALUES("Autres objets d'art","Objets d'art");
 -- Autres
 INSERT INTO Categorie VALUES("Autres",NULL);
---INSERT INTO Categorie VALUES("Autres","Autres");
 INSERT INTO Categorie VALUES("Voitures","Autres");
 INSERT INTO Categorie VALUES("Livres et Manuscrits","Autres");
 INSERT INTO Categorie VALUES("Autre","Autres");
@@ -65,5 +64,7 @@ INSERT INTO Enchere(
 	infoscontact, 
 	dateFinConservation
 )
-VALUES("victex", "Carte Pokémon Mewtwo XY Évolutions", 1676622398, 60, 10, "1_1.png", "Carte Pokémon rare de l'extension XY Évolutions.", "Cartes pokémon", "true", "true", 1739780798);
+VALUES("victex", "Carte Pokémon Mewtwo XY Évolutions", 1676622398, 60, 10, "1_1.webp", "Carte Pokémon rare de l'extension XY Évolutions.", "Cartes pokémon", "true", "true", 1739780798),
+VALUES("rrmargaux", "Timbre Louis Pasteur", 1676622398, 60, 10, "2_1.webp", "Timbre d'Andorre à l'effigie de Louise Pasteur", "Timbres", "true", "true", 1739780798),
+/* VALUES("alexv", "", 1676622398, 60, 10, "2_1.webp", "Timbre d'Andorre à l'effigie de Louise Pasteur", "Timbres", "true", "true", 1739780798), */
 
