@@ -157,7 +157,7 @@ class Categorie {
 	/**
 	 * La fonction readFromCategorieMere() sert à récupérer les catégories
 	 * en fonction de leur catégorie mère.
-	 * @param categorieMere: categorie mère des catégories à récupérer
+	 * @param Categorie $categorieMere: categorie mère des catégories à récupérer
 	 * @return: Tableau de catégories dont la catégorie mère est categorieMere
 	 */
     public static function readFromCategorieMere(Categorie $categorieMere) : array {
