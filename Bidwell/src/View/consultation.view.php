@@ -80,6 +80,7 @@
 
     <body>
 
+    <script type="text/javascript" src="../JS/consultation.js"></script>
     <script type="text/javascript" src="../JS/websocket.js"></script>
 
 </html>

@@ -164,6 +164,13 @@ class Enchere
         return Participation::readFromEnchere($this);
     }
 
+    public function getPrixHaut(): float
+    {
+        return (isset($this->derniereEnchere))
+        ? $this->prixRetrait + ($this->prixDepart * 0.05)
+        : $this->prixDepart;
+    }
+
     // Setters
 
     public function setLibelle(string $libelle): void
