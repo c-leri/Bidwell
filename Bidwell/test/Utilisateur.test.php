@@ -48,17 +48,6 @@ try{
             . " -Mot de passe donné : $fpss");
     }
 
-    //setNom
-    $nom = 'Nomtest';
-    $utilisatest->setNom($nom);
-    if($utilisatest->getNom()!=$nom){
-        throw new Exception("Test de setNom :\n"
-            ." -Nom de l'utilisateur : {$utilisatest->getNom()}"
-            ." - Attendu : $nom");
-    }else if($utilisatest->getNom()=='nomtest'){
-        throw new Exception("Test de setNom : absence d'attention à la casse");
-    }
-
     //setMail
     if($utilisatest->getEmail()!=$email){
         throw new Exception("Test de setMail :\n"
@@ -125,7 +114,6 @@ try{
     print('Test update() : ');
 
     $utisilateur->setPassword('Newmdp');
-    $utisilateur->setNom('Newnom');
     $utisilateur->setEmail('NewMail@yahoo.ru');
     $utisilateur->setNumeroTelephone('9876543210');
     $utisilateur->update();

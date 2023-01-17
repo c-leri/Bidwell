@@ -11,12 +11,10 @@ require_once dirname(__DIR__, 2) . '/vendor/autoload.php';
 try {
     // Utilisateurs
     $utilisateur1 = new Utilisateur('john_doe', 'john.doe@gmail.com', '0654638291');
-    $utilisateur1->setNom('John Doe');
     $utilisateur1->setPassword('john51397');
     $utilisateur1->create();
 
     $utilisateur2 = new Utilisateur('michelleOchell', 'mich.deuneuzieu@yahoo.fr', '0456738291');
-    $utilisateur2->setNom('Michelle Deneuzieu');
     $utilisateur2->setPassword('12121969');
     $utilisateur2->create();
 

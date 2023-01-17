@@ -1,5 +1,20 @@
+/* -- Button -- */
+.button {
+    font-size: 1rem;
+    width: min-content;
+    text-decoration: none;
+    color: var(--couleur-noir);
+    background-color: var(--couleur-jaune);
+    border: 0.1rem solid var(--couleur-noir);
+    border-radius: 1rem;
+    white-space: nowrap;
+    display: block;
+    padding: 0.5rem 1rem 0.5rem 1rem;
+    margin: 0 auto 0 auto;
+}
+
 /* --- Page du compte --- */
-main.compte {
+main {
     color: var(--couleur-blanc);
     margin-left: auto;
     margin-right: auto;
@@ -14,39 +29,30 @@ hr {
     border: none;
 }
 
-/* -- Titre -- */
-main.compte h2{
-    margin-top: 2rem;
-    margin-left: 2rem;
+/* -- Titres -- */
+main h1 {
+    margin: 2rem 0 0 2rem;
+}
+
+main h2 {
+    margin: 2rem 0 0 2rem;
 }
 
 /* -- Liste -- */
-main.compte ul{
+main ul {
     list-style-type: none;
-    margin-top: 2rem;
-    margin-left: 2rem;
+    margin: 1rem 0 0 2rem;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: space-between;
 }
 
-/* -- Button -- */
-main.compte button{
-    text-decoration: none;
-    color: var(--couleur-noir);
-    background-color: var(--couleur-jaune);
-    border: 0.1rem solid var(--couleur-noir);
-    border-radius: 1rem;
-    white-space: nowrap;
-    display: block;
-    padding: 0.5rem 0.5rem;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 1rem;
+main ul li {
+    margin-top: 1rem;
 }
 
- /* -- Annonces populaires -- */
- .vosEncheres {
+/* -- Encheres de l'utilisateur -- */
+.vosEncheres {
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -97,34 +103,4 @@ main.compte button{
 
 .vosEncheres a:visited {
     color: var(--couleur-gris-clair);
-}
-
-#infos{
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-}
-
-.lines{
-    width: 50%;
-}
-
-a.lines{
-    text-decoration: none;    
-    color: var(--couleur-noir);
-    background-color: var(--couleur-jaune);
-    border-radius: 1rem;
-    display: block;
-    width: 15%;
-    margin-top: 1rem;
-    margin-left: auto;
-    margin-right:auto;
-}
-
-.centered{
-    text-align: center;
-}
-
-li{
-    margin-top: 1rem;
 }

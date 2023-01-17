@@ -35,8 +35,8 @@ try {
     // Insertion d'un Utilisateur
     $mdpHash = password_hash('mdp', PASSWORD_BCRYPT);
     $loginUtilisateur = 'loginTest';
-    $query = 'INSERT INTO Utilisateur(login, mdpHash, nom, email, numeroTelephone, nbJetons, dateFinConservation) VALUES(?,?,?,?,?,?,?)';
-    $data = [$loginUtilisateur, $mdpHash, 'test', 'test@example.com', '0146829164', 0, 0];
+    $query = 'INSERT INTO Utilisateur(login, mdpHash, email, numeroTelephone, nbJetons, dateFinConservation) VALUES(?,?,?,?,?,?,?)';
+    $data = [$loginUtilisateur, $mdpHash, 'test@example.com', '0146829164', 0, 0];
     $res = $dao->exec($query, $data);
     if ($res != 1) {
         throw new Exception("Insertion d'un Utilisateur : $res nombre de lignes insérées, Attendu : 1");
@@ -66,16 +66,14 @@ try {
             0 => 'loginTest',
             'mdpHash' => $mdpHash,
             1 => $mdpHash,
-            'nom' => 'test',
-            2 => 'test',
             'email' => 'test@example.com',
-            3 => 'test@example.com',
+            2 => 'test@example.com',
             'numeroTelephone' => '0146829164',
-            4 => '0146829164',
+            3 => '0146829164',
             'nbJetons' => 0,
-            5 => 0,
+            4 => 0,
             'dateFinConservation' => 0,
-            6 => 0
+            5 => 0
         )
     );
     if ($value != $expected) {
