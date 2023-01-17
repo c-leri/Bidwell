@@ -53,7 +53,7 @@ class Enchere
         $this->prixRetrait = $prixRetrait;
         $this->images[0] = $imagePrincipale;
         $this->description = $description;
-        $this->categorie = $categorie;
+        $this->setCategorie($categorie);
         $this->infosContact =$infosContact;
         $this->infosEnvoie =$infosEnvoie;
         $this->localisation = $localisation;
@@ -188,8 +188,14 @@ class Enchere
         $this->derniereEnchere = $participation;
     }
 
+    /**
+     * @throws Exception si la catégorie n'est pas enregistrée dans la bd
+     */
     public function setCategorie(Categorie $categorie): void
     {
+        if (!$categorie->isInDB()) {
+            throw new Exception("Impossible de donner une catégorie non existante dans la bd à une enchère");
+        }
         $this->categorie = $categorie;
     }
 
