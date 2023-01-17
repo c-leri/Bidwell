@@ -49,6 +49,7 @@
                     <select id="categorieSelect" required>
                         <option id="optionanchor"></option>
                     </select>
+                    <p id="errorcategorie"></p>
                     <p> Ajouter une catégorie appropriée à votre annonce lui permettra d'être plus facilement trouvée par
                         les utilisateurs qui pourraient être intéressés. </p>
             </div>

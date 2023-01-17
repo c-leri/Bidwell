@@ -100,12 +100,13 @@ main.creation h2 {
   margin: 0.5rem 0rem 0.5rem 0rem;
 }
 
-/*Messages erreurs inputs fait par clément*/
+/*Messages erreurs inputs*/
 #errorretrait,
 #errorcbenvoie,
 #errorcbcontact,
 #errorlocalisation,
-#errorimgs {
+#errorimgs,
+#errorcategorie {
   background-color: var(--couleur-rouge);
   border-radius: 1rem;
   margin: 0 10rem 0 10rem;
