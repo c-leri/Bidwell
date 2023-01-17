@@ -1,4 +1,4 @@
-1|victex|Carte Pokémon Mewtwo XY Évolutions|1676622398|60|10||1_1.webp|Carte Pokémon rare de l'extension XY Évolutions|Cartes pokémon|true|true|1739780798
-2|rrmargaux|Timbre Louis Pasteur|1676901481|15|2||2_1.webp|Timbre d'Andorre à l'effigie de Louise Pasteur|Timbres|true|true|1739780798
-3|alexv|Playmobil Révolution Grecque|1686491881|12|5||3_1.webp|Boîte de jouets Playmobils sur le thème des héros de la révolution grecque|Playmobil|true|true|1739780798
-4|flmich|Alpine Renault A310 VE|1678726681|60000|20000||4_1.webp|Voiture de collection de la marque Alpine, modèle A310 VE|Voitures|true|true|1739780798
+1|victex|Carte Pokémon Mewtwo XY Évolutions|1676622398|60|10||1_1.webp|Carte Pokémon rare de l'extension XY Évolutions|Cartes pokémon|38000|true|true|1739780798
+2|rrmargaux|Timbre Louis Pasteur|1676901481|15|2||2_1.webp|Timbre d'Andorre à l'effigie de Louise Pasteur|Timbres|64400|true|true|1739780798
+3|alexv|Playmobil Révolution Grecque|1686491881|12|5||3_1.webp|Boîte de jouets Playmobils sur le thème des héros de la révolution grecque|Playmobil|13000|true|true|1739780798
+4|flmich|Alpine Renault A310 VE|1678726681|60000|20000||4_1.webp|Voiture de collection de la marque Alpine, modèle A310 VE|Voitures|54100|true|true|1739780799
