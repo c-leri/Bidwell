@@ -13,7 +13,4 @@ $myUtilisateur=Utilisateur::read($login);
 //On lui rajoute ses jetons.
 $myUtilisateur->addJetons($_GET['valeur']);
 $myUtilisateur->update();
-
-$view = new View();
-
-$view->display("shopjetons.view.php");
+echo $myUtilisateur->getNbJetons();
