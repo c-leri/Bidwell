@@ -1,7 +1,6 @@
 CREATE TABLE Utilisateur (
      login TEXT PRIMARY KEY,
      mdpHash TEXT NOT NULL,
-     nom TEXT NOT NULL,
      email TEXT NOT NULL,
      numeroTelephone TEXT UNIQUE NOT NULL,
      nbJetons INTEGER NOT NULL,
