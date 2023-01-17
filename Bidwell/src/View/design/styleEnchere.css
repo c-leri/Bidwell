@@ -3,7 +3,7 @@
     --circle-border-width: 3px;
 }
 
-
+/* container */
 .container {
     margin: auto;
     width: 100%;
@@ -16,6 +16,7 @@
     position: relative;
 }
 
+/* container en flex colonne*/
 .flex-col {
     display: flex;
     flex-direction: column;
@@ -27,6 +28,7 @@
     width: 450px;
 }
 
+/* pour la partie enchere */
 .circle-container {
     width: var(--dot-diameter);
     height: var(--dot-diameter);
@@ -71,6 +73,7 @@
     padding: 0 1rem 0 1rem;
 }
 
+/* bouton de l'enchere */
 #encherebutton { 
     position: absolute;
     top: 4rem;

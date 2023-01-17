@@ -1,3 +1,4 @@
+/* Faire en sorte que le fond ne soit pas accessible pendant que le pop p est ouvert*/
 #fond-cookies{
     display: block;
     position: fixed;
@@ -9,7 +10,7 @@
     background-color: var(--couleur-noir30);
 }
 
-
+/* le pop up */
 #pop-up-cookies {
     position: fixed;
     top: 50%;
@@ -19,23 +20,32 @@
     z-index: 2;
     border-radius: 1rem;
     width: 40%;
-    padding: 0.5rem;
+    padding: 1rem;
     box-shadow: 0 0 1rem rgba(0, 0, 0, 0.5);
 }
 
+#pop-up-cookies p{
+    text-align: center;
+}
+
+/* Liste de pop up */
 #pop-up-cookies ul {
     list-style-type: none;
 }
 
 #pop-up-cookies li {
-    text-align: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-content: center;
     margin: 1rem;
 }
 
 #pop-up-cookies input {
-    margin-left: 1rem;
+    margin-right: 1rem;
 }
 
+/* Les boutons*/
 #pop-up-cookies .d-flex {
     display: flex;
     flex-direction: row;
@@ -56,11 +66,8 @@
     margin: 0.2rem;
 }
 
+/* Bouton pas clicable tant que checkbox pas cochée*/
 #pop-up-cookies #valider-cookies:disabled {
     cursor:default;
     background-color: whitesmoke;
-}
-
-#fond-cookies {
-    display: none;
 }

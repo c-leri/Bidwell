@@ -10,6 +10,5 @@ require_once __DIR__.'/../../vendor/autoload.php';
 $view = new View();
 session_start();
 
-//$_SESSION["login"] = "gatou";
 // Charge la vue
 $view->display("main.view.php");
