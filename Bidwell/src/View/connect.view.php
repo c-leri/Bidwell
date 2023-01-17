@@ -59,7 +59,7 @@
                 <h2> Liens utiles </h2>
                 <ul>
                 <li><a href="condition.ctrl.php">Conditions d’utilisation</a></li>
-                <li><a href="#">Cookies</a></li>
+                <li><a href="cookie.ctrl.php">Cookies</a></li>
                 <li><a href="#">Mentions légales</a></li>
                 <li><a href="#">Politique de confidentalité</a></li>
                 </ul>

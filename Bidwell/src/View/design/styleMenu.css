@@ -59,6 +59,7 @@ div.nav-search form {
     justify-content: space-between;
 }
 
+/* input */
 div.nav-search input {
     outline: none;
     border-width: 0;
@@ -70,6 +71,7 @@ div.nav-search form>input {
     background-color: var(--couleur-blanc);
 }
 
+/* button */
 #button-submit {
     background: url(img/search.png) no-repeat;
     background-size: 100%;

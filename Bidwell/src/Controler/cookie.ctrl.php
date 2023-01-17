@@ -11,4 +11,4 @@ $view = new View();
 session_start();
 
 // Charge la vue
-$view->display("main.view.php");
+$view->display("cookie.view.php");

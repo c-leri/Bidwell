@@ -26,6 +26,7 @@
   transform: translate(-50%, -50%);
 }
 
+/* global au main */
 main.creation {
   width: 80%;
   margin-left: auto;
@@ -33,6 +34,7 @@ main.creation {
   color: var(--couleur-blanc);
 }
 
+/* div principales */
 main.creation div.nom,
 main.creation div.categorie,
 main.creation div.base,
@@ -61,6 +63,7 @@ hr {
   border: none;
 }
 
+/* Les inputs */
 main.creation input[type=checkbox] {
   width: 1rem;
   height: 1rem;
@@ -75,6 +78,9 @@ main.creation textarea{
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 1rem;
+  border-radius: 0.5rem;
+  border: 0.1rem solid var(--couleur-noir);
+  padding: 0.2rem;
 }
 
 main.creation textarea{
@@ -105,6 +111,7 @@ main.creation h2 {
   margin: 0 10rem 0 10rem;
 }
 
+/* Les boutons */
 main.creation button[type=submit] {
   text-decoration: none;
   color: var(--couleur-noir);
@@ -131,6 +138,7 @@ main.creation button.btnSuppr {
   background-color:rgba(0, 0, 0, 0);
 }
 
+/* texte indiquant les numeros d'images*/
 main.creation .numImg {
   color: var(--couleur-noir);
 }

@@ -55,7 +55,7 @@
 
             <div class="description">
                 <h2> Description de l'annonce </h2>
-                <textarea name="descr" id="description" cols="50" rows="4"> Insérez une description (minimum 50 caractères) </textarea>
+                <textarea name="descr" id="description" cols="50" rows="4" placeholder="Insérez une description (minimum 50 caractères) "></textarea>
                 <p> Une description complète et détailée de votre bien sera perçue comme de plus grande qualité par les
                     autres utilisateurs. Donnez envie d'acheter votre article et mettez en avant ses informations
                     importantes.</p>

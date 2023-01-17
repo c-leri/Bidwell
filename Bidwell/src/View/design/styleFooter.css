@@ -1,3 +1,11 @@
+/* footer position*/
+footer {
+    min-height: 0;
+    width: 100%;
+    background-color: var(--couleur-noir80);
+}
+
+/* container footer*/
 footer>div {
     /*background-color: var(--couleur-noir);*/
     display: flex;
@@ -11,11 +19,13 @@ footer>div>a {
     align-self: center;
 }
 
+/* image */
 footer>div>a img {
     display: block;
     width: 10rem;
 }
 
+/* liste */
 footer ul {
     list-style-type: none;
     margin: 0.2rem;
@@ -26,6 +36,7 @@ footer ul {
 
 }
 
+/* lien et titre*/
 footer a,
 footer h1 {
     text-decoration: none;
@@ -33,14 +44,9 @@ footer h1 {
     margin: 0.2rem 0.5rem 0.2rem 0.4rem;
 }
 
+/* titre */
 footer h1 {
     font-size: 1.5rem;
-}
-
-footer {
-    min-height: 0;
-    width: 100%;
-    background-color: var(--couleur-noir80);
 }
 
 footer p {
