@@ -17,7 +17,7 @@
 
     
     <div class="temps">
-            <p id="dateTitle"><?=$dateTitle?></p>
+            <p id="dateTitle"><?=$dateTitle?></p>   
             <p id="temps"><?= $tempsRestant ?></p>
         </div>
 

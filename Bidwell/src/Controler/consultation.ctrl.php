@@ -2,6 +2,7 @@
 // Inclusion du framework
 use Bidwell\Framework\View;
 use Bidwell\Model\Enchere;
+use Symfony\Component\Routing\Loader\Configurator\Traits\PrefixTrait;
 
 require_once __DIR__.'/../../vendor/autoload.php';
 
@@ -26,19 +27,28 @@ if ($id == null) {
     $prixfin = $enchere->getPrixRetrait();
 
     $maintenant = new DateTime();
-    if ($enchere->getDateDebut() <= $maintenant) {
-        $prixact = $enchere->getPrixCourant();
-        $tempsRes = $maintenant->diff($enchere->getInstantFin());
-        $dateTitle = "L'enchère se terminera dans ";
-        $date = $tempsRes->format("%H:%I:%S");
-    } else {
-        
+    
+    if ($enchere->getDateDebut() > $maintenant) {
+
         $tempsRes = $maintenant->diff($enchere->getDateDebut());
         $prixact = $prixdep;
         $dateTitle = "L'enchère commencera dans ";
-        $date = $tempsRes->format("%H:%I:%S");  
+        $date = $tempsRes->format("%H:%I:%S");
+    } else {
+
+        $prixact = $enchere->getPrixCourant();
+        $fin = $enchere->getInstantFin();
+        if ($fin > $maintenant && $prixact > $prixfin) {
+            $tempsRes = $maintenant->diff($fin);
+            $dateTitle = "L'enchère se terminera dans ";
+            $date = $tempsRes->format("%H:%I:%S");
+        } else {
+
+            $prixact = $prixfin;
+            $dateTitle = "L'enchère est terminée";
+            $date = "";
+        }
     }
-    
 
     // Calcul du nombre à envoyer à l'affichage pour la barre d'enchère
     // Vous pouvez redéfinir prixact en une valeur comprise netre prixfin et prixdep pour tester

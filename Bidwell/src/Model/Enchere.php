@@ -280,8 +280,8 @@ class Enchere
      */
     public function getInstantFin(): DateTime
     {
-        $instantFin = $this->dateDebut;
-        $instantFin->add(DateInterval::createFromDateString('1 hour'));
+        $instantFin = clone $this->getDateDebut();
+        $instantFin->modify("+1 minutes");
         return $instantFin;
     }  
 

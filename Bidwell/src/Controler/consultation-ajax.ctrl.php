@@ -14,8 +14,8 @@ $pourcent = (1 - ($prixact - $prixfin) / ($prixdep - $prixfin) ) * 74;
 $affichage = round($pourcent, 1, PHP_ROUND_HALF_DOWN);
 
 $maintenant = new DateTime();
-$tempsRes =  $enchere->getInstantFin()->diff($maintenant);
-$date = $tempsRes->format("%H:%I:%S");
+$tempsRes = $enchere->getInstantFin()->diff($maintenant);
+$date = $tempsRes->format("%h:%i:%s");
 
 $str = '';
 

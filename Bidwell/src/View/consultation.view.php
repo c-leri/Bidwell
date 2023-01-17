@@ -57,6 +57,7 @@
                 <ul>
                     <li> <?= $place?> </li>
                     <li> <?= $dist?> </li>
+                    <li> <?= $localisation ?></li>
                     <li>Le paiement sera réalisé par PayPal</li>
                 </ul>
             </div>
