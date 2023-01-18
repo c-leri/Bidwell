@@ -23,32 +23,32 @@
     </header>
     <main class="Apropos">
         <article>
-            <img src="../View/design/img/default_image.png" alt="Antoine">
+            <img src="../View/design/img/Antoine.jpg" alt="Antoine">
             <h1>Antoine Vuillet</h1>
             <p>Responsable qualité</p>
         </article>
         <article>
-            <img src="../View/design/img/default_image.png" alt="Célestin">
+            <img src="../View/design/img/Célestin.png" alt="Célestin">
             <h1>Célestin Bouchet</h1>
             <p>Responsable backend</p>
         </article>
         <article>
-            <img src="../View/design/img/default_image.png" alt="Clément">
+            <img src="../View/design/img/Clément.png" alt="Clément">
             <h1>Clément Mazet</h1>
             <p>Responsable tests</p>
         </article>
         <article>
-            <img src="../View/design/img/default_image.png" alt="Gatien">
+            <img src="../View/design/img/Gatien.jpg" alt="Gatien">
             <h1>Gatien Caillet</h1>
             <p>Responsable frontend</p>
         </article>
         <article>
-            <img src="../View/design/img/default_image.png" alt="Hippolyte">
+            <img src="../View/design/img/Hippolyte.png" alt="Hippolyte">
             <h1>Hippolyte Chauvin</h1>
             <p>Responsable serveur</p>
         </article>
         <article>
-            <img src="../View/design/img/default_image.png" alt="Paul">
+            <img src="../View/design/img/Paul.png" alt="Paul">
             <h1>Paul Sode</h1>
             <p>Chef de projet</p>
         </article>
