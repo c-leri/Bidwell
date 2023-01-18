@@ -66,7 +66,7 @@ if ($id == null) {
     $images = $enchere->getImages();  
     $createur = $enchere->getCreateur();
 
-    $autorisations = explode(",", $enchere->getInfosContact());
+    $autorisations = $enchere->getInfosContact();
     if ($autorisations[0] == "true"){
         $mail = $enchere->getCreateur()->getEmail();
     } else {
@@ -81,7 +81,7 @@ if ($id == null) {
     
 
     
-    $informations = explode(",", $enchere->getInfosEnvoie());
+    $informations = $enchere->getInfosEnvoi();
     if ($informations[0] == "true"){
        
         $place = "Le créateur de l'enchère est prêt à remettre le bien en main propre";
@@ -96,7 +96,7 @@ if ($id == null) {
         $dist = "Le créateur de l'enchère n'est PAS prêt à envoyer le bien par colis";
     }
 
-    $localisation = $enchere->getLocalisation();
+    $codePostal = $enchere->getCodePostal();
 
 
 }
@@ -131,7 +131,7 @@ $view->assign('tel', $tel);
 $view->assign('place', $place);
 $view->assign('dist', $dist);
 
-$view->assign('localisation', $localisation);
+$view->assign('localisation', $codePostal);
 $view->assign('message', $message);
 
 
