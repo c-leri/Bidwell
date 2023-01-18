@@ -10,7 +10,7 @@ $prixRetrait = $_GET['prixRetrait'];
 $prixMax = $_GET['prixHaut'];
 $prixact = $prixMax;
 
-$pourcent = ((1 - ($prixact - $prixfin) / ($prixdep - $prixfin) ) * 74);
+$pourcent = ($prixMax > $prixRetrait) ? ((1 - ($prixact - $prixRetrait) / ($prixMax - $prixRetrait) ) * 74) : 74;
 $affichage = round($pourcent, 2, PHP_ROUND_HALF_DOWN);
 
 $maintenant = new DateTime();

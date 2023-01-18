@@ -26,18 +26,6 @@
         ?>
     </header>
     <main class="pagePrincipale">
-
-
-        <div id="slider">
-            <a href="#"><img src="../View/design/img/default_image.png" alt="Besoin d'aide" id="slide" style="background-repeat: repeat"></a>
-            <div id="precedent" onclick="ChangeSlide(-1)">
-                < </div>
-                    <div id="suivant" onclick="ChangeSlide(1)">></div>
-            </div>
-
-            <hr>
-            <script src="../JS/slider.js"></script>
-        </div>
         <h2>Nouvelles enchères</h2>
         <div class="ventesPopulaires" id="new">
 
