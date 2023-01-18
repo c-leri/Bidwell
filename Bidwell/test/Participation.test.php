@@ -18,6 +18,8 @@ try {
     $utilisateur->create();
     $categorie = new Categorie('Nourriture');
     $categorie->create();
+    $infosContact = array(false,true);
+    $infosEnvoi = array(true,true);
     $enchere = new Enchere(
         $utilisateur,
         "Saucisson",
@@ -27,9 +29,9 @@ try {
         "saucisson.png",
         "saucisson.txt",
         $categorie,
-        'false,true',
-        'true,true',
-        '85000'
+        $infosContact,
+        $infosEnvoi,
+        85000
     );
     $enchere->create();
 

@@ -78,6 +78,22 @@ function validateCategories(){
         return true;
     }
 }
+function validateDescription(){
+  const errordescription = document.getElementById("errordescription"),
+  description = document.getElementById("description");
+  if(description.value.length<50){
+    errordescription.innerHTML = "Veuillez écrire au minimum 50 caractères ("+description.value.length+" actuellement)";
+    nom.scrollIntoView();
+    return false;
+  }else if(description.value.length>1000){
+    errordescription.innerHTML = "Veuillez écrire au maximum 1000 caractères ("+description.value.length+" actuellement)";
+    nom.scrollIntoView();
+    return false;
+  }else{
+    errordescription.innerHTML = "";
+    return true;
+  }
+}
 function validatePrices(){
   const prixretrait = document.getElementById("prixretrait"),
 errorretrait = document.getElementById("errorretrait"),
@@ -195,8 +211,9 @@ function validateInfos(event){
   let informationsEnvoieCheckBoxes = validateCheckBoxes("cbcolis","cbdirect","errorcbenvoie");
   let informationsContactCheckBoxes = validateCheckBoxes("cbemail","cbtel","errorcbcontact");
   let localisation = validateLocalisation();
-  var images = false;//Retourne array avec les urls des images et booleen a la fin qui indique la reussite ou non
+  var images = false;
   let categorie = validateCategories();
+  let description = validateDescription()
   const errorImgs= document.getElementById("errorimgs"),
   select = document.getElementById("categorieSelect");//Ancre pour remonter dans la page en cas d'erreur
 
@@ -238,9 +255,8 @@ function validateInfos(event){
   console.log(localisation);
   console.log(informationsContactCheckBoxes);
       */
-  let ok =categorie && images && prix &&  informationsEnvoieCheckBoxes && localisation && informationsContactCheckBoxes;
+  let ok =categorie && description && images && prix &&  informationsEnvoieCheckBoxes && localisation && informationsContactCheckBoxes;
   if(ok){
-    console.log("forme valide");
     //les infos remplies sont valides : Création de l'enchère
     //première étape : récupérer toutes les données de formes et les envoyer a un controler php qui s'occupera de créer concretement l'enchere en base
     //deuxième étape : renvoyer l'utilisateur sur la page de consultation de son enchère créé
@@ -249,27 +265,23 @@ function validateInfos(event){
     prixretrait = document.getElementById("prixretrait").value;
     categorie = document.getElementById("categorieSelect").value;    
     description = document.getElementById("description").value;
-    infosEnvoie = document.getElementById("cbcolis").checked+","+document.getElementById("cbdirect").checked;
+    infosEnvoi = document.getElementById("cbcolis").checked+","+document.getElementById("cbdirect").checked;
     infosContact = document.getElementById("cbemail").checked+","+document.getElementById("cbtel").checked;
-    localisation = document.getElementById("localisationInput").value;
+    codePostal = document.getElementById("localisationInput").value.replace(/\D/g,"");
     //Envoie php
     let requete = new XMLHttpRequest();
     requete.open("POST", "creationPart3.ctrl.php", true);
     requete.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     requete.onload = function() {
-      console.log("rep : "+this.responseText);
-      console.log(this.responseText);
         const rep = JSON.parse(this.responseText);
-        
         if(rep.sucess){
            self.location = "main.ctrl.php";
         }
     }
     //Envoie la requête au serveur avec en paramètres les valeurs des inputs
-    requete.send("nom="+nom+"&prixbase="+prixbase+"&prixretrait="+prixretrait+"&imgs="+urls+"&categorie="+categorie+"&description="+description+"&infosEnvoie="+infosEnvoie+"&infosContact="+infosContact+"&localisation="+localisation);
+    requete.send("nom="+nom+"&prixbase="+prixbase+"&prixretrait="+prixretrait+"&imgs="+urls+"&categorie="+categorie+"&description="+description+"&infosEnvoi="+infosEnvoi+"&infosContact="+infosContact+"&codePostal="+codePostal);
     return true;
   }else{
-    console.log("nope form pas valide");
     return false;
   }
 }
