@@ -2,9 +2,6 @@
 // Inclusion du framework
 use Bidwell\Framework\View;
 use Bidwell\Model\Enchere;
-use Bidwell\Model\Participation;
-use Bidwell\Model\Utilisateur;
-use Symfony\Component\Routing\Loader\Configurator\Traits\PrefixTrait;
 
 require_once __DIR__.'/../../vendor/autoload.php';
 
@@ -118,6 +115,7 @@ $view->assign('dateTitle', $dateTitle);
 $view->assign('affichage', $affichage);
 
 $view->assign('description',  $description);
+$view->assign('addresseImage', Enchere::ADRESSE_IMAGES);
 $view->assign('images', $images);
 
 $view->assign('createur', $createur);

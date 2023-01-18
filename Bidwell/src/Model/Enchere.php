@@ -17,7 +17,7 @@ class Enchere
     public const DUREE = 3600;
     public const TAUX_AUGMENTATION = 1.05;
 
-    private const ADRESSE_IMAGES = '../../data/img/';
+    public const ADRESSE_IMAGES = '../../data/img/';
     private const TEMPS_CONSERVATION = '5 years'; // temps de conservation des données dans la bd
 
     // Attributs
