@@ -219,50 +219,41 @@ function validateInfos(event){
   const errorImgs= document.getElementById("errorimgs"),
   select = document.getElementById("categorieSelect");//Ancre pour remonter dans la page en cas d'erreur
 
-  // Create form data
-  var files = new FormData();
-
-  let imgs;
-
-  if(tmp_files.size!=0){
-    
-    for (let i = 0; i < tmp_files.size ; i++) {
-      var file = tmp_files.get(Array.from(tmp_files.keys())[i]);
-      files.append('file'+i,file, (Date.now()*(Math.floor(Math.random() * 7)+1))+file["name"].replace(/[^0-9a-zA-Z.]/g, ''));
-
-    }
-      //Vérifie que les images upload sont correctes
-    let requete = new XMLHttpRequest();
-    requete.open("POST", "upload.ctrl.php", false);
-    requete.onload = function() {
-    const rep = JSON.parse(this.responseText);
-      if (rep.success) {
-        //Recup tableau urls image
-        imgs = rep.imgs;
-        images = true;
-      } else {
-        errorImgs.innerHTML = rep.errormsg;
-        select.scrollIntoView();
-        images = false;
-      }
-    }
-    requete.send(files);
-  }else{
-    //Aucune image upload: on le signale à l'utilisateur
-    errorImgs.innerHTML = "Veuillez ajouter au moins une image";
-    select.scrollIntoView();
-    images = false;
-  }
- /*
-  console.log(images);
-  console.log(prix);
-  console.log(informationsContactCheckBoxes);
-  console.log(localisation);
-  console.log(informationsContactCheckBoxes);
-      */
-  let ok =categorie && description && images && prix &&  informationsEnvoieCheckBoxes && localisation && informationsContactCheckBoxes;
+  
+  let ok =categorie && description  && prix &&  informationsEnvoieCheckBoxes && localisation && informationsContactCheckBoxes;
   if(ok){
-    //les infos remplies sont valides : Création de l'enchère
+    //Partie upload d'image, à faire en dernier
+    var files = new FormData();
+    let imgs;
+    if(tmp_files.size!=0){
+      for (let i = 0; i < tmp_files.size ; i++) {
+        var file = tmp_files.get(Array.from(tmp_files.keys())[i]);
+        files.append('file'+i,file, (Date.now()*(Math.floor(Math.random() * 7)+1))+file["name"].replace(/[^0-9a-zA-Z.]/g, ''));
+      }
+        //Vérifie que les images upload sont correctes
+      let requete = new XMLHttpRequest();
+      requete.open("POST", "upload.ctrl.php", false);
+      requete.onload = function() {
+      const rep = JSON.parse(this.responseText);
+        if (rep.success) {
+          //Recup tableau urls image
+          imgs = rep.imgs;
+          images = true;
+        } else {
+          errorImgs.innerHTML = rep.errormsg;
+          select.scrollIntoView();
+          images = false;
+        }
+      }
+      requete.send(files);
+    }else{
+      //Aucune image upload: on le signale à l'utilisateur
+      errorImgs.innerHTML = "Veuillez ajouter au moins une image";
+      select.scrollIntoView();
+      images = false;
+    }
+    if(images){
+//les infos remplies sont valides : Création de l'enchère
     //première étape : récupérer toutes les données de formes et les envoyer a un controler php qui s'occupera de créer concretement l'enchere en base
     //deuxième étape : renvoyer l'utilisateur sur la page de consultation de son enchère créé
     let nom = document.getElementById("nom").value,
@@ -284,8 +275,12 @@ function validateInfos(event){
         }
     }
     //Envoie la requête au serveur avec en paramètres les valeurs des inputs
-    requete.send("nom="+nom+"&prixbase="+prixbase+"&prixretrait="+prixretrait+"&imgs="+urls+"&categorie="+categorie+"&description="+description+"&infosEnvoi="+infosEnvoi+"&infosContact="+infosContact+"&codePostal="+codePostal);
+    requete.send("nom="+nom+"&prixbase="+prixbase+"&prixretrait="+prixretrait+"&imgs="+imgs+"&categorie="+categorie+"&description="+description+"&infosEnvoi="+infosEnvoi+"&infosContact="+infosContact+"&codePostal="+codePostal);
     return true;
+    }else{
+      return false;
+    }
+    
   }else{
     return false;
   }

@@ -26,7 +26,6 @@
         ?>
     </header>
     <main class="pagePrincipale">
-        </div>
         <h2>Nouvelles enchères</h2>
         <div class="annoncesCarre" id="new">
 
