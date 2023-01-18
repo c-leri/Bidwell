@@ -14,17 +14,15 @@ window.onload = function () {
 }
 
 function showItems() {
-
-
     //Récupère les informations des éléments de tri/filtre/type de la page
 
-//Tri : Quel type de tri est appliqué (par nom, date, prix, ...)
+    //Tri : Quel type de tri est appliqué (par nom, date, prix, ...)
     let tri = document.getElementById("tri").value;
 
     //Type : Quel type d'élément est à afficher (enchères ou utilisateur)
     let type = document.querySelector('input[name="typeSelected"]:checked').value;
 
-//Catégories : Quelle(s) catégorie(s) a(ont) été sélectionnée(s) (De 0 à n catégories)
+    //Catégories : Quelle(s) catégorie(s) a(ont) été sélectionnée(s) (De 0 à n catégories)
     let categories = [];
     if (document.querySelectorAll('#checkboxes input:checked').length > 0){
         document.querySelectorAll('#checkboxes input:checked').forEach((element) => {
@@ -92,7 +90,6 @@ function changePage(numPage) {
 //Une catégorie peut être entrée en paramètre afin de permettre un tri dès le début (par exemple lorsqu'on clique sur une catégorie sur la page main)
 //une fois les catégories mises à jour, affiche les enchères
 function initPage(categorie){
-
     const xhttp = new XMLHttpRequest();
     xhttp.onload = function() {
         document.getElementsByClassName("smallContainer")[0].innerHTML = this.responseText;
@@ -101,14 +98,12 @@ function initPage(categorie){
 
     xhttp.open("GET", "../Ajax/recherche-aside.ajax.php?categories=" + categorie);
     xhttp.send();
-
-
-    
 }
 
 
 function showCategory(numero){
-
-    let list = document.getElementsByClassName('categoryDropdown');
-    list[numero].lastChild.classList.toggle("active");
+    let categorieFilles = document.getElementsByClassName('categoryDropdown')[numero].children;
+    for (let i = 0; i < categorieFilles.length; i++) {
+        categorieFilles[i].classList.toggle('active');
+    }
 }

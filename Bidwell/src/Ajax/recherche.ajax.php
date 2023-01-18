@@ -49,39 +49,49 @@ $str = "";
 
 //Pour chaque ligne de résultat, prépare son affichage en l'ajoutant à la variable renvoyée
 if ($type == 'Enchere') {
-    for ($i = 0; $i < sizeof($result); $i++) {
 
-        $str .= "<article>";
-        $str .= '<a href="consultation.ctrl.php?id='. $result[$i]->getId() .'">';
-        $str .= '<img src="'.$result[$i]->getImageURL(0).'" alt="">';
-        $str .= "</a>";
-        $str .='<div class="left">';
-        $str .= "<h1>" . $result[$i]->getLibelle() . "</h1>";
-        $str .= "<h3>". $result[$i]->getCategorie()->getLibelle() . "</h3>";
-        $str .= "<ul>";
-        $str .=    "<li>" . $result[$i]->getDateDebut()->format("Y-m-d") . "</li>";
-        $str .=    "<li>" . $result[$i]->getPrixDepart() . "€</li>";
-        $str .=    "<li>" . $result[$i]->getCreateur()->getLogin(). "</li>";
-        $str .= "</ul>";
-        $str .="</div>";
-        $str .='<p class="description">' . $result[$i]->getDescription() . "</p>";
-        $str .= "</article>";
-        }
-        $str .= '<div class="numPage">';
-        $str .= '<button id="previous" value="' . max(1, $page-1) . '" onclick="changePage(' . max(1, $page-1) .')"><</button>';
-        $str .=        '<button id="first" value="' . max(1, $page-2) . '" onclick="changePage(' . max(1, $page-2) .')">' . max(1, $page-2) . '</button>';
-        $str .=        '<button id="second" value="' . max(2, $page-1) . '" onclick="changePage(' . max(2, $page-1) . ')">' . max(2, $page-1) . '</button>';
-        $str .=        '<button id="third" value="' . max(3, $page) . '" onclick="changePage(' . max(3, $page) . ')">' . max(3, $page) . '</button>';
-        $str .=        '<button id="fourth" value="' . max(4, $page+1) . '" onclick="changePage(' . max(4, $page+1) . ')">' . max(4, $page+1) . '</button>';
-        $str .=        '<button id="fifth" value="'  . max(5, $page+2) . '" onclick="changePage(' . max(5, $page+2) . ')">'  . max(5, $page+2) . '</button>';
-        $str .=        '<button id="next" value="'. max(1, $page+1).'" onclick="changePage(' . max(1, $page+1) . ')">></button>';
-        $str .= '</div>';
-} else {
     for ($i = 0; $i < sizeof($result); $i++) {
-        $str .= "<article>";
-        $str .= "<h1>" . $result[$i]->getLogin() . "</h1>";
-        $str .= "</article>";
+        $str .= "
+            <article>
+                <a href='consultation.ctrl.php?id={$result[$i]->getId()}'>
+                    <img src='{$result[$i]->getImageURL(0)}' alt='{$result[$i]->getLibelle()}'>
+                </a>
+                <div class='left'>
+                    <h1>{$result[$i]->getLibelle()}</h1>
+                    <h3>{$result[$i]->getCategorie()->getLibelle()}</h3>
+                    <ul>
+                        <li>{$result[$i]->getDateDebut()->format('Y-m-d')}</li>
+                        <li>{$result[$i]->getPrixDepart()}€</li>
+                        <li>{$result[$i]->getCreateur()->getLogin()}</li>
+                    </ul>
+                </div>
+                <p class='description'>{$result[$i]->getDescription()}</p>
+            </article>
+        ";
     }
+
+    $str .= "
+        <div class='numPage'>
+            <button id='previous' value='".max(1, $page-1)."' onclick='changePage(".max(1, $page-1).")'><</button>
+            <button id='first' value='".max(1, $page-2)."' onclick='changePage(".max(1, $page-2).")'>".max(1, $page-2)."</button>
+            <button id='second' value='".max(2, $page-1)."' onclick='changePage(".max(2, $page-1).")'>".max(2, $page-1)."</button>
+            <button id='third' value='".max(3, $page)."' onclick='changePage(".max(3, $page).")'>".max(3, $page)."</button>
+            <button id='fourth' value='".max(4, $page+1)."' onclick='changePage(".max(4, $page+1).")'>".max(4, $page+1)."</button>
+            <button id='fifth' value='".max(5, $page+2)."' onclick='changePage(".max(5, $page+2).")'>".max(5, $page+2)."</button>
+            <button id='next' value='".max(1, $page+1)."' onclick='changePage(".max(1, $page+1).")'>></button>
+        </div>
+    ";
+
+} else {
+
+    for ($i = 0; $i < sizeof($result); $i++) {
+        $str .= "
+            <article>
+                <h1>{$result[$i]->getLogin()}</h1>
+            </article>
+        ";
+    }
+
 }
 
 //Renvoie le code à afficher

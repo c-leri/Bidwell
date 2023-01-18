@@ -25,20 +25,20 @@
         <div>
             <p > Prix de retrait </p>
             <div>
-            <p id="min"><?= $prixRetrait ?></p><p>€</p>
+            <p id="min"><?= $prixRetrait ?>€</p>
             </div>
         </div>
         <div>
             <p>Prix Actuel</p>
             <div>
-            <p id="act"><?= $prixActuel ?></p><p>€</p>
+            <p id="act"><?= $prixActuel ?>€</p>
             </div>
         </div>
         <div>
 
             <p> Prix de départ </p>
             <div>
-            <p id="max"><?= $prixDepart ?></p><p>€</p>
+            <p id="max"><?= $prixDepart ?>€</p>
             </div>
         </div>
     </div>
