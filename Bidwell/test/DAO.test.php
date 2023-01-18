@@ -44,7 +44,7 @@ try {
 
     // Insertion d'une Enchère
     $query = 'INSERT INTO Enchere(loginCreateur, libelle, dateDebut, prixDepart, prixRetrait, images, description, libelleCategorie, dateFinConservation, codePostal, infoRemiseDirect,infoEnvoiColis, infoEmail,infoTel) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)';
-    $data = ['loginTest', 'testInsert', 20, 100, 0, 'testInsert.png', 'testInsert.txt', 'filleTest', 0, 38100, true, false , false, false ];
+    $data = ['loginTest', 'testInsert', 20, 100, 0, 'testInsert.png', 'testInsert.txt', 'filleTest', 0, "38100", true, false , false, false ];
     $res = $dao->exec($query, $data);
     if ($res != 1) {
         throw new Exception("Insertion d'une Enchère : $res nombre de lignes insérées, Attendu : 1");

@@ -34,14 +34,14 @@ class Enchere
     private Categorie $categorie;
     private array $infosContact= array();
     private array $infosEnvoi= array();
-    private int $codePostal;
+    private string $codePostal;
 
     // Constructeurs
 
     /**
      * @throws Exception si la catégorie n'est pas dans la bd
      */
-    public function __construct(Utilisateur $createur, string $libelle, DateTime $dateDebut, float $prixDepart, float $prixRetrait, string $imagePrincipale, string $description, Categorie $categorie, array $infosContact, array $infosEnvoi, int $codePostal)
+    public function __construct(Utilisateur $createur, string $libelle, DateTime $dateDebut, float $prixDepart, float $prixRetrait, string $imagePrincipale, string $description, Categorie $categorie, array $infosContact, array $infosEnvoi, string $codePostal)
     {
         $this->id = -1;
         $this->createur = $createur;
@@ -148,7 +148,7 @@ class Enchere
         return $this->infosContact;
     }
 
-    public function getCodePostal(): int
+    public function getCodePostal(): string
     {
         return $this->codePostal;
     }

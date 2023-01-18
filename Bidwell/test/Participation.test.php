@@ -31,7 +31,7 @@ try {
         $categorie,
         $infosContact,
         $infosEnvoi,
-        85000
+        "85000"
     );
     $enchere->create();
 
