@@ -10,12 +10,12 @@ $prixRetrait = $_GET['prixRetrait'];
 $prixMax = $_GET['prixHaut'];
 $prixact = $prixMax;
 
-$pourcent = (1 - ($prixact - $prixfin) / ($prixdep - $prixfin) ) * 74;
-$affichage = round($pourcent, 1, PHP_ROUND_HALF_DOWN);
+$pourcent = ((1 - ($prixact - $prixfin) / ($prixdep - $prixfin) ) * 74);
+$affichage = round($pourcent, 2, PHP_ROUND_HALF_DOWN);
 
 $maintenant = new DateTime();
-$tempsRes = (int)$maintenant->format('Uv') - (int)$enchere->getInstantFin()->format('Uv');
-
+$tempsRes = $enchere->getInstantFin()->diff($maintenant);
+$date = $tempsRes->format("%h:%i:%s");
 
 $str = '';
 
@@ -36,7 +36,7 @@ $str .= '<button id="encherebutton" onclick="encherir(event)"><span>Enchérir</s
     
 $str .= '<div class="temps">';
 $str .=    '<p> Temps Restant </p>';
-$str .=     '<p id="temps">'. $tempsRes .'</p>';
+$str .=     '<p id="temps">'. $date .'</p>';
 $str .= '</div>';
 
 $str .= '<div class="prix">';

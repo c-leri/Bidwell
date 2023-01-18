@@ -17,7 +17,7 @@ class Enchere
     public const DUREE = 3600;
     public const TAUX_AUGMENTATION = 1.05;
 
-    private const ADRESSE_IMAGES = '../../data/img/';
+    public const ADRESSE_IMAGES = '../../data/img/';
     private const TEMPS_CONSERVATION = '5 years'; // temps de conservation des données dans la bd
 
     // Attributs
@@ -258,17 +258,23 @@ class Enchere
         return $this->prixRetrait + $this->getRatioTempsActuel() * ($this->prixHaut - $this->prixRetrait);
     }
 
+    private function intervalToMilliseconds(DateInterval $interval) : float {
+        return ((($interval->h * 60) + $interval->i) * 60 + $interval->s) * 1000 + $interval->f / 1000;
+    }
+
     /**
      * Calcul le ratio représentant l'avancée temporelle de l'enchère entre le prix haut et le prix de retrait
      */
-    private function getRatioTempsActuel(): int
+    private function getRatioTempsActuel(): float
     {
         $maintenant = new DateTime();
         if ($maintenant > $this->getDateDebut()) {
-            $differenceMaintenantFin = (int) $maintenant->format('Uv') - (int) $this->getInstantFin()->format('Uv');
+            $interval1H = new DateInterval('PT1H');
+            $intervalMaintenantFin = $maintenant->diff($this->getInstantFin());
+            $differenceMaintenantFin = $this->intervalToMilliseconds($intervalMaintenantFin);
             return (isset($this->derniereEnchere))
-                ? $differenceMaintenantFin / ((int) $this->derniereEnchere->getInstantDerniereEnchere()->format('Uv') - (int) $this->getInstantFin()->format('Uv'))
-                : $differenceMaintenantFin / (int) DateInterval::createFromDateString('1 hour')->format('Uv');
+                ? $differenceMaintenantFin / $this->intervalToMilliseconds($this->derniereEnchere->getInstantDerniereEnchere()->diff($this->getInstantFin()))
+                : $differenceMaintenantFin / $this->intervalToMilliseconds($interval1H);
         } else {
             return 1;
         }
@@ -279,8 +285,8 @@ class Enchere
      */
     public function getInstantFin(): DateTime
     {
-        $instantFin = $this->dateDebut;
-        $instantFin->add(DateInterval::createFromDateString('1 hour'));
+        $instantFin = clone $this->getDateDebut();
+        $instantFin->modify("+1 hour");
         return $instantFin;
     }  
 
@@ -371,6 +377,26 @@ class Enchere
         // préparation de la query
         $query = 'SELECT * FROM Enchere WHERE loginCreateur = ?';
         $data = [$createur->getLogin()];
+
+        // récupération de la table de résultat
+        $table = $dao->query($query, $data);
+
+        $out = array();
+        foreach ($table as $row) {
+            $out[] = Enchere::constructFromDB($row);
+        }
+
+        return $out;
+    }
+
+    public static function readFromCreateurString(String $createur): array
+    {
+        // récupératoin du dao
+        $dao = DAO::get();
+
+        // préparation de la query
+        $query = 'SELECT * FROM Enchere WHERE loginCreateur = ?';
+        $data = [$createur];
 
         // récupération de la table de résultat
         $table = $dao->query($query, $data);

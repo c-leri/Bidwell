@@ -81,6 +81,7 @@ function changePage(numPage) {
     const xhttp = new XMLHttpRequest();
     xhttp.onload = function() {
         document.getElementById("annonces").innerHTML = this.responseText;
+        window.scrollTo(0, 0);
     }
     xhttp.open("GET", "recherche-ajax.ctrl.php?categories=" + categories + "&tri=" + tri + "&type=" + type + "&prix=" + prix + "&numPage=" + numPage);
     xhttp.send();

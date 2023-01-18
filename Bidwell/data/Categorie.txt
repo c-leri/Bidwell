@@ -27,7 +27,7 @@ Jouets|NULL
 Modèles miniatures|Jouets
 LEGO|Jouets
 Playmobil|Jouets
-Cartes pokémon|Jouets
+Cartes Pokémon|Jouets
 Billes|Jouets
 Casses-tête|Jouets
 Autres jouets|Jouets

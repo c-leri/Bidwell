@@ -26,7 +26,7 @@
     <main class="consultation">
         <div class="top">
             <div class="presentation">
-                <img src=<?= $images[0]?> alt="mainimage">
+                <img src=<?= $addresseImage . $images[0]?> alt="mainimage">
 
                 <p> <?= $nom ?> </p>
             </div>
@@ -46,7 +46,7 @@
             <div class="images">
                 <?php for ($i = 1; $i < sizeof($images); $i++) {
                     ?>
-                    <img src=<?= $images[$i] ?> alt="logo">
+                    <img src=<?= $addresseImage . $images[$i] ?> alt="logo">
                 <?php } ?>
             </div>
         </div>
@@ -57,6 +57,7 @@
                 <ul>
                     <li> <?= $place?> </li>
                     <li> <?= $dist?> </li>
+                    <li> <?= $localisation ?></li>
                     <li>Le paiement sera réalisé par PayPal</li>
                 </ul>
             </div>

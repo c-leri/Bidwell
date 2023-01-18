@@ -22,19 +22,39 @@ if ($id == null) {
     $nom = $enchere->getLibelle();
 
     $prixdep = $enchere->getPrixDepart();
-    $prixact = $enchere->getPrixCourant();
+
     $prixfin = $enchere->getPrixRetrait();
 
     $maintenant = new DateTime();
-    if ($enchere->getDateDebut() < $maintenant) {
-        $tempsRes = $enchere->getInstantFin()->format('Uv') - $maintenant->format('Uv');
-        $date = new DateTime((string) $tempsRes);
-        $tempsRes = $date->format("g:i:s");
-    } else {
-        $tempsRes = "pas encore commencé";
-        $tempsRes .= $maintenant->format('Uv') - $enchere->getDateDebut()->format('Uv');    
-    }
+
+    $message = '';
     
+    if ($enchere->getDateDebut() > $maintenant) {
+
+        $tempsRes = $maintenant->diff($enchere->getDateDebut());
+        $prixact = $prixdep;
+        $dateTitle = "L'enchère commencera dans ";
+        $date = $tempsRes->format("%h:%i:%s");
+    } else {
+
+        $prixact = round($enchere->getPrixCourant(), 2);
+        $fin = $enchere->getInstantFin();
+        if ($fin > $maintenant && $prixact > $prixfin) {
+            $tempsRes = $maintenant->diff($fin);
+            $dateTitle = "L'enchère se terminera dans ";
+            $date = $tempsRes->format("%h:%i:%s");
+        } else {
+
+            $prixact = $prixfin;
+            $dateTitle = "L'enchère est terminée.";
+            $date = "";
+            if (!empty($enchere->getParticipations()) && end($enchere->getParticipations())->getUtilisateur()->getLogin() == $login){
+                $message = "Vous avez remporté le lot ! Contactez le vendeur pour préparer sa livraison.";
+            } else {
+                $message = "Vous n'avez pas remporté cette enchère.";
+            }
+        }
+    }
 
     // Calcul du nombre à envoyer à l'affichage pour la barre d'enchère
     // Vous pouvez redéfinir prixact en une valeur comprise netre prixfin et prixdep pour tester
@@ -88,14 +108,18 @@ $view = new View();
 
 $view->assign('connected', isset($login));
 
+$view->assign('enchere', $enchere);
+
 $view->assign('nom', $nom);
 $view->assign('prixDepart', $prixdep);
 $view->assign('prixActuel', $prixact);
 $view->assign('prixRetrait', $prixfin);
-$view->assign('tempsRestant', $tempsRes);
+$view->assign('tempsRestant', $date);
+$view->assign('dateTitle', $dateTitle);
 $view->assign('affichage', $affichage);
 
 $view->assign('description',  $description);
+$view->assign('addresseImage', Enchere::ADRESSE_IMAGES);
 $view->assign('images', $images);
 
 $view->assign('createur', $createur);
@@ -108,6 +132,7 @@ $view->assign('place', $place);
 $view->assign('dist', $dist);
 
 $view->assign('localisation', $localisation);
+$view->assign('message', $message);
 
 
 

@@ -1,18 +1,19 @@
-<?php 
+<?php
 
-use Bidwell\Model\Enchere;
 use Bidwell\Model\Categorie;
+use Bidwell\Model\Enchere;
 use Bidwell\Model\Utilisateur;
 
-require_once __DIR__.'/../../vendor/autoload.php';
+require_once __DIR__ . '/../../vendor/autoload.php';
 
 $reponse = new stdClass();
 session_start();
-
 $user = Utilisateur::read($_SESSION["login"]);
+session_write_close();
+
 $nomAnnonce = $_POST["nom"] ?? '';
 $dateDebut = new DateTime();
-$dateDebut->add(DateInterval::createFromDateString('24 hour'));
+$dateDebut->modify('+1 minutes');
 $prixBase = $_POST["prixbase"] ?? '';
 $prixRetrait = $_POST["prixretrait"] ?? '';
 $imgs = $_POST["imgs"] ?? '';
@@ -33,4 +34,3 @@ $enchere->create();
 $reponse->sucess = 1;
 $json = json_encode($reponse);
 echo $json;
-?>

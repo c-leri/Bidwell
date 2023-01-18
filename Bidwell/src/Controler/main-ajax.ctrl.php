@@ -19,7 +19,7 @@ $str = "";
        
         $str .= "<article>";
         $str .= '<a href="consultation.ctrl.php?id='. $result[$i]->getId() .'">'; //Changer en lien de l'annonce
-        $str .= '<img src="'. $result[$i]->getImage(0).'">'; //Changer en lien de l'image correspondante
+        $str .= '<img src="'. $result[$i]->getImageURL(0).'">'; //Changer en lien de l'image correspondante
         $str .= "</a>";
         $str .= "<h1>" . $result[$i]->getLibelle() . "</h1>";
         $str .= '<div class="variablesEnchere">';

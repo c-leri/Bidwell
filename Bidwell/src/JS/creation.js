@@ -158,7 +158,9 @@ const errorImgs= document.getElementById("errorimgs");
 
 function getFirstFreeSpot(){
   let i =0;
-  while(i<8 && document.getElementById("output"+i).src != "http://localhost:3000/Bidwell/src/View/design/img/default_image.png" && document.getElementById("output"+i).src != "http://localhost:3000/src/View/design/img/default_image.png"){
+  let defaultImageURL = window.location.href.substring(0, window.location.href.lastIndexOf('/'));
+  defaultImageURL = `${defaultImageURL.substring(0, defaultImageURL.lastIndexOf('/'))}/View/design/img/default_image.png`;
+  while(i<8 && document.getElementById("output"+i).src !== defaultImageURL) {
     console.log(i<8 && document.getElementById("output"+i).src);
     console.log("../View/design/img/default_image.png");  
 
@@ -190,7 +192,7 @@ function loadFile(event) {
           tmp_files.set(id+filename,imgInput.files[i]);
           console.log(tmp_files);
           let output = document.getElementById('output' + id);
-          document.getElementById("p"+id).style = "display:none;";
+          document.getElementById(`p${id}`).style = "display:none;";
           compteur++;
           output.src = URL.createObjectURL(event.target.files[i]);
           output.onload = function() {URL.revokeObjectURL(output.src)}
@@ -219,6 +221,9 @@ function validateInfos(event){
 
   // Create form data
   var files = new FormData();
+
+  let imgs;
+
   if(tmp_files.size!=0){
     
     for (let i = 0; i < tmp_files.size ; i++) {
@@ -230,16 +235,16 @@ function validateInfos(event){
     let requete = new XMLHttpRequest();
     requete.open("POST", "upload.ctrl.php", false);
     requete.onload = function() {
-    const rep = JSON.parse(this.responseText);   
-    if(rep.success){
-      //Recup tableau urls image 
-      urls = rep.imgsurls;
-      images = true;
-    }else{
-      errorImgs.innerHTML = rep.errormsg;
-      select.scrollIntoView();
-      images = false;
-    }
+    const rep = JSON.parse(this.responseText);
+      if (rep.success) {
+        //Recup tableau urls image
+        imgs = rep.imgs;
+        images = true;
+      } else {
+        errorImgs.innerHTML = rep.errormsg;
+        select.scrollIntoView();
+        images = false;
+      }
     }
     requete.send(files);
   }else{
