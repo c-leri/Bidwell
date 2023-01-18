@@ -30,11 +30,10 @@ if ($id == null) {
     $message = '';
     
     if ($enchere->getDateDebut() > $maintenant) {
-
         $tempsRes = $maintenant->diff($enchere->getDateDebut());
         $prixact = $prixdep;
         $dateTitle = "L'enchère commencera dans ";
-        $date = $tempsRes->format("%H:%I:%S");
+        $date = $tempsRes->format("%H:%i:%s");
         $button = 'disabled';
     } else {
 
@@ -43,10 +42,9 @@ if ($id == null) {
         if ($fin > $maintenant && $prixact > $prixfin) {
             $tempsRes = $maintenant->diff($fin);
             $dateTitle = "L'enchère se terminera dans ";
-            $date = $tempsRes->format("%h:%i:%s");
+            $date = $tempsRes->format("%H:%i:%s");
             $button = '';
         } else {
-
             $prixact = $prixfin;
             $dateTitle = "L'enchère est terminée.";
             $button = 'disabled';

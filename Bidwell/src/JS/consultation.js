@@ -25,15 +25,16 @@ window.setInterval(function () {
 
   if (date.includes("00:00:00")) {
     location.reload();
+  } else {
+    document.getElementById('temps').innerHTML = `${twoDigits(dates[0])}:${twoDigits(dates[1])}:${twoDigits(dates[2] - 1)}`;
+
+    if (mini < valeur) {
+      document.getElementById('act').innerHTML = valeur.toFixed(2);
+
+      affichage = (74 - ((valeur-mini)/(maxi-mini)) * 74).toFixed(2);
+
+      document.getElementById('circle-container__progress').style.setProperty('stroke-dashoffset', affichage);
+    }
   }
-  if (mini < valeur) {
-    document.getElementById('act').innerHTML = valeur.toFixed(2);
-
-    affichage = (74 - ((valeur-mini)/(maxi-mini)) * 74).toFixed(2);
-
-    document.getElementById('circle-container__progress').setAttribute('style', `stroke-dashoffset:${affichage}`);
-  }
-
-  document.getElementById('temps').innerHTML = `${twoDigits(dates[0])}:${twoDigits(dates[1])}:${twoDigits(dates[2] - 1)}`;
 
 }, 1000);
