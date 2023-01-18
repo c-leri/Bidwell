@@ -6,7 +6,7 @@
         <h1>BidWell</h1>
         <ul>
             <?php if ($connected) : ?>
-            <li><a href="compte.ctrl.php">Paramétrer les cookies</a></li>
+                <li><a href="compte.ctrl.php">Paramétrer les cookies</a></li>
             <?php endif; ?>
             <li><a href="condition.ctrl.php">Conditions d’utilisation</a></li>
             <li><a href="#">Mentions légales</a></li>
@@ -24,14 +24,26 @@
         <h1>Catégories</h1>
         <div>
             <ul>
-                <li><a href="">Art Graphique</a></li>
-                <li><a href="">Art Décoratif</a></li>
-                <li><a href="">Bijoux et montres</a></li>
+                <li><a href="recherche.ctrl.php">
+                        Tous les articles
+                    </a></li>
+                <li><a href="recherche.ctrl.php?categories=Timbres">
+                        Timbres
+                    </a></li>
+                <li><a href="recherche.ctrl.php?categories=Peintures">
+                        Peintures
+                    </a></li>
             </ul>
             <ul>
-                <li><a href="">Livres et manuscrits</a></li>
-                <li><a href="">Mobilier</a></li>
-                <li><a href="">Mode</a></li>
+                <li><a href="recherche.ctrl.php?categories=Bracelets">
+                        Bracelets
+                    </a></li>
+                <li><a href="recherche.ctrl.php?categories=Modèles+Miniatures">
+                        Modèles Miniatures
+                    </a></li>
+                <li><a href="recherche.ctrl.php?categories=Autres">
+                        Autres
+                    </a></li>
             </ul>
         </div>
     </div>

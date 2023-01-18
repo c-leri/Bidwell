@@ -137,7 +137,7 @@ const imgInput=  document.getElementById("imagesInput");
 
 function removeImg(id){
  let output = document.getElementById("output"+id); 
- output.src = "../View/design/img/default_image.png";
+ output.src = "../View/design/img/transparent.png";
  document.getElementById("p"+id).style = "display: block;";
  compteur--;
  //Supprimer de tmp files
@@ -159,7 +159,7 @@ const errorImgs= document.getElementById("errorimgs");
 function getFirstFreeSpot(){
   let i =0;
   let defaultImageURL = window.location.href.substring(0, window.location.href.lastIndexOf('/'));
-  defaultImageURL = `${defaultImageURL.substring(0, defaultImageURL.lastIndexOf('/'))}/View/design/img/default_image.png`;
+  defaultImageURL = `${defaultImageURL.substring(0, defaultImageURL.lastIndexOf('/'))}/View/design/img/transparent.png`;
   while(i<6 && document.getElementById("output"+i).src !== defaultImageURL) {
     i++;
   }
