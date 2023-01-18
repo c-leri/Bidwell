@@ -36,7 +36,6 @@ if ($id == null) {
         $date = $tempsRes->format("%H:%i:%s");
         $button = 'disabled';
     } else {
-
         $prixact = round($enchere->getPrixCourant(), 2);
         $fin = $enchere->getInstantFin();
         if ($fin > $maintenant && $prixact > $prixfin) {
@@ -46,7 +45,7 @@ if ($id == null) {
             $button = '';
         } else {
             $prixact = $prixfin;
-            $dateTitle = "L'enchère est terminée.";
+            $dateTitle = "L'enchère est terminée";
             $button = 'disabled';
             $date = "";
             $participations = $enchere->getParticipations();

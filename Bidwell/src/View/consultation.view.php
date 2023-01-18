@@ -79,9 +79,7 @@
 
     <input type="hidden" id="login" style="display: none;" value="<?= $login ?>" />
 
+    <script type="text/javascript" src="../JS/consultation.js"></script>
 </body>
-
-<script type="text/javascript" src="../JS/consultation.js"></script>
-<script type="text/javascript" src="../JS/websocket.js"></script>
 
 </html>

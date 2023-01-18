@@ -6,17 +6,28 @@ require_once __DIR__.'/../../vendor/autoload.php';
 
 $enchere = Enchere::read($_GET['id']);
 
-$prixRetrait = $_GET['prixRetrait'];
-$prixMax = $_GET['prixHaut'];
-$instantDerniereEnchere = $_GET['instantDerniereEnchere'];
+$prixRetrait = round($enchere->getMontantDerniereEnchere(), 2);
+$prixHaut = round($enchere->getMontantDerniereEnchere() + $enchere->getPrixDepart() * 0.05, 2);
 $prixact = $enchere->getPrixCourant();
 
-$pourcent = ($prixMax > $prixRetrait) ? (74 - (($prixact - $prixRetrait)/($prixMax - $prixRetrait)) * 74) : 0;
+$pourcent = ($prixRetrait < $prixact) ? (74 - (($prixact - $prixRetrait)/($prixHaut - $prixRetrait)) * 74) : 0;
 $affichage = round($pourcent, 2, PHP_ROUND_HALF_DOWN);
 
+$disabled = 'disabled';
+
 $now = new DateTime();
-$tempsRes = $now->diff($enchere->getInstantFin());
-$date = $tempsRes->format("%H:%i:%s");
+
+if ($now < $enchere->getDateDebut()) {
+    $dateTitle = "L'enchère commencera dans";
+    $date = $now->diff($enchere->getDateDebut())->format("%H:%i:%s");
+} else if ($now < $enchere->getInstantFin()) {
+    $disabled = '';
+    $dateTitle = "L'enchère se terminera dans";
+    $date = $now->diff($enchere->getInstantFin())->format("%H:%i:%s");
+} else {
+    $dateTitle = "L'enchère est terminée";
+    $date = '';
+}
 
 echo "
     <svg class='circle-container' viewBox='2 -2 28 36'>
@@ -31,32 +42,36 @@ echo "
         </circle>
     </svg>
 
-    <button id='encherebutton' onclick='encherir(event)'><span>Enchérir</span></button>
+    <button id='encherebutton' onclick='encherir()' $disabled><span>Enchérir</span></button>
 
     
     <div class='temps'>
-        <p id='dateTitle'>L'enchère se terminera dans</p>
+        <p id='dateTitle'>$dateTitle</p>
         <p id='temps'>$date</p>
     </div>
 
     <div class='prix'>
         <div>
             <p>Prix de retrait</p>
+            <div>
             <p id='min'>{$prixRetrait}€</p>
+            </div>
         </div>
-    <div>
-
-    <p>Prix Actuel</p>
-    <p id='act'>{$prixact}€</p>
-
-    <div>
+        <div>
+            <p>Prix Actuel</p>
+            <div>
+            <p id='act'>{$prixact}€</p>
+            </div>
+        </div>
         <div>
             <p>Prix de départ</p>
-            <p id='max'>{$prixMax}€</p>
+            <div>
+            <p id='max'>{$prixHaut}€</p>
+            </div>
         </div>
     </div>
     
-    <input type='hidden' id='instantDerniereEnchere' name='instantDerniereEnchere' value='$instantDerniereEnchere'>
+    <input type='hidden' id='instantDerniereEnchere' name='instantDerniereEnchere' value='{$enchere->getInstantDerniereEnchere()->getTimestamp()}'>
     <input type='hidden' id='instantFin' name='instantFin' value='{$enchere->getInstantFin()->getTimestamp()}'>
     <input type='hidden' id='dateDebut' name='dateDebut' value='{$enchere->getDateDebut()->getTimestamp()}'>
 ";

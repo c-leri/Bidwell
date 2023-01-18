@@ -26,15 +26,12 @@ conn.onmessage = function (e) {
     } else if (message.type === 'login') {
         conn.send(JSON.stringify({type: "login", code: message.code, value: login}));
     } else if (message.type === 'enchere') {
-        console.log(message);
-
         const xhttp = new XMLHttpRequest();
         xhttp.onload = function() {
             document.getElementById("container").innerHTML = this.responseText;
         }
-        xhttp.open("GET", `../Ajax/consultation.ajax.php?id=${message.value.id}&prixRetrait=${message.value.prixRetrait}&prixHaut=${message.value.prixHaut}&instantDerniereEnchere=${message.value.instantDerniereEnchere}`);
+        xhttp.open("GET", `../Ajax/consultation.ajax.php?id=${message.value}`);
         xhttp.send();
-        
     }
 }
 

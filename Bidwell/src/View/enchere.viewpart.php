@@ -13,7 +13,7 @@
             <!-- stroke-dashoffset = la progression de la barre (0 <= x < 75)-->
         </svg>
 
-    <button id="encherebutton" onclick="encherir(event)" <?=$button?>><span>Enchérir</span></button>
+    <button id="encherebutton" onclick="encherir()" <?=$button?>><span>Enchérir</span></button>
 
     
     <div class="temps">
@@ -23,7 +23,7 @@
 
     <div class="prix">
         <div>
-            <p > Prix de retrait </p>
+            <p>Prix de retrait</p>
             <div>
             <p id="min"><?= $prixRetrait ?>€</p>
             </div>
@@ -35,8 +35,7 @@
             </div>
         </div>
         <div>
-
-            <p> Prix de départ </p>
+            <p>Prix de départ</p>
             <div>
             <p id="max"><?= $prixDepart ?>€</p>
             </div>
