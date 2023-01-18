@@ -384,6 +384,26 @@ class Enchere
         return $out;
     }
 
+    public static function readFromCreateurString(String $createur): array
+    {
+        // récupératoin du dao
+        $dao = DAO::get();
+
+        // préparation de la query
+        $query = 'SELECT * FROM Enchere WHERE loginCreateur = ?';
+        $data = [$createur];
+
+        // récupération de la table de résultat
+        $table = $dao->query($query, $data);
+
+        $out = array();
+        foreach ($table as $row) {
+            $out[] = Enchere::constructFromDB($row);
+        }
+
+        return $out;
+    }
+
     public static function readFromCategorie(Categorie $categorie): array
     {
         // récupératoin du dao

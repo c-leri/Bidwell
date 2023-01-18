@@ -25,7 +25,7 @@
     <?php include isset($_SESSION['login']) ? __DIR__ . '/menu_connecte.viewpart.php' : __DIR__ . '/menu.viewpart.php'; ?>
     </header>
     <main>
-        <h1>Compte de <?= $login ?></h1>
+        <h1 id="login"><?= $login ?></h1>
         <hr />
         <h2>Données personnelles</h2>
         <ul>
@@ -43,10 +43,12 @@
         </ul>
         <hr />
         <h2>Vos Enchères</h2>
-        <div class="vosEncheres">
+        <div class="vosEncheres" id="vosEncheres">
         </div>
     </main>
     <footer>
         <?php include(__DIR__ . '/footer.viewpart.php') ?>
     </footer>
 </body>
+
+<script type="text/javascript" src="../JS/compte.js"></script>
