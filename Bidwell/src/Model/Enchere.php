@@ -281,7 +281,7 @@ class Enchere
     public function getInstantFin(): DateTime
     {
         $instantFin = clone $this->getDateDebut();
-        $instantFin->modify("+1 minutes");
+        $instantFin->modify("+1 hour");
         return $instantFin;
     }  
 

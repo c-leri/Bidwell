@@ -39,5 +39,6 @@
             <p id="max"><?= $prixDepart ?></p>
         </div>
     </div>
+    <p id="message"><?= $message ?></p>
 
 </div>
