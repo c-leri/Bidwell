@@ -70,8 +70,16 @@
     display: flex;
 }
 
-.prix * {
+.prix>div {
     padding: 0 1rem 0 1rem;
+}
+
+.prix>div>div {
+    display: flex;
+    flex-direction: row;
+}
+.prix>div>div p {
+    margin-right: 0.3rem;
 }
 
 /* bouton de l'enchere */

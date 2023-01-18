@@ -24,19 +24,22 @@
     <div class="prix">
         <div>
             <p > Prix de retrait </p>
-            <p id="min"><?= $prixRetrait ?></p>
-
+            <div>
+            <p id="min"><?= $prixRetrait ?></p><p>€</p>
+            </div>
         </div>
         <div>
-
             <p>Prix Actuel</p>
-            <p id="act"><?= $prixActuel ?></p>
-
+            <div>
+            <p id="act"><?= $prixActuel ?></p><p>€</p>
+            </div>
         </div>
         <div>
 
             <p> Prix de départ </p>
-            <p id="max"><?= $prixDepart ?></p>
+            <div>
+            <p id="max"><?= $prixDepart ?></p><p>€</p>
+            </div>
         </div>
     </div>
     <p id="message"><?= $message ?></p>
