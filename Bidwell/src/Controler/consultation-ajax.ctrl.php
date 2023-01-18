@@ -35,7 +35,7 @@ $str .= '<button id="encherebutton" onclick="encherir(event)"><span>Enchérir</s
 
     
 $str .= '<div class="temps">';
-$str .=    '<p> Temps Restant </p>';
+$str .=    '<p id="dateTitle">'."L'enchère se terminera dans" . '</p>';
 $str .=     '<p id="temps">'. $date .'</p>';
 $str .= '</div>';
 

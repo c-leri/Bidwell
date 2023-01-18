@@ -18,17 +18,16 @@ $prixBase = $_POST["prixbase"] ?? '';
 $prixRetrait = $_POST["prixretrait"] ?? '';
 $imgs = $_POST["imgs"] ?? '';
 $imgsArray = explode(",", $imgs);//Array contenant les urls des images
-//echo $imgsArray[0];
-//$imgs = str_replace(","," ",$imgs); a décommenter si on veut mettre des espaces plutot que des virgules
-$infosEnvoie = $_POST["infosEnvoie"] ?? '';
-$infosContact = $_POST["infosContact"] ?? '';
+
+$infosEnvoi = explode(",",$_POST["infosEnvoi"]) ?? '';
+$infosContact = explode(",",$_POST["infosContact"]) ?? '';
 $categorielibelle = $_POST["categorie"] ?? '';
 $categorie = Categorie::read($categorielibelle);
-$description = $_POST["description"] ?? '';
-$localisation = $_POST["localisation"] ?? '';
+$description = $_POST["description"] ?? ''; 
+$codePostal = $_POST["codePostal"] ?? ''; 
 //CREATION ENCHERE
-$enchere = new Enchere($user, $nomAnnonce, $dateDebut, $prixBase, $prixRetrait, $imgsArray[0], $description, $categorie, $infosContact, $infosEnvoie, $localisation);
-for ($i = 1; $i < count($imgsArray); $i++) {
+$enchere = new Enchere($user,$nomAnnonce,$dateDebut,$prixBase,$prixRetrait,$imgsArray[0],$description,$categorie,$infosContact,$infosEnvoi,$codePostal);
+for ($i = 1; $i < count($imgsArray);$i++){
     $enchere->addImage($imgsArray[$i]);
 }
 $enchere->create();

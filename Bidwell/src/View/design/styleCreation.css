@@ -106,7 +106,8 @@ main.creation h2 {
 #errorcbcontact,
 #errorlocalisation,
 #errorimgs,
-#errorcategorie {
+#errorcategorie,
+#errordescription {
   background-color: var(--couleur-rouge);
   border-radius: 1rem;
   margin: 0 10rem 0 10rem;
