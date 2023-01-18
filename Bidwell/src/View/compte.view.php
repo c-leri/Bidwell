@@ -47,7 +47,7 @@
             <li><a class="button" href='shop.ctrl.php'> Acheter des Jetons </a></li>
         </ul>
         <hr />
-        <h2>Vos Enchères</h2>
+        <h2 class="margin-bot">Vos Enchères</h2>
         <div class="annoncesCarre" id="vosEncheres">
 
         </div>

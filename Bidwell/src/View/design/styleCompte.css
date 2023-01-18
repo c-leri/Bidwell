@@ -35,7 +35,8 @@ main.compte h1#login {
 }
 
 main.compte h2 {
-    margin: 2rem 0 0 2rem;
+    margin-top: 2rem;
+    margin-left: 2rem;
 }
 
 /* -- Liste -- */
@@ -49,4 +50,8 @@ main.compte ul.listeCompte {
 
 main.compte ul.listeCompte li {
     margin-top: 1rem;
+}
+
+h2.margin-bot {
+    margin-bottom: 4rem;
 }
