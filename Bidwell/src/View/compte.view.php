@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="../View/design/styleMenu.css">
     <link rel="stylesheet" href="../View/design/styleFooter.css">
     <link rel="stylesheet" href="../View/design/styleCompte.css">
+    <link rel="stylesheet" href="../View/design/stylePagePrincipale.css">
     <link rel="icon" type="image/x-icon" href="../View/design/img/favicon.ico">
 
 </head>
@@ -24,27 +25,31 @@
     <header>
     <?php include isset($_SESSION['login']) ? __DIR__ . '/menu_connecte.viewpart.php' : __DIR__ . '/menu.viewpart.php'; ?>
     </header>
-    <main>
+    <main class="compte">
         <h1 id="login"><?= $login ?></h1>
         <hr />
         <h2>Données personnelles</h2>
-        <ul>
+
+        <ul class="listeCompte">
             <li>Adresse Mail : <?= $email ?></li>
             <li>Téléphone : <?= $numtel ?></li>
             <li>Nous conserverons vos informations pendant <?= $dateFin ?></li>
             <li>Nous conservons vos données personnelles dans l'unique but de vous authentifier. Afin de supprimer vos informations, veuillez supprimer votre compte.</li>
+
             <li><button class="button" type="submit"> Supprimer votre compte </button></li>
         </ul>
         <hr />
         <h2>Jetons</h2>
-        <ul>
+
+        <ul class="listeCompte">
             <li>Vous avez <?= $nbJetons ?> jetons</li>
             <li>Les jetons sont une monnaies propre à Bidwell qui vous permet d'enchérir plusieurs fois sur une même annonce.</li>
             <li><a class="button" href='shop.ctrl.php'> Acheter des Jetons </a></li>
         </ul>
         <hr />
-        <h2>Vos Enchères</h2>
-        <div class="vosEncheres" id="vosEncheres">
+        <h2 class="margin-bot">Vos Enchères</h2>
+        <div class="annoncesCarre" id="vosEncheres">
+
         </div>
     </main>
     <footer>

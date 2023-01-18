@@ -90,18 +90,23 @@
         </div>
 
         <div id="myModal" class="modal">
+
             <div class="modal-content">
                 <span class="close" onclick="stop()">&times;</span>
-                <p id='letext'>Some text in the Modal..</p>
-                <div id="lesbtns">
-                <div id="smart-button-container">
-                        <div style="text-align: center;">
-                            <div id="paypal-button-container"></div>
-                        </div>
-                    </div>
-                    <button id="myCancel" onclick="stop()">Annuler</button>
-                    <script src="https://www.paypal.com/sdk/js?client-id=sb&enable-funding=venmo&currency=EUR" data-sdk-integration-source="button-factory"></script>
+                <div id="checkconfirmation">
+                    <input type="checkbox" id="conscience" name="conscience" onchange="checking()">
+                    <label for="conscience"> Je confirme avoir pris conscience des<label>
+                    <a href="../Controler/condition.ctrl.php" id="lescond"> Conditions d'utilisation </a>
                 </div>
+                <input type="text" id="anti-tab" onfocus="backstep()">
+                <div id="smart-button-container">
+                    <div style="text-align: center;">
+                        <div id="paypal-button-container"></div>
+                    </div>
+                </div>
+                <div id="couvrebouton">
+                </div>
+                <script src="https://www.paypal.com/sdk/js?client-id=sb&enable-funding=venmo&currency=EUR" data-sdk-integration-source="button-factory"></script>
             </div>
             <script src="../JS/shop.js"></script>
         </div>

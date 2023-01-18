@@ -14,7 +14,7 @@
 }
 
 /* --- Page du compte --- */
-main {
+main.compte {
     color: var(--couleur-blanc);
     margin-left: auto;
     margin-right: auto;
@@ -22,7 +22,7 @@ main {
 }
 
 /* -- Design -- */
-hr {
+main.compte hr {
     margin: 1rem 0rem 1rem 0rem;
     height: 0.1rem;
     background-color: var(--couleur-blanc);
@@ -30,16 +30,17 @@ hr {
 }
 
 /* -- Titres -- */
-main h1 {
+main.compte h1#login {
     margin: 2rem 0 0 2rem;
 }
 
-main h2 {
-    margin: 2rem 0 0 2rem;
+main.compte h2 {
+    margin-top: 2rem;
+    margin-left: 2rem;
 }
 
 /* -- Liste -- */
-main ul {
+main.compte ul.listeCompte {
     list-style-type: none;
     margin: 1rem 0 0 2rem;
     display: flex;
@@ -47,60 +48,10 @@ main ul {
     justify-content: space-between;
 }
 
-main ul li {
+main.compte ul.listeCompte li {
     margin-top: 1rem;
 }
 
-/* -- Encheres de l'utilisateur -- */
-.vosEncheres {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    color: var(--couleur-blanc);
-}
-
-.vosEncheres article {
-    width: 20rem;
-    height: 22rem;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    justify-content: space-between;
-    margin: 1rem;
-    border-radius: 1rem;
-    background: var(--couleur-noir30);
-    padding-bottom: 0.5rem;
-}
-
-.vosEncheres article img {
-    width: 20rem;
-    height: 15rem;
-    border-radius: 1rem;
-}
-
-.variablesEnchere {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-.vosEncheres article p {
-    margin: 0.5rem;
-}
-
-.vosEncheres article h1 {
-    word-wrap: break-word;
-    margin: 0.5rem;
-    overflow: hidden;
-}
-
-.vosEncheres a {
-    text-decoration: none;
-    color: var(--couleur-blanc);
-}
-
-.vosEncheres a:visited {
-    color: var(--couleur-gris-clair);
+h2.margin-bot {
+    margin-bottom: 4rem;
 }

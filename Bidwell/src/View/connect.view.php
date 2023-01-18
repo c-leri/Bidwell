@@ -13,8 +13,7 @@
     <link rel="stylesheet" href="../View/design/styleConnect.css">
     <link rel="stylesheet" href="../View/design/styleMenu.css">
     <link rel="icon" type="image/x-icon" href="../View/design/img/favicon.ico">
-    <link rel="stylesheet" href="../View/design/styleFooter2.css">
-
+    <link rel="stylesheet" href="../View/design/styleFooter.css">
 </head>
 
 
@@ -72,7 +71,7 @@
         <h3></h3>
         </div>
     </main>
-    <footer>
+    <footer class="absolute">
         <?php include(__DIR__ . '/footer.viewpart.php') ?>
     </footer>
 </body>

@@ -2,7 +2,7 @@
 <nav id="navbar-bot">
     <ul>
         <li><a href="recherche.ctrl.php">
-                <img src="../View/design/img/burger.png" alt="burger"> Tous les articles
+                Tous les articles
             </a></li>
         <li><a href="recherche.ctrl.php?categories=aussiTestEnfant">
                 AussiTestEnfant
