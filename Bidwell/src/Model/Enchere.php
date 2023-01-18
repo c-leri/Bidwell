@@ -85,8 +85,11 @@ class Enchere
         // création d'un objet enchère avec les informations de la bd
         $enchere = new Enchere(Utilisateur::read($row['loginCreateur']), $row['libelle'], $dateDebut, $row['prixDepart'], $row['prixRetrait'], $images[0], $row['description'], Categorie::read($row['libelleCategorie']),$infosContact,$infosEnvoi,$row['codePostal']);
 
+        // on set l'id de l'enchère
+        $enchere->id = $row['id'];
+
         // on set la derniereEnchere si elle est dans la bd
-        if (isset($row['loginUtilisateurDerniereEnchere']) && $row['loginUtilisateurDerniereEnchere'] != '') {
+        if (isset($row['loginUtilisateurDerniereEnchere'])) {
             $enchere->derniereEnchere = Participation::read($enchere, Utilisateur::read($row['loginUtilisateurDerniereEnchere']));
         }
 
@@ -95,9 +98,6 @@ class Enchere
         foreach ($images as $image) {
             $enchere->addImage($image);
         }
-
-        // on set l'id de l'enchère
-        $enchere->id = $row['id'];
 
         return $enchere;
     }

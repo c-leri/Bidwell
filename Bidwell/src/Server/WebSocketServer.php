@@ -97,7 +97,7 @@ class WebSocketServer implements MessageComponentInterface
                         } else {
                             // recupère l'enchère et la participation et appel la méthode encherir() qui fais les modifications liées au fait qu'un utilisateur enchérisse
                             $enchere = Enchere::read($message->value);
-                            $participation = Participation::get($enchere, $this->users[$from->resourceId]);
+                            $participation = Participation::get(Enchere::read($message->value), $this->users[$from->resourceId]);
                             $participation->encherir();
 
                             // notifie tous les autres utilisateurs

@@ -1,13 +1,7 @@
-function dateToSeconds(date) {
-  return (date.getHours() * 60 + date.getMinutes()) * 60 + date.getSeconds()
-}
-
 function getRatioTempsActuel(dateDebut, instantFin, instantDerniereEnchere) {
   let maintenant = new Date();
-  // console.log(`maintenant: ${maintenant}\ndateDebut: ${dateDebut}\ninstantFin: ${instantFin}\ninstantDerniereEnchere: ${instantDerniereEnchere}`);
   if (maintenant > dateDebut) {
       let differenceMaintenantFin = instantFin - maintenant;
-      // console.log(`(instantFin - maintenant): ${instantFin - maintenant}\n(differenceMaintenantFin / instantFin - instantDerniereEnchere): ${differenceMaintenantFin / instantFin - instantDerniereEnchere}`)
       return differenceMaintenantFin / (instantFin - instantDerniereEnchere);
   } else {
       return 1;
@@ -27,8 +21,6 @@ window.setInterval(function () {
 
   valeur = mini + getRatioTempsActuel(dateDebut, instantFin, instantDerniereEnchere) * (maxi - mini);
 
-  // console.log(`valeur: ${valeur}\nmini: ${mini}\ngetRatiotempsActuel(): ${getRatioTempsActuel(dateDebut, instantFin, instantDerniereEnchere)}\n(maxi - mini): ${(maxi - mini)}`);
-
   if (date.includes("0:0:0") || date.includes("00:00:00")) {
     location.reload();
   } else if (titre.includes("commencera ")) {
@@ -40,11 +32,9 @@ window.setInterval(function () {
     date = new Date(0, 0, 0, dates[0], dates[1], dates[2] - 1);
     document.getElementById('temps').innerHTML = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
 
-    tpsRestant = dateToSeconds(date);
     document.getElementById('act').innerHTML = valeur.toFixed(2);
 
     affichage = (74 - ((valeur-mini)/(maxi-mini)) * 74).toFixed(2);
-    console.log(affichage);
 
     document.getElementById('circle-container__progress').setAttribute('style', `stroke-dashoffset:${affichage}`);
   }

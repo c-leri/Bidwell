@@ -1,6 +1,5 @@
 <?php
 use Bidwell\Model\Enchere;
-use Bidwell\Util\Helper;
 
 require_once __DIR__.'/../../vendor/autoload.php';
 
@@ -12,7 +11,7 @@ $prixMax = $_GET['prixHaut'];
 $instantDerniereEnchere = $_GET['instantDerniereEnchere'];
 $prixact = $enchere->getPrixCourant();
 
-$pourcent = ($prixMax > $prixRetrait) ? (($prixact / $prixMax) * 74) : 74;
+$pourcent = ($prixMax > $prixRetrait) ? (74 - (($prixact - $prixRetrait)/($prixMax - $prixRetrait)) * 74) : 0;
 $affichage = round($pourcent, 2, PHP_ROUND_HALF_DOWN);
 
 $now = new DateTime();
