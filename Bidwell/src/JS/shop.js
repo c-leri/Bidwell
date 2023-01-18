@@ -7,6 +7,22 @@ function affish(jeton, prix) {
   money= prix;
 }
 
+function backstep(){
+  document.getElementById('lescond').focus();
+}
+
+function checking(){
+  console.log(document.getElementById('conscience').checked);
+  if (document.getElementById('conscience').checked) {
+    document.getElementById('couvrebouton').style.display = 'none';
+  } else {
+    document.getElementById('couvrebouton').style.display = 'block';
+  }
+}
+
+
+
+//Fonction actualisant la solde en jetons de l'utilisateur et fermant le popup une fois la transaction terminée
 function conf(){
 //Crée une nouvelle requête XMLHTTP à envoyer au serveur
   const xhttp = new XMLHttpRequest();
@@ -30,6 +46,7 @@ function stop() {
 }
 
 
+//Paypal, je n'ai pas compris tout le fonctionnement j'ai principalement accepté que cela fonctionne
 function initPayPalButton() {
   paypal.Buttons({
     style: {
@@ -37,8 +54,26 @@ function initPayPalButton() {
       color: 'gold',
       layout: 'horizontal',
       label: 'checkout',
-      
     },
+    // onInit is called when the button first renders
+    onInit: function(data, actions) {
+
+      // Disable the buttons
+      actions.disable();
+
+      // Listen for changes to the checkbox
+      document.querySelector('#conscience')
+        .addEventListener('change', function(event) {
+
+          // Enable or disable the button when it is checked or unchecked
+          if (event.target.checked) {
+            actions.enable();
+          } else {
+            actions.disable();
+          }
+        });
+    },
+
 
     createOrder: function(data, actions) {
       return actions.order.create({
@@ -51,9 +86,6 @@ function initPayPalButton() {
         
         // Full available details
         console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
-
-        // Show a success message within this page, e.g.
-        const element = document.getElementById('paypal-button-container');
         conf();
 
         // Or go to another URL:  actions.redirect('thank_you.html');
