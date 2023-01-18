@@ -2,9 +2,6 @@
 // Inclusion du framework
 use Bidwell\Framework\View;
 use Bidwell\Model\Enchere;
-use Bidwell\Model\Participation;
-use Bidwell\Model\Utilisateur;
-use Symfony\Component\Routing\Loader\Configurator\Traits\PrefixTrait;
 
 require_once __DIR__.'/../../vendor/autoload.php';
 
@@ -29,21 +26,23 @@ if ($id == null) {
     $prixfin = $enchere->getPrixRetrait();
 
     $maintenant = new DateTime();
+
+    $message = '';
     
     if ($enchere->getDateDebut() > $maintenant) {
 
         $tempsRes = $maintenant->diff($enchere->getDateDebut());
         $prixact = $prixdep;
         $dateTitle = "L'enchère commencera dans ";
-        $date = $tempsRes->format("%H:%I:%S");
+        $date = $tempsRes->format("%h:%i:%s");
     } else {
 
-        $prixact = $enchere->getPrixCourant();
+        $prixact = round($enchere->getPrixCourant(), 2);
         $fin = $enchere->getInstantFin();
         if ($fin > $maintenant && $prixact > $prixfin) {
             $tempsRes = $maintenant->diff($fin);
             $dateTitle = "L'enchère se terminera dans ";
-            $date = $tempsRes->format("%H:%I:%S");
+            $date = $tempsRes->format("%h:%i:%s");
         } else {
 
             $prixact = $prixfin;
@@ -109,6 +108,8 @@ $view = new View();
 
 $view->assign('connected', isset($login));
 
+$view->assign('enchere', $enchere);
+
 $view->assign('nom', $nom);
 $view->assign('prixDepart', $prixdep);
 $view->assign('prixActuel', $prixact);
@@ -118,6 +119,7 @@ $view->assign('dateTitle', $dateTitle);
 $view->assign('affichage', $affichage);
 
 $view->assign('description',  $description);
+$view->assign('addresseImage', Enchere::ADRESSE_IMAGES);
 $view->assign('images', $images);
 
 $view->assign('createur', $createur);

@@ -17,7 +17,7 @@ class Enchere
     public const DUREE = 3600;
     public const TAUX_AUGMENTATION = 1.05;
 
-    private const ADRESSE_IMAGES = '../../data/img/';
+    public const ADRESSE_IMAGES = '../../data/img/';
     private const TEMPS_CONSERVATION = '5 years'; // temps de conservation des données dans la bd
 
     // Attributs
@@ -372,6 +372,26 @@ class Enchere
         // préparation de la query
         $query = 'SELECT * FROM Enchere WHERE loginCreateur = ?';
         $data = [$createur->getLogin()];
+
+        // récupération de la table de résultat
+        $table = $dao->query($query, $data);
+
+        $out = array();
+        foreach ($table as $row) {
+            $out[] = Enchere::constructFromDB($row);
+        }
+
+        return $out;
+    }
+
+    public static function readFromCreateurString(String $createur): array
+    {
+        // récupératoin du dao
+        $dao = DAO::get();
+
+        // préparation de la query
+        $query = 'SELECT * FROM Enchere WHERE loginCreateur = ?';
+        $data = [$createur];
 
         // récupération de la table de résultat
         $table = $dao->query($query, $data);

@@ -6,7 +6,7 @@ require_once __DIR__.'/../../vendor/autoload.php';
 $createur = $_GET['createur'];
 
 //Exécute la requête SQL avec les informations nécessaires à l'affichage
-$result = Enchere::readFromCreateur($createur);
+$result = Enchere::readFromCreateurString($createur);
 
 
 //Initialisation de variable qui sera renvoyée
@@ -19,7 +19,7 @@ $str = "";
 
         $str .= "<article>";
         $str .= '<a href="consultation.ctrl.php?id='. $result[$i]->getId() .'">';
-        $str .= '<img src="../View/design/img/default_image.png" alt="">';
+        $str .= '<img src="../View/design/img/"'. $result[$i]->getImageURL(0)  .'alt="">';
         $str .= "</a>";
         $str .='<div class="left">';
         $str .= "<h1>" . $result[$i]->getLibelle() . "</h1>";
