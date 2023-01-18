@@ -26,7 +26,8 @@ function showItems() {
     let categories = [];
     if (document.querySelectorAll('#checkboxes input:checked').length > 0){
         document.querySelectorAll('#checkboxes input:checked').forEach((element) => {
-            categories.push(element.getAttribute('id'));
+
+            categories.push(element.getAttribute('id').replace(" ", "+"));
         });
     }
 
