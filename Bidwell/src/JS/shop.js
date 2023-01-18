@@ -1,5 +1,5 @@
-  var modal = document.getElementById("myModal");
-  var nbr; var money;
+const modal = document.getElementById("myModal");
+let nbr, money;
 // Ouverture du popup
 function affish(jeton, prix) {
   modal.style.display="flex";
@@ -34,7 +34,7 @@ function conf(){
   }
 
   //Ouvre la requête au serveur avec pour informations le nombre de jetons à donner
-  xhttp.open("GET", "../Ajax/shop-ajax.php?valeur=" + nbr);
+  xhttp.open("GET", "../Ajax/shop.ajax.php?valeur=" + nbr);
 
   //Envoie la requête au serveur
   xhttp.send();

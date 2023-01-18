@@ -5,7 +5,8 @@
             "Bidwell\\": "src/",
             "Bidwell\\Model\\": "src/Model/",
             "Bidwell\\Framework\\": "src/Framework/",
-            "Bidwell\\Server\\": "src/Server/"
+            "Bidwell\\Server\\": "src/Server/",
+            "Bidwell\\Util\\": "src/Util"
         }
     },
     "require": {

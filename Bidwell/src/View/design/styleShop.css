@@ -126,7 +126,7 @@ h2{
 #couvrebouton{
   display: block;
   background-color: var(--couleur-blanc);
-  opacity: 0%;
+  opacity: 0;
   z-index:100;
   position: fixed;
   height: 100%;

@@ -58,6 +58,14 @@
                 <button id="btnconf">Confirmer</button>
             </div>
         </div>
+
+        <div id="myModeul" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="stop()">&times;</span>
+                <p>Voulez-vous vraiment supprimer cette enchère?</p>
+                <button id="btnsuppr" onclick="suppressionenchere()">Supprimer</button>
+            </div>
+        </div>
     </main>
     <footer>
         <?php include(__DIR__ . '/footer.viewpart.php') ?>

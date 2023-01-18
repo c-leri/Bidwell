@@ -1,29 +1,40 @@
+function twoDigits(num) {
+  return `${num}`.length < 2 ? `0${num}` : num;
+}
+
+function getRatioTempsActuel(dateDebut, instantFin, instantDerniereEnchere) {
+  let maintenant = new Date();
+  if (maintenant > dateDebut) {
+      let differenceMaintenantFin = instantFin - maintenant;
+      return differenceMaintenantFin / (instantFin - instantDerniereEnchere);
+  } else {
+      return 1;
+  }
+}
+
 window.setInterval(function () {
-  valeur = parseFloat(document.getElementById('act').innerHTML);
-  mini = parseFloat(document.getElementById('min').innerHTML);
-  maxi = parseFloat(document.getElementById('max').innerHTML);
-  titre = document.getElementById('dateTitle').innerText;
-  date = document.getElementById('temps').innerText;
-  dates = document.getElementById('temps').innerText.split(":");
+  let mini = parseFloat(document.getElementById('min').innerHTML);
+  let maxi = parseFloat(document.getElementById('max').innerHTML);
+  let date = document.getElementById('temps').innerText;
+  let dates = document.getElementById('temps').innerText.split(":");
+  let instantDerniereEnchere = new Date(parseInt(document.getElementById('instantDerniereEnchere').value) * 1000);
+  let instantFin = new Date(parseInt(document.getElementById('instantFin').value) * 1000);
+  let dateDebut = new Date(parseInt(document.getElementById('dateDebut').value) * 1000);
 
+  const valeur = mini + getRatioTempsActuel(dateDebut, instantFin, instantDerniereEnchere) * (maxi - mini);
 
-  if (date.includes("0:0:0") || date.includes("00:00:00")) {
+  if (date.includes("00:00:00")) {
     location.reload();
-  } else if (titre.includes("commencera ")) {
+  } else {
+    document.getElementById('temps').innerHTML = `${twoDigits(dates[0])}:${twoDigits(dates[1])}:${twoDigits(dates[2] - 1)}`;
 
-    date = new Date(0, 0, 0, dates[0], dates[1], dates[2] - 1);
-    document.getElementById('temps').innerHTML = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+    if (mini < valeur) {
+      document.getElementById('act').innerHTML = valeur.toFixed(2);
 
-  } else if (mini < valeur) {
-    date = new Date(0, 0, 0, dates[0], dates[1], dates[2] - 1);
-    document.getElementById('temps').innerHTML = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+      affichage = (74 - ((valeur-mini)/(maxi-mini)) * 74).toFixed(2);
 
-    tpsRestant = date.getMinutes() * 60 + date.getSeconds();
-    document.getElementById('act').innerHTML = (mini + tpsRestant/3600 * (maxi - mini)).toFixed(2);
-
-    affichage = ((1 - (valeur - mini) / (maxi - mini)) * 74).toFixed(2);
-
-    document.getElementById('circle-container__progress').style.strokeDashoffset = affichage;
+      document.getElementById('circle-container__progress').style.setProperty('stroke-dashoffset', affichage);
+    }
   }
 
 }, 1000);
