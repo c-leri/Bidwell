@@ -2,4 +2,3 @@ DROP TABLE IF EXISTS participation;
 DROP TABLE IF EXISTS categorie;
 DROP TABLE IF EXISTS utilisateur;
 DROP TABLE IF EXISTS enchere;
-

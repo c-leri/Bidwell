@@ -142,7 +142,9 @@ const errorImgs= document.getElementById("errorimgs");
 
 function getFirstFreeSpot(){
   let i =0;
-  while(i<8 && document.getElementById("output"+i).src != "http://localhost:3000/Bidwell/src/View/design/img/default_image.png" && document.getElementById("output"+i).src != "http://localhost:3000/src/View/design/img/default_image.png"){
+  let defaultImageURL = window.location.href.substring(0, window.location.href.lastIndexOf('/'));
+  defaultImageURL = `${defaultImageURL.substring(0, defaultImageURL.lastIndexOf('/'))}/View/design/img/default_image.png`;
+  while(i<8 && document.getElementById("output"+i).src !== defaultImageURL) {
     console.log(i<8 && document.getElementById("output"+i).src);
     console.log("../View/design/img/default_image.png");  
 
@@ -174,7 +176,7 @@ function loadFile(event) {
           tmp_files.set(id+filename,imgInput.files[i]);
           console.log(tmp_files);
           let output = document.getElementById('output' + id);
-          document.getElementById("p"+id).style = "display:none;";
+          document.getElementById(`p${id}`).style = "display:none;";
           compteur++;
           output.src = URL.createObjectURL(event.target.files[i]);
           output.onload = function() {URL.revokeObjectURL(output.src)}
@@ -202,6 +204,9 @@ function validateInfos(event){
 
   // Create form data
   var files = new FormData();
+
+  let imgs;
+
   if(tmp_files.size!=0){
     
     for (let i = 0; i < tmp_files.size ; i++) {
@@ -213,16 +218,16 @@ function validateInfos(event){
     let requete = new XMLHttpRequest();
     requete.open("POST", "upload.ctrl.php", false);
     requete.onload = function() {
-    const rep = JSON.parse(this.responseText);   
-    if(rep.success){
-      //Recup tableau urls image 
-      urls = rep.imgsurls;
-      images = true;
-    }else{
-      errorImgs.innerHTML = rep.errormsg;
-      select.scrollIntoView();
-      images = false;
-    }
+    const rep = JSON.parse(this.responseText);
+      if (rep.success) {
+        //Recup tableau urls image
+        imgs = rep.imgs;
+        images = true;
+      } else {
+        errorImgs.innerHTML = rep.errormsg;
+        select.scrollIntoView();
+        images = false;
+      }
     }
     requete.send(files);
   }else{
@@ -246,11 +251,11 @@ function validateInfos(event){
     //deuxième étape : renvoyer l'utilisateur sur la page de consultation de son enchère créé
     let nom = document.getElementById("nom").value,
     prixbase = document.getElementById("prixbase").value,
-    prixretrait = document.getElementById("prixretrait").value;
-    categorie = document.getElementById("categorieSelect").value;    
-    description = document.getElementById("description").value;
-    infosEnvoie = document.getElementById("cbcolis").checked+","+document.getElementById("cbdirect").checked;
-    infosContact = document.getElementById("cbemail").checked+","+document.getElementById("cbtel").checked;
+    prixretrait = document.getElementById("prixretrait").value,
+    categorie = document.getElementById("categorieSelect").value,
+    description = document.getElementById("description").value,
+    infosEnvoie = document.getElementById("cbcolis").checked+","+document.getElementById("cbdirect").checked,
+    infosContact = document.getElementById("cbemail").checked+","+document.getElementById("cbtel").checked,
     localisation = document.getElementById("localisationInput").value;
     //Envoie php
     let requete = new XMLHttpRequest();
@@ -260,13 +265,13 @@ function validateInfos(event){
       console.log("rep : "+this.responseText);
       console.log(this.responseText);
         const rep = JSON.parse(this.responseText);
-        
+
         if(rep.sucess){
            self.location = "main.ctrl.php";
         }
     }
     //Envoie la requête au serveur avec en paramètres les valeurs des inputs
-    requete.send("nom="+nom+"&prixbase="+prixbase+"&prixretrait="+prixretrait+"&imgs="+urls+"&categorie="+categorie+"&description="+description+"&infosEnvoie="+infosEnvoie+"&infosContact="+infosContact+"&localisation="+localisation);
+    requete.send("nom="+nom+"&prixbase="+prixbase+"&prixretrait="+prixretrait+"&imgs="+imgs+"&categorie="+categorie+"&description="+description+"&infosEnvoie="+infosEnvoie+"&infosContact="+infosContact+"&localisation="+localisation);
     return true;
   }else{
     console.log("nope form pas valide");
