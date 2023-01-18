@@ -70,7 +70,7 @@
                 <input id="imagesInput" type="file" accept="image/*" onchange="loadFile(event)" multiple enctype="multipart/form-data">
 
                 <div class="addedImages">
-                    <?php for ($i = 0; $i < 8; $i++) {
+                    <?php for ($i = 0; $i < 6; $i++) {
                     ?>
                         <article>
                             <img id=<?= "output" . $i ?> src="../View/design/img/default_image.png">
