@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="../View/design/styleMenu.css">
     <link rel="stylesheet" href="../View/design/styleCookies.css">
     <link rel="icon" type="image/x-icon" href="../View/design/img/favicon.ico">
-    <link rel="stylesheet" href="../View/design/styleFooter2.css">
+    <link rel="stylesheet" href="../View/design/styleFooter.css">
 </head>
 
 
@@ -84,7 +84,7 @@
             </p>
         </div>
     </main>
-    <footer>
+    <footer class="absolute">
         <?php include(__DIR__ . '/footer.viewpart.php') ?>
     </footer>
 </body>

@@ -90,6 +90,7 @@ main.recherche aside {
   width: 20%;
   border-radius: 0 0 1rem 1rem;
   padding-bottom: 1rem;
+  word-wrap:break-word;
 }
 
 main.recherche aside .container {
@@ -124,6 +125,10 @@ main.recherche label:hover {
 main.recherche aside input {
   margin-bottom: 0.5rem;
 }
+main.recherche aside input[type=number]{
+  width: 50%;
+}
+
 main.recherche aside button {
   background-color: rgba(0, 0, 0, 0%);
   border: none;
@@ -194,7 +199,7 @@ main.recherche .center article .left{
 }
 main.recherche .center article p{
   width: 50%;
-  white-space:normal;  
+  white-space:break-spaces;  
   word-wrap:break-word;
 }
 /* Aside */
