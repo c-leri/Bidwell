@@ -80,9 +80,9 @@
                         </article>
 
                     <?php } ?>
-                    <p id="errorimgs"></p>
+                    
                 </div>
-
+                <p id="errorimgs"></p>
                 <p> Ajouter plusieurs images à votre annonce permet d'augmenter la confiance des autres utilisateurs
                     envers vous et votre bien. Le plus d'image, le mieux. <br>
                     Triez vos images par ordre d'importance, la première image sera celle affichée dans la liste des

@@ -36,7 +36,7 @@
             <li>Nous conserverons vos informations pendant <?= $dateFin ?></li>
             <li>Nous conservons vos données personnelles dans l'unique but de vous authentifier. Afin de supprimer vos informations, veuillez supprimer votre compte.</li>
 
-            <li><button class="button" type="submit"> Supprimer votre compte </button></li>
+            <li><button class="button" type="submit" onclick="affichage()"> Supprimer votre compte </button></li>
         </ul>
         <hr />
         <h2>Jetons</h2>
@@ -50,6 +50,13 @@
         <h2 class="margin-bot">Vos Enchères</h2>
         <div class="annoncesCarre" id="vosEncheres">
 
+        </div>
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="stop()">&times;</span>
+                <p>Voulez-vous vraiment supprimer votre compte? Si vous faites cela nous n'aurons plus accès à votre collection de porn et vos dossiers d'illuminati donc ça nous arrangerai si vous le faisiez pas</p>
+                <button id="btnconf">Confirmer</button>
+            </div>
         </div>
     </main>
     <footer>
