@@ -26,21 +26,23 @@ if ($id == null) {
     $prixfin = $enchere->getPrixRetrait();
 
     $maintenant = new DateTime();
+
+    $message = '';
     
     if ($enchere->getDateDebut() > $maintenant) {
 
         $tempsRes = $maintenant->diff($enchere->getDateDebut());
         $prixact = $prixdep;
         $dateTitle = "L'enchère commencera dans ";
-        $date = $tempsRes->format("%H:%I:%S");
+        $date = $tempsRes->format("%h:%i:%s");
     } else {
 
-        $prixact = $enchere->getPrixCourant();
+        $prixact = round($enchere->getPrixCourant(), 2);
         $fin = $enchere->getInstantFin();
         if ($fin > $maintenant && $prixact > $prixfin) {
             $tempsRes = $maintenant->diff($fin);
             $dateTitle = "L'enchère se terminera dans ";
-            $date = $tempsRes->format("%H:%I:%S");
+            $date = $tempsRes->format("%h:%i:%s");
         } else {
 
             $prixact = $prixfin;
@@ -105,6 +107,8 @@ if ($id == null) {
 $view = new View();
 
 $view->assign('connected', isset($login));
+
+$view->assign('enchere', $enchere);
 
 $view->assign('nom', $nom);
 $view->assign('prixDepart', $prixdep);
