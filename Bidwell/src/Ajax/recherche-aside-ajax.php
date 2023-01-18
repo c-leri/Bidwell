@@ -33,7 +33,7 @@ for ($i = 0; $i < sizeof($meres); $i++){
 
         for($k = 0; $k < sizeof($fillesDeMere); $k++){
             $str .= '<li>';
-            $str .= '<input type="checkbox" id="' . $fillesDeMere[$k]->getLibelleColle() . '" onclick="showItems()"';
+            $str .= '<input type="checkbox" id="' . $fillesDeMere[$k]->getLibelle() . '" onclick="showItems()"';
             
             if (isset($categorie) && $categorie == $fillesDeMere[$k]->getLibelleColle()) {
                 $str.= " checked";
@@ -41,7 +41,7 @@ for ($i = 0; $i < sizeof($meres); $i++){
 
             $str .= '></checkbox>';
         
-            $str .= '<label for="'.$fillesDeMere[$k]->getLibelleColle() .'">'. $fillesDeMere[$k]->getLibelleColle() .'</label>';
+            $str .= '<label for="'.$fillesDeMere[$k]->getLibelle() .'">'. $fillesDeMere[$k]->getLibelle() .'</label>';
             $str .= '</li>';
         }
         $str .= '</ul>';

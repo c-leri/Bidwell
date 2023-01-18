@@ -79,7 +79,7 @@ if ($id == null) {
     if ($autorisations[1] == "true"){
         $tel = $enchere->getCreateur()->getNumeroTelephone();
     } else {
-        $tel = "Le créateur de l'enchère n'a pas souahité partager son numéro de téléphone";
+        $tel = "Le créateur de l'enchère n'a pas souhaité partager son numéro de téléphone";
     }
     
 
@@ -92,7 +92,7 @@ if ($id == null) {
         $place = "Le créateur de l'enchère n'est PAS prêt à remettre le bien en main propre";
     }
 
-    if ($autorisations[1] == "true"){
+    if ($informations[1] == "true"){
        
         $dist = "Le créateur de l'enchère est prêt à envoyer le bien par colis";
     } else {
