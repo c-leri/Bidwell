@@ -67,7 +67,12 @@
         <h2> FAQ </h2>
         <h3>Comment me créer un compte ?</h3>
         <p>Il suffit de cliquer sur le bouton "inscription" en haut à droite de la page.</p>
-        <h3></h3>
+        <h3>Que vendez-vous sur ce site ?</h3>
+            <p>La vente ce fait entre particuliers cependant les objets qui sont vendus doivent être de collection.
+            </p>
+            <h3>Comment vendre un objet ? ?</h3>
+            <p> Il faut être connecté pour pouvoir vendre un objet de collection.
+            </p>
         </div>
     </main>
     <footer class="absolute">

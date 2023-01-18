@@ -13,6 +13,7 @@
   height: 8rem;
   margin: 0.5rem;
   border-radius: 1rem;
+  border: 0.1rem solid var(--couleur-noir);
 }
 
 .addedImages article {
@@ -144,11 +145,8 @@ main.creation button.btnSuppr {
 /* texte indiquant les numeros d'images*/
 main.creation .numImg {
   color: var(--couleur-noir);
-  background-color: var(--couleur-blanc30);
   font-size: 1.5rem;
   width: 90%;
-  padding-top:1rem;
-  padding-bottom:1rem;
   
 }
 

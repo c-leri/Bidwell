@@ -1,5 +1,6 @@
 <?php
 use Bidwell\Model\Enchere;
+use Bidwell\Util\Helper;
 
 require_once __DIR__.'/../../vendor/autoload.php';
 
@@ -8,13 +9,14 @@ $enchere = Enchere::read($_GET['id']);
 
 $prixRetrait = $_GET['prixRetrait'];
 $prixMax = $_GET['prixHaut'];
-$prixact = $prixMax;
+$instantDerniereEnchere = $_GET['instantDerniereEnchere'];
+$prixact = $enchere->getPrixCourant();
 
-$pourcent = ($prixMax > $prixRetrait) ? ((1 - ($prixact - $prixRetrait) / ($prixMax - $prixRetrait) ) * 74) : 74;
+$pourcent = ($prixMax > $prixRetrait) ? (($prixact / $prixMax) * 74) : 74;
 $affichage = round($pourcent, 2, PHP_ROUND_HALF_DOWN);
 
-$maintenant = new DateTime();
-$tempsRes = $enchere->getInstantFin()->diff($maintenant);
+$now = new DateTime();
+$tempsRes = $now->diff($enchere->getInstantFin());
 $date = $tempsRes->format("%h:%i:%s");
 
 $str = '';
@@ -26,7 +28,7 @@ $str .=         '<stop class="stop2" offset="100%" />';
 $str .=     '</linearGradient>';
 $str .=     '<circle class="circle-container__background" r="16" cx="16" cy="16">';
 $str .=     '</circle>';
-$str .=     '<circle class="circle-container__progress" r="16" cx="16" cy="16" style="stroke-dashoffset:' . $affichage . '"';
+$str .=     '<circle class="circle-container__progress" id="circle-container__progress" r="16" cx="16" cy="16" style="stroke-dashoffset:' . $affichage . '"';
 $str .=         'shape-rendering="geometricPrecision">';
 $str .=     '</circle>';
 $str .= '</svg>';
@@ -57,6 +59,9 @@ $str .=     '<p> Prix de départ </p>';
 $str .=     '<p id="max">' .$prixMax .'€</p>';
 $str .= '</div>';
 $str .= '</div>';
+$str .= '<input type="hidden" id="instantDerniereEnchere" name="instantDerniereEnchere" value="' . $instantDerniereEnchere . '">';
+$str .= '<input type="hidden" id="instantFin" name="instantFin" value="' . $enchere->getInstantFin()->getTimestamp() . '">';
+$str .= '<input type="hidden" id="dateDebut" name="dateDebut" value="' . $enchere->getDateDebut()->getTimestamp() . '">';
 
 echo $str;
 
