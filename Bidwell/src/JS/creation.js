@@ -6,7 +6,7 @@ function addCategoriesToSelectList(){
   select = document.getElementById("categorieSelect");
   //Recup les catégorie filles via requete ajax
   var requete = new XMLHttpRequest();
-  requete.open("POST", "creationPart2.ctrl.php", true);
+  requete.open("POST", "../Ajax/creation-categorie-ajax.php", true);
   requete.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   requete.onload = function() {
   const rep = JSON.parse(this.responseText);
@@ -229,7 +229,7 @@ function validateInfos(event){
       }
         //Vérifie que les images upload sont correctes
       let requete = new XMLHttpRequest();
-      requete.open("POST", "upload.ctrl.php", false);
+      requete.open("POST", "../Ajax/upload-ajax.php", false);
       requete.onload = function() {
       const rep = JSON.parse(this.responseText);
         if (rep.success) {
@@ -263,7 +263,7 @@ function validateInfos(event){
     codePostal = document.getElementById("localisationInput").value.replace(/\D/g,"");
     //Envoie php
     let requete = new XMLHttpRequest();
-    requete.open("POST", "creationPart3.ctrl.php", true);
+    requete.open("POST", "../Ajax/creation-ajax.php", true);
     requete.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     requete.onload = function() {
         const rep = JSON.parse(this.responseText);

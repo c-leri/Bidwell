@@ -6,7 +6,7 @@ function showItems(ordre, cible) {
   xhttp.onload = function () {
     document.getElementById(cible).innerHTML = this.responseText;
   }
-  xhttp.open("GET", "main-ajax.ctrl.php?ordre=" + ordre);
+  xhttp.open("GET", "../Ajax/main-ajax.php?ordre=" + ordre);
   xhttp.send();
 }
 

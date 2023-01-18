@@ -46,7 +46,7 @@ function showItems() {
     }
 
     //Ouvre la requête au serveur avec pour informations le tri, le type, les catégories sélectionnées et le numéro de page
-    xhttp.open("GET", "recherche-ajax.ctrl.php?categories=" + categories + "&tri=" + tri + "&type=" + type + "&prix=" + prix + "&numPage=" + 1);
+    xhttp.open("GET", "../Ajax/recherche-ajax.php?categories=" + categories + "&tri=" + tri + "&type=" + type + "&prix=" + prix + "&numPage=" + 1);
 
     //Envoie la requête au serveur
     xhttp.send();
@@ -83,7 +83,7 @@ function changePage(numPage) {
         document.getElementById("annonces").innerHTML = this.responseText;
         window.scrollTo(0, 0);
     }
-    xhttp.open("GET", "recherche-ajax.ctrl.php?categories=" + categories + "&tri=" + tri + "&type=" + type + "&prix=" + prix + "&numPage=" + numPage);
+    xhttp.open("GET", "../Ajax/recherche-ajax.php?categories=" + categories + "&tri=" + tri + "&type=" + type + "&prix=" + prix + "&numPage=" + numPage);
     xhttp.send();
 }
 
@@ -99,7 +99,7 @@ function initPage(categorie){
         showItems();
     }
 
-    xhttp.open("GET", "recherche-aside-ajax.ctrl.php?categories=" + categorie);
+    xhttp.open("GET", "../Ajax/recherche-aside-ajax.php?categories=" + categorie);
     xhttp.send();
 
 

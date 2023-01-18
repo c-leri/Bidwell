@@ -18,7 +18,7 @@ function conf(){
   }
 
   //Ouvre la requête au serveur avec pour informations le nombre de jetons à donner
-  xhttp.open("GET", "shopAchat.ctrl.php?valeur=" + nbr);
+  xhttp.open("GET", "../Ajax/shop-ajax.php?valeur=" + nbr);
 
   //Envoie la requête au serveur
   xhttp.send();
