@@ -5,16 +5,16 @@
     <div class="div1">
         <h1>BidWell</h1>
         <ul>
-            <?php if ($connected) : ?>
-                <li><a href="compte.ctrl.php">Paramétrer les cookies</a></li>
-            <?php endif; ?>
-            <li><a href="condition.ctrl.php">Conditions d’utilisation</a></li>
-            <li><a href="#">Mentions légales</a></li>
+           <!-- <?php if ($connected) : ?>
+            <li><a href="compte.ctrl.php">Paramétrer les cookies</a></li>
+            <?php endif; ?>-->
+            <li><a href="condition.ctrl.php">Conditions d'utilisation</a></li>
+            <li><a href="../View/mention.view.php">Mentions légales</a></li>
             <li><a href="#">Politique de confidentalité</a></li>
         </ul>
     </div>
     <div class="div2">
-        <ul>
+        <ul><br><br>
             <li><a href="apropos.ctrl.php">À propos</a></li>
             <li><a href="">Contact</a></li>
             <li><a href="">Besoin d'aide ?</a></li>
