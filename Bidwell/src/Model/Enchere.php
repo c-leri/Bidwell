@@ -77,7 +77,9 @@ class Enchere
         $dateDebut->setTimestamp($row['dateDebut']);
         $infosEnvoi = array();
         $infosContact = array();
-        array_push($infosEnvoi,$row['infoRemiseDirect'],$row['infoEnvoiColis'],$row['infoEmail'],$row['infoTel']);
+        array_push($infosEnvoi,$row['infoRemiseDirect'],$row['infoEnvoiColis']);
+        array_push($infosContact,$row['infoEmail'],$row['infoTel']);
+
         // création d'un objet enchère avec les informations de la bd
         $enchere = new Enchere(Utilisateur::read($row['loginCreateur']), $row['libelle'], $dateDebut, $row['prixDepart'], $row['prixRetrait'], $images[0], $row['description'], Categorie::read($row['libelleCategorie']),$infosContact,$infosEnvoi,$row['codePostal']);
 
