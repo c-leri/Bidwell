@@ -1,7 +1,7 @@
 <!-- Partie de la vue de la création d'enchère : le menu -->
 <nav id="navbar-top">
     <div class="nav-left">
-        <a href="main.ctrl.php">
+        <a href="../Controler/main.ctrl.php">
             <img src="../View/design/img/logo.png" alt="logo">
         </a>
     </div>
