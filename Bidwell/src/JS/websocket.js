@@ -31,7 +31,7 @@ conn.onmessage = function (e) {
         xhttp.onload = function() {
             document.getElementById("container").innerHTML = this.responseText;
         }
-        xhttp.open("GET", `consultation-ajax.ctrl.php?id=${message.id}&prixRetrait=${message.value.prixRetrait}&prixHaut=${message.value.prixHaut}` );
+        xhttp.open("GET", `consultation-ajax.ctrl.php?id=${message.value.id}&prixRetrait=${message.value.prixRetrait}&prixHaut=${message.value.prixHaut}` );
         xhttp.send();
         
     }

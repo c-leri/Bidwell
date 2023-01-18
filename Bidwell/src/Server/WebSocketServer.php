@@ -10,9 +10,13 @@ use Ratchet\ConnectionInterface;
 use Ratchet\Server\IoServer;
 use Ratchet\WebSocket\WsServer;
 
+use SplObjectStorage;
+use Exception;
+use Error;
+
 class WebSocketServer implements MessageComponentInterface
 {
-    private \SplObjectStorage $clients;
+    private SplObjectStorage $clients;
 
     private array $codes;
 
@@ -33,7 +37,7 @@ class WebSocketServer implements MessageComponentInterface
 
     public function __construct()
     {
-        $this->clients = new \SplObjectStorage;
+        $this->clients = new SplObjectStorage;
         $this->codes = array();
     }
 
@@ -41,7 +45,7 @@ class WebSocketServer implements MessageComponentInterface
     {
         // on ajoute la connection à la liste de connexion
         $this->clients->attach($conn);
-        echo "New connection! ({$conn->resourceId})\n";
+        echo "New connection! ($conn->resourceId)\n";
 
         $login = '{"type": "isConnected"}';
         $conn->send($login);
@@ -55,7 +59,7 @@ class WebSocketServer implements MessageComponentInterface
 
             // si le message n'a pas de type ou de valeur, il n'est pas conforme
             if (!isset($message->type) || !isset($message->value)) {
-                echo "Message non conforme sans type envoyé par la connection {$from->resourceId} : $message\n";
+                echo "Message non conforme sans type envoyé par la connection $from->resourceId : $message\n";
             } else {
                 switch ($message->type) {
                     // message indiquant si l'utilisateur est connecté
@@ -80,8 +84,7 @@ class WebSocketServer implements MessageComponentInterface
                             // on essaye de récupérer l'Utilisateur correspondant au login dans la bd
                             try {
                                 $this->users[$from->resourceId] = Utilisateur::read($message->value);
-                                var_dump($this->users);
-                            } catch (\Exception $e) {
+                            } catch (Exception $e) {
                                 echo "Problème lors de la lecture de l'utilisateur de la connection $from->resourceId : {$e->getMessage()}\n";
                             }
                         }
@@ -98,7 +101,7 @@ class WebSocketServer implements MessageComponentInterface
 
                             // notifie tous les autres utilisateurs
                             foreach ($this->clients as $client) {
-                                $client->send('{"type": "enchere", "value": { "prixRetrait": ' . $participation->getMontantDerniereEnchere() . ', "prixHaut": ' . $enchere->getPrixHaut() . '}, "id":'. $enchere->getId() .'}}');
+                                $client->send('{"type": "enchere", "value": { "prixRetrait": ' . $participation->getMontantDerniereEnchere() . ', "prixHaut": ' . $enchere->getPrixHaut() . ', "id":'. $message->value .'}}');
                             }
                         }
                         break;
@@ -107,22 +110,20 @@ class WebSocketServer implements MessageComponentInterface
                         break;
                 }
             }
-        } catch (\Exception) {
-            echo "Problème lors de la lecture du message envoyé par la connection {$from->resourceId}";
-        } catch (\Error) {
-            echo "Problème lors de la lecture du message envoyé par la connection {$from->resourceId}";
+        } catch (Exception|Error) {
+            echo "Problème lors de la lecture du message envoyé par la connection $from->resourceId";
         }
     }
 
     public function onClose(ConnectionInterface $conn)
     {
-        echo "Connection {$conn->resourceId} has disconnected\n";
+        echo "Connection $conn->resourceId has disconnected\n";
         unset($this->codes[$conn->resourceId]);
         unset($this->users[$conn->resourceId]);
         $this->clients->detach($conn);
     }
 
-    public function onError(ConnectionInterface $conn, \Exception $e)
+    public function onError(ConnectionInterface $conn, Exception $e)
     {
         echo "An error has occured: {$e->getMessage()}\n";
         unset($this->codes[$conn->resourceId]);

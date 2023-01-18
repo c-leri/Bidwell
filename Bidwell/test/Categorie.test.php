@@ -93,9 +93,13 @@ try {
 
     // update() avec des enchères
     $dateDebut = DateTime::createFromFormat('Y-m-d', '2050-12-24');
-    $enchere1 = new Enchere($utilisateur, 'enchere1', $dateDebut, 500, 0, 'enchere1.png', 'enchere1.txt', $categorieFille, 'false,false', 'true,false', '38190');
+    $infosContact = array(false,false);
+    $infosEnvoi = array(false,true);
+    $enchere1 = new Enchere($utilisateur, 'enchere1', $dateDebut, 500, 0, 'enchere1.png', 'enchere1.txt', $categorieFille, $infosContact, $infosEnvoi, 38190);
     $enchere1->create();
-    $enchere2 = new Enchere($utilisateur, 'enchere2', $dateDebut, 500, 0, 'enchere2.png', 'enchere2.txt', $categorieFille, 'false,true', 'true,true', '38100');
+    $infosContact = array(false,true);
+    $infosEnvoi = array(true,true);
+    $enchere2 = new Enchere($utilisateur, 'enchere2', $dateDebut, 500, 0, 'enchere2.png', 'enchere2.txt', $categorieFille, $infosContact, $infosEnvoi, 38100);
     $enchere2->create();
     $categorieFille->update();
     $categorieFilleRead = Categorie::read($categorieFille->getLibelle());

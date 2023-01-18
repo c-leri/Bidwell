@@ -23,14 +23,18 @@ try {
     print('Test du constructeur : ');
 
     try {
-        new Enchere($utilisateur, 'testConstructeur', $date, 500, 0, 'testConstructeur.png', 'testConstructeur.txt', $categorie, 'true,false', 'false,false', '56000');
+        $infosContact = array(false,false);
+        $infosEnvoi = array(true,false);
+        new Enchere($utilisateur, 'testConstructeur', $date, 500, 0, 'testConstructeur.png', 'testConstructeur.txt', $categorie, $infosContact, $infosEnvoi, 56000);
     } catch (Exception $e) {
         KO("Erreur sur Enchere : ".$e->getMessage());
     }
 
     try {
+        $infosContact = array(true,true);
+        $infosEnvoi = array(false,true);
         $categorieInexistante = new Categorie('inexistance');
-        new Enchere($utilisateur, 'testConstructeur3', $date, 500, 0, 'testConstructeur3.png', 'testConstructeur3.txt', $categorieInexistante, 'true,true', 'false,true', '92000');
+        new Enchere($utilisateur, 'testConstructeur3', $date, 500, 0, 'testConstructeur3.png', 'testConstructeur3.txt', $categorieInexistante, $infosContact, $infosEnvoi, 92000);
         KO("L'enchère a été créée malgré la catégorie non sérialisée");
     } catch (Exception) {}
 
@@ -41,7 +45,9 @@ try {
     /////////////////////////////////////////////
 
     // Création d'une enchère pour le test des méthodes CRUD
-    $enchere = new Enchere($utilisateur, 'Enchere 3', $date, 500, 200, 'enchere3.png', 'enchere3.txt', $categorie, 'false,false', 'false,true', '45000');
+    $infosContact = array(false,false);
+    $infosEnvoi = array(true,false);
+    $enchere = new Enchere($utilisateur, 'Enchere 3', $date, 500, 200, 'enchere3.png', 'enchere3.txt', $categorie, $infosContact, $infosEnvoi, 45000);
 
     /////////////// CREATE + READ ////////////////
     print('Test create() et read() : ');
