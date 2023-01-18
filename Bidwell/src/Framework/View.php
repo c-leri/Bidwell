@@ -4,6 +4,8 @@ namespace Bidwell\Framework;
 // Classe minimaliste pour normaliser l'usage d'une vue
 // Cette classe est inspiré du moteur et compilateur de modèle Smarty
 
+use JetBrains\PhpStorm\NoReturn;
+
 class View {
   // Paramètres de la vue, dans un tableau associatif
   private array $param;

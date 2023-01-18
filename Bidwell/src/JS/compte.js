@@ -1,5 +1,5 @@
-window.onload = showItems();
-var modal = document.getElementById("myModal");
+window.onload = showItems;
+const modal = document.getElementById("myModal");
 
 function showItems() {
     //Crée une nouvelle requête XMLHTTP à envoyer au serveur
@@ -10,10 +10,9 @@ function showItems() {
         document.getElementById("vosEncheres").innerHTML = this.responseText;
     }
 
-    createur = document.getElementById("login").innerText;
-    console.log(createur);
+    let createur = document.getElementById("login").innerText;
     //Ouvre la requête au serveur avec pour informations le tri, le type, les catégories sélectionnées et le numéro de page
-    xhttp.open("GET", "../Ajax/compte-ajax.php?createur=" + createur);
+    xhttp.open("GET", "../Ajax/compte.ajax.php?createur=" + createur);
 
     //Envoie la requête au serveur
     xhttp.send();

@@ -67,13 +67,13 @@
             <div class="images">
                 <h2> Ajouter des images </h2>
 
-                <input id="imagesInput" type="file" accept="image/*" onchange="loadFile(event)" multiple enctype="multipart/form-data">
+                <input id="imagesInput" type="file" accept="image/*" onchange="loadFile(event)" multiple formenctype="multipart/form-data">
 
                 <div class="addedImages">
                     <?php for ($i = 0; $i < 6; $i++) {
                     ?>
                         <article>
-                            <img id=<?= "output" . $i ?> src="../View/design/img/transparent.png">
+                            <img id="<?= "output" . $i ?>" src="../View/design/img/transparent.png" />
                             <button class="btnSuppr" id=<?= "button" . $i ?> type="button" onclick=removeImg(<?=$i?>)><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><path d="M5 20a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8h2V6h-4V4a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2v2H3v2h2zM9 4h6v2H9zM8 8h9v12H7V8z"></path><path d="M9 10h2v8H9zm4 0h2v8h-2z"></path></svg></button>
                             <p class="numImg" id=<?= "p" . $i ?>> Image n°<?= $i+1?> </p> 
 

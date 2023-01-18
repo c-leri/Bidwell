@@ -45,8 +45,8 @@ class Participation {
     private static function constructFromDB(array $row, ?Enchere $enchere = null, ?Utilisateur $utilisateur = null) : Participation {
         // création d'un objet participation avec les informations de la bd
         $participation = new Participation(
-            isset($enchere) ? $enchere : Enchere::read($row['idEnchere']),
-            isset($utilisateur) ? $utilisateur : Utilisateur::read($row['loginUtilisateur'])
+            $enchere ?? Enchere::read($row['idEnchere']),
+            $utilisateur ?? Utilisateur::read($row['loginUtilisateur'])
         );
 
         // on set le nombre d'enchères de la participation

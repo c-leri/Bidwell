@@ -2,7 +2,6 @@
 
 namespace Bidwell\Model;
 
-use Bidwell\Model\Participation;
 use Bidwell\Util\Helper;
 
 use DateInterval;
@@ -34,8 +33,8 @@ class Enchere
     private array $images = array();              // liste des noms des fichers contenant les images
     private string $description;
     private Categorie $categorie;
-    private array $infosContact= array();
-    private array $infosEnvoi= array();
+    private array $infosContact;
+    private array $infosEnvoi;
     private string $codePostal;
 
     // Constructeurs
@@ -78,10 +77,7 @@ class Enchere
         $dateDebut->setTimestamp($row['dateDebut']);
         $infosEnvoi = array();
         $infosContact = array();
-        array_push($infosEnvoi,$row['infoRemiseDirect']);   
-        array_push($infosEnvoi,$row['infoEnvoiColis']);
-        array_push($infosContact,$row['infoEmail']);
-        array_push($infosContact,$row['infoTel']);               
+        array_push($infosEnvoi,$row['infoRemiseDirect'],$row['infoEnvoiColis'],$row['infoEmail'],$row['infoTel']);
         // création d'un objet enchère avec les informations de la bd
         $enchere = new Enchere(Utilisateur::read($row['loginCreateur']), $row['libelle'], $dateDebut, $row['prixDepart'], $row['prixRetrait'], $images[0], $row['description'], Categorie::read($row['libelleCategorie']),$infosContact,$infosEnvoi,$row['codePostal']);
 
@@ -155,11 +151,6 @@ class Enchere
         return $this->codePostal;
     }
 
-    public function getDescriptionURL(): string
-    {
-        return $this::ADRESSE_DESCRIPTIONS . $this->description;
-    }
-
     public function getCategorie(): Categorie
     {
         return $this->categorie;
@@ -214,7 +205,7 @@ class Enchere
 
     public function addImage($image): void
     {
-        array_push($this->images, $image);
+        $this->images[] = $image;
     }
 
     public function removeImage(int $id): void

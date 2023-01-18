@@ -4,7 +4,6 @@ namespace Bidwell\Server;
 use Bidwell\Model\Enchere;
 use Bidwell\Model\Participation;
 use Bidwell\Model\Utilisateur;
-use Bidwell\Util\Helper;
 use Ratchet\Http\HttpServer;
 use Ratchet\MessageComponentInterface;
 use Ratchet\ConnectionInterface;

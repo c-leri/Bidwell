@@ -19,7 +19,7 @@ $str = "";
 
         $str .= "<article>";
         $str .= '<a href="consultation.ctrl.php?id='. $result[$i]->getId() .'">';
-        $str .= '<img src="../View/design/img/"'. $result[$i]->getImageURL(0)  .'alt="">';
+        $str .= '<img src="'. $result[$i]->getImageURL(0)  .'" alt="">';
         $str .= "</a>";
         $str .='<div class="variablesEnchere">';
         $str .= "<h1>" . $result[$i]->getLibelle() . "</h1>";
@@ -35,4 +35,3 @@ $str = "";
 
 //Renvoie le code à afficher
 echo $str;
-?>

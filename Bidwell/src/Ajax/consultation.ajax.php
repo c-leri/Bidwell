@@ -18,9 +18,7 @@ $now = new DateTime();
 $tempsRes = $now->diff($enchere->getInstantFin());
 $date = $tempsRes->format("%h:%i:%s");
 
-$str = '';
-
-$str .= '<svg class="circle-container" viewBox="2 -2 28 36">';
+$str = '<svg class="circle-container" viewBox="2 -2 28 36">';
 $str .=     '<linearGradient id="gradient">';
 $str .=         '<stop class="stop1" offset="0%" />';
 $str .=         '<stop class="stop2" offset="100%" />';
@@ -63,5 +61,3 @@ $str .= '<input type="hidden" id="instantFin" name="instantFin" value="' . $ench
 $str .= '<input type="hidden" id="dateDebut" name="dateDebut" value="' . $enchere->getDateDebut()->getTimestamp() . '">';
 
 echo $str;
-
-?>

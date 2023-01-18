@@ -71,10 +71,11 @@ class Categorie {
     // Méthodes
 
     /**
-	 * La fonction getCategorieAutre() permet d'obtenir la catégorie par
-	 * défault Autre.
+     * La fonction getCategorieAutre() permet d'obtenir la catégorie par
+     * défault Autre.
      *  - Wrapper de read() qui crée la catégorie si elle n'existe pas déjà
-	 * @return Categorie Categorie par défaut Autre
+     * @return Categorie Categorie par défaut Autre
+     * @throws Exception si on n'arrive pas à lire la catégorie Autre alors qu'elle est dans la base
      */
     public static function getCategorieAutre() : Categorie {
         try {
@@ -155,12 +156,12 @@ class Categorie {
         return Categorie::constructFromDB($table[0]);
     }
 
-	/**
-	 * La fonction readFromCategorieMere() sert à récupérer les catégories
-	 * en fonction de leur catégorie mère.
-	 * @param Categorie $categorieMere: categorie mère des catégories à récupérer
-	 * @return: Tableau de catégories dont la catégorie mère est categorieMere
-	 */
+    /**
+     * La fonction readFromCategorieMere() sert à récupérer les catégories
+     * en fonction de leur catégorie mère.
+     * @param Categorie $categorieMere : categorie mère des catégories à récupérer
+     * @return array : Tableau de catégories dont la catégorie mère est categorieMere
+     */
     public static function readFromCategorieMere(Categorie $categorieMere) : array {
         // récupératoin du dao
         $dao = DAO::get();
@@ -221,8 +222,7 @@ class Categorie {
         $dao = DAO::get();
         $query = 'SELECT libelle FROM Categorie WHERE libelleMere IS NOT NULL';
         // récupération de la table de résultat
-        $table = $dao->query($query,array()); 
-        return $table;  
+        return $dao->query($query,array());
     }
 
     private static function constructFromDB(array $row, ?Categorie $categorieMere = null) : Categorie {

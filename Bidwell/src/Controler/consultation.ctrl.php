@@ -2,7 +2,6 @@
 // Inclusion du framework
 use Bidwell\Framework\View;
 use Bidwell\Model\Enchere;
-use Bidwell\Util\Helper;
 
 require_once __DIR__.'/../../vendor/autoload.php';
 
@@ -10,10 +9,10 @@ require_once __DIR__.'/../../vendor/autoload.php';
 // Récupération des informations à afficher
 ////////////////////////////////////////////////////////////////////////////
 session_start();
-$login = isset($_SESSION['login']) ? $_SESSION['login'] : '';
+$login = $_SESSION['login'] ?? '';
 session_write_close();
 
-$id = isset($_GET['id']) ? $_GET['id'] : null;
+$id = $_GET['id'] ?? null;
 
 if ($id == null) {
     throw new Exception("L'enchère que vous essayer de consulter n'existe pas ou a été supprimée");
@@ -35,7 +34,7 @@ if ($id == null) {
         $tempsRes = $maintenant->diff($enchere->getDateDebut());
         $prixact = $prixdep;
         $dateTitle = "L'enchère commencera dans ";
-        $date = $tempsRes->format("%h:%i:%s");
+        $date = $tempsRes->format("%H:%I:%S");
         $button = 'disabled';
     } else {
 

@@ -7,17 +7,9 @@ require_once __DIR__.'/../../vendor/autoload.php';
 
 //var_dump($_GET['prix']);
 
-if (isset($_GET['numPage'])) {
-    $page = $_GET['numPage'];
-} else {
-    $page = 1;
-}
+$page = $_GET['numPage'] ?? 1;
 
-if (isset($_GET['type'])){
-    $type = $_GET['type'];
-} else {
-    $type = 'Enchere';
-}
+$type = $_GET['type'] ?? 'Enchere';
 
 //Vérifie si le type sélectionné edst "enchère" ou "utilisateur"
 if ($type == 'Enchere') {
@@ -94,4 +86,3 @@ if ($type == 'Enchere') {
 
 //Renvoie le code à afficher
 echo $str;
-?>
