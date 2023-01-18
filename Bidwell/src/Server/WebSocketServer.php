@@ -101,7 +101,7 @@ class WebSocketServer implements MessageComponentInterface
 
                             // notifie tous les autres utilisateurs
                             foreach ($this->clients as $client) {
-                                $client->send('{"type": "enchere", "value": { "prixRetrait": ' . $participation->getMontantDerniereEnchere() . ', "prixHaut": ' . $enchere->getPrixHaut() . ', "id":'. $message->value .'}}');
+                                $client->send('{"type": "enchere", "value": { "prixRetrait": ' . $participation->getMontantDerniereEnchere() . ', "prixHaut": ' . $enchere->getPrixHaut() . ', "id":'. $enchere->getId() .'}}');
                             }
                         }
                         break;

@@ -1,36 +1,36 @@
-Petits objets|NULL
-Timbres|Petits objets
-Monnaies|Petits objets
+Petits Objets|NULL
+Timbres|Petits Objets
+Monnaies|Petits Objets
 Porte-clés|Petits Objets
 Boutons|Petits Objets
 Briquets|Petits Objets
-Autres petits objets|Petits objets
-Objets d'art|NULL
-Peinture|Objets d'art
-Sculpture|Objets d'art
-Dessins|Objets d'art
-Photos|Objets d'art
-Autres objets d'art|Objets d'art
+Autres Petits Objets|Petits Objets
+Objets d'Art|NULL
+Peinture|Objets d'Art
+Sculpture|Objets d'Art
+Dessins|Objets d'Art
+Photos|Objets d'Art
+Autres Objets d'Art|Objets d'Art
 Bijouterie|NULL
 Bracelets|Bijouterie
 Collier|Bijouterie
 Bagues|Bijouterie
-Boucles d'oreilles|Bijouterie
+Boucles d'Oreilles|Bijouterie
 Montres|Bijouterie
-Autres bijoux|NULL
+Autres Bijoux|NULL
 Pierres|NULL
-Pierres précieuses|Pierres précieuses
-Pierres fines|Pierres précieuses
-Pierres organiques|Pierres précieuses
-Autres pierres|Pierres précieuses
+Pierres Précieuses|Pierres
+Pierres Fines|Pierres
+Pierres Organiques|Pierres
+Autres Pierres|Pierres
 Jouets|NULL
-Modèles miniatures|Jouets
+Modèles Miniatures|Jouets
 LEGO|Jouets
 Playmobil|Jouets
 Cartes Pokémon|Jouets
 Billes|Jouets
 Casses-tête|Jouets
-Autres jouets|Jouets
+Autres Jouets|Jouets
 Divers|NULL
 Voitures|Divers
 Livres et Manuscrits|Divers
