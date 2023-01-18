@@ -160,18 +160,15 @@ function getFirstFreeSpot(){
   let i =0;
   let defaultImageURL = window.location.href.substring(0, window.location.href.lastIndexOf('/'));
   defaultImageURL = `${defaultImageURL.substring(0, defaultImageURL.lastIndexOf('/'))}/View/design/img/default_image.png`;
-  while(i<8 && document.getElementById("output"+i).src !== defaultImageURL) {
-    console.log(i<8 && document.getElementById("output"+i).src);
-    console.log("../View/design/img/default_image.png");  
-
+  while(i<6 && document.getElementById("output"+i).src !== defaultImageURL) {
     i++;
   }
   return i;
 }
 function loadFile(event) {
 
-  //Si ya deja 8 images on empeche l'utilisateur de load un fichier
-  if (compteur <= 8){
+  //Si ya deja 6 images on empeche l'utilisateur de load un fichier
+  if (compteur <= 6){
     //Pour chaque fichier contenu dans l'input, on l'ajoute a tmp files si il y est pas déjà
     for (let i = 0; i < imgInput.files.length ; i++) {
       var filename = imgInput.files[i]["name"];
