@@ -6,14 +6,14 @@ Boutons|Petits Objets
 Briquets|Petits Objets
 Autres Petits Objets|Petits Objets
 Art|NULL
-Peinture|Art
-Sculpture|Art
+Peintures|Art
+Sculptures|Art
 Dessins|Art
 Photos|Art
 Autres Art|Art
 Bijouterie|NULL
 Bracelets|Bijouterie
-Collier|Bijouterie
+Colliers|Bijouterie
 Bagues|Bijouterie
 Boucles d'Oreilles|Bijouterie
 Montres|Bijouterie
