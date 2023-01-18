@@ -69,7 +69,7 @@ function validateCategories(){
   errorCategorie = document.getElementById("errorcategorie"),
   nom = document.getElementById("nom");
   //Si la categorie selectionnée est une catégorie mère on l'indique à l'utilisateur
-      if(categorieSelect.value.includes("-")) {
+      if(categorieSelect.value.includes("------")) {
         errorCategorie.innerHTML = "Veuillez selectionner une sous catégorie";
       nom.scrollIntoView();
       return false;

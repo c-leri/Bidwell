@@ -24,7 +24,7 @@ CREATE TABLE Enchere (
     images TEXT NOT NULL,
     description TEXT NOT NULL,
     libelleCategorie INTEGER NOT NULL,
-    codePostal INTEGER  NOT NULL,
+    codePostal TEXT  NOT NULL,
     infoRemiseDirect Boolean  NOT NULL,
     infoEnvoiColis Boolean  NOT NULL,
     infoEmail Boolean  NOT NULL,
