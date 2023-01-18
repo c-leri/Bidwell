@@ -55,19 +55,19 @@
             <div class="informations">
                 <h2> Informations complémentaires </h2>
                 <ul>
-                    <li> <?= $place?> </li>
-                    <li> <?= $dist?> </li>
-                    <li> <?= $localisation ?></li>
-                    <li>Le paiement sera réalisé par PayPal</li>
+                    <li> <?= $place?>.</li>
+                    <li> <?= $dist?>.</li>
+                    <li>Code postal : <?= $localisation ?></li>
+                    <li>Le paiement sera réalisé par PayPal.</li>
                 </ul>
             </div>
 
             <div class="vendeur">
                 <h2> Vendeur </h2>
                 <ul>
-                    <li><?= $createur->getLogin() ?></li>
-                    <li><?= $mail ?></li>
-                    <li><?= $tel ?></li>
+                    <li>Nom : <?= $createur->getLogin() ?></li>
+                    <li>Mail : <?= $mail ?></li>
+                    <li>Numéro : <?= $tel ?></li>
                     <!--<li>Nombre d'annonces postées</li>-->
                 </ul>
             </div>
