@@ -2,6 +2,7 @@
 // Inclusion du framework
 use Bidwell\Framework\View;
 use Bidwell\Model\Enchere;
+use Bidwell\Util\Helper;
 
 require_once __DIR__.'/../../vendor/autoload.php';
 
@@ -48,7 +49,8 @@ if ($id == null) {
             $prixact = $prixfin;
             $dateTitle = "L'enchère est terminée.";
             $date = "";
-            if (!empty($enchere->getParticipations()) && end($enchere->getParticipations())->getUtilisateur()->getLogin() == $login){
+            $participations = $enchere->getParticipations();
+            if (!empty($enchere->getParticipations()) && end($participations)->getUtilisateur()->getLogin() == $login){
                 $message = "Vous avez remporté le lot ! Contactez le vendeur pour préparer sa livraison.";
             } else {
                 $message = "Vous n'avez pas remporté cette enchère.";
@@ -134,8 +136,9 @@ $view->assign('dist', $dist);
 $view->assign('localisation', $codePostal);
 $view->assign('message', $message);
 
-
-
+$view->assign('instantDerniereEnchere',$enchere->getInstantDerniereEnchere()->getTimestamp());
+$view->assign('instantFin', $enchere->getInstantFin()->getTimestamp());
+$view->assign('dateDebut', $enchere->getDateDebut()->getTimestamp());
 
 
 // Charge la vue

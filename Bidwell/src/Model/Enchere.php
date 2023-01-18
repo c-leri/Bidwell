@@ -3,6 +3,8 @@
 namespace Bidwell\Model;
 
 use Bidwell\Model\Participation;
+use Bidwell\Util\Helper;
+
 use DateInterval;
 use DateTime;
 use Exception;
@@ -258,10 +260,6 @@ class Enchere
         return $this->prixRetrait + $this->getRatioTempsActuel() * ($this->prixHaut - $this->prixRetrait);
     }
 
-    private function intervalToMilliseconds(DateInterval $interval) : float {
-        return ((($interval->h * 60) + $interval->i) * 60 + $interval->s) * 1000 + $interval->f / 1000;
-    }
-
     /**
      * Calcul le ratio représentant l'avancée temporelle de l'enchère entre le prix haut et le prix de retrait
      */
@@ -271,14 +269,31 @@ class Enchere
         if ($maintenant > $this->getDateDebut()) {
             $interval1H = new DateInterval('PT1H');
             $intervalMaintenantFin = $maintenant->diff($this->getInstantFin());
-            $differenceMaintenantFin = $this->intervalToMilliseconds($intervalMaintenantFin);
+            $differenceMaintenantFin = (float) Helper::intervalToMilliseconds($intervalMaintenantFin);
             return (isset($this->derniereEnchere))
-                ? $differenceMaintenantFin / $this->intervalToMilliseconds($this->derniereEnchere->getInstantDerniereEnchere()->diff($this->getInstantFin()))
-                : $differenceMaintenantFin / $this->intervalToMilliseconds($interval1H);
+                ? $differenceMaintenantFin / (float) Helper::intervalToMilliseconds($this->derniereEnchere->getInstantDerniereEnchere()->diff($this->getInstantFin()))
+                : $differenceMaintenantFin / (float) Helper::intervalToMilliseconds($interval1H);
         } else {
             return 1;
         }
-    }  
+    }
+
+    public function getMontantDerniereEnchere(): float
+    {
+        return (isset($this->derniereEnchere))
+            ? $this->derniereEnchere->getMontantDerniereEnchere()
+            : $this->prixDepart;
+    }
+
+    /**
+     * @return DateTime l'instant de la dernière enchère 
+     */
+    public function getInstantDerniereEnchere(): DateTime
+    {
+        return (isset($this->derniereEnchere))
+            ? $this->derniereEnchere->getInstantDerniereEnchere()
+            : $this->dateDebut;
+    }
 
     /**
      * @return DateTime correspondant à l'instant de la fin de l'enchère (datedebut + 1 heure)

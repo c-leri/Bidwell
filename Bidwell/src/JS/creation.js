@@ -85,8 +85,8 @@ function validateDescription(){
     errordescription.innerHTML = "Veuillez écrire au minimum 50 caractères ("+description.value.length+" actuellement)";
     nom.scrollIntoView();
     return false;
-  }else if(description.value.length>1000){
-    errordescription.innerHTML = "Veuillez écrire au maximum 1000 caractères ("+description.value.length+" actuellement)";
+  }else if(description.value.length>500){
+    errordescription.innerHTML = "Veuillez écrire au maximum 500 caractères ("+description.value.length+" actuellement)";
     nom.scrollIntoView();
     return false;
   }else{
