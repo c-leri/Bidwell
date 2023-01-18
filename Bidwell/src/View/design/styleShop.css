@@ -73,12 +73,14 @@ h2{
 .modal-content {
   position: absolute;
   display: flex;
+  flex-direction: column;
+  vertical-align: middle;
   background-color: #fefefe;
   margin: 15% auto;
-  padding: 20px;
+  padding: 1.5rem;
   border: 1px solid #888;
-  width: 80%;
-  height: 50%;
+  width: auto;
+  height: auto;
 }
 
 /* The Close Button */
@@ -86,6 +88,7 @@ h2{
   position: absolute;
   top: 0;
   right: 0;
+  z-index: 110;
   margin-right: 1rem;
   color: red;
   float: right;
@@ -100,15 +103,38 @@ h2{
   cursor: pointer;
 }
 
-
-#lesbtns{
-  position:absolute;
-  bottom: 0;
-  right: 0;
+#conscience{
+  margin-right: 1rem;
 }
 
-#myConfirm, #myCancel{
-  margin: 1rem;
-  padding: 0.5rem;
+
+#checkconfirmation{
+  display: flex;
+  z-index: 110;
+  flex-direction: row;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
 }
+
+
+/*Système grisant le bouton paypal avant acceptation des conditions*/
+#anti-tab{
+  position: fixed;
+  opacity: 0;
+}
+
+#couvrebouton{
+  display: block;
+  background-color: var(--couleur-blanc);
+  opacity: 0%;
+  z-index:100;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+
+}
+
+
 

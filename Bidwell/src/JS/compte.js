@@ -13,7 +13,7 @@ function showItems() {
         createur = document.getElementById("login").innerText;
         console.log(createur);
         //Ouvre la requête au serveur avec pour informations le tri, le type, les catégories sélectionnées et le numéro de page
-        xhttp.open("GET", "compte-ajax.ctrl.php?createur=" + createur);
+        xhttp.open("GET", "../Ajax/compte-ajax.php?createur=" + createur);
     
         //Envoie la requête au serveur
         xhttp.send();

@@ -40,7 +40,7 @@
                 <a href="">Mot de passe oublié ?</a>
                 <button type="submit">Se connecter</button>
             </form>
-            <script src="../JS/connectChecker.js"></script>
+            <script src="../JS/connect.js"></script>
 
         </div>
         

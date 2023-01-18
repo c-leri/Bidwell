@@ -10,7 +10,7 @@ function validateConnection(event){
     event.preventDefault();
     const requete = new XMLHttpRequest();
     //Précise quel controleur php le client va contacter via ajax ainsi que la méthode utilisée
-    requete.open("POST", "connectPart2.ctrl.php", true); //True pour que l'exécution du script continue pendant le chargement, false pour attendre.
+    requete.open("POST", "../Ajax/connect-ajax.php", true); //True pour que l'exécution du script continue pendant le chargement, false pour attendre.
     //Header utile au bon fonctionnement de la requête
     requete.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     requete.onload = function() {

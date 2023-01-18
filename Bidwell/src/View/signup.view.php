@@ -54,7 +54,7 @@
                 <p id="errornumtel"></p>
                 <button type="submit" name="submit">Confirmer</button>
             </form>
-            <script src="../JS/signupChecker.js"></script>
+            <script src="../JS/signup.js"></script>
         </div>
 
 
