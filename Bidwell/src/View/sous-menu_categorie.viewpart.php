@@ -2,32 +2,22 @@
 <nav id="navbar-bot">
     <ul>
         <li><a href="recherche.ctrl.php">
-                <img src="../View/design/img/burger.png" alt="burger"> Tous les articles
+                Tous les articles
             </a></li>
-        <li><a href="recherche.ctrl.php?categories=aussiTestEnfant">
-                AussiTestEnfant
+        <li><a href="recherche.ctrl.php?categories=Timbres">
+        Timbres
             </a></li>
-        <li><a href="recherche.ctrl.php?categories=artDecoratif">
-                Art Décoratif
+        <li><a href="recherche.ctrl.php?categories=Peintures">
+        Peintures
             </a></li>
-        <li><a href="">
-                Bijouterie
+        <li><a href="recherche.ctrl.php?categories=Bracelets">
+                Bracelets
             </a></li>
-        <li><a href="">
-                Mobilier
+        <li><a href="recherche.ctrl.php?categories=Modèles+Miniatures">
+        Modèles Miniatures
             </a></li>
-        <li><a href="">
-                Mode
+        <li><a href="recherche.ctrl.php?categories=Autres">
+                Autres
             </a></li>
-        <li><a href="">
-                Sculptures
-            </a></li>
-        <li><a href="">
-                Monnaie
-            </a></li>
-        <li><a href="">
-                Pierres
-            </a></li>
-
     </ul>
 </nav>

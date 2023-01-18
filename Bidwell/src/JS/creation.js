@@ -6,7 +6,7 @@ function addCategoriesToSelectList(){
   select = document.getElementById("categorieSelect");
   //Recup les catégorie filles via requete ajax
   var requete = new XMLHttpRequest();
-  requete.open("POST", "creationPart2.ctrl.php", true);
+  requete.open("POST", "../Ajax/creation-categorie-ajax.php", true);
   requete.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   requete.onload = function() {
   const rep = JSON.parse(this.responseText);
@@ -137,7 +137,7 @@ const imgInput=  document.getElementById("imagesInput");
 
 function removeImg(id){
  let output = document.getElementById("output"+id); 
- output.src = "../View/design/img/default_image.png";
+ output.src = "../View/design/img/transparent.png";
  document.getElementById("p"+id).style = "display: block;";
  compteur--;
  //Supprimer de tmp files
@@ -159,19 +159,16 @@ const errorImgs= document.getElementById("errorimgs");
 function getFirstFreeSpot(){
   let i =0;
   let defaultImageURL = window.location.href.substring(0, window.location.href.lastIndexOf('/'));
-  defaultImageURL = `${defaultImageURL.substring(0, defaultImageURL.lastIndexOf('/'))}/View/design/img/default_image.png`;
-  while(i<8 && document.getElementById("output"+i).src !== defaultImageURL) {
-    console.log(i<8 && document.getElementById("output"+i).src);
-    console.log("../View/design/img/default_image.png");  
-
+  defaultImageURL = `${defaultImageURL.substring(0, defaultImageURL.lastIndexOf('/'))}/View/design/img/transparent.png`;
+  while(i<6 && document.getElementById("output"+i).src !== defaultImageURL) {
     i++;
   }
   return i;
 }
 function loadFile(event) {
 
-  //Si ya deja 8 images on empeche l'utilisateur de load un fichier
-  if (compteur <= 8){
+  //Si ya deja 6 images on empeche l'utilisateur de load un fichier
+  if (compteur <= 6){
     //Pour chaque fichier contenu dans l'input, on l'ajoute a tmp files si il y est pas déjà
     for (let i = 0; i < imgInput.files.length ; i++) {
       var filename = imgInput.files[i]["name"];
@@ -232,7 +229,7 @@ function validateInfos(event){
       }
         //Vérifie que les images upload sont correctes
       let requete = new XMLHttpRequest();
-      requete.open("POST", "upload.ctrl.php", false);
+      requete.open("POST", "../Ajax/upload-ajax.php", false);
       requete.onload = function() {
       const rep = JSON.parse(this.responseText);
         if (rep.success) {
@@ -266,7 +263,7 @@ function validateInfos(event){
     codePostal = document.getElementById("localisationInput").value.replace(/\D/g,"");
     //Envoie php
     let requete = new XMLHttpRequest();
-    requete.open("POST", "creationPart3.ctrl.php", true);
+    requete.open("POST", "../Ajax/creation-ajax.php", true);
     requete.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     requete.onload = function() {
         const rep = JSON.parse(this.responseText);

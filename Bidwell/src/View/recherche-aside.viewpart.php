@@ -43,8 +43,4 @@
             </div>
         </div>
     </ul>
-    <hr>
-    <h2>Lieu</h2>
-    <p>Recherche par département</p>
-    <input type="number" name="code" required placeholder="Code postal" value="38000">
 </div>

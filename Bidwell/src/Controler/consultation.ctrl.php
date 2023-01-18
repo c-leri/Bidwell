@@ -36,6 +36,7 @@ if ($id == null) {
         $prixact = $prixdep;
         $dateTitle = "L'enchère commencera dans ";
         $date = $tempsRes->format("%h:%i:%s");
+        $button = 'disabled';
     } else {
 
         $prixact = round($enchere->getPrixCourant(), 2);
@@ -44,10 +45,12 @@ if ($id == null) {
             $tempsRes = $maintenant->diff($fin);
             $dateTitle = "L'enchère se terminera dans ";
             $date = $tempsRes->format("%h:%i:%s");
+            $button = '';
         } else {
 
             $prixact = $prixfin;
             $dateTitle = "L'enchère est terminée.";
+            $button = 'disabled';
             $date = "";
             $participations = $enchere->getParticipations();
             if (!empty($enchere->getParticipations()) && end($participations)->getUtilisateur()->getLogin() == $login){
@@ -119,6 +122,7 @@ $view->assign('prixRetrait', $prixfin);
 $view->assign('tempsRestant', $date);
 $view->assign('dateTitle', $dateTitle);
 $view->assign('affichage', $affichage);
+$view->assign('button', $button);
 
 $view->assign('description',  $description);
 $view->assign('addresseImage', Enchere::ADRESSE_IMAGES);

@@ -89,7 +89,7 @@ main.recherche aside {
   background-color: var(--couleur-noir30);
   width: 20%;
   border-radius: 0 0 1rem 1rem;
-  padding-bottom: 1rem;
+  word-wrap:break-word;
 }
 
 main.recherche aside .container {
@@ -97,6 +97,7 @@ main.recherche aside .container {
   border-radius: 1rem;
   padding-left: 1rem;
   margin: 0 1rem 0 1rem;
+  padding-bottom: 1rem;
 }
 
 main.recherche aside h3 {
@@ -121,9 +122,6 @@ main.recherche label:hover {
   color: var(--couleur-jaune);
 }
 
-main.recherche aside input {
-  margin-bottom: 0.5rem;
-}
 main.recherche aside button {
   background-color: rgba(0, 0, 0, 0%);
   border: none;
@@ -179,7 +177,7 @@ main.recherche .center article li {
 
 /* image dans une annonce */
 main.recherche .center article img {
-  width: 15rem;
+  width: 18rem;
   height: 15rem;
   border-radius: 1rem;
   display: block;
@@ -194,7 +192,7 @@ main.recherche .center article .left{
 }
 main.recherche .center article p{
   width: 50%;
-  white-space:normal;  
+  white-space:break-spaces;  
   word-wrap:break-word;
 }
 /* Aside */
@@ -208,9 +206,8 @@ main.recherche .center article p{
 
 main.recherche .numPage {
   display: block;
-  width: 10%;
-  margin-left: auto;
-  margin-right: auto;
+  width: 15%;
+  margin: 0 auto 0.5rem auto;
 }
 
 main.recherche .numPage button{

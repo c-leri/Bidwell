@@ -27,14 +27,14 @@
     </header>
     <main class="pagePrincipale">
         <h2>Nouvelles enchères</h2>
-        <div class="ventesPopulaires" id="new">
+        <div class="annoncesCarre" id="new">
 
         </div>
 
         <hr>
 
         <h2>Enchères bientôt terminées</h2>
-        <div class="ventesPopulaires" id="old">
+        <div class="annoncesCarre" id="old">
 
         </div>
     </main>

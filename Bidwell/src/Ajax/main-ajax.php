@@ -21,11 +21,15 @@ $str = "";
         $str .= '<a href="consultation.ctrl.php?id='. $result[$i]->getId() .'">'; //Changer en lien de l'annonce
         $str .= '<img src="'. $result[$i]->getImageURL(0).'">'; //Changer en lien de l'image correspondante
         $str .= "</a>";
+        $str .='<div class="variablesEnchere">';
         $str .= "<h1>" . $result[$i]->getLibelle() . "</h1>";
-        $str .= '<div class="variablesEnchere">';
-        $str .= '<p class="temps-restant">' . $result[$i]->getDateDebut()->format("Y-m-d") . "</p>";
-        $str .= '<p class="prix-actuel">' . $result[$i]->getPrixdepart() . "€</p>";
-        $str .= "</div>";
+        $str .= "<ul>";
+        $str .=    "<li>". $result[$i]->getCategorie()->getLibelle() . "</li>"; 
+        $str .=    "<li>" . $result[$i]->getPrixDepart() . "€</li>";       
+        $str .=    "<li>" . $result[$i]->getDateDebut()->format("Y-m-d") . "</li>";
+        $str .=    "<li>" . $result[$i]->getCreateur()->getLogin(). "</li>";
+        $str .= "</ul>";
+        $str .="</div>";
         $str .= "</article>";
     }
 //Renvoie le code à afficher

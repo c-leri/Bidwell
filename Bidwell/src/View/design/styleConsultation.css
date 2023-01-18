@@ -12,6 +12,7 @@ main.consultation .images img {
     width: 10rem;
     height: 10rem;
     border-radius: 1rem;
+    margin: 0.5rem 0.5rem 0.5rem 0.5rem;
 }
 
 main.consultation .images {
@@ -20,7 +21,6 @@ main.consultation .images {
     flex-wrap: nowrap;
     justify-content: space-around;
     background-color: var(--couleur-blanc30);
-    padding: 0.5rem 0.5rem 0.5rem 0.5rem;
     margin: 0.5rem;
     border-radius: 1rem;
 }
@@ -43,7 +43,7 @@ main.consultation .presentation {
 }
 
 main.consultation .presentation img {
-    width: 20rem;
+    width: 24rem;
     height: 20rem;
     border-radius: 1rem;
     margin-bottom: 0.5rem;

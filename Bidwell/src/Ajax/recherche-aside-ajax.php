@@ -24,7 +24,6 @@ for ($i = 0; $i < sizeof($meres); $i++){
         }
     }
 
-    if (sizeof($fillesDeMere) != 0){
 
         $str .= '<div class="categoryDropdown">';
         $str .= '<button class="categoryDropdownBtn" onclick="showCategory('.$i.')">' . $meres[$i]->getLibelle() . '</button>';
@@ -42,7 +41,7 @@ for ($i = 0; $i < sizeof($meres); $i++){
 
             $str .= '></checkbox>';
         
-            $str .= '<label for="'.$fillesDeMere[$k]->getLibelleColle() .'">'. $fillesDeMere[$k]->getLibelle() .'</label>';
+            $str .= '<label for="'.$fillesDeMere[$k]->getLibelleColle() .'">'. $fillesDeMere[$k]->getLibelleColle() .'</label>';
             $str .= '</li>';
         }
         $str .= '</ul>';
@@ -54,9 +53,6 @@ for ($i = 0; $i < sizeof($meres); $i++){
         $str .= '</div>';
         $str .= '</div>';
 
-
-
-    }
 
 }
 

@@ -11,7 +11,7 @@
     <title>Conditions d'utilisation</title>
     <link rel="stylesheet" href="../View/design/styleGeneral.css">
     <link rel="stylesheet" href="../View/design/styleMenu.css">
-    <link rel="stylesheet" href="../View/design/styleFooter2.css">
+    <link rel="stylesheet" href="../View/design/styleFooter.css">
     <link rel="stylesheet" href="../View/design/styleApropos.css">
     <link rel="icon" type="image/x-icon" href="../View/design/img/favicon.ico">
 </head>
@@ -53,7 +53,7 @@
             <p>Chef de projet</p>
         </article>
     </main>
-    <footer>
+    <footer class="absolute">
         <?php include(__DIR__ . '/footer.viewpart.php') ?>
     </footer>
 </body>

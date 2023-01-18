@@ -48,7 +48,8 @@ class Categorie {
 	 * @return string Libellé de la catégorie sans espace
 	 */
     public function getLibelleColle() : string {
-        return trim($this->libelle);
+        $a = str_replace(" ", "", $this->libelle);
+        return str_replace("'", '\'', $a);
     }
 
     public function getCategorieMere() : Categorie|null {

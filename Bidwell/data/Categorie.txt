@@ -5,19 +5,19 @@ Porte-clés|Petits Objets
 Boutons|Petits Objets
 Briquets|Petits Objets
 Autres Petits Objets|Petits Objets
-Objets d'Art|NULL
-Peinture|Objets d'Art
-Sculpture|Objets d'Art
-Dessins|Objets d'Art
-Photos|Objets d'Art
-Autres Objets d'Art|Objets d'Art
+Art|NULL
+Peintures|Art
+Sculptures|Art
+Dessins|Art
+Photos|Art
+Autres Art|Art
 Bijouterie|NULL
 Bracelets|Bijouterie
-Collier|Bijouterie
+Colliers|Bijouterie
 Bagues|Bijouterie
 Boucles d'Oreilles|Bijouterie
 Montres|Bijouterie
-Autres Bijoux|NULL
+Autres Bijoux|Bijouterie
 Pierres|NULL
 Pierres Précieuses|Pierres
 Pierres Fines|Pierres
