@@ -8,7 +8,10 @@ $createur = $_GET['createur'];
 //Exécute la requête SQL avec les informations nécessaires à l'affichage
 $result = Enchere::readFromCreateurString($createur);
 
-
+if(isset($_GET['suppr'])){
+    $supprime=Enchere::read($_GET['suppr']);
+    $supprime->delete();
+}
 //Initialisation de variable qui sera renvoyée
 $str = "";
 
@@ -29,6 +32,8 @@ $str = "";
         $str .=    "<li>" . $result[$i]->getDateDebut()->format("Y-m-d") . "</li>";
         $str .=    "<li>" . $result[$i]->getCreateur()->getLogin(). "</li>";
         $str .= "</ul>";
+        $str .= "<br>";
+        $str .= '<button id="suppressionenchere" onclick="supprenchere('.$result[$i]->getId().')">Supprimer</button>';
         $str .="</div>";
         $str .= "</article>";
     }
