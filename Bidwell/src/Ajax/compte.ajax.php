@@ -4,37 +4,81 @@ use Bidwell\Model\Enchere;
 require_once __DIR__.'/../../vendor/autoload.php';
 
 $createur = $_GET['createur'];
-
-//Exécute la requête SQL avec les informations nécessaires à l'affichage
-$result = Enchere::readFromCreateurString($createur);
-
-if(isset($_GET['suppr'])){
-    $supprime=Enchere::read($_GET['suppr']);
-    $supprime->delete();
-}
-//Initialisation de variable qui sera renvoyée
 $str = "";
 
-//Pour chaque ligne de résultat, prépare son affichage en l'ajoutant à la variable renvoyée
-for ($i = 0; $i < sizeof($result); $i++) {
-    $str .= "
-        <article>
-            <a href='consultation.ctrl.php?id={$result[$i]->getId()}'>
-                <img src='{$result[$i]->getImageURL(0)}' alt='{$result[$i]->getLibelle()}' />
-            </a>
-            <div class='variablesEnchere'>
-                <h1>{$result[$i]->getLibelle()}</h1>
-                <ul>
-                    <li>{$result[$i]->getCategorie()->getLibelle()}</li>
-                    <li>{$result[$i]->getPrixDepart()}€</li>   
-                    <li>{$result[$i]->getDateDebut()->format('Y-m-d')}</li>
-                    <li>{$result[$i]->getCreateur()->getLogin()}</li>
-                </ul>
-                <button id='suppressionenchere' onclick='supprenchere('.$result[$i]->getId().')>Supprimer</button>
-            </div>
-        </article>
-    ";
-}
 
-//Renvoie le code à afficher
+
+//Exécute la requête SQL avec les informations nécessaires à l'affichage
+if (isset($_GET['suppr'])) {
+    $supprime = Enchere::read($_GET['suppr']);
+    //On ne peut pas supprimer d'enchère qui a commencé
+    $maintenant = new DateTime();
+    if ($supprime->getDateDebut() > $maintenant || $supprime->getInstantFin() < $maintenant) {
+        $supprime->delete();
+        $result = Enchere::readFromCreateurString($createur);
+        for ($i = 0; $i < sizeof($result); $i++) {
+            $str .= "
+                <article>
+                    <a href='consultation.ctrl.php?id={$result[$i]->getId()}'>
+                        <img src='{$result[$i]->getImageURL(0)}' alt='{$result[$i]->getLibelle()}' />
+                    </a>
+                    <div class='variablesEnchere'>
+                        <h1>{$result[$i]->getLibelle()}</h1>
+                        <ul>
+                            <li>{$result[$i]->getCategorie()->getLibelle()}</li>
+                            <li>{$result[$i]->getPrixDepart()}€</li>   
+                            <li>{$result[$i]->getDateDebut()->format('Y-m-d')}</li>
+                            <li>{$result[$i]->getCreateur()->getLogin()}</li>
+                        </ul>
+                        <button id='suppressionenchere' onclick=supprenchere('" . $result[$i]->getId() . "')>Supprimer</button>
+                    </div>
+                    </article>
+                    ";
+        }
+    } else {
+        $result = Enchere::readFromCreateurString($createur);
+        for ($i = 0; $i < sizeof($result); $i++) {
+            $str .= "
+                <article>
+                    <a href='consultation.ctrl.php?id={$result[$i]->getId()}'>
+                        <img src='{$result[$i]->getImageURL(0)}' alt='{$result[$i]->getLibelle()}' />
+                    </a>
+                    <div class='variablesEnchere'>
+                        <h1>{$result[$i]->getLibelle()}</h1>
+                        <ul>
+                            <li>{$result[$i]->getCategorie()->getLibelle()}</li>
+                            <li>{$result[$i]->getPrixDepart()}€</li>   
+                            <li>{$result[$i]->getDateDebut()->format('Y-m-d')}</li>
+                            <li>{$result[$i]->getCreateur()->getLogin()}</li>
+                        </ul>";
+            if ($result[$i] == $supprime) {
+                $str .= "<p id='erreurMsg'>Impossible de supprimer une enchère en cours </p>";
+            }
+            $str .= "<button id='suppressionenchere' onclick=supprenchere('" . $result[$i]->getId() . "')>Supprimer</button>
+            </div>
+            </article>";
+        }
+    }
+} else {
+    $result = Enchere::readFromCreateurString($createur);
+    for ($i = 0; $i < sizeof($result); $i++) {
+        $str .= "
+            <article>
+                <a href='consultation.ctrl.php?id={$result[$i]->getId()}'>
+                    <img src='{$result[$i]->getImageURL(0)}' alt='{$result[$i]->getLibelle()}' />
+                </a>
+                <div class='variablesEnchere'>
+                    <h1>{$result[$i]->getLibelle()}</h1>
+                    <ul>
+                        <li>{$result[$i]->getCategorie()->getLibelle()}</li>
+                        <li>{$result[$i]->getPrixDepart()}€</li>   
+                        <li>{$result[$i]->getDateDebut()->format('Y-m-d')}</li>
+                        <li>{$result[$i]->getCreateur()->getLogin()}</li>
+                    </ul>
+                    <button id='suppressionenchere' onclick=supprenchere('" . $result[$i]->getId() . "')>Supprimer</button>
+                </div>
+                </article>
+                ";
+    }
+}
 echo $str;

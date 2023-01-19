@@ -105,7 +105,7 @@ prixbase = document.getElementById("prixbase");
       errorretrait.innerHTML = "";
       return true;
   } else {
-    errorretrait.innerHTML = "Veuillez insérer un prix de retrait inférieur à 90% du prix de base (soit un prix inférieur ou égal à "+parseFloat(prixbase.value)*0.9+")";
+    errorretrait.innerHTML = "Veuillez insérer un prix de retrait inférieur à 90% du prix de base (soit un prix inférieur ou égal à "+ (parseFloat(prixbase.value)*0.9).toFixed(2)+")";
     prixbase.scrollIntoView();
     return false;
   }
