@@ -35,3 +35,11 @@ body {
 button:hover {
     cursor: pointer;
 }
+
+p{
+    overflow: hidden;
+}
+
+.variablesEnchere{
+    overflow: hidden;
+}

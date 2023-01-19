@@ -27,6 +27,8 @@
         <hr />
         <h2>Données personnelles</h2>
 
+        <h2 id="erreur"></h2>
+
         <ul class="listeCompte">
             <li>Adresse Mail : <?= $email ?></li>
             <li>Téléphone : <?= $numtel ?></li>
@@ -35,7 +37,7 @@
             <?php endif; ?>
             <li>Nous conservons vos données personnelles dans l'unique but de vous authentifier. Afin de supprimer vos informations, veuillez supprimer votre compte.</li>
 
-            <li><button class="button" type="submit" onclick="affichage()"> Supprimer votre compte </button></li>
+            <li><button class="button" type="submit" onclick="affichageConfirmation()"> Supprimer votre compte </button></li>
         </ul>
         <hr />
         <h2>Jetons</h2>
@@ -53,8 +55,8 @@
         <div id="myModal" class="modal">
             <div class="modal-content">
                 <span class="close" onclick="stop()">&times;</span>
-                <p>Voulez-vous vraiment supprimer votre compte? Si vous faites cela nous n'aurons plus accès à votre collection de porn et vos dossiers d'illuminati donc ça nous arrangerai si vous le faisiez pas</p>
-                <button id="btnconf">Confirmer</button>
+                <p>Voulez-vous vraiment supprimer votre compte? Si vous faites cela nous n'aurons plus accès à votre collection de porn et vos dossiers d'illuminati donc ça nous arrangerai si vous le faisiez pas. Pas contre c'est pour toujours et on peut pas le récupérer si vous le faite donc attention !</p>
+                <button id="btnconf" onclick="suppressionCompte('<?= $login ?>')">Supprimer définitivement mon compte</button>
             </div>
         </div>
 
@@ -62,7 +64,7 @@
             <div class="modal-content">
                 <span class="close" onclick="stop()">&times;</span>
                 <p>Voulez-vous vraiment supprimer cette enchère?</p>
-                <button id="btnsuppr" onclick="suppressionenchere()">Supprimer</button>
+                <button id="btnsuppr" onclick="suppressionEnchere()">Supprimer</button>
             </div>
         </div>
     </main>
