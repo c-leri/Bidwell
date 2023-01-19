@@ -56,30 +56,3 @@ h2.margin-bot {
   margin-bottom: 4rem;
 }
 
-#btnconf {
-  position: relative;
-  width: 4.7rem;
-  bottom: 0;
-  right: 0;
-  padding: 0.5rem;
-}
-
-  #suppressionenchere{
-    position: relative;
-    bottom: 0;
-    background-color: var(--couleur-rouge);
-    color: var(--couleur-noir);
-    border-radius: 1rem;
-    width: 50%;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 0.4rem;
-    border-color: var(--couleur-rouge);
-  }
-  
-  #btnsuppr{
-    background-color: var(--couleur-rouge);
-    color: var(--couleur-noir);
-    border-radius: 1rem;
-    padding: 0.5rem;
-  }

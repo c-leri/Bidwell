@@ -30,14 +30,16 @@ body {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 1000'%3E%3Cg %3E%3Ccircle fill='%232D004C' cx='50' cy='0' r='50'/%3E%3Cg fill='%23360058' %3E%3Ccircle cx='0' cy='50' r='50'/%3E%3Ccircle cx='100' cy='50' r='50'/%3E%3C/g%3E%3Ccircle fill='%233e0063' cx='50' cy='100' r='50'/%3E%3Cg fill='%2345006d' %3E%3Ccircle cx='0' cy='150' r='50'/%3E%3Ccircle cx='100' cy='150' r='50'/%3E%3C/g%3E%3Ccircle fill='%234b0075' cx='50' cy='200' r='50'/%3E%3Cg fill='%2351007e' %3E%3Ccircle cx='0' cy='250' r='50'/%3E%3Ccircle cx='100' cy='250' r='50'/%3E%3C/g%3E%3Ccircle fill='%23560085' cx='50' cy='300' r='50'/%3E%3Cg fill='%235b008d' %3E%3Ccircle cx='0' cy='350' r='50'/%3E%3Ccircle cx='100' cy='350' r='50'/%3E%3C/g%3E%3Ccircle fill='%23600094' cx='50' cy='400' r='50'/%3E%3Cg fill='%2364009a' %3E%3Ccircle cx='0' cy='450' r='50'/%3E%3Ccircle cx='100' cy='450' r='50'/%3E%3C/g%3E%3Ccircle fill='%236900a1' cx='50' cy='500' r='50'/%3E%3Cg fill='%236d00a7' %3E%3Ccircle cx='0' cy='550' r='50'/%3E%3Ccircle cx='100' cy='550' r='50'/%3E%3C/g%3E%3Ccircle fill='%237100ad' cx='50' cy='600' r='50'/%3E%3Cg fill='%237500b2' %3E%3Ccircle cx='0' cy='650' r='50'/%3E%3Ccircle cx='100' cy='650' r='50'/%3E%3C/g%3E%3Ccircle fill='%237900b8' cx='50' cy='700' r='50'/%3E%3Cg fill='%237c00bd' %3E%3Ccircle cx='0' cy='750' r='50'/%3E%3Ccircle cx='100' cy='750' r='50'/%3E%3C/g%3E%3Ccircle fill='%238000c2' cx='50' cy='800' r='50'/%3E%3Cg fill='%238300c7' %3E%3Ccircle cx='0' cy='850' r='50'/%3E%3Ccircle cx='100' cy='850' r='50'/%3E%3C/g%3E%3Ccircle fill='%238700cc' cx='50' cy='900' r='50'/%3E%3Cg fill='%238a00d1' %3E%3Ccircle cx='0' cy='950' r='50'/%3E%3Ccircle cx='100' cy='950' r='50'/%3E%3C/g%3E%3Ccircle fill='%238D00D6' cx='50' cy='1000' r='50'/%3E%3C/g%3E%3C/svg%3E");
     background-attachment: fixed;
     background-size: contain;
-    min-height:100vh;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
 
 }
-footer{
+
+footer {
     margin-top: auto;
 }
+
 /* pour que le cursor change quand on a un bouton */
 button:hover {
     cursor: pointer;
@@ -79,9 +81,9 @@ p {
 
 .close:hover,
 .close:focus {
-  color: black;
-  text-decoration: none;
-  cursor: pointer;
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
 }
 
 .modal-content {
@@ -100,4 +102,19 @@ p {
 
 .modal-content p {
     color: var(--couleur-noir);
+}
+
+.btnmodal {
+    position: relative;
+    bottom: 0;
+    background-color: var(--couleur-rouge);
+    color: var(--couleur-noir);
+    border-radius: 1rem;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0.2rem;
+    padding: 0.5rem;
+    border-color: var(--couleur-rouge);
+    border: 0.1rem solid var(--couleur-noir);
 }

@@ -30,7 +30,7 @@ if (isset($_GET['suppr'])) {
                             <li>{$result[$i]->getDateDebut()->format('Y-m-d')}</li>
                             <li>{$result[$i]->getCreateur()->getLogin()}</li>
                         </ul>
-                        <button id='suppressionenchere' onclick=supprenchere('" . $result[$i]->getId() . "')>Supprimer</button>
+                        <button class='btnmodal' id='suppressionenchere' onclick=supprenchere('" . $result[$i]->getId() . "')>Supprimer</button>
                     </div>
                     </article>
                     ";
@@ -54,7 +54,7 @@ if (isset($_GET['suppr'])) {
             if ($result[$i] == $supprime) {
                 $str .= "<p id='erreurMsg'>Impossible de supprimer une enchère en cours </p>";
             }
-            $str .= "<button id='suppressionenchere' onclick=supprenchere('" . $result[$i]->getId() . "')>Supprimer</button>
+            $str .= "<button class='btnmodal' id='suppressionenchere' onclick=supprenchere('" . $result[$i]->getId() . "')>Supprimer</button>
             </div>
             </article>";
         }
@@ -75,7 +75,7 @@ if (isset($_GET['suppr'])) {
                         <li>{$result[$i]->getDateDebut()->format('Y-m-d')}</li>
                         <li>{$result[$i]->getCreateur()->getLogin()}</li>
                     </ul>
-                    <button id='suppressionenchere' onclick=supprenchere('" . $result[$i]->getId() . "')>Supprimer</button>
+                    <button class='btnmodal' id='suppressionenchere' onclick=supprenchere('" . $result[$i]->getId() . "')>Supprimer</button>
                 </div>
                 </article>
                 ";

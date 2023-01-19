@@ -32,7 +32,7 @@ main.pagePrincipale h2 {
     margin: 1rem;
     border-radius: 1rem;
     background: var(--couleur-noir30);
-    padding-bottom: 0.5rem;
+    padding-bottom: 0.2rem;
 }
 
 .annoncesCarre article h1 {

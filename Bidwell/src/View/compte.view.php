@@ -56,15 +56,15 @@
             <div class="modal-content">
                 <span class="close" onclick="stop()">&times;</span>
                 <p>Êtes-vous sûr de vouloir supprimer définitivement votre compte ? Cette action n'est pas réversible.</p>
-                <button id="btnconf" onclick="suppressionCompte('<?= $login ?>')">Supprimer définitivement mon compte</button>
+                <button class="btnmodal" id="btnconf" onclick="suppressionCompte('<?= $login ?>')">Supprimer définitivement mon compte</button>
             </div>
         </div>
 
         <div id="myModeul" class="modal">
             <div class="modal-content">
                 <span class="close" onclick="stop()">&times;</span>
-                <p>Voulez-vous vraiment supprimer cette enchère?</p>
-                <button id="btnsuppr" onclick="suppressionEnchere()">Supprimer</button>
+                <p>Voulez-vous vraiment supprimer cette enchère ?</p>
+                <button class="btnmodal" id="btnsuppr" onclick="suppressionEnchere()">Supprimer</button>
             </div>
         </div>
     </main>
