@@ -28,12 +28,12 @@
             <p>Responsable qualité</p>
         </article>
         <article>
-            <img src="../View/design/img/Célestin.png" alt="Célestin">
+            <img src="../View/design/img/Celestin.jpg" alt="Célestin">
             <h1>Célestin Bouchet</h1>
             <p>Responsable backend</p>
         </article>
         <article>
-            <img src="../View/design/img/Clément.png" alt="Clément">
+            <img src="../View/design/img/Clement.jpg" alt="Clément">
             <h1>Clément Mazet</h1>
             <p>Responsable tests</p>
         </article>
