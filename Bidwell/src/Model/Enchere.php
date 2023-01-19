@@ -54,6 +54,7 @@ class Enchere
         $this->infosContact = $infosContact;
         $this->infosEnvoi = $infosEnvoi;
         $this->codePostal = $codePostal;
+        $this->derniereEnchere = null;
     }
 
     /**

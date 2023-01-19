@@ -48,6 +48,14 @@ if ($now < $enchere->getDateDebut()) {
     $message = ($enchere->getDerniereEnchere() !== null && $enchere->getDerniereEnchere()->getUtilisateur()->getLogin() === $login)
         ? "Vous avez remporté l'enchère ! $contact"
         : "Vous n'avez pas remporté cette enchère.";
+
+    // on met la barre de progression du prix à son état final (vide)
+    $affichage = 74;
+
+    // on met le prix actuel au prix auquel est partie l'enchère (prix de retrait si personne n'a enchéri)
+    $prixact = ($enchere->getDerniereEnchere() !== null)
+        ? $enchere->getDerniereEnchere()->getMontantDerniereEnchere()
+        : $enchere->getPrixRetrait();
 }
 
 echo "
