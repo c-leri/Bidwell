@@ -127,3 +127,13 @@
 .btnmodal{
     background-color: var(--couleur-jaune);
 }
+
+/* Texte sous l'enchère */
+#message{
+    margin-top: 1rem;
+    font-size: 1.5rem;
+    background-color: var(--couleur-noir30);
+    color: var(--couleur-jaune);
+    padding: 0.5rem;
+    border-radius: 1rem;
+}
