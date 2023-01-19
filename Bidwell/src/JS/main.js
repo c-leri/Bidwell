@@ -1,10 +1,7 @@
 window.onload = initPage;
 
 function showItems(ordre, cible) {
-
   const xhttp = new XMLHttpRequest();
-
-
 
   xhttp.onload = function () {
     document.getElementById(cible).innerHTML = this.responseText;
@@ -23,7 +20,6 @@ function showItemsWon() {
   }
 
   let login = document.getElementById("login").value;
-  console.log(login);
   if (login != "") {
 
     xhttp.open("GET", "../Ajax/main.ajax.php?login=" + login);
@@ -33,12 +29,6 @@ function showItemsWon() {
     document.getElementById('hrWon').style = "display:none;";
     document.getElementById('titleWon').style = "display:none;";
     }
-
-
-
-  
-
-  
 }
 
 
