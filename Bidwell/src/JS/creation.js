@@ -205,12 +205,12 @@ function loadFile(event) {
 
 function validateInfos(event){
   event.preventDefault();
+  let categorie = validateCategories();
   let prix = validatePrices();
+  let localisation = validateLocalisation();
   let informationsEnvoieCheckBoxes = validateCheckBoxes("cbcolis","cbdirect","errorcbenvoie");
   let informationsContactCheckBoxes = validateCheckBoxes("cbemail","cbtel","errorcbcontact");
-  let localisation = validateLocalisation();
   let images = false;
-  let categorie = validateCategories();
   let description = validateDescription()
   const errorImgs= document.getElementById("errorimgs"),
   select = document.getElementById("categorieSelect");//Ancre pour remonter dans la page en cas d'erreur
