@@ -53,7 +53,7 @@
             <p>Chef de projet</p>
         </article>
     </main>
-    <footer class="absolute">
+    <footer>
         <?php include(__DIR__ . '/footer.viewpart.php') ?>
     </footer>
 </body>
