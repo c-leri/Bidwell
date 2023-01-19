@@ -62,10 +62,10 @@ function suppressionCompte($login) {
   xhttp.onload = function() {
     const delay = ms => new Promise(res => setTimeout(res, ms));
     if (this.responseText != "OK"){
-      document.getElementById("erreur").innerHTML = this.responseText;  //"Erreur: Vous ne pouvez pas supprimer votre compte tant qu'une de vos enchère est en cours.";
+      document.getElementById("erreur").innerHTML = "Erreur: Vous ne pouvez pas supprimer votre compte tant qu'une de vos enchère est en cours.";
       modal.style.display="none";
     } else {
-    window.location.replace("main.ctrl.php");
+      window.location.replace("main.ctrl.php");
     }
   }
 
