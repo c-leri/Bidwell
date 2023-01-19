@@ -48,7 +48,7 @@ main.creation div.contact {
   margin: 1rem;
   padding: 0.5rem;
   border-radius: 1rem;
-  background-color: var(--couleur-blanc30);
+  background-color: var(--couleur-noir30);
   display: flex;
   flex-direction: column;
   justify-content: center;
