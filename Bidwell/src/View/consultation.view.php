@@ -67,7 +67,7 @@
                 <ul>
                     <li>Nom : <?= $createur->getLogin() ?></li>
                     <li>Mail : <?= $mail ?></li>
-                    <li>Numéro : <?= $tel ?></li>
+                    <li>Téléphone : <?= $tel ?></li>
                     <!--<li>Nombre d'annonces postées</li>-->
                 </ul>
             </div>
