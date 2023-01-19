@@ -30,10 +30,23 @@ if ($now < $enchere->getDateDebut()) {
     $dateTitle = "L'enchère se terminera dans";
     $date = $now->diff($enchere->getInstantFin())->format("%H:%I:%S");
 } else {
+    $createur = $enchere->getCreateur();
+
+    $email = ($enchere->getInfosContact()['infoEmail']) ? $createur->getEmail() : '';
+    $tel = ($enchere->getInfosContact()['infoTel']) ? $createur->getNumeroTelephone() : '';
+
+    $contact = "Veuillez contacter le vendeur par " . ($email != '')
+        ? ($tel != '') ? "mail, à $email, ou par téléphone, au $tel" : "mail, à $email,"
+        : "téléphone, au $tel";
+
+    $contact .= " pour vous mettre d'accord sur la transation et " . ($enchere->getInfosEnvoi()['infoRemiseDirect'])
+        ? ($enchere->getInfosEnvoi()['infoEnvoiColis']) ? "l'envoi ou la remise en main propre de l'article." : "la remise en main propre de l'article."
+        : "l'envoi de l'article.";
+
     $dateTitle = "L'enchère est terminée";
     $date = '';
     $message = ($enchere->getDerniereEnchere() !== null && $enchere->getDerniereEnchere()->getUtilisateur()->getLogin() === $login)
-        ? "Vous avez remporté l'enchère ! Contactez le vendeur pour préparer sa livraison."
+        ? "Vous avez remporté l'enchère ! $contact"
         : "Vous n'avez pas remporté cette enchère.";
 }
 

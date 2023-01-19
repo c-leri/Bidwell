@@ -15,9 +15,6 @@ use Exception;
 class Enchere
 {
     // constantes de classe
-    public const DUREE = 3600;
-    public const TAUX_AUGMENTATION = 1.05;
-
     public const ADRESSE_IMAGES = '../../data/img/';
     private const TEMPS_CONSERVATION = '5 years'; // temps de conservation des données dans la bd
 
@@ -54,8 +51,8 @@ class Enchere
         $this->images[0] = $imagePrincipale;
         $this->description = $description;
         $this->setCategorie($categorie);
-        $this->infosContact =$infosContact;
-        $this->infosEnvoi =$infosEnvoi;
+        $this->infosContact = $infosContact;
+        $this->infosEnvoi = $infosEnvoi;
         $this->codePostal = $codePostal;
     }
 
@@ -76,9 +73,11 @@ class Enchere
         $dateDebut = new DateTime();
         $dateDebut->setTimestamp($row['dateDebut']);
         $infosEnvoi = array();
+        $infosEnvoi['infoRemiseDirect'] = $row['infoRemiseDirect'];
+        $infosEnvoi['infoEnvoiColis'] = $row['infoEnvoiColis'];
         $infosContact = array();
-        array_push($infosEnvoi,$row['infoRemiseDirect'],$row['infoEnvoiColis']);
-        array_push($infosContact,$row['infoEmail'],$row['infoTel']);
+        $infosContact['infoEmail'] = $row['infoEmail'];
+        $infosContact['infoTel'] = $row['infoTel'];
 
         // création d'un objet enchère avec les informations de la bd
         $enchere = new Enchere(Utilisateur::read($row['loginCreateur']), $row['libelle'], $dateDebut, $row['prixDepart'], $row['prixRetrait'], $images[0], $row['description'], Categorie::read($row['libelleCategorie']),$infosContact,$infosEnvoi,$row['codePostal']);
@@ -327,7 +326,7 @@ class Enchere
         $dateFinConservation->add(DateInterval::createFromDateString(Enchere::TEMPS_CONSERVATION));
         // préparation de la query
         $query = 'INSERT INTO Enchere(loginCreateur, libelle, dateDebut, prixDepart, prixRetrait, images, description, libelleCategorie, dateFinConservation, codePostal, infoRemiseDirect, infoEnvoiColis, infoEmail, infoTel) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)';
-        $data = [$this->createur->getLogin(), $this->libelle, $this->dateDebut->getTimestamp(), $this->prixDepart, $this->prixRetrait, $imagesString, $this->description, $this->categorie->getLibelle(), $dateFinConservation->getTimestamp(),$this->getCodePostal(),$this->getInfosEnvoi()[0],$this->getInfosEnvoi()[1],$this->getInfosContact()[0],$this->getInfosContact()[1]];
+        $data = [$this->createur->getLogin(), $this->libelle, $this->dateDebut->getTimestamp(), $this->prixDepart, $this->prixRetrait, $imagesString, $this->description, $this->categorie->getLibelle(), $dateFinConservation->getTimestamp(),$this->getCodePostal(),$this->getInfosEnvoi()['infoRemiseDirect'],$this->getInfosEnvoi()['infoEnvoiColis'],$this->getInfosContact()['infoEmail'],$this->getInfosContact()['infoTel']];
 
         // récupération du résultat de l'insertion
         $r = $dao->exec($query, $data);
@@ -375,7 +374,7 @@ class Enchere
 
     public static function readFromCreateur(Utilisateur $createur): array
     {
-        return readFromCreateurString($createur->getLogin());
+        return Enchere::readFromCreateurString($createur->getLogin());
     }
 
     public static function readFromCreateurString(string $createur): array
@@ -509,10 +508,10 @@ class Enchere
         // si l'enchere a une derniere enchère, on l'inclut dans l'update
         if (isset($this->derniereEnchere)) {
             $query = 'UPDATE Enchere SET libelle = ?, libelleCategorie = ?, dateDebut = ?, prixDepart = ?, prixRetrait = ?, loginUtilisateurDerniereEnchere = ?, images = ?, description = ?, codePostal = ?, infoRemiseDirect= ?, infoEnvoiColis = ?, infoEmail = ?, infoTel = ? WHERE id = ?';
-            $data = [$this->libelle, $this->categorie->getLibelle(), $this->dateDebut->getTimestamp(), $this->prixDepart, $this->prixRetrait, $this->derniereEnchere->getUtilisateur()->getLogin(), $imagesString, $this->description, $this->getCodePostal(),$this->getInfosEnvoi()[0],$this->getInfosEnvoi()[1],$this->getInfosContact()[0],$this->getInfosContact()[1],$this->id];
+            $data = [$this->libelle, $this->categorie->getLibelle(), $this->dateDebut->getTimestamp(), $this->prixDepart, $this->prixRetrait, $this->derniereEnchere->getUtilisateur()->getLogin(), $imagesString, $this->description, $this->getCodePostal(),$this->getInfosEnvoi()['infoRemiseDirect'],$this->getInfosEnvoi()['infoEnvoiColis'],$this->getInfosContact()['infoEmail'],$this->getInfosContact()['infoTel'],$this->id];
         } else {
             $query = 'UPDATE Enchere SET libelle = ?, libelleCategorie = ?, dateDebut = ?, prixDepart = ?, prixRetrait = ?, images = ?, description = ?, codePostal = ?, infoRemiseDirect= ?, infoEnvoiColis = ?, infoEmail = ?, infoTel = ? WHERE id = ?';
-            $data = [$this->libelle, $this->categorie->getLibelle(), $this->dateDebut->getTimestamp(), $this->prixDepart, $this->prixRetrait, $imagesString, $this->description, $this->getCodePostal(),$this->getInfosEnvoi()[0],$this->getInfosEnvoi()[1],$this->getInfosContact()[0],$this->getInfosContact()[1], $this->id];
+            $data = [$this->libelle, $this->categorie->getLibelle(), $this->dateDebut->getTimestamp(), $this->prixDepart, $this->prixRetrait, $imagesString, $this->description, $this->getCodePostal(),$this->getInfosEnvoi()['infoRemiseDirect'],$this->getInfosEnvoi()['infoEnvoiColis'],$this->getInfosContact()['infoEmail'],$this->getInfosContact()['infoTel'], $this->id];
         }
 
         $nbLignesMod = $dao->exec($query, $data);
