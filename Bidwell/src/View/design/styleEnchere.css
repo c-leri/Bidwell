@@ -117,3 +117,13 @@
   box-shadow: 0 4px 0 rgb(183,0,0),
     0 8px 6px rgba(0,0,0,.45);
 }
+
+
+/*modal*/
+#enchereImpossible{
+    border-radius: 1rem;
+}
+
+.btnmodal{
+    background-color: var(--couleur-jaune);
+}
