@@ -107,16 +107,6 @@
             </section>
             <hr/>
             <section class="split">
-                <div class="base">
-                    <h2> Prix de base </h2>
-                    <input id="prixbase" type="number" name="base" required min="1" max="99999" placeholder="Prix espéré">
-
-                    <p> Notre site utilise un système d'enchères qui comprend une partie descendante. Définissez le prix auquel vous souhaitez voir l'enchère commencer. Prenez en compte la valeur réelle
-                        de votre article et pensez à ce que vous seriez prêt à mettre à la place de l'acheteur.</p>
-                </div>
-
-
-
                 <div class="retrait">
                     <h2> Prix de retrait de l'annonce </h2>
 
@@ -125,6 +115,13 @@
                     <p> Notre site utilise un système d'enchères qui comprend une partie descendante. De ce fait, le prix de
                         votre article pourrait diminuer par rapport au prix de base. Définissez le prix auquel vous ne
                         seriez plus prêt à vendre votre article.</p>
+                </div>
+                <div class="base">
+                    <h2> Prix de base </h2>
+                    <input id="prixbase" type="number" name="base" required min="1" max="99999" placeholder="Prix espéré">
+
+                    <p> Notre site utilise un système d'enchères qui comprend une partie descendante. Définissez le prix auquel vous souhaitez voir l'enchère commencer. Prenez en compte la valeur réelle
+                        de votre article et pensez à ce que vous seriez prêt à mettre à la place de l'acheteur.</p>
                 </div>
             </section>
 
