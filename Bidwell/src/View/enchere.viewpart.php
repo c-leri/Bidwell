@@ -15,11 +15,17 @@
 
     <button id="encherebutton" onclick="encherir()" <?=$button?>><span>Enchérir</span></button>
 
-    
+    <?php if (isset($nbJetons)) : ?>
+    <div class="jetons">
+        <p>Vos Jetons</p>
+        <p><?= $nbJetons ?></p>
+    </div>
+    <?php endif; ?>
+
     <div class="temps">
-            <p id="dateTitle"><?=$dateTitle?></p>   
-            <p id="temps"><?= $tempsRestant ?></p>
-        </div>
+        <p id="dateTitle"><?=$dateTitle?></p>   
+        <p id="temps"><?= $tempsRestant ?></p>
+    </div>
 
     <div class="prix">
         <div>
@@ -52,7 +58,10 @@
 <div id="demandeJetons" class="modal">
     <div class="modal-content">
         <span class="close" onclick="stop('demandeJetons')">&times;</span>
-        <p>Vous avez déjà enchéri sur cette enchère. Vous pouvez utiliser vos jetons afin de réenchérir.</p>
+        <p>
+            Vous avez déjà enchéri sur cette enchère. Vous pouvez utiliser vos jetons afin de réenchérir.
+            <?php if (isset($nbJetons)) : ?>Vous avez <?= $nbJetons ?> Jetons.<?php endif; ?>
+        </p>
         <button class="btnmodal" onclick="encherirPourJetons()">Réenchérir (<?= $prixJetons ?> Jetons)</button>
     </div>
 </div>

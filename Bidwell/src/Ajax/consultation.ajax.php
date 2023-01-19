@@ -1,5 +1,6 @@
 <?php
 use Bidwell\Model\Enchere;
+use Bidwell\Model\Utilisateur;
 
 require_once __DIR__.'/../../vendor/autoload.php';
 
@@ -9,6 +10,8 @@ $enchere = Enchere::read($_GET['id']);
 session_start();
 $login = $_SESSION['login'] ?? '';
 session_write_close();
+
+$nbJetons = ($login !== '') ? Utilisateur::read($login)->getNbJetons() : null;
 
 $prixRetrait = round($enchere->getPrixRetrait(), 2);
 $prixHaut = round($enchere->getPrixHaut(), 2);
@@ -64,7 +67,7 @@ if ($now < $enchere->getDateDebut()) {
         : round($enchere->getPrixRetrait(), 2);
 }
 
-echo "
+$str = "
     <svg class='circle-container' viewBox='2 -2 28 36'>
         <linearGradient id='gradient'>
             <stop class='stop1' offset='0%' />
@@ -78,8 +81,18 @@ echo "
     </svg>
 
     <button id='encherebutton' onclick='encherir()' $disabled><span>Enchérir</span></button>
+";
 
-    
+if (isset($nbJetons)) {
+    $str .= "
+        <div class='jetons'>
+            <p>Vos Jetons</p>
+            <p>$nbJetons</p>
+        </div>
+    ";
+}
+
+$str .= "
     <div class='temps'>
         <p id='dateTitle'>$dateTitle</p>
         <p id='temps'>$date</p>
@@ -111,3 +124,5 @@ echo "
     <input type='hidden' id='instantFin' name='instantFin' value='{$enchere->getInstantFin()->getTimestamp()}'>
     <input type='hidden' id='dateDebut' name='dateDebut' value='{$enchere->getDateDebut()->getTimestamp()}'>
 ";
+
+echo $str;

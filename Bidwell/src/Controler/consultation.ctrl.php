@@ -2,6 +2,7 @@
 // Inclusion du framework
 use Bidwell\Framework\View;
 use Bidwell\Model\Enchere;
+use Bidwell\Model\Utilisateur;
 
 require_once __DIR__.'/../../vendor/autoload.php';
 
@@ -11,6 +12,8 @@ require_once __DIR__.'/../../vendor/autoload.php';
 session_start();
 $login = $_SESSION['login'] ?? '';
 session_write_close();
+
+$nbJetons = ($login !== '') ? Utilisateur::read($login)->getNbJetons() : null;
 
 $id = $_GET['id'] ?? null;
 
@@ -155,6 +158,7 @@ $view->assign('message', $message);
 
 // 5% du prix de départ avec 1 jeton = 1 euro
 $view->assign('prixJetons', $enchere->getPrixDepart() * 0.05);
+$view->assign('nbJetons', $nbJetons);
 
 $view->assign('instantDerniereEnchere',$enchere->getInstantDerniereEnchere()->getTimestamp());
 $view->assign('instantFin', $enchere->getInstantFin()->getTimestamp());
