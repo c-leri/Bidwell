@@ -189,9 +189,7 @@ function loadFile(event) {
 
           //Affichage à l'utilisateur dans un tag img(output)
           let id = getFirstFreeSpot();
-          console.log("nouveau fichier");
           tmp_files.set(id + filename, imgInput.files[i]);
-          console.log(tmp_files);
           let output = document.getElementById('output' + id);
           document.getElementById(`p${id}`).style.setProperty('display', 'none');
           compteur++;
@@ -200,12 +198,7 @@ function loadFile(event) {
             URL.revokeObjectURL(output.src)
           }
         }
-
-      } else {
-        console.log("fichier déjà dans tmp files");
-        console.log(tmp_files);
       }
-
     }
   }
 }

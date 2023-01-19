@@ -33,11 +33,9 @@ function checkCookie(nomCookie) {
 
 function closePopup() {
   document.getElementById("fond-cookies").style.display = "none";
-  //console.log("cookies acceptés");
 }
 function openPopup() {
   document.getElementById("fond-cookies").style.display = "block";
-  //console.log("cookies pas acceptés");
 }
 
 // Pour que le bouton "Valider votre choix" soit disabled ou pas

@@ -262,7 +262,7 @@ class Participation {
         // update le montant de la dernière enchère s'il existe
         if (isset($this->montantDerniereEnchere) && isset($this->instantDerniereEnchere)) {
             $query = 'UPDATE Participation SET nbEncheres = ?, montantDerniereEnchere = ?, instantDerniereEnchere = ? WHERE idEnchere = ? AND loginUtilisateur = ?';
-            $data = [$this->nbEncheres, $this->montantDerniereEnchere, (int) $this->instantDerniereEnchere->format('Uv'), $this->enchere->getId(), $this->utilisateur->getLogin()];
+            $data = [$this->nbEncheres, $this->montantDerniereEnchere, (int) $this->instantDerniereEnchere->getTimestamp(), $this->enchere->getId(), $this->utilisateur->getLogin()];
         } else {
             $query = 'UPDATE Participation SET nbEncheres = ? WHERE idEnchere = ? AND loginUtilisateur = ?';
             $data = [$this->nbEncheres, $this->enchere->getId(), $this->utilisateur->getLogin()];

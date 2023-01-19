@@ -21,15 +21,15 @@ if ($id == null) {
 
     $nom = $enchere->getLibelle();
 
-    $prixdep = $enchere->getPrixDepart();
+    $prixdep = round($enchere->getPrixHaut(), 2);
 
-    $prixfin = $enchere->getPrixRetrait();
+    $prixfin = round($enchere->getPrixRetrait(), 2);
 
     $maintenant = new DateTime();
 
     $message = '';
     
-    if ($enchere->getDateDebut() > $maintenant) {
+    if ($maintenant < $enchere->getDateDebut()) {
         $tempsRes = $maintenant->diff($enchere->getDateDebut());
         $prixact = $prixdep;
         $dateTitle = "L'enchère commencera dans ";
@@ -38,7 +38,8 @@ if ($id == null) {
     } else {
         $prixact = round($enchere->getPrixCourant(), 2);
         $fin = $enchere->getInstantFin();
-        if ($fin > $maintenant && $prixact > $prixfin) {
+
+        if ($maintenant >= $enchere->getDateDebut() && $maintenant < $enchere->getInstantFin()) {
             $tempsRes = $maintenant->diff($fin);
             $dateTitle = "L'enchère se terminera dans ";
             $date = $tempsRes->format("%H:%I:%S");

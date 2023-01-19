@@ -10,11 +10,11 @@ session_start();
 $login = $_SESSION['login'] ?? '';
 session_write_close();
 
-$prixRetrait = round($enchere->getMontantDerniereEnchere(), 2);
-$prixHaut = round($enchere->getMontantDerniereEnchere() + $enchere->getPrixDepart() * 0.05, 2);
-$prixact = $enchere->getPrixCourant();
+$prixRetrait = round($enchere->getPrixRetrait(), 2);
+$prixHaut = round($enchere->getPrixHaut(), 2);
+$prixact = round($enchere->getPrixCourant(), 2);
 
-$pourcent = ($prixRetrait < $prixact) ? (74 - (($prixact - $prixRetrait)/($prixHaut - $prixRetrait)) * 74) : 0;
+$pourcent = (74 - (($prixact - $prixRetrait)/($prixHaut - $prixRetrait)) * 74);
 $affichage = round($pourcent, 2, PHP_ROUND_HALF_DOWN);
 
 $disabled = 'disabled';
