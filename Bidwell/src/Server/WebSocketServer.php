@@ -47,8 +47,7 @@ class WebSocketServer implements MessageComponentInterface
         $this->clients->attach($conn);
         echo "New connection! ($conn->resourceId)\n";
 
-        $login = '{"type": "isConnected"}';
-        $conn->send($login);
+        $conn->send('{"type": "isConnected"}');
     }
 
     public function onMessage(ConnectionInterface $from, $msg)
@@ -97,11 +96,34 @@ class WebSocketServer implements MessageComponentInterface
                             // recupère l'enchère et la participation et appel la méthode encherir() qui fais les modifications liées au fait qu'un utilisateur enchérisse
                             $enchere = Enchere::read($message->value);
                             $participation = Participation::get(Enchere::read($message->value), $this->users[$from->resourceId]);
-                            $participation->encherir();
+                            if ($participation->getNbEncheres() > 0) {
+                                $from->send('{"type": "demandeJetons"}');
+                            } else {
+                                $participation->encherir();
 
-                            // notifie tous les autres utilisateurs
-                            foreach ($this->clients as $client) {
-                                $client->send('{"type": "enchere", "value": '. $enchere->getId() .'}');
+                                // notifie tous les autres utilisateurs
+                                foreach ($this->clients as $client) {
+                                    $client->send('{"type": "enchere", "value": ' . $enchere->getId() . '}');
+                                }
+                            }
+                        }
+                        break;
+                    case 'encherePourJetons':
+                        if (!isset($this->users[$from->resourceId])) {
+                            echo "La connection $from->resourceId a essayé de participer à une enchère alors qu'elle n'est pas connecté";
+                        } else {
+                            // recupère l'enchère et la participation et appel la méthode encherir() qui fais les modifications liées au fait qu'un utilisateur enchérisse
+                            $enchere = Enchere::read($message->value);
+                            $participation = Participation::get(Enchere::read($message->value), $this->users[$from->resourceId]);
+                            if ($participation->getUtilisateur()->getNbJetons() < $enchere->getPrixDepart() * 0.05) {
+                                $from->send('{"type": "pasAssezJetons"}');
+                            } else {
+                                $participation->encherirPourJetons();
+
+                                // notifie tous les autres utilisateurs
+                                foreach ($this->clients as $client) {
+                                    $client->send('{"type": "enchere", "value": ' . $enchere->getId() . '}');
+                                }
                             }
                         }
                         break;
@@ -110,8 +132,8 @@ class WebSocketServer implements MessageComponentInterface
                         break;
                 }
             }
-        } catch (Exception|Error) {
-            echo "Problème lors de la lecture du message envoyé par la connection $from->resourceId";
+        } catch (Exception|Error $e) {
+            echo "Problème lors de la lecture du message envoyé par la connection $from->resourceId\n$e\n";
         }
     }
 
