@@ -125,7 +125,7 @@ class Utilisateur {
     /**
      * Vérifie si l'attribut est enregistré dans la bd
      */
-    public function isAttributeInDB($attribute) : bool {
+    public function isAttributeInDB(string $attribute) : bool {
         // Récupération de la classe DAO
         $dao = DAO::get();
         $str = '?';

@@ -155,11 +155,6 @@ class Enchere
         return $this->codePostal;
     }
 
-    public function getDescriptionURL(): string
-    {
-        return $this::ADRESSE_DESCRIPTIONS . $this->description;
-    }
-
     public function getCategorie(): Categorie
     {
         return $this->categorie;
@@ -212,7 +207,7 @@ class Enchere
         $this->images[0] = $image;
     }
 
-    public function addImage($image): void
+    public function addImage(string $image): void
     {
         array_push($this->images, $image);
     }
@@ -386,27 +381,12 @@ class Enchere
 
     public static function readFromCreateur(Utilisateur $createur): array
     {
-        // récupératoin du dao
-        $dao = DAO::get();
-
-        // préparation de la query
-        $query = 'SELECT * FROM Enchere WHERE loginCreateur = ?';
-        $data = [$createur->getLogin()];
-
-        // récupération de la table de résultat
-        $table = $dao->query($query, $data);
-
-        $out = array();
-        foreach ($table as $row) {
-            $out[] = Enchere::constructFromDB($row);
-        }
-
-        return $out;
+        return readFromCreateurString($createur->getLogin());
     }
 
-    public static function readFromCreateurString(String $createur): array
+    public static function readFromCreateurString(string $createur): array
     {
-        // récupératoin du dao
+        // récupération du dao
         $dao = DAO::get();
 
         // préparation de la query
@@ -426,7 +406,7 @@ class Enchere
 
     public static function readFromCategorie(Categorie $categorie): array
     {
-        // récupératoin du dao
+        // récupération du dao
         $dao = DAO::get();
 
         // préparation de la query
