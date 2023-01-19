@@ -4,19 +4,27 @@ use Bidwell\Model\Enchere;
 
 require_once __DIR__.'/../../vendor/autoload.php';
 
-$ordre = $_GET['ordre'] === 'ASC' ? 'ASC' : 'DESC';
-
-
-$result = Enchere::readLike([], "", "date", 0, $ordre, 1, 12);
-
 
 //Initialisation de variable qui sera renvoyée
 $str = "";
 
+if (isset($_GET['ordre'])) {
+    $ordre = $_GET['ordre'] === 'ASC' ? 'ASC' : 'DESC';
+} else {
+    $ordre = 'ASC';
+}
+
+if (isset($_GET['login'])){
+    $result = Enchere::readFromGagnant($_GET['login'], 12);
+} else {
+    $result = Enchere::readLike([], "", "date", 0, $ordre, 1, 12);
+}
+
+
 //Pour chaque ligne de résultat, prépare son affichage en l'ajoutant à la variable renvoyée
 for ($i = 0; $i < sizeof($result); $i++) {
     $maintenant = new DateTime();
-    if($result[$i]->getInstantFin()>$maintenant){
+    if((!isset($_GET['login']) && $result[$i]->getInstantFin()>$maintenant) || (isset($_GET['login']) && $result[$i]->getInstantFin()<$maintenant) ){
         $str .= "
             <article>
                 <a href='consultation.ctrl.php?id={$result[$i]->getId()}'>
@@ -34,6 +42,10 @@ for ($i = 0; $i < sizeof($result); $i++) {
             </article>
         ";
     }
+}
+
+if (isset($_GET['login']) && empty($result)){
+    $str .= "<h3 id='noWin'>Vous n'avez pas encore remporté d'annonce. Enchérissez afin de remplir cette liste !</h3>";
 }
 
 //Renvoie le code à afficher

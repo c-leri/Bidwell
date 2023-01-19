@@ -26,6 +26,8 @@
         ?>
     </header>
     <main class="pagePrincipale">
+        <param id="login" value=<?= isset($_SESSION['login']) ? $_SESSION['login'] : "" ?>>
+
         <h2>Nouvelles enchères</h2>
         <div class="annoncesCarre" id="new">
 
@@ -37,6 +39,13 @@
         <div class="annoncesCarre" id="old">
 
         </div>
+
+        <hr id='hrWon'>
+
+    <h2 id="titleWon">Enchères remportées</h2>
+        <div class="annoncesCarre" id="won">
+
+    </div>
     </main>
     <footer>
         <?php include(__DIR__ . '/footer.viewpart.php') ?>

@@ -6,7 +6,7 @@ $reponse = new stdClass();
 $arrayCategoriesMeres=Categorie::readOnlyCategorieMere();
 $arrayrep = array();
 foreach($arrayCategoriesMeres as $categorieMere){
-    $arrayrep[] = "-------------" . $categorieMere->getLibelle() . "-------------";
+    $arrayrep[] = "---------" . $categorieMere->getLibelle() . "---------";
     $arrayCategoriesFilles = Categorie::readFromCategorieMere($categorieMere);
     foreach($arrayCategoriesFilles as $categorieFille){
         $arrayrep[] = $categorieFille->getLibelle();
