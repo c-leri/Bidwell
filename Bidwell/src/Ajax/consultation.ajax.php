@@ -30,11 +30,32 @@ if ($now < $enchere->getDateDebut()) {
     $dateTitle = "L'enchère se terminera dans";
     $date = $now->diff($enchere->getInstantFin())->format("%H:%I:%S");
 } else {
+    $createur = $enchere->getCreateur();
+
+    $email = ($enchere->getInfosContact()['infoEmail']) ? $createur->getEmail() : '';
+    $tel = ($enchere->getInfosContact()['infoTel']) ? $createur->getNumeroTelephone() : '';
+
+    $contact = "Veuillez contacter le vendeur par " . ($email != '')
+        ? ($tel != '') ? "mail, à $email, ou par téléphone, au $tel" : "mail, à $email,"
+        : "téléphone, au $tel";
+
+    $contact .= " pour vous mettre d'accord sur la transation et " . ($enchere->getInfosEnvoi()['infoRemiseDirect'])
+        ? ($enchere->getInfosEnvoi()['infoEnvoiColis']) ? "l'envoi ou la remise en main propre de l'article." : "la remise en main propre de l'article."
+        : "l'envoi de l'article.";
+
     $dateTitle = "L'enchère est terminée";
     $date = '';
     $message = ($enchere->getDerniereEnchere() !== null && $enchere->getDerniereEnchere()->getUtilisateur()->getLogin() === $login)
-        ? "Vous avez remporté l'enchère ! Contactez le vendeur pour préparer sa livraison."
+        ? "Vous avez remporté l'enchère ! $contact"
         : "Vous n'avez pas remporté cette enchère.";
+
+    // on met la barre de progression du prix à son état final (vide)
+    $affichage = 74;
+
+    // on met le prix actuel au prix auquel est partie l'enchère (prix de retrait si personne n'a enchéri)
+    $prixact = ($enchere->getDerniereEnchere() !== null)
+        ? $enchere->getDerniereEnchere()->getMontantDerniereEnchere()
+        : $enchere->getPrixRetrait();
 }
 
 echo "

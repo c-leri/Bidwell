@@ -58,7 +58,7 @@
                     <li> <?= $place?>.</li>
                     <li> <?= $dist?>.</li>
                     <li>Code postal : <?= $localisation ?></li>
-                    <li>Le paiement sera réalisé par PayPal.</li>
+                    <li>Le paiement sera à réaliser directement avec le vendeur.</li>
                 </ul>
             </div>
 
