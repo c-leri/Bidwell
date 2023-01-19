@@ -218,3 +218,7 @@ main.recherche .numPage button{
   padding: 0.2rem;
   border: 0.1rem solid var(--couleur-noir);
 }
+
+.left, .description{
+  overflow: hidden;
+}

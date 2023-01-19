@@ -9,16 +9,20 @@ $login = $_GET['login'];
 $result = Enchere::readFromCreateurString($login);
 
 $impossible = false;
+$maintenant = new DateTime();
 
-for ($i = 0; $i < sizeof($result); $i++) {
-    if ($result[$i]->getDateDebut() >= new DateTime() && $result[$i]->getInstantFin() <= new DateTime()) {
-        $impossible == true;
+
+for ($i = 0; $i < sizeof($result); $i++) {    
+    if ($result[$i]->getDateDebut() <= $maintenant && $result[$i]->getInstantFin() >= $maintenant) {
+        $impossible = true;
+        
     }
 }
 
-echo $impossible;
+$text = var_export($impossible, true);
 
-if ($impossible == false){
+if ($text == "false"){
+    
     for ($i = 0; $i < sizeof($result); $i++) {
         $result[$i]->delete();
     } 
@@ -30,7 +34,7 @@ if ($impossible == false){
 
     // Fermeture
     session_destroy();
-
+    
     echo 'OK';
 
 } else {
