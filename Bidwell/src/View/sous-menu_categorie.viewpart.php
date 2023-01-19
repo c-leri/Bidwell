@@ -7,9 +7,6 @@
             <li><a href="recherche.ctrl.php?categories=Bagues">
                 Bagues
             </a></li>
-            <li><a href="recherche.ctrl.php?categories=Bracelets">
-                Bracelets
-            </a></li>
             <li><a href="recherche.ctrl.php?categories=LivresetManuscrits">
                 Livres et Manuscrits
             </a></li>
