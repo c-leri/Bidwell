@@ -10,7 +10,6 @@
             <?php endif; ?>-->
             <li><a href="condition.ctrl.php">Conditions d'utilisation</a></li>
             <li><a href="mention.ctrl.php">Mentions légales</a></li>
-            <li><a href="#">Politique de confidentalité</a></li>
         </ul>
     </div>
     <div class="div2">

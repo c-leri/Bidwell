@@ -280,7 +280,6 @@ class Categorie {
         if (!$this->isInDB()) {
             throw new Exception("Delete : La catégorie $this->libelle n'existe pas dans la bd");
         }
-
         // on enlève le fait que cette catégorie est mère dans tous ses fils
         // AVANT de faire la suppression dans la bd
         // les enchères ont alors comme catégorie 'Autre'
@@ -294,7 +293,6 @@ class Categorie {
             if ($enchereFille->isInDB())
                 $enchereFille->update();
         }
-
         // récupération du dao
         $dao = DAO::get();
 
@@ -306,6 +304,4 @@ class Categorie {
 
         $this->isInDB = false;
     }
-
-  
 }

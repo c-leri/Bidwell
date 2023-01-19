@@ -75,6 +75,11 @@ class Participation {
         return $this->utilisateur;
     }
 
+    public function getNbEncheres(): int
+    {
+        return $this->nbEncheres;
+    }
+
     public function getMontantDerniereEnchere() :  float|null {
         return $this->montantDerniereEnchere;
     }
@@ -122,6 +127,15 @@ class Participation {
         $this->enchere->setDerniereEnchere($this);
         $this->enchere->update();
         $this->update();
+    }
+
+    /**
+     * Retire le nombre de jetons nécessaires à réenchérir à l'utilisateur puis appel encherir()
+     */
+    public function encherirPourJetons(): void
+    {
+        $this->utilisateur->subJetons($this->getEnchere()->getPrixDepart() - 0.6);
+        $this->encherir();
     }
 
     /**

@@ -14,7 +14,37 @@ $type = $_GET['type'] ?? 'Enchere';
 //Vérifie si le type sélectionné edst "enchère" ou "utilisateur"
 if ($type == 'Enchere') {
 
-    $tri = $_GET['tri'] !== 'NULL' ? $_GET["tri"] : 'date';
+    $tri = $_GET['tri'];
+    $ordre = "ASC";
+
+    switch($tri){
+        case "dateAsc":
+            $tri = "date";
+            break;
+        case "dateDesc";
+            $tri = "date";
+            $ordre = "DESC";
+            break;
+        case "prixAsc":
+            $tri = "prix";
+            break;
+        case "prixDesc";
+            $tri = "prix";
+            $ordre = "DESC";
+            break;
+        case "nomAsc":
+            $tri = "nom";
+            break;
+        case "nomDesc";
+            $tri = "nom";
+            $ordre = "DESC";
+            break;
+        default:
+            $tri = 'date';
+            $ordre = 'ASC';
+            break;
+    }
+
     $prix = $_GET['prix'] !== 'NULL' ? $_GET["prix"] : 0;
 
 
@@ -26,12 +56,12 @@ if ($type == 'Enchere') {
 
 
         //Exécute la requête SQL avec les informations nécessaires à l'affichage
-        $result = Enchere::readLike($categories, "", $_GET['tri'], $prix, 'ASC', $page, 10);
+        $result = Enchere::readLike($categories, "", $tri, $prix, $ordre, $page, 10);
     } else {
 
         //Si aucune catégorie sélectionnée
         //Exécute la requête SQL avec les informations nécessaires à l'affichage
-        $result = Enchere::readLike([], "", $_GET['tri'], $prix,'ASC', $page, 10);
+        $result = Enchere::readLike([], "", $_GET['tri'], $prix, $ordre, $page, 10);
 
     }
 

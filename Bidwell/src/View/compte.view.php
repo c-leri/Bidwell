@@ -55,7 +55,7 @@
         <div id="myModal" class="modal">
             <div class="modal-content">
                 <span class="close" onclick="stop()">&times;</span>
-                <p>Voulez-vous vraiment supprimer votre compte? Si vous faites cela nous n'aurons plus accès à votre collection de porn et vos dossiers d'illuminati donc ça nous arrangerai si vous le faisiez pas. Pas contre c'est pour toujours et on peut pas le récupérer si vous le faite donc attention !</p>
+                <p>Êtes-vous sûr de vouloir supprimer définitivement votre compte ? Cette action n'est pas réversible.</p>
                 <button id="btnconf" onclick="suppressionCompte('<?= $login ?>')">Supprimer définitivement mon compte</button>
             </div>
         </div>
