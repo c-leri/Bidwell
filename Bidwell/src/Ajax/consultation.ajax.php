@@ -86,8 +86,7 @@ $str = "
 if (isset($nbJetons)) {
     $str .= "
         <div class='jetons'>
-            <p>Vos Jetons</p>
-            <p>$nbJetons</p>
+            <p>Vos Jetons : $nbJetons</p>
         </div>
     ";
 }
