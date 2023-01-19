@@ -36,10 +36,10 @@ function validateAlreadyInBaseOrNot(){
     erroremail =  document.getElementById("erroremail"),
     tel = document.getElementById("tel"),
     errortel =  document.getElementById("errornumtel");
-    var ok = true;
+    let ok = true;
     let requete = new XMLHttpRequest();
     //Précise quel controleur php le client va contacter via ajax ainsi que la méthode utilisée
-    requete.open("POST", "../Ajax/signup-ajax.php", true); //True pour que l'exécution du script continue pendant le chargement, false pour attendre.
+    requete.open("POST", "../Ajax/signup.ajax.php", true); //True pour que l'exécution du script continue pendant le chargement, false pour attendre.
     //Header utile au bon fonctionnement de la requête
     requete.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     requete.onload = function() {
@@ -86,7 +86,7 @@ function validateAlreadyInBaseOrNot(){
     //On vérifie les différents inputs
     let passwd = validatePassword();
     let phone =validatePhoneNumber();
-    if((passwd&&phone)==false){
+    if((passwd&&phone)===false){
       return false;
     }else{
       return validateAlreadyInBaseOrNot();

@@ -8,7 +8,7 @@
         content="Bidwell, Bidwell.fr, Vente aux enchères, Vente aux enchères en ligne, Art, Bijouterie, Joaillerie, Mobilier, Mode, Bijoux, Sculptures, Monnaies, Pierres, Objets de collection">
     <meta name="author"
         content="Paul Sode, Gatien Caillet, Célestin Bouchet, Antoine Vuillet, Clément Mazet, Hippolyte Chauvin">
-    <title>Conditions d'utilisation</title>
+    <title>À Propos</title>
     <link rel="stylesheet" href="../View/design/styleGeneral.css">
     <link rel="stylesheet" href="../View/design/styleMenu.css">
     <link rel="stylesheet" href="../View/design/styleFooter.css">

@@ -98,7 +98,7 @@ main.creation li {
 
 /* -- Titre -- */
 main.creation h2 {
-  margin: 0.5rem 0rem 0.5rem 0rem;
+  margin: 0.5rem 0 0.5rem 0;
 }
 
 /*Messages erreurs inputs*/

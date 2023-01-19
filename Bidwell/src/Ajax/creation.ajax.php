@@ -7,6 +7,7 @@ use Bidwell\Model\Utilisateur;
 require_once __DIR__ . '/../../vendor/autoload.php';
 
 $reponse = new stdClass();
+
 session_start();
 $user = Utilisateur::read($_SESSION["login"]);
 session_write_close();

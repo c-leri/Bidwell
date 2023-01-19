@@ -39,7 +39,7 @@
 
             <div class="pack">
                 <div class="imagetdose">
-                    <img src="../View/design/img/BidCoin.png" alt="BidCoin"></span>
+                    <img src="../View/design/img/BidCoin.png" alt="BidCoin">
                     <p>72 Jetons</p>
                 </div>
                 <button class="buybtn" onclick="affish(72,5.99)">5,99€</button>
@@ -47,7 +47,7 @@
 
             <div class="pack">
                 <div class="imagetdose">
-                    <img src="../View/design/img/BidCoin.png" alt="BidCoin"></span>
+                    <img src="../View/design/img/BidCoin.png" alt="BidCoin">
                     <p>134 +10% = 150 Jetons</p>
                 </div>
                 <button class="buybtn" onclick="affish(150,10.99)">10,99€</button>
@@ -55,7 +55,7 @@
 
             <div class="pack">
                 <div class="imagetdose">
-                    <img src="../View/design/img/BidCoin.png" alt="BidCoin"></span>
+                    <img src="../View/design/img/BidCoin.png" alt="BidCoin">
                     <p>250 +20%=300 Jetons</p>
                 </div>
                 <button class="buybtn" onclick="affish(300,20.99)">20,99€</button>
@@ -63,7 +63,7 @@
             
             <div class="pack">
                 <div class="imagetdose">
-                    <img src="../View/design/img/BidCoin.png" alt="BidCoin"></span>
+                    <img src="../View/design/img/BidCoin.png" alt="BidCoin">
                     <p>600 +30%= 780 Jetons</p>
                 </div>
                 <button class="buybtn" onclick="affish(780,49.99)">49,99€</button>
@@ -71,7 +71,7 @@
 
             <div class="pack">
                 <div class="imagetdose">
-                    <img src="../View/design/img/BidCoin.png" alt="BidCoin"></span>
+                    <img src="../View/design/img/BidCoin.png" alt="BidCoin">
                     <p>1200+40%=1700 Jetons</p>
                 </div>
                 <button class="buybtn" onclick="affish(1700,99.99)">99,99€</button>
@@ -79,7 +79,7 @@
 
             <div class="pack">
                 <div class="imagetdose">
-                    <img src="../View/design/img/BidCoin.png" alt="BidCoin"></span>
+                    <img src="../View/design/img/BidCoin.png" alt="BidCoin">
                     <p>admin</p>
                 </div>
                 <button class="buybtn" onclick="affish(9999,0.99)">0.99€</button>

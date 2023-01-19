@@ -42,9 +42,12 @@ class Participation {
     /**
      * constructeurs qui créé une Participation à partir d'une ligne de la bd
      */
-    private static function constructFromDB(array $row) : Participation {
+    private static function constructFromDB(array $row, ?Enchere $enchere = null, ?Utilisateur $utilisateur = null) : Participation {
         // création d'un objet participation avec les informations de la bd
-        $participation = new Participation(Enchere::read($row['idEnchere']), Utilisateur::read($row['loginUtilisateur']));
+        $participation = new Participation(
+            $enchere ?? Enchere::read($row['idEnchere']),
+            $utilisateur ?? Utilisateur::read($row['loginUtilisateur'])
+        );
 
         // on set le nombre d'enchères de la participation
         $participation->nbEncheres = $row['nbEncheres'];
@@ -117,6 +120,7 @@ class Participation {
         $this->montantDerniereEnchere = $this->enchere->getPrixCourant();
         $this->instantDerniereEnchere = new DateTime();
         $this->enchere->setDerniereEnchere($this);
+        $this->enchere->update();
         $this->update();
     }
 
@@ -187,7 +191,7 @@ class Participation {
             throw new Exception("Participation de l'utilisateur {$utilisateur->getLogin()} à l'enchère {$enchere->getId()} existe en ".count($table).' exemplaires');
         }
 
-        return Participation::constructFromDB($table[0]);
+        return Participation::constructFromDB($table[0], $enchere, $utilisateur);
     }
 
     /**
@@ -216,7 +220,7 @@ class Participation {
 
         $out = array();
         foreach($table as $row) {
-            $out[] = Participation::constructFromDB($row);
+            $out[] = Participation::constructFromDB($row, null, $utilisateur);
         }
 
         return $out;
@@ -235,7 +239,7 @@ class Participation {
 
         $out = array();
         foreach($table as $row) {
-            $out[] = Participation::constructFromDB($row);
+            $out[] = Participation::constructFromDB($row, $enchere);
         }
 
         return $out;

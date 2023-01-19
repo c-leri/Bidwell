@@ -13,7 +13,7 @@
         <li><a href="recherche.ctrl.php?categories=Bracelets">
                 Bracelets
             </a></li>
-        <li><a href="recherche.ctrl.php?categories=Modèles+Miniatures">
+        <li><a href="recherche.ctrl.php?categories=ModèlesMiniatures">
         Modèles Miniatures
             </a></li>
         <li><a href="recherche.ctrl.php?categories=Autres">

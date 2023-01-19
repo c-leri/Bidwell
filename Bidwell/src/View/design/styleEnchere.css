@@ -99,7 +99,8 @@
     box-shadow: 0 8px 0 rgb(183,9,0), 0 15px 20px rgba(0,0,0,.35);
 }
 
-#encherebutton:active { 
+
+#encherebutton:active, #encherebutton:disabled { 
   padding-top: 3px;
   transform: translateY(4px);
   box-shadow: 0 4px 0 rgb(183,0,0),

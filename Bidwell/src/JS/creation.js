@@ -5,15 +5,16 @@ function addCategoriesToSelectList(){
   const optionnanchor =  document.getElementById("optionanchor"),
   select = document.getElementById("categorieSelect");
   //Recup les catégorie filles via requete ajax
-  var requete = new XMLHttpRequest();
-  requete.open("POST", "../Ajax/creation-categorie-ajax.php", true);
+  const requete = new XMLHttpRequest();
+  requete.open("POST", "../Ajax/creation-categorie.ajax.php", true);
   requete.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   requete.onload = function() {
   const rep = JSON.parse(this.responseText);
-    for (let i = 0; i < rep.array.length ; i++) {
+    let option;
+    for (let i = 0; i < rep.array.length; i++) {
       //Création option
       option = document.createElement("option");
-      option.textContent= rep.array[i];
+      option.textContent = rep.array[i];
       option.value = rep.array[i];
       //Insertion sur la page
       select.insertBefore(option, optionnanchor);
@@ -24,7 +25,7 @@ function addCategoriesToSelectList(){
 }
 //Supprime toutes les options des suggestions de localisation, utile pour les update
 function removeOptions(){
-  i =0
+  let i = 0
   while (document.getElementById("o"+i)!=null) {
     document.getElementById("o"+i).remove();
     i++;
@@ -33,7 +34,7 @@ function removeOptions(){
 //----------------------------------------------------------//
 //Filtre les suggestions de localisation en fonction du texte entré dans l'input
 function filter() {
-  var input = document.getElementById("localisationInput");
+  const input = document.getElementById("localisationInput");
   //on attend que l'utilisateur tape au moins 2 caractères afin d'éviter de recuperer trop de données
   if(input.value.length>=2){
     const optionanchorlocalisation =  document.getElementById("optionanchorlocalisation"),
@@ -46,13 +47,14 @@ function filter() {
       requete.onload = function() {
         removeOptions();
         const rep = JSON.parse(this.responseText);
-        //2-Créer les option
-        for (let i = 0; i < rep.cities.length ; i++) {
-           //Création option
+        //2-Créer les options
+        let option;
+        for (let i = 0; i < rep.cities.length; i++) {
+          //Création option
           option = document.createElement("option");
-          option.textContent= rep.cities[i].city + " ("+rep.cities[i].code+")";
+          option.textContent = rep.cities[i].city + " (" + rep.cities[i].code + ")";
           option.value = option.textContent;
-          option.id ="o"+i;
+          option.id = "o" + i;
           //Insertion sur la page
           datalist.insertBefore(option, optionanchorlocalisation);
         } 
@@ -69,7 +71,7 @@ function validateCategories(){
   errorCategorie = document.getElementById("errorcategorie"),
   nom = document.getElementById("nom");
   //Si la categorie selectionnée est une catégorie mère on l'indique à l'utilisateur
-      if(categorieSelect.value.includes("-")) {
+      if(categorieSelect.value.includes("------")) {
         errorCategorie.innerHTML = "Veuillez selectionner une sous catégorie";
       nom.scrollIntoView();
       return false;
@@ -85,8 +87,8 @@ function validateDescription(){
     errordescription.innerHTML = "Veuillez écrire au minimum 50 caractères ("+description.value.length+" actuellement)";
     nom.scrollIntoView();
     return false;
-  }else if(description.value.length>1000){
-    errordescription.innerHTML = "Veuillez écrire au maximum 1000 caractères ("+description.value.length+" actuellement)";
+  }else if(description.value.length>500){
+    errordescription.innerHTML = "Veuillez écrire au maximum 500 caractères ("+description.value.length+" actuellement)";
     nom.scrollIntoView();
     return false;
   }else{
@@ -125,24 +127,25 @@ function validateLocalisation(){
   const errorlocalisation = document.getElementById("errorlocalisation");
   let input = document.getElementById("localisationInput").value;
   let numbers = input.replace(/\D/g,"");//regex pour garder que le nombre
-  if(numbers.length!=5){
+  if(numbers.length!==5){
     errorlocalisation.innerHTML = "Veuillez entrez un code postal valide";
     return false;
   }
   errorlocalisation.innerHTML="";
   return true;
 }
-var compteur = 0;
+
+let compteur = 0;
 const imgInput=  document.getElementById("imagesInput");
 
 function removeImg(id){
  let output = document.getElementById("output"+id); 
  output.src = "../View/design/img/transparent.png";
- document.getElementById("p"+id).style = "display: block;";
+ document.getElementById("p"+id).style.setProperty('display', 'block');
  compteur--;
  //Supprimer de tmp files
  for (let filename of tmp_files.keys()) {
-  if(filename.at(0)==id){
+  if(filename.at(0)===id){
     tmp_files.delete(filename);
     imgInput.value ="";
     break;
@@ -152,8 +155,8 @@ function removeImg(id){
 
 //----------------------------------------------------------//
 //Affiche le fichier uploadé
-var tmp_files = new Map();
-var arrayIndexes = new Array();
+const tmp_files = new Map();
+const arrayIndexes = [];
 const errorImgs= document.getElementById("errorimgs");
 
 function getFirstFreeSpot(){
@@ -168,34 +171,37 @@ function getFirstFreeSpot(){
 function loadFile(event) {
 
   //Si ya deja 6 images on empeche l'utilisateur de load un fichier
-  if (compteur <= 6){
+  let extension;
+  if (compteur <= 6) {
     //Pour chaque fichier contenu dans l'input, on l'ajoute a tmp files si il y est pas déjà
-    for (let i = 0; i < imgInput.files.length ; i++) {
-      var filename = imgInput.files[i]["name"];
+    for (let i = 0; i < imgInput.files.length; i++) {
+      const filename = imgInput.files[i]["name"];
       //Check que le fichier nest pas deja dans tmp files
-      if(!tmp_files.has(filename)){
-        extension = filename.substr(imgInput.files[i]["name"].lastIndexOf('.')+1).toLowerCase();
+      if (!tmp_files.has(filename)) {
+        extension = filename.substring(imgInput.files[i]["name"].lastIndexOf('.') + 1).toLowerCase();
         //check la taille du fichier pour pas faire crash le serveur on limite a 8méga
-        if(imgInput.files[i]["size"]>800000){
+        if (imgInput.files[i]["size"] > 800000) {
           errorImgs.innerHTML = "La taille du fichier de ne doit pas excéder 8 Mo";
-        }else if(extension!='jpg' && extension!='png' && extension!="webp" && extension!="jpeg"){
-            errorImgs.innerHTML = "Les images doivent être au format png, jpg, jpeg ou webp";
-        }else{
+        } else if (extension !== 'jpg' && extension !== 'png' && extension !== "webp" && extension !== "jpeg") {
+          errorImgs.innerHTML = "Les images doivent être au format png, jpg, jpeg ou webp";
+        } else {
           errorImgs.innerHTML = "";
-          
+
           //Affichage à l'utilisateur dans un tag img(output)
-          let id =getFirstFreeSpot();
+          let id = getFirstFreeSpot();
           console.log("nouveau fichier");
-          tmp_files.set(id+filename,imgInput.files[i]);
+          tmp_files.set(id + filename, imgInput.files[i]);
           console.log(tmp_files);
           let output = document.getElementById('output' + id);
-          document.getElementById(`p${id}`).style = "display:none;";
+          document.getElementById(`p${id}`).style.setProperty('display', 'none');
           compteur++;
           output.src = URL.createObjectURL(event.target.files[i]);
-          output.onload = function() {URL.revokeObjectURL(output.src)}
+          output.onload = function () {
+            URL.revokeObjectURL(output.src)
+          }
         }
-       
-      }else{
+
+      } else {
         console.log("fichier déjà dans tmp files");
         console.log(tmp_files);
       }
@@ -210,7 +216,7 @@ function validateInfos(event){
   let informationsEnvoieCheckBoxes = validateCheckBoxes("cbcolis","cbdirect","errorcbenvoie");
   let informationsContactCheckBoxes = validateCheckBoxes("cbemail","cbtel","errorcbcontact");
   let localisation = validateLocalisation();
-  var images = false;
+  let images = false;
   let categorie = validateCategories();
   let description = validateDescription()
   const errorImgs= document.getElementById("errorimgs"),
@@ -218,20 +224,21 @@ function validateInfos(event){
 
   
   let ok =categorie && description  && prix &&  informationsEnvoieCheckBoxes && localisation && informationsContactCheckBoxes;
-  if(ok){
+  let infosEnvoi, infosContact, codePostal;
+  if (ok) {
     //Partie upload d'image, à faire en dernier
-    var files = new FormData();
+    const files = new FormData();
     let imgs;
-    if(tmp_files.size!=0){
-      for (let i = 0; i < tmp_files.size ; i++) {
-        var file = tmp_files.get(Array.from(tmp_files.keys())[i]);
-        files.append('file'+i,file, (Date.now()*(Math.floor(Math.random() * 7)+1))+file["name"].replace(/[^0-9a-zA-Z.]/g, ''));
+    if (tmp_files.size !== 0) {
+      for (let i = 0; i < tmp_files.size; i++) {
+        const file = tmp_files.get(Array.from(tmp_files.keys())[i]);
+        files.append('file' + i, file, (Date.now() * (Math.floor(Math.random() * 7) + 1)) + file["name"].replace(/[^0-9a-zA-Z.]/g, ''));
       }
-        //Vérifie que les images upload sont correctes
+      //Vérifie que les images upload sont correctes
       let requete = new XMLHttpRequest();
-      requete.open("POST", "../Ajax/upload-ajax.php", false);
-      requete.onload = function() {
-      const rep = JSON.parse(this.responseText);
+      requete.open("POST", "../Ajax/upload.ajax.php", false);
+      requete.onload = function () {
+        const rep = JSON.parse(this.responseText);
         if (rep.success) {
           //Recup tableau urls image
           imgs = rep.imgs;
@@ -243,42 +250,42 @@ function validateInfos(event){
         }
       }
       requete.send(files);
-    }else{
+    } else {
       //Aucune image upload: on le signale à l'utilisateur
       errorImgs.innerHTML = "Veuillez ajouter au moins une image";
       select.scrollIntoView();
       images = false;
     }
-    if(images){
+    if (images) {
 //les infos remplies sont valides : Création de l'enchère
-    //première étape : récupérer toutes les données de formes et les envoyer a un controler php qui s'occupera de créer concretement l'enchere en base
-    //deuxième étape : renvoyer l'utilisateur sur la page de consultation de son enchère créé
-    let nom = document.getElementById("nom").value,
-    prixbase = document.getElementById("prixbase").value,
-    prixretrait = document.getElementById("prixretrait").value;
-    categorie = document.getElementById("categorieSelect").value;    
-    description = document.getElementById("description").value;
-    infosEnvoi = document.getElementById("cbcolis").checked+","+document.getElementById("cbdirect").checked;
-    infosContact = document.getElementById("cbemail").checked+","+document.getElementById("cbtel").checked;
-    codePostal = document.getElementById("localisationInput").value.replace(/\D/g,"");
-    //Envoie php
-    let requete = new XMLHttpRequest();
-    requete.open("POST", "../Ajax/creation-ajax.php", true);
-    requete.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    requete.onload = function() {
+      //première étape : récupérer toutes les données de formes et les envoyer a un controler php qui s'occupera de créer concretement l'enchere en base
+      //deuxième étape : renvoyer l'utilisateur sur la page de consultation de son enchère créé
+      let nom = document.getElementById("nom").value,
+          prixbase = document.getElementById("prixbase").value,
+          prixretrait = document.getElementById("prixretrait").value;
+      categorie = document.getElementById("categorieSelect").value;
+      description = document.getElementById("description").value;
+      infosEnvoi = document.getElementById("cbcolis").checked + "," + document.getElementById("cbdirect").checked;
+      infosContact = document.getElementById("cbemail").checked + "," + document.getElementById("cbtel").checked;
+      codePostal = document.getElementById("localisationInput").value.replace(/\D/g, "");
+      //Envoie php
+      let requete = new XMLHttpRequest();
+      requete.open("POST", "../Ajax/creation.ajax.php", true);
+      requete.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      requete.onload = function () {
         const rep = JSON.parse(this.responseText);
-        if(rep.sucess){
-           self.location = "main.ctrl.php";
+        if (rep.sucess) {
+          self.location = "main.ctrl.php";
         }
-    }
-    //Envoie la requête au serveur avec en paramètres les valeurs des inputs
-    requete.send("nom="+nom+"&prixbase="+prixbase+"&prixretrait="+prixretrait+"&imgs="+imgs+"&categorie="+categorie+"&description="+description+"&infosEnvoi="+infosEnvoi+"&infosContact="+infosContact+"&codePostal="+codePostal);
-    return true;
-    }else{
+      }
+      //Envoie la requête au serveur avec en paramètres les valeurs des inputs
+      requete.send("nom=" + nom + "&prixbase=" + prixbase + "&prixretrait=" + prixretrait + "&imgs=" + imgs + "&categorie=" + categorie + "&description=" + description + "&infosEnvoi=" + infosEnvoi + "&infosContact=" + infosContact + "&codePostal=" + codePostal);
+      return true;
+    } else {
       return false;
     }
-    
-  }else{
+
+  } else {
     return false;
   }
 }

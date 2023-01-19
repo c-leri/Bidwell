@@ -8,17 +8,14 @@
         content="Bidwell, Bidwell.fr, Vente aux enchères, Vente aux enchères en ligne, Art, Bijouterie, Joaillerie, Mobilier, Mode, Bijoux, Sculptures, Monnaies, Pierres, Objets de collection">
     <meta name="author"
         content="Paul Sode, Gatien Caillet, Célestin Bouchet, Antoine Vuillet, Clément Mazet, Hippolyte Chauvin">
-    <title>Conditions d'utilisation</title>
+    <title>Mon compte</title>
     <link rel="stylesheet" href="../View/design/styleGeneral.css">
     <link rel="stylesheet" href="../View/design/styleMenu.css">
     <link rel="stylesheet" href="../View/design/styleFooter.css">
     <link rel="stylesheet" href="../View/design/styleCompte.css">
     <link rel="stylesheet" href="../View/design/stylePagePrincipale.css">
     <link rel="icon" type="image/x-icon" href="../View/design/img/favicon.ico">
-
 </head>
-
-
 
 <body>
     <!-- Menu -->
@@ -33,7 +30,9 @@
         <ul class="listeCompte">
             <li>Adresse Mail : <?= $email ?></li>
             <li>Téléphone : <?= $numtel ?></li>
+            <?php if ($dateFin !== false) : ?>
             <li>Nous conserverons vos informations pendant <?= $dateFin ?></li>
+            <?php endif; ?>
             <li>Nous conservons vos données personnelles dans l'unique but de vous authentifier. Afin de supprimer vos informations, veuillez supprimer votre compte.</li>
 
             <li><button class="button" type="submit" onclick="affichage()"> Supprimer votre compte </button></li>
@@ -56,6 +55,14 @@
                 <span class="close" onclick="stop()">&times;</span>
                 <p>Voulez-vous vraiment supprimer votre compte? Si vous faites cela nous n'aurons plus accès à votre collection de porn et vos dossiers d'illuminati donc ça nous arrangerai si vous le faisiez pas</p>
                 <button id="btnconf">Confirmer</button>
+            </div>
+        </div>
+
+        <div id="myModeul" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="stop()">&times;</span>
+                <p>Voulez-vous vraiment supprimer cette enchère?</p>
+                <button id="btnsuppr" onclick="suppressionenchere()">Supprimer</button>
             </div>
         </div>
     </main>
