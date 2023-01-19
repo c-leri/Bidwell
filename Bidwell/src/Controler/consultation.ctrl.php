@@ -47,16 +47,16 @@ if ($id == null) {
         } else {
             $createur = $enchere->getCreateur();
 
-            $email = ($enchere->getInfosContact()['infoEmail']) ? $createur->getEmail() : '';
-            $tel = ($enchere->getInfosContact()['infoTel']) ? $createur->getNumeroTelephone() : '';
+            $email = ($enchere->getInfosContact()[0]) ? $createur->getEmail() : '';
+            $tel = ($enchere->getInfosContact()[1]) ? $createur->getNumeroTelephone() : '';
 
-            $contact = "Veuillez contacter le vendeur par " . ($email != '')
-                ? ($tel != '') ? "mail, à $email, ou par téléphone, au $tel" : "mail, à $email,"
-                : "téléphone, au $tel";
+            $contact = "Veuillez contacter le vendeur par " . (($email != '')
+                ? (($tel != '') ? "mail, à $email, ou par téléphone, au $tel" : "mail, à $email,")
+                : "téléphone, au $tel");
 
-            $contact .= " pour vous mettre d'accord sur la transation et " . ($enchere->getInfosEnvoi()['infoRemiseDirect'])
-                ? ($enchere->getInfosEnvoi()['infoEnvoiColis']) ? "l'envoi ou la remise en main propre de l'article." : "la remise en main propre de l'article."
-                : "l'envoi de l'article.";
+            $contact .= " pour vous mettre d'accord sur la transation et " . (($enchere->getInfosEnvoi()[0])
+                ? (($enchere->getInfosEnvoi()[1]) ? "l'envoi ou la remise en main propre de l'article." : "la remise en main propre de l'article.")
+                : "l'envoi de l'article.");
 
             $prixact = $prixfin;
             $dateTitle = "L'enchère est terminée";
