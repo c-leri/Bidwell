@@ -163,6 +163,11 @@ class Enchere
         return Participation::readFromEnchere($this);
     }
 
+    public function getDerniereEnchere(): ?Participation
+    {
+        return $this->derniereEnchere;
+    }
+
     public function getPrixHaut(): float
     {
         return (isset($this->derniereEnchere))

@@ -33,7 +33,7 @@ if ($id == null) {
         $tempsRes = $maintenant->diff($enchere->getDateDebut());
         $prixact = $prixdep;
         $dateTitle = "L'enchère commencera dans ";
-        $date = $tempsRes->format("%H:%i:%s");
+        $date = $tempsRes->format("%H:%I:%S");
         $button = 'disabled';
     } else {
         $prixact = round($enchere->getPrixCourant(), 2);
@@ -41,16 +41,15 @@ if ($id == null) {
         if ($fin > $maintenant && $prixact > $prixfin) {
             $tempsRes = $maintenant->diff($fin);
             $dateTitle = "L'enchère se terminera dans ";
-            $date = $tempsRes->format("%H:%i:%s");
+            $date = $tempsRes->format("%H:%I:%S");
             $button = '';
         } else {
             $prixact = $prixfin;
             $dateTitle = "L'enchère est terminée";
             $button = 'disabled';
             $date = "";
-            $participations = $enchere->getParticipations();
-            if (!empty($enchere->getParticipations()) && end($participations)->getUtilisateur()->getLogin() == $login){
-                $message = "Vous avez remporté le lot ! Contactez le vendeur pour préparer sa livraison.";
+            if ($enchere->getDerniereEnchere() !== null && $enchere->getDerniereEnchere()->getUtilisateur()->getLogin() == $login){
+                $message = "Vous avez remporté l'enchère ! Contactez le vendeur pour préparer sa livraison.";
             } else {
                 $message = "Vous n'avez pas remporté cette enchère.";
             }

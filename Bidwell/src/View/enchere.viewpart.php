@@ -41,8 +41,9 @@
             </div>
         </div>
     </div>
+    <p id="message"><?= $message ?></p>
+
     <input type="hidden" id="instantDerniereEnchere" name="instantDerniereEnchere" value="<?= $instantDerniereEnchere ?>">
     <input type="hidden" id="instantFin" name="instantFin" value="<?= $instantFin ?>">
     <input type="hidden" id="dateDebut" name="dateDebut" value="<?= $dateDebut ?>">
-    <p id="message"><?= $message ?></p>
 </div>

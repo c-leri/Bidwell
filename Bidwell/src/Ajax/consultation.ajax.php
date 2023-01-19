@@ -6,6 +6,10 @@ require_once __DIR__.'/../../vendor/autoload.php';
 
 $enchere = Enchere::read($_GET['id']);
 
+session_start();
+$login = $_SESSION['login'] ?? '';
+session_write_close();
+
 $prixRetrait = round($enchere->getMontantDerniereEnchere(), 2);
 $prixHaut = round($enchere->getMontantDerniereEnchere() + $enchere->getPrixDepart() * 0.05, 2);
 $prixact = $enchere->getPrixCourant();
@@ -14,19 +18,23 @@ $pourcent = ($prixRetrait < $prixact) ? (74 - (($prixact - $prixRetrait)/($prixH
 $affichage = round($pourcent, 2, PHP_ROUND_HALF_DOWN);
 
 $disabled = 'disabled';
+$message = '';
 
 $now = new DateTime();
 
 if ($now < $enchere->getDateDebut()) {
     $dateTitle = "L'enchère commencera dans";
-    $date = $now->diff($enchere->getDateDebut())->format("%H:%i:%s");
+    $date = $now->diff($enchere->getDateDebut())->format("%H:%I:%S");
 } else if ($now < $enchere->getInstantFin()) {
     $disabled = '';
     $dateTitle = "L'enchère se terminera dans";
-    $date = $now->diff($enchere->getInstantFin())->format("%H:%i:%s");
+    $date = $now->diff($enchere->getInstantFin())->format("%H:%I:%S");
 } else {
     $dateTitle = "L'enchère est terminée";
     $date = '';
+    $message = ($enchere->getDerniereEnchere() !== null && $enchere->getDerniereEnchere()->getUtilisateur()->getLogin() === $login)
+        ? "Vous avez remporté l'enchère ! Contactez le vendeur pour préparer sa livraison."
+        : "Vous n'avez pas remporté cette enchère.";
 }
 
 echo "
@@ -70,6 +78,7 @@ echo "
             </div>
         </div>
     </div>
+    <p id='message'>$message</p>
     
     <input type='hidden' id='instantDerniereEnchere' name='instantDerniereEnchere' value='{$enchere->getInstantDerniereEnchere()->getTimestamp()}'>
     <input type='hidden' id='instantFin' name='instantFin' value='{$enchere->getInstantFin()->getTimestamp()}'>
