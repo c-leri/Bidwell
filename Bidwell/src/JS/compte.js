@@ -20,7 +20,7 @@ function showItems() {
     xhttp.send();
 }  
 
-function affichage(){
+function affichageConfirmation(){
   modal.style.display="flex";
 }
 
@@ -35,7 +35,7 @@ function supprenchere($id){
   id=$id;
 }
 
-function suppressionenchere() {
+function suppressionEnchere() {
   //Crée une nouvelle requête XMLHTTP à envoyer au serveur
   const xhttp = new XMLHttpRequest();
 
@@ -53,4 +53,29 @@ function suppressionenchere() {
   //Envoie la requête au serveur
   xhttp.send();
 }
+
+function suppressionCompte($login) {
+  //Crée une nouvelle requête XMLHTTP à envoyer au serveur
+  const xhttp = new XMLHttpRequest();
+
+  //Lorsque la requête est "prête", indique que la division classe "annonce" prendre comme HTML résultat du serveur
+  xhttp.onload = function() {
+    const delay = ms => new Promise(res => setTimeout(res, ms));
+    if (this.responseText != "OK"){
+      document.getElementById("erreur").innerHTML = "Erreur: Vous ne pouvez pas supprimer votre compte tant qu'une de vos enchère est en cours.";
+      modal.style.display="none";
+    } else {
+      window.location.replace("main.ctrl.php");
+    }
+  }
+
+  let createur = document.getElementById("login").innerText;
+  //Ouvre la requête au serveur avec pour informations le tri, le type, les catégories sélectionnées et le numéro de page
+
+  xhttp.open("GET", "../Ajax/compte-delete.ajax.php?login=" + $login);
+
+  //Envoie la requête au serveur
+  xhttp.send();
+}
+
     

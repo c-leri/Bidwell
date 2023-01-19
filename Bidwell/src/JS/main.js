@@ -13,6 +13,10 @@ function showItems(ordre, cible) {
 
 
 function initPage() {
+  if(performance.navigation.type == 2){
+    location.reload(true);
+ }
+
   showItems("ASC", "new");
   showItems("DESC", "old");
 }
