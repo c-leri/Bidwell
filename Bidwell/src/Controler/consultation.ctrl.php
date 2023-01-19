@@ -2,6 +2,7 @@
 // Inclusion du framework
 use Bidwell\Framework\View;
 use Bidwell\Model\Enchere;
+use Bidwell\Model\Utilisateur;
 
 require_once __DIR__.'/../../vendor/autoload.php';
 
@@ -11,6 +12,8 @@ require_once __DIR__.'/../../vendor/autoload.php';
 session_start();
 $login = $_SESSION['login'] ?? '';
 session_write_close();
+
+$nbJetons = ($login !== '') ? Utilisateur::read($login)->getNbJetons() : null;
 
 $id = $_GET['id'] ?? null;
 
@@ -28,7 +31,10 @@ if ($id == null) {
     $maintenant = new DateTime();
 
     $message = '';
+    $messageDisplay = 'none';
+    $messageColor = 'var(--couleur-jaune)';
     
+    // avant enchère
     if ($maintenant < $enchere->getDateDebut()) {
         $tempsRes = $maintenant->diff($enchere->getDateDebut());
         $prixact = $prixdep;
@@ -39,11 +45,17 @@ if ($id == null) {
         $prixact = round($enchere->getPrixCourant(), 2);
         $fin = $enchere->getInstantFin();
 
+        // enchère en cours
         if ($maintenant >= $enchere->getDateDebut() && $maintenant < $enchere->getInstantFin()) {
             $tempsRes = $maintenant->diff($fin);
             $dateTitle = "L'enchère se terminera dans ";
             $date = $tempsRes->format("%H:%I:%S");
             $button = '';
+            if ($enchere->getDerniereEnchere() !== null && $enchere->getDerniereEnchere()->getUtilisateur()->getLogin() == $login) {
+                $message = "Vous êtes en tête de l'enchère !";
+                $messageDisplay = 'block';
+            }
+        // enchère terminée
         } else {
             $createur = $enchere->getCreateur();
 
@@ -62,10 +74,12 @@ if ($id == null) {
             $dateTitle = "L'enchère est terminée";
             $button = 'disabled';
             $date = '';
+            $messageDisplay = 'block';
             if ($enchere->getDerniereEnchere() !== null && $enchere->getDerniereEnchere()->getUtilisateur()->getLogin() == $login){
                 $message = "Vous avez remporté l'enchère ! $contact";
             } else {
                 $message = "Vous n'avez pas remporté cette enchère.";
+                $messageColor = 'var(--couleur-rouge)';
             }
         }
     }
@@ -145,10 +159,14 @@ $view->assign('place', $place);
 $view->assign('dist', $dist);
 
 $view->assign('localisation', $codePostal);
+
 $view->assign('message', $message);
+$view->assign('messageDisplay', $messageDisplay);
+$view->assign('messageColor', $messageColor);
 
 // 5% du prix de départ avec 1 jeton = 1 euro
 $view->assign('prixJetons', $enchere->getPrixDepart() * 0.05);
+$view->assign('nbJetons', $nbJetons);
 
 $view->assign('instantDerniereEnchere',$enchere->getInstantDerniereEnchere()->getTimestamp());
 $view->assign('instantFin', $enchere->getInstantFin()->getTimestamp());
