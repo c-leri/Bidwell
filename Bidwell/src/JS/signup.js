@@ -1,5 +1,17 @@
-
-//Retourne true si un erreur survient, false sinon
+//Retourne true si une erreur survient, false sinon
+function validateLogin(){
+  const login = document.getElementById("username"),
+  errorlogin = document.getElementById("errorusername");
+  const usernameRegex = /^[a-z0-9_.]+$/
+  if(usernameRegex.test(login.value)){
+    //La regex trouve le bon pattern, le login est valide
+    errorlogin.innerHTML="";
+    return true;
+  }
+  errorlogin.innerHTML = "Veuillez entrer un nom d'utilisateur valide contenant uniquement des lettres, des chiffres, des underscore ou des points";
+  return false;
+}
+//Retourne true si une erreur survient, false sinon
 function validatePassword(){
   const password = document.getElementById("password"),
   confirm_password = document.getElementById("confirm_password")
@@ -7,10 +19,9 @@ function validatePassword(){
   if(password.value !== confirm_password.value) {
     errorpassword.innerHTML = "Les mots de passe sont différents";
     return false;
-  } else {
-    errorpassword.innerHTML = "";
-    return true;
   }
+  errorpassword.innerHTML = "";
+  return true;
 }
 //Retourne true si une erreur survient, false sinon
 function validatePhoneNumber(){
@@ -20,7 +31,7 @@ function validatePhoneNumber(){
     errortel.innerHTML= "Le numéro de téléphone doit être uniquement composé de chiffres";
     return false;
 	}else if(tel.value.length!==10){
-    errortel.innerHTML= "Le numéro de téléphone doit être composé de 10 chiffres";
+    errortel.innerHTML= "Le numéro de téléphone doit être composé de 10 chiffres ("+tel.value.length+" actuellement)";
     return false;
   } else {
 	  errortel.innerHTML="";
@@ -82,9 +93,10 @@ function validateAlreadyInBaseOrNot(){
     //Empêche le form de reload la page et niquer la requête ajax
     event.preventDefault();
     //On vérifie les différents inputs
+    let login = validateLogin();
     let passwd = validatePassword();
     let phone =validatePhoneNumber();
-    if((passwd&&phone)===false){
+    if(!(login&&passwd&&phone)){
       return false;
     }else{
       return validateAlreadyInBaseOrNot();
