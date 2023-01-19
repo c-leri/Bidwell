@@ -19,7 +19,7 @@
 <body>
     <!-- Menu -->
     <header>
-        <?php include(__DIR__ . '/menu.viewpart.php') ?>
+        <?php include ($login === '') ? __DIR__ . '/menu.viewpart.php' : __DIR__.  '/menu_connecte.viewpart.php' ?>
     </header>
 
     <main class="recherche">
