@@ -29,7 +29,7 @@
 
 /* global au main */
 main.creation {
-  width: 80%;
+  width: 90%;
   margin-left: auto;
   margin-right: auto;
   color: var(--couleur-blanc);
@@ -48,17 +48,16 @@ main.creation div.contact {
   margin: 1rem;
   padding: 0.5rem;
   border-radius: 1rem;
-  background-color: var(--couleur-blanc30);
-  display: flex;
+  background-color: var(--couleur-noir30);
+  /* display: flex;
   flex-direction: column;
-  justify-content: center;
-  text-align: center;
+  justify-content: center; */
 }
 
 /* -- Design -- */
 hr {
   margin: 1rem auto 1rem auto;
-  width: 90%;
+  width: 80%;
   height: 0.1rem;
   background-color: var(--couleur-blanc);
   border: none;
@@ -75,9 +74,7 @@ main.creation select#categorieSelect,
 main.creation input[type=text],
 main.creation input[type=number], 
 main.creation textarea{
-  width: 20%;
-  margin-left: auto;
-  margin-right: auto;
+  width: 30%;
   margin-bottom: 1rem;
   border-radius: 0.5rem;
   border: 0.1rem solid var(--couleur-noir);
@@ -85,7 +82,7 @@ main.creation textarea{
 }
 
 main.creation textarea{
-  width: 50%;
+  width: 100%;
 }
 
 main.creation ul {
@@ -139,7 +136,7 @@ main.creation button.btnSuppr {
   right: 0.5rem;
   border: none;
   /* background-color:rgba(0, 0, 0, 0); */
-  background-color: var(--couleur-blanc30);
+  background-color: var(--couleur-blanc);
 }
 
 /* texte indiquant les numeros d'images*/
@@ -147,9 +144,19 @@ main.creation .numImg {
   color: var(--couleur-noir);
   font-size: 1.5rem;
   width: 90%;
+  text-align: center;
   
 }
 
 #imagesInput {
   margin-left: 3rem;
+}
+
+section.split{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+section.split>div {
+  width: 50%;
 }

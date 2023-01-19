@@ -49,25 +49,27 @@ $str = "";
 
 //Pour chaque ligne de résultat, prépare son affichage en l'ajoutant à la variable renvoyée
 if ($type == 'Enchere') {
-
+    $maintenant = new DateTime();
     for ($i = 0; $i < sizeof($result); $i++) {
-        $str .= "
-            <article>
-                <a href='consultation.ctrl.php?id={$result[$i]->getId()}'>
-                    <img src='{$result[$i]->getImageURL(0)}' alt='{$result[$i]->getLibelle()}'>
-                </a>
-                <div class='left'>
-                    <h1>{$result[$i]->getLibelle()}</h1>
-                    <h3>{$result[$i]->getCategorie()->getLibelle()}</h3>
-                    <ul>
-                        <li>{$result[$i]->getDateDebut()->format('Y-m-d')}</li>
-                        <li>{$result[$i]->getPrixDepart()}€</li>
-                        <li>{$result[$i]->getCreateur()->getLogin()}</li>
-                    </ul>
-                </div>
-                <p class='description'>{$result[$i]->getDescription()}</p>
-            </article>
-        ";
+        if($result[$i]->getInstantFin()>$maintenant){
+            $str .= "
+                <article>
+                    <a href='consultation.ctrl.php?id={$result[$i]->getId()}'>
+                        <img src='{$result[$i]->getImageURL(0)}' alt='{$result[$i]->getLibelle()}'>
+                    </a>
+                    <div class='left'>
+                        <h1>{$result[$i]->getLibelle()}</h1>
+                        <h3>{$result[$i]->getCategorie()->getLibelle()}</h3>
+                        <ul>
+                            <li>{$result[$i]->getDateDebut()->format('Y-m-d')}</li>
+                            <li>{$result[$i]->getPrixDepart()}€</li>
+                            <li>{$result[$i]->getCreateur()->getLogin()}</li>
+                        </ul>
+                    </div>
+                    <p class='description'>{$result[$i]->getDescription()}</p>
+                </article>
+            ";
+        }
     }
 
     $str .= "
