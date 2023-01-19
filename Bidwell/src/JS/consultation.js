@@ -67,12 +67,23 @@ window.setInterval(function () {
     document.title = 'Enchère Terminée';
 
     // On envoie une requête ajax pour mettre à jour le contenu de la page
+
+    //Création de la requête
     const xhttp = new XMLHttpRequest();
+
+    //Indication de la fonction à réaliser une fois la requête effectuée
+    //Ici, la réponse remplacera le HTML de l'élément "container"
     xhttp.onload = function() {
       document.getElementById("container").innerHTML = this.responseText;
     }
+    //Ouverture de la requête, et inclusion des informations à envoyer
+    //Ici, c'est une requête sous GET qui envoie au fichier "consultation.ajax.php" la variable "params.id" définie précédemment
     xhttp.open("GET", `../Ajax/consultation.ajax.php?id=${params.id}`);
+
+    //Envoie de la requête.
     xhttp.send();
+
+    //Note: La ligne 77 s'exécute après la ligne 84
   }
 }, 1000);
 
