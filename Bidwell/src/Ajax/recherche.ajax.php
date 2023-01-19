@@ -47,23 +47,26 @@ if ($type == 'Enchere') {
 
     $prix = $_GET['prix'] !== 'NULL' ? $_GET["prix"] : 0;
 
+    $recherche = isset($_GET['recherche']) ? $_GET['recherche'] : 'null';
 
+
+    //Initialisation de variable qui sera renvoyée
+    $str = "";
 
     //Si le type est "enchère", alors vérifie si des catégories ont étées sélectionnées ou non et les transforme en un seul string
-    if (isset($_GET["categories"])) {
+    if (isset($_GET["categories"]) && $recherche != 'null') {
 
         $categories = explode(',', $_GET['categories']);
+        $result = Enchere::readLike($categories, $_GET['recherche'], $tri, $prix, $ordre, $page, 10);
+        
+    
+    } else  {
 
-
+        $categories = explode(',', $_GET['categories']);
         //Exécute la requête SQL avec les informations nécessaires à l'affichage
         $result = Enchere::readLike($categories, "", $tri, $prix, $ordre, $page, 10);
-    } else {
 
-        //Si aucune catégorie sélectionnée
-        //Exécute la requête SQL avec les informations nécessaires à l'affichage
-        $result = Enchere::readLike([], "", $_GET['tri'], $prix, $ordre, $page, 10);
-
-    }
+    }  
 
 } else {
     //Si le type est "Utilisateur",
@@ -72,17 +75,15 @@ if ($type == 'Enchere') {
 
 }
 
-//Initialisation de variable qui sera renvoyée
-$str = "";
-
 
 
 //Pour chaque ligne de résultat, prépare son affichage en l'ajoutant à la variable renvoyée
 if ($type == 'Enchere') {
     $maintenant = new DateTime();
-    for ($i = 0; $i < sizeof($result); $i++) {
-        if($result[$i]->getInstantFin()>$maintenant){
-            $str .= "
+    if (sizeof($result) > 0) {
+        for ($i = 0; $i < sizeof($result); $i++) {
+            if ($result[$i]->getInstantFin() > $maintenant) {
+                $str .= "
                 <article>
                     <a href='consultation.ctrl.php?id={$result[$i]->getId()}'>
                         <img src='{$result[$i]->getImageURL(0)}' alt='{$result[$i]->getLibelle()}'>
@@ -99,7 +100,10 @@ if ($type == 'Enchere') {
                     <p class='description'>{$result[$i]->getDescription()}</p>
                 </article>
             ";
+            }
         }
+    }else {
+        $str .= "<p> Aucun article ne correspond à votre recherche. </p>";
     }
 
     $str .= "
