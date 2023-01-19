@@ -59,7 +59,6 @@
                 <ul>
                 <li><a href="condition.ctrl.php">Conditions d’utilisation</a></li>
                 <li><a href="mention.ctrl.php">Mentions légales</a></li>
-                <li><a href="#">Politique de confidentalité</a></li>
                 </ul>
             </div>
         </div>
@@ -70,7 +69,7 @@
         <h3>Que vendez-vous sur ce site ?</h3>
             <p>La vente se fait entre particuliers,les objets qui sont vendus doivent être de collection.
             </p>
-            <h3>Comment vendre un objet ? ?</h3>
+            <h3>Comment vendre un objet ?</h3>
             <p>Pour vendre un objet vous devez être connecté et appuyer sur le bouton vendre un article.
             </p>
         </div>
