@@ -1,4 +1,4 @@
-const conn = new WebSocket('ws://localhost:8080');
+const conn = new WebSocket('ws://' + location.host + ':8080');
 
 const login = document.getElementById('login').value;
 
