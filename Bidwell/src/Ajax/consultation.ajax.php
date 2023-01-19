@@ -59,11 +59,23 @@ if ($now < $enchere->getDateDebut()) {
     $dateTitle = "L'enchère est terminée";
     $date = '';
     $messageDisplay = 'block';
-    if ($enchere->getDerniereEnchere() !== null && $enchere->getDerniereEnchere()->getUtilisateur()->getLogin() == $login){
-        $message = "Vous avez remporté l'enchère ! $contact";
+    // message de fin d'enchère pour le vendeur
+    if ($enchere->getCreateur()->getLogin() === $login) {
+        if ($enchere->getDerniereEnchere() === null) {
+            $message = "Votre enchère n'a pas été vendue.";
+            $messageColor = 'var(--couleur-rouge)';
+        } else {
+            $message = "Votre enchère a été vendu à {$enchere->getDerniereEnchere()->getUtilisateur()->getLogin()} !
+                                Attendez qu'iel vous contacte pour que vous puissiez procéder à la transaction.";
+        }
+    // message de fin d'enchère pour les participants
     } else {
-        $message = "Vous n'avez pas remporté cette enchère.";
-        $messageColor = 'var(--couleur-rouge)';
+        if ($enchere->getDerniereEnchere() !== null && $enchere->getDerniereEnchere()->getUtilisateur()->getLogin() == $login) {
+            $message = "Vous avez remporté l'enchère ! $contact";
+        } else {
+            $message = "Vous n'avez pas remporté cette enchère.";
+            $messageColor = 'var(--couleur-rouge)';
+        }
     }
 
     // on met la barre de progression du prix à son état final (vide)

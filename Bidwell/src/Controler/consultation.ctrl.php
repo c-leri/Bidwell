@@ -75,11 +75,23 @@ if ($id == null) {
             $button = 'disabled';
             $date = '';
             $messageDisplay = 'block';
-            if ($enchere->getDerniereEnchere() !== null && $enchere->getDerniereEnchere()->getUtilisateur()->getLogin() == $login) {
-                $message = "Vous avez remporté l'enchère ! $contact";
+            // message de fin d'enchère pour le vendeur
+            if ($enchere->getCreateur()->getLogin() === $login) {
+                if ($enchere->getDerniereEnchere() === null) {
+                    $message = "Votre enchère n'a pas été vendue.";
+                    $messageColor = 'var(--couleur-rouge)';
+                } else {
+                    $message = "Votre enchère a été vendu à {$enchere->getDerniereEnchere()->getUtilisateur()->getLogin()} !
+                                Attendez qu'iel vous contacte pour que vous puissiez procéder à la transaction.";
+                }
+            // message de fin d'enchère pour les participants
             } else {
-                $message = "Vous n'avez pas remporté cette enchère.";
-                $messageColor = 'var(--couleur-rouge)';
+                if ($enchere->getDerniereEnchere() !== null && $enchere->getDerniereEnchere()->getUtilisateur()->getLogin() == $login) {
+                    $message = "Vous avez remporté l'enchère ! $contact";
+                } else {
+                    $message = "Vous n'avez pas remporté cette enchère.";
+                    $messageColor = 'var(--couleur-rouge)';
+                }
             }
         }
     }
@@ -122,8 +134,6 @@ if ($id == null) {
     }
 
     $codePostal = $enchere->getCodePostal();
-
-
 }
 
 ////////////////////////////////////////////////////////////////////////////
@@ -164,7 +174,7 @@ $view->assign('messageDisplay', $messageDisplay);
 $view->assign('messageColor', $messageColor);
 
 // 5% du prix de départ avec 1 jeton = 1 euro
-$view->assign('prixJetons', $enchere->getPrixDepart() * 0.05);
+$view->assign('prixJetons', round($enchere->getPrixDepart() * 0.05));
 $view->assign('nbJetons', $nbJetons);
 
 $view->assign('instantDerniereEnchere', $enchere->getInstantDerniereEnchere()->getTimestamp());
