@@ -31,6 +31,8 @@ if ($id == null) {
     $maintenant = new DateTime();
 
     $message = '';
+    $messageDisplay = 'none';
+    $messageColor = 'var(--couleur-jaune)';
     
     // avant enchère
     if ($maintenant < $enchere->getDateDebut()) {
@@ -49,9 +51,10 @@ if ($id == null) {
             $dateTitle = "L'enchère se terminera dans ";
             $date = $tempsRes->format("%H:%I:%S");
             $button = '';
-            $message = ($enchere->getDerniereEnchere() !== null && $enchere->getDerniereEnchere()->getUtilisateur()->getLogin() == $login)
-                ? "Vous êtes en tête de l'enchère !"
-                : '';
+            if ($enchere->getDerniereEnchere() !== null && $enchere->getDerniereEnchere()->getUtilisateur()->getLogin() == $login) {
+                $message = "Vous êtes en tête de l'enchère !";
+                $messageDisplay = 'block';
+            }
         // enchère terminée
         } else {
             $createur = $enchere->getCreateur();
@@ -71,10 +74,12 @@ if ($id == null) {
             $dateTitle = "L'enchère est terminée";
             $button = 'disabled';
             $date = '';
+            $messageDisplay = 'block';
             if ($enchere->getDerniereEnchere() !== null && $enchere->getDerniereEnchere()->getUtilisateur()->getLogin() == $login){
                 $message = "Vous avez remporté l'enchère ! $contact";
             } else {
                 $message = "Vous n'avez pas remporté cette enchère.";
+                $messageColor = 'var(--couleur-rouge)';
             }
         }
     }
@@ -154,7 +159,10 @@ $view->assign('place', $place);
 $view->assign('dist', $dist);
 
 $view->assign('localisation', $codePostal);
+
 $view->assign('message', $message);
+$view->assign('messageDisplay', $messageDisplay);
+$view->assign('messageColor', $messageColor);
 
 // 5% du prix de départ avec 1 jeton = 1 euro
 $view->assign('prixJetons', $enchere->getPrixDepart() * 0.05);

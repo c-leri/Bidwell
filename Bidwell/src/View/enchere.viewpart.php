@@ -47,7 +47,7 @@
             </div>
         </div>
     </div>
-    <p id="message"><?= $message ?></p>
+    <p id="message" style="display: <?= $messageDisplay ?>; color: <?= $messageColor ?>;"><?= $message ?></p>
 
     <input type="hidden" id="instantDerniereEnchere" name="instantDerniereEnchere" value="<?= $instantDerniereEnchere ?>">
     <input type="hidden" id="instantFin" name="instantFin" value="<?= $instantFin ?>">
