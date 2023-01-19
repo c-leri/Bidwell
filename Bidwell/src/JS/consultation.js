@@ -28,26 +28,39 @@ window.setInterval(function () {
 
   let maintenant = new Date();
 
-  // Début de l'enchère, on ajoute le script de websocket et on recharge la page
-  if (maintenant >= dateDebut && maintenant < instantFin && document.title !== 'Enchère en cours') {
+  // L'enchère n'est pas terminée, le compteur tourne
+  if (maintenant < instantFin)  {
+    let date = new Date(0, 0, 0, parseInt(dates[0]), parseInt(dates[1]), parseInt(dates[2]) - 1);
 
-    const websocketScript = document.createElement('script');
-    websocketScript.id = 'websocketScript';
-    websocketScript.setAttribute('src', '../JS/websocket.js');
-    document.body.appendChild(websocketScript);
-    document.title = 'Enchère en cours';
+    document.getElementById('temps').innerHTML = `${twoDigits(date.getHours())}:${twoDigits(date.getMinutes())}:${twoDigits(date.getSeconds())}`;
 
-    // On envoie une requête ajax pour mettre à jour le contenu de la page
-    const xhttp = new XMLHttpRequest();
-    xhttp.onload = function() {
-      document.getElementById("container").innerHTML = this.responseText;
+    // L'enchère est en cours
+    if (maintenant >= dateDebut && maintenant < instantFin) {
+      // Début de l'enchère, on ajoute le script de websocket et on met à jour le contenu de la page
+      if (document.title !== 'Enchère en cours') {
+        const websocketScript = document.createElement('script');
+        websocketScript.id = 'websocketScript';
+        websocketScript.setAttribute('src', '../JS/websocket.js');
+        document.body.appendChild(websocketScript);
+        document.title = 'Enchère en cours';
+
+        // On envoie une requête ajax pour mettre à jour le contenu de la page
+        const xhttp = new XMLHttpRequest();
+        xhttp.onload = function() {
+          document.getElementById("container").innerHTML = this.responseText;
+        }
+        xhttp.open("GET", `../Ajax/consultation.ajax.php?id=${params.id}`);
+        xhttp.send();
+      }
+
+      document.getElementById('act').innerHTML = `${valeur.toFixed(2)}€`;
+
+      affichage = (74 - ((valeur-mini)/(maxi-mini)) * 74).toFixed(2);
+
+      document.getElementById('circle-container__progress').style.setProperty('stroke-dashoffset', affichage);
     }
-    xhttp.open("GET", `../Ajax/consultation.ajax.php?id=${params.id}`);
-    xhttp.send();
-
-  // Fin de l'enchère on retire le script de websocket et on recharge la page
-  } else if (maintenant >= instantFin && document.title !== 'Enchère Terminée') {
-
+  // Fin de l'enchère, on retire le script de websocket et met à jour le contenu de la page
+  } else if (document.title !== 'Enchère Terminée') {
     let websocketScript = document.getElementById('websocketScript');
     if (websocketScript !== null)
       document.body.removeChild(websocketScript);
@@ -60,21 +73,5 @@ window.setInterval(function () {
     }
     xhttp.open("GET", `../Ajax/consultation.ajax.php?id=${params.id}`);
     xhttp.send();
-
-  } else {
-
-    let date = new Date(0, 0, 0, parseInt(dates[0]), parseInt(dates[1]), parseInt(dates[2]) - 1);
-
-    document.getElementById('temps').innerHTML = `${twoDigits(date.getHours())}:${twoDigits(date.getMinutes())}:${twoDigits(date.getSeconds())}`;
-
-    if (mini < valeur) {
-      document.getElementById('act').innerHTML = `${valeur.toFixed(2)}€`;
-
-      affichage = (74 - ((valeur-mini)/(maxi-mini)) * 74).toFixed(2);
-
-      document.getElementById('circle-container__progress').style.setProperty('stroke-dashoffset', affichage);
-    }
-
   }
-
 }, 1000);
