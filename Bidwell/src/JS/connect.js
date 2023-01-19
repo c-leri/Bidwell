@@ -17,12 +17,9 @@ function validateConnection(event){
         const rep = JSON.parse(this.responseText);
         //Si tout se passe bien on connecte l'utilisateur
         if(rep.sucess){
-          console.log("connexion go");
           self.location = "connect.ctrl.php";
         }else{
-            console.log("connexion KO");
-          //Sinon
-           //Si login inexistant
+          //Si login inexistant
           if(rep.loginerror){
             errorlogin.innerHTML = rep.loginerrormsg;
             ok=false;
