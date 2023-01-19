@@ -136,6 +136,9 @@ $view->assign('dist', $dist);
 $view->assign('localisation', $codePostal);
 $view->assign('message', $message);
 
+// 5% du prix de départ avec 1 jeton = 1 euro
+$view->assign('prixJetons', $enchere->getPrixDepart() * 0.05);
+
 $view->assign('instantDerniereEnchere',$enchere->getInstantDerniereEnchere()->getTimestamp());
 $view->assign('instantFin', $enchere->getInstantFin()->getTimestamp());
 $view->assign('dateDebut', $enchere->getDateDebut()->getTimestamp());

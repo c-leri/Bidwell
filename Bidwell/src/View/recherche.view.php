@@ -42,9 +42,12 @@
                 <p> Trier par </p>
                 <form action="">
                     <select name="tri" id="tri" onchange="showItems()">
-                        <option value="date">Date de création</option>
-                        <option value="nom">Nom</option>
-                        <option value="prix">Prix</option>
+                        <option value="dateAsc">Date de création ↑</option>
+                        <option value="dateDesc">Date de création ↓</option>
+                        <option value="nomAsc">Nom ↑</option>
+                        <option value="nomDesc">Nom ↓</option>
+                        <option value="prixAsc">Prix ↑</option>
+                        <option value="prixDesc">Prix ↓</option>
                     </select>
                 </form>
             </div>

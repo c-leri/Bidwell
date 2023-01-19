@@ -75,3 +75,13 @@ window.setInterval(function () {
     xhttp.send();
   }
 }, 1000);
+
+// ouvre la fenêtre modale
+function open(nomModal) {
+  document.getElementById(nomModal).style.display = "block";
+}
+
+// Ferme la fenêtre modale
+function stop(nomModal) {
+  document.getElementById(nomModal).style.display = "none";
+}

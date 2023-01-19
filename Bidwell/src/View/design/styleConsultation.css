@@ -99,3 +99,11 @@ main.consultation .complement ul {
 main.consultation .complement li {
     margin-left: 0.5rem;
 }
+
+#btnmodal {
+  position: relative;
+  width: 4.7rem;
+  bottom: 0;
+  right: 0;
+  padding: 0.5rem;
+}

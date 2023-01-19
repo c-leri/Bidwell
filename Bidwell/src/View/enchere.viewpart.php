@@ -47,3 +47,21 @@
     <input type="hidden" id="instantFin" name="instantFin" value="<?= $instantFin ?>">
     <input type="hidden" id="dateDebut" name="dateDebut" value="<?= $dateDebut ?>">
 </div>
+
+<!-- Fenêtre modale pour demander des jetons à l'utilisateur si il veut réenchérir -->
+<div id="demandeJetons" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="stop('demandeJetons')">&times;</span>
+        <p>Vous avez déjà enchéri sur cette enchère. Vous pouvez utiliser vos jetons afin de réenchérir.</p>
+        <button class="btnmodal" onclick="encherirPourJetons()">Réenchérir (<?= $prixJetons ?> Jetons)</button>
+    </div>
+</div>
+
+<!-- Fenêtre modale pour signaler à l'utilisateur qu'il n'a pas assez de jetons et l'inviter à en acheter -->
+<div id="pasAssezJetons" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="stop('pasAssezJetons')">&times;</span>
+        <p>Vous n'avez pas assez de jetons pour réenchérir. Vous pouvez en acheter dans le shop.</p>
+        <button class="btnmodal" onclick="stop('pasAssezJetons')">OK</button>
+    </div>
+</div>
