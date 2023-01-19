@@ -1,4 +1,5 @@
-window.onload = showItems;
+window.onload = showItems();
+window.onload = showItemsWon();
 const modal = document.getElementById("myModal");
 const modeul = document.getElementById("myModeul");
 var id;
@@ -78,4 +79,24 @@ function suppressionCompte($login) {
   xhttp.send();
 }
 
+
+function showItemsWon() {
+
+  const xhttp = new XMLHttpRequest();
+  xhttp.onload = function () {
+    document.getElementById("won").innerHTML = this.responseText;
     
+  }
+
+  let login = document.getElementById("login").innerText;
+  if (login != "") {
+
+    xhttp.open("GET", "../Ajax/main.ajax.php?login=" + login);
+    xhttp.send();
+  }
+  else {
+    document.getElementById('hrWon').style = "display:none;";
+    document.getElementById('titleWon').style = "display:none;";
+    }
+
+  }
