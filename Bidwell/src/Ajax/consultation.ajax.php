@@ -36,8 +36,8 @@ if ($now < $enchere->getDateDebut()) {
     $tel = ($enchere->getInfosContact()[1]) ? $createur->getNumeroTelephone() : '';
 
     $contact = "Veuillez contacter le vendeur par " . (($email != '')
-        ? (($tel != '') ? "mail, à $email, ou par téléphone, au $tel" : "mail, à $email,")
-        : "téléphone, au $tel");
+        ? (($tel != '') ? "mail à $email ou par téléphone, au $tel" : "mail à $email")
+        : "téléphone au $tel");
 
     $contact .= " pour vous mettre d'accord sur la transation et " . (($enchere->getInfosEnvoi()[0])
         ? (($enchere->getInfosEnvoi()[1]) ? "l'envoi ou la remise en main propre de l'article." : "la remise en main propre de l'article.")
@@ -54,8 +54,8 @@ if ($now < $enchere->getDateDebut()) {
 
     // on met le prix actuel au prix auquel est partie l'enchère (prix de retrait si personne n'a enchéri)
     $prixact = ($enchere->getDerniereEnchere() !== null)
-        ? $enchere->getDerniereEnchere()->getMontantDerniereEnchere()
-        : $enchere->getPrixRetrait();
+        ? round($enchere->getDerniereEnchere()->getMontantDerniereEnchere(), 2)
+        : round($enchere->getPrixRetrait(), 2);
 }
 
 echo "

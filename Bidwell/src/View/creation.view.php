@@ -111,7 +111,7 @@
                     <h2> Prix de base </h2>
                     <input id="prixbase" type="number" name="base" required min="1" max="99999" placeholder="Prix espéré">
 
-                    <p> Définissez le prix auquel vous souhaiteriez vendre votre article. Prenez en compte la valeur réelle
+                    <p> Définissez le prix auquel vous souhaitez voir l'enchère commencer. Prenez en compte la valeur réelle
                         de votre article et pensez à ce que vous seriez prêt à mettre à la place de l'acheteur.</p>
                 </div>
 

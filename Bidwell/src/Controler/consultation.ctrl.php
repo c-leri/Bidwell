@@ -51,8 +51,8 @@ if ($id == null) {
             $tel = ($enchere->getInfosContact()[1]) ? $createur->getNumeroTelephone() : '';
 
             $contact = "Veuillez contacter le vendeur par " . (($email != '')
-                ? (($tel != '') ? "mail, à $email, ou par téléphone, au $tel" : "mail, à $email,")
-                : "téléphone, au $tel");
+                ? (($tel != '') ? "mail à $email ou par téléphone au $tel" : "mail à $email")
+                : "téléphone au $tel");
 
             $contact .= " pour vous mettre d'accord sur la transation et " . (($enchere->getInfosEnvoi()[0])
                 ? (($enchere->getInfosEnvoi()[1]) ? "l'envoi ou la remise en main propre de l'article." : "la remise en main propre de l'article.")
@@ -81,13 +81,13 @@ if ($id == null) {
     $createur = $enchere->getCreateur();
 
     $autorisations = $enchere->getInfosContact();
-    if ($autorisations['infoEmail'] == "true"){
+    if ($autorisations[0]){
         $mail = $enchere->getCreateur()->getEmail();
     } else {
         $mail = "Le créateur de l'enchère n'a pas souahité partager son e-Mail";
     }
 
-    if ($autorisations['infoTel'] == "true"){
+    if ($autorisations[1]){
         $tel = $enchere->getCreateur()->getNumeroTelephone();
     } else {
         $tel = "Le créateur de l'enchère n'a pas souhaité partager son numéro de téléphone";
@@ -96,13 +96,13 @@ if ($id == null) {
 
     
     $informations = $enchere->getInfosEnvoi();
-    if ($informations['infoRemiseDirect'] == "true"){
+    if ($informations[0]){
         $place = "Le créateur de l'enchère est prêt à remettre le bien en main propre";
     } else {
         $place = "Le créateur de l'enchère n'est PAS prêt à remettre le bien en main propre";
     }
 
-    if ($informations['infoEnvoiColis'] == "true"){
+    if ($informations[1]){
         $dist = "Le créateur de l'enchère est prêt à envoyer le bien par colis";
     } else {
         $dist = "Le créateur de l'enchère n'est PAS prêt à envoyer le bien par colis";

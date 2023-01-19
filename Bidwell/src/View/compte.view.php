@@ -37,7 +37,7 @@
             <?php endif; ?>
             <li>Nous conservons vos données personnelles dans l'unique but de vous authentifier. Afin de supprimer vos informations, veuillez supprimer votre compte.</li>
 
-            <li><button class="button" type="submit" onclick="affichageConfirmation()"> Supprimer votre compte </button></li>
+            <li><button id="lasupp" class="button" type="submit" onclick="affichageConfirmation()"> Supprimer votre compte </button></li>
         </ul>
         <hr />
         <h2>Jetons</h2>
