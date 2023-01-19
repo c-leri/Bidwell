@@ -128,11 +128,6 @@ class Enchere
         return $this->prixDepart;
     }
 
-    public function getPrixRetrait(): float
-    {
-        return $this->prixRetrait;
-    }
-
     public function getDescription(): string
     {
         return $this->description;
@@ -166,13 +161,6 @@ class Enchere
     public function getDerniereEnchere(): ?Participation
     {
         return $this->derniereEnchere;
-    }
-
-    public function getPrixHaut(): float
-    {
-        return (isset($this->derniereEnchere))
-        ? $this->prixRetrait + ($this->prixDepart * 0.05)
-        : $this->prixDepart;
     }
 
     // Setters
@@ -255,7 +243,21 @@ class Enchere
      */
     public function getPrixCourant(): float
     {
-        return $this->prixRetrait + $this->getRatioTempsActuel() * ($this->prixHaut - $this->prixRetrait);
+        return $this->getPrixRetrait() + $this->getRatioTempsActuel() * ($this->getPrixHaut() - $this->getPrixRetrait());
+    }
+
+    public function getPrixRetrait(): float
+    {
+        return (isset($this->derniereEnchere))
+            ? $this->derniereEnchere->getMontantDerniereEnchere()
+            : $this->prixRetrait;
+    }
+
+    public function getPrixHaut(): float
+    {
+        return (isset($this->derniereEnchere))
+            ? $this->derniereEnchere->getMontantDerniereEnchere() + $this->getPrixDepart() * 0.05
+            : $this->prixDepart;
     }
 
     /**
@@ -265,22 +267,11 @@ class Enchere
     {
         $maintenant = new DateTime();
         if ($maintenant > $this->getDateDebut()) {
-            $interval1H = new DateInterval('PT1H');
-            $intervalMaintenantFin = $maintenant->diff($this->getInstantFin());
-            $differenceMaintenantFin = (float) Helper::intervalToMilliseconds($intervalMaintenantFin);
-            return (isset($this->derniereEnchere))
-                ? $differenceMaintenantFin / (float) Helper::intervalToMilliseconds($this->derniereEnchere->getInstantDerniereEnchere()->diff($this->getInstantFin()))
-                : $differenceMaintenantFin / (float) Helper::intervalToMilliseconds($interval1H);
+            $differenceMaintenantFin = $this->getInstantFin()->diff($maintenant);
+            return Helper::intervalToSeconds($differenceMaintenantFin) / Helper::intervalToSeconds($this->getInstantFin()->diff($this->getInstantDerniereEnchere()));
         } else {
             return 1;
         }
-    }
-
-    public function getMontantDerniereEnchere(): float
-    {
-        return (isset($this->derniereEnchere))
-            ? $this->derniereEnchere->getMontantDerniereEnchere()
-            : $this->prixDepart;
     }
 
     /**
@@ -288,7 +279,7 @@ class Enchere
      */
     public function getInstantDerniereEnchere(): DateTime
     {
-        return (isset($this->derniereEnchere))
+        return (isset($this->derniereEnchere) && $this->derniereEnchere->getInstantDerniereEnchere() !== null)
             ? $this->derniereEnchere->getInstantDerniereEnchere()
             : $this->dateDebut;
     }

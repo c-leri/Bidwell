@@ -12,7 +12,6 @@ function backstep(){
 }
 
 function checking(){
-  console.log(document.getElementById('conscience').checked);
   if (document.getElementById('conscience').checked) {
     document.getElementById('couvrebouton').style.display = 'none';
   } else {
