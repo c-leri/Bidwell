@@ -7,7 +7,7 @@
             <ul>
                 <li>
                     <input type="checkbox" id="okCookies" /> 
-                    Nous permettre de garder vos données personnelles.
+                    <label for="okCookies"> Nous permettre de garder vos données personnelles.</label>
                 </li>
             </ul>
             <p>
