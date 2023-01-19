@@ -81,6 +81,11 @@ function open(nomModal) {
   document.getElementById(nomModal).style.display = "block";
 }
 
+function enchereImpossible(message) {
+  document.getElementById('messageModal').innerText = message;
+  open('enchereImpossible');
+}
+
 // Ferme la fenêtre modale
 function stop(nomModal) {
   document.getElementById(nomModal).style.display = "none";

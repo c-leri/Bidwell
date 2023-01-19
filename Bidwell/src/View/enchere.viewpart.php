@@ -58,10 +58,10 @@
 </div>
 
 <!-- Fenêtre modale pour signaler à l'utilisateur qu'il n'a pas assez de jetons et l'inviter à en acheter -->
-<div id="pasAssezJetons" class="modal">
+<div id="enchereImpossible" class="modal">
     <div class="modal-content">
-        <span class="close" onclick="stop('pasAssezJetons')">&times;</span>
-        <p>Vous n'avez pas assez de jetons pour réenchérir. Vous pouvez en acheter dans le shop.</p>
-        <button class="btnmodal" onclick="stop('pasAssezJetons')">OK</button>
+        <span class="close" onclick="stop('enchereImpossible')">&times;</span>
+        <p id="messageModal"></p>
+        <button class="btnmodal" onclick="stop('enchereImpossible')">OK</button>
     </div>
 </div>

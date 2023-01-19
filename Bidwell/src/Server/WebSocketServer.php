@@ -93,10 +93,18 @@ class WebSocketServer implements MessageComponentInterface
                         if (!isset($this->users[$from->resourceId])) {
                             echo "La connection $from->resourceId a essayé de participer à une enchère alors qu'elle n'est pas connecté";
                         } else {
+                            $utilisateur = $this->users[$from->resourceId];
                             // recupère l'enchère et la participation et appel la méthode encherir() qui fais les modifications liées au fait qu'un utilisateur enchérisse
                             $enchere = Enchere::read($message->value);
-                            $participation = Participation::get(Enchere::read($message->value), $this->users[$from->resourceId]);
-                            if ($participation->getNbEncheres() > 0) {
+                            $participation = Participation::get(Enchere::read($message->value), $utilisateur);
+                            // L'utilisateur est le créateur de l'enchère, on l'empèche d'enchérir
+                            if ($enchere->getCreateur()->getLogin() === $utilisateur->getLogin()) {
+                                $from->send('{"type": "enchereImpossible", "value": "createur"}');
+                            // L'utilisateur est déjà gagant de l'enchère, on l'empèche de réenchérir
+                            } else if ($enchere->getDerniereEnchere() !== null && $enchere->getDerniereEnchere()->getUtilisateur()->getLogin() === $utilisateur->getLogin()) {
+                                $from->send('{"type": "enchereImpossible", "value": "gagnant"}');
+                            // L'utilisateur a déjà enchéri, on lui demande des jetons
+                            } else if ($participation->getNbEncheres() > 0) {
                                 $from->send('{"type": "demandeJetons"}');
                             } else {
                                 $participation->encherir();
@@ -112,11 +120,12 @@ class WebSocketServer implements MessageComponentInterface
                         if (!isset($this->users[$from->resourceId])) {
                             echo "La connection $from->resourceId a essayé de participer à une enchère alors qu'elle n'est pas connecté";
                         } else {
+                            $utilisateur = $this->users[$from->resourceId];
                             // recupère l'enchère et la participation et appel la méthode encherir() qui fais les modifications liées au fait qu'un utilisateur enchérisse
                             $enchere = Enchere::read($message->value);
-                            $participation = Participation::get(Enchere::read($message->value), $this->users[$from->resourceId]);
+                            $participation = Participation::get(Enchere::read($message->value), $utilisateur);
                             if ($participation->getUtilisateur()->getNbJetons() < $enchere->getPrixDepart() * 0.05) {
-                                $from->send('{"type": "pasAssezJetons"}');
+                                $from->send('{"type": "enchereImpossible", "value": "pasAssezJetons"}');
                             } else {
                                 $participation->encherirPourJetons();
 

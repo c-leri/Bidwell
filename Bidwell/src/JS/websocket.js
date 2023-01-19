@@ -43,8 +43,20 @@ conn.onmessage = function (e) {
         case 'demandeJetons':
             open('demandeJetons');
             break;
-        case 'pasAssezJetons':
-            open('pasAssezJetons');
+        // si l'enchère est de type impossible,
+        // on informe l'utilisateur
+        case 'enchereImpossible':
+            switch (message.value) {
+                case 'createur':
+                    enchereImpossible('Vous êtes le créateur de cette enchère, vous ne pouvez pas y participer.');
+                    break;
+                case 'gagnant':
+                    enchereImpossible("Vous êtes la dernière personne à avoir enchéri sur cette enchère, vous pouvez simplement attendre qu'elle se termine (ou que quelqu'un d'autre enchérisse).");
+                    break;
+                case 'pasAssezJetons':
+                    enchereImpossible("Vous n'avez pas assez de jetons pour réenchérir. Vous pouvez en acheter dans note magasin, accessible depuis votre compte.");
+                    break;
+            }
             break;
     }
 }
