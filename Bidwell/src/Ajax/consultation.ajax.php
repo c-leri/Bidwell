@@ -21,7 +21,10 @@ $pourcent = (74 - (($prixact - $prixRetrait)/($prixHaut - $prixRetrait)) * 74);
 $affichage = round($pourcent, 2, PHP_ROUND_HALF_DOWN);
 
 $disabled = 'disabled';
+
 $message = '';
+$messageDisplay = 'none';
+$messageColor = 'var(--couleur-jaune)';
 
 $now = new DateTime();
 
@@ -34,9 +37,10 @@ if ($now < $enchere->getDateDebut()) {
     $disabled = '';
     $dateTitle = "L'enchère se terminera dans";
     $date = $now->diff($enchere->getInstantFin())->format("%H:%I:%S");
-    $message = ($enchere->getDerniereEnchere() !== null && $enchere->getDerniereEnchere()->getUtilisateur()->getLogin() == $login)
-        ? "Vous êtes en tête de l'enchère !"
-        : '';
+    if ($enchere->getDerniereEnchere() !== null && $enchere->getDerniereEnchere()->getUtilisateur()->getLogin() == $login) {
+        $message = "Vous êtes en tête de l'enchère !";
+        $messageDisplay = 'block';
+    }
 // après enchère
 } else {
     $createur = $enchere->getCreateur();
@@ -54,9 +58,13 @@ if ($now < $enchere->getDateDebut()) {
 
     $dateTitle = "L'enchère est terminée";
     $date = '';
-    $message = ($enchere->getDerniereEnchere() !== null && $enchere->getDerniereEnchere()->getUtilisateur()->getLogin() === $login)
-        ? "Vous avez remporté l'enchère ! $contact"
-        : "Vous n'avez pas remporté cette enchère.";
+    $messageDisplay = 'block';
+    if ($enchere->getDerniereEnchere() !== null && $enchere->getDerniereEnchere()->getUtilisateur()->getLogin() == $login){
+        $message = "Vous avez remporté l'enchère ! $contact";
+    } else {
+        $message = "Vous n'avez pas remporté cette enchère.";
+        $messageColor = 'var(--couleur-rouge)';
+    }
 
     // on met la barre de progression du prix à son état final (vide)
     $affichage = 74;
@@ -117,7 +125,7 @@ $str .= "
             </div>
         </div>
     </div>
-    <p id='message'>$message</p>
+    <p id='message' style='display: $messageDisplay; color: $messageColor;'>$message</p>
     
     <input type='hidden' id='instantDerniereEnchere' name='instantDerniereEnchere' value='{$enchere->getInstantDerniereEnchere()->getTimestamp()}'>
     <input type='hidden' id='instantFin' name='instantFin' value='{$enchere->getInstantFin()->getTimestamp()}'>
