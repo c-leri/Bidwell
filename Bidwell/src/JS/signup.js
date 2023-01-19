@@ -36,45 +36,43 @@ function validateAlreadyInBaseOrNot(){
     erroremail =  document.getElementById("erroremail"),
     tel = document.getElementById("tel"),
     errortel =  document.getElementById("errornumtel");
-    var ok = true;
+    let ok = true;
     let requete = new XMLHttpRequest();
     //Précise quel controleur php le client va contacter via ajax ainsi que la méthode utilisée
-    requete.open("POST", "../Ajax/signup-ajax.php", true); //True pour que l'exécution du script continue pendant le chargement, false pour attendre.
+    requete.open("POST", "../Ajax/signup.ajax.php", true); //True pour que l'exécution du script continue pendant le chargement, false pour attendre.
     //Header utile au bon fonctionnement de la requête
     requete.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     requete.onload = function() {
-        ok= true;
-        //Si l'utilisateur est déjà dans la base le serveur répond le message d'erreur correspondant
-        console.log(this.responseText);
-        const rep = JSON.parse(this.responseText);
-        //Si tout se passe bien on connecte l'utilisateur
-        if(rep.sucess){
-            console.log("utilisateur inséré dans la base");
-            self.location = "connect.ctrl.php";
-        }else{
-            //Sinon
-            //Si nom d'utilisateur déjà dans la base
-            if(rep.username){
-                errorusername.innerHTML = rep.usernameerrormsg;
-                ok=false;
-            }else{
-                errorusername.innerHTML = "";
-            }
-            //Si email d'utilisateur déjà dans la base
-            if(rep.email){
-                erroremail.innerHTML = rep.emailerrormsg;
-                ok=false;
-            }else{
-                erroremail.innerHTML = "";
-            }
-            //Si numéro de téléphone d'utilisateur déjà dans la base
-            if(rep.tel){
-                errortel.innerHTML = rep.telerrormsg;
-                ok=false;
-            }else{
-                errortel.innerHTML = "";
-            }
-        }
+      ok = true;
+      //Si l'utilisateur est déjà dans la base le serveur répond le message d'erreur correspondant
+      const rep = JSON.parse(this.responseText);
+      //Si tout se passe bien on connecte l'utilisateur
+      if(rep.sucess) {
+          self.location = "connect.ctrl.php";
+      } else {
+          //Sinon
+          //Si nom d'utilisateur déjà dans la base
+          if(rep.username){
+              errorusername.innerHTML = rep.usernameerrormsg;
+              ok=false;
+          }else{
+              errorusername.innerHTML = "";
+          }
+          //Si email d'utilisateur déjà dans la base
+          if(rep.email){
+              erroremail.innerHTML = rep.emailerrormsg;
+              ok=false;
+          }else{
+              erroremail.innerHTML = "";
+          }
+          //Si numéro de téléphone d'utilisateur déjà dans la base
+          if(rep.tel){
+              errortel.innerHTML = rep.telerrormsg;
+              ok=false;
+          }else{
+              errortel.innerHTML = "";
+          }
+      }
     }
     //Envoie la requête au serveur avec en paramètres les valeurs des inputs
     requete.send("login="+username.value+"&password="+password.value+"&email="+email.value+"&phone="+tel.value);
@@ -86,7 +84,7 @@ function validateAlreadyInBaseOrNot(){
     //On vérifie les différents inputs
     let passwd = validatePassword();
     let phone =validatePhoneNumber();
-    if((passwd&&phone)==false){
+    if((passwd&&phone)===false){
       return false;
     }else{
       return validateAlreadyInBaseOrNot();

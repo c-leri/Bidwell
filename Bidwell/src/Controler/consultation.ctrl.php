@@ -2,7 +2,6 @@
 // Inclusion du framework
 use Bidwell\Framework\View;
 use Bidwell\Model\Enchere;
-use Bidwell\Util\Helper;
 
 require_once __DIR__.'/../../vendor/autoload.php';
 
@@ -10,10 +9,10 @@ require_once __DIR__.'/../../vendor/autoload.php';
 // Récupération des informations à afficher
 ////////////////////////////////////////////////////////////////////////////
 session_start();
-$login = isset($_SESSION['login']) ? $_SESSION['login'] : '';
+$login = $_SESSION['login'] ?? '';
 session_write_close();
 
-$id = isset($_GET['id']) ? $_GET['id'] : null;
+$id = $_GET['id'] ?? null;
 
 if ($id == null) {
     throw new Exception("L'enchère que vous essayer de consulter n'existe pas ou a été supprimée");
@@ -22,39 +21,36 @@ if ($id == null) {
 
     $nom = $enchere->getLibelle();
 
-    $prixdep = $enchere->getPrixDepart();
+    $prixdep = round($enchere->getPrixHaut(), 2);
 
-    $prixfin = $enchere->getPrixRetrait();
+    $prixfin = round($enchere->getPrixRetrait(), 2);
 
     $maintenant = new DateTime();
 
     $message = '';
     
-    if ($enchere->getDateDebut() > $maintenant) {
-
+    if ($maintenant < $enchere->getDateDebut()) {
         $tempsRes = $maintenant->diff($enchere->getDateDebut());
         $prixact = $prixdep;
         $dateTitle = "L'enchère commencera dans ";
-        $date = $tempsRes->format("%h:%i:%s");
+        $date = $tempsRes->format("%H:%I:%S");
         $button = 'disabled';
     } else {
-
         $prixact = round($enchere->getPrixCourant(), 2);
         $fin = $enchere->getInstantFin();
-        if ($fin > $maintenant && $prixact > $prixfin) {
+
+        if ($maintenant >= $enchere->getDateDebut() && $maintenant < $enchere->getInstantFin()) {
             $tempsRes = $maintenant->diff($fin);
             $dateTitle = "L'enchère se terminera dans ";
-            $date = $tempsRes->format("%h:%i:%s");
+            $date = $tempsRes->format("%H:%I:%S");
             $button = '';
         } else {
-
             $prixact = $prixfin;
-            $dateTitle = "L'enchère est terminée.";
+            $dateTitle = "L'enchère est terminée";
             $button = 'disabled';
             $date = "";
-            $participations = $enchere->getParticipations();
-            if (!empty($enchere->getParticipations()) && end($participations)->getUtilisateur()->getLogin() == $login){
-                $message = "Vous avez remporté le lot ! Contactez le vendeur pour préparer sa livraison.";
+            if ($enchere->getDerniereEnchere() !== null && $enchere->getDerniereEnchere()->getUtilisateur()->getLogin() == $login){
+                $message = "Vous avez remporté l'enchère ! Contactez le vendeur pour préparer sa livraison.";
             } else {
                 $message = "Vous n'avez pas remporté cette enchère.";
             }
@@ -81,7 +77,7 @@ if ($id == null) {
     if ($autorisations[1] == "true"){
         $tel = $enchere->getCreateur()->getNumeroTelephone();
     } else {
-        $tel = "Le créateur de l'enchère n'a pas souahité partager son numéro de téléphone";
+        $tel = "Le créateur de l'enchère n'a pas souhaité partager son numéro de téléphone";
     }
     
 
@@ -94,7 +90,7 @@ if ($id == null) {
         $place = "Le créateur de l'enchère n'est PAS prêt à remettre le bien en main propre";
     }
 
-    if ($autorisations[1] == "true"){
+    if ($informations[1] == "true"){
        
         $dist = "Le créateur de l'enchère est prêt à envoyer le bien par colis";
     } else {

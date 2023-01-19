@@ -64,6 +64,10 @@
     top: 2rem;
     right: 0;
     width: 30%;
+    padding: 0.5rem 0 0.5rem 0.5rem;
+    background-color: var(--couleur-noir30);
+    border-radius: 1rem;
+    font-size: 1.5rem;
 }
 
 .prix {
@@ -71,7 +75,11 @@
 }
 
 .prix>div {
+    font-size: 1.5rem;
+    margin: 0.5rem;
     padding: 0 1rem 0 1rem;
+    background-color: var(--couleur-noir30);
+    border-radius: 1rem;
 }
 
 .prix>div>div {
@@ -99,6 +107,9 @@
     box-shadow: 0 8px 0 rgb(183,9,0), 0 15px 20px rgba(0,0,0,.35);
 }
 
+#encherebutton:disabled {
+    cursor: not-allowed;
+}
 
 #encherebutton:active, #encherebutton:disabled { 
   padding-top: 3px;

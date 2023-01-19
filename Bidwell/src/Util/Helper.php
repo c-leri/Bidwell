@@ -2,7 +2,6 @@
 namespace Bidwell\Util;
 
 use DateInterval;
-use DateTime;
 
 class Helper {
     public static function intervalToMilliseconds(DateInterval $interval) : int {

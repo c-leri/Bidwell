@@ -14,10 +14,10 @@ function getCookie(nomCookie) {
   let liste = decodedCookie.split(';');
   for (let i = 0; i < liste.length; i++) {
     let leCookie = liste[i];
-    while (leCookie.charAt(0) == ' ') {
+    while (leCookie.charAt(0) === ' ') {
       leCookie = leCookie.substring(1);
     }
-    if (leCookie.indexOf(nom) == 0) {
+    if (leCookie.indexOf(nom) === 0) {
       return leCookie.substring(nom.length, leCookie.length);
     }
   }
@@ -33,11 +33,9 @@ function checkCookie(nomCookie) {
 
 function closePopup() {
   document.getElementById("fond-cookies").style.display = "none";
-  //console.log("cookies acceptés");
 }
 function openPopup() {
   document.getElementById("fond-cookies").style.display = "block";
-  //console.log("cookies pas acceptés");
 }
 
 // Pour que le bouton "Valider votre choix" soit disabled ou pas

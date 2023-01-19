@@ -2,7 +2,6 @@
 
 namespace Bidwell\Model;
 
-use Bidwell\Model\Participation;
 use Bidwell\Util\Helper;
 
 use DateInterval;
@@ -34,8 +33,8 @@ class Enchere
     private array $images = array();              // liste des noms des fichers contenant les images
     private string $description;
     private Categorie $categorie;
-    private array $infosContact= array();
-    private array $infosEnvoi= array();
+    private array $infosContact;
+    private array $infosEnvoi;
     private string $codePostal;
 
     // Constructeurs
@@ -78,15 +77,17 @@ class Enchere
         $dateDebut->setTimestamp($row['dateDebut']);
         $infosEnvoi = array();
         $infosContact = array();
-        array_push($infosEnvoi,$row['infoRemiseDirect']);   
-        array_push($infosEnvoi,$row['infoEnvoiColis']);
-        array_push($infosContact,$row['infoEmail']);
-        array_push($infosContact,$row['infoTel']);               
+        array_push($infosEnvoi,$row['infoRemiseDirect'],$row['infoEnvoiColis']);
+        array_push($infosContact,$row['infoEmail'],$row['infoTel']);
+
         // création d'un objet enchère avec les informations de la bd
         $enchere = new Enchere(Utilisateur::read($row['loginCreateur']), $row['libelle'], $dateDebut, $row['prixDepart'], $row['prixRetrait'], $images[0], $row['description'], Categorie::read($row['libelleCategorie']),$infosContact,$infosEnvoi,$row['codePostal']);
 
+        // on set l'id de l'enchère
+        $enchere->id = $row['id'];
+
         // on set la derniereEnchere si elle est dans la bd
-        if (isset($row['loginUtilisateurDerniereEnchere']) && $row['loginUtilisateurDerniereEnchere'] != '') {
+        if (isset($row['loginUtilisateurDerniereEnchere'])) {
             $enchere->derniereEnchere = Participation::read($enchere, Utilisateur::read($row['loginUtilisateurDerniereEnchere']));
         }
 
@@ -95,9 +96,6 @@ class Enchere
         foreach ($images as $image) {
             $enchere->addImage($image);
         }
-
-        // on set l'id de l'enchère
-        $enchere->id = $row['id'];
 
         return $enchere;
     }
@@ -130,11 +128,6 @@ class Enchere
         return $this->prixDepart;
     }
 
-    public function getPrixRetrait(): float
-    {
-        return $this->prixRetrait;
-    }
-
     public function getDescription(): string
     {
         return $this->description;
@@ -165,11 +158,9 @@ class Enchere
         return Participation::readFromEnchere($this);
     }
 
-    public function getPrixHaut(): float
+    public function getDerniereEnchere(): ?Participation
     {
-        return (isset($this->derniereEnchere))
-        ? $this->prixRetrait + ($this->prixDepart * 0.05)
-        : $this->prixDepart;
+        return $this->derniereEnchere;
     }
 
     // Setters
@@ -209,7 +200,7 @@ class Enchere
 
     public function addImage(string $image): void
     {
-        array_push($this->images, $image);
+        $this->images[] = $image;
     }
 
     public function removeImage(int $id): void
@@ -252,7 +243,21 @@ class Enchere
      */
     public function getPrixCourant(): float
     {
-        return $this->prixRetrait + $this->getRatioTempsActuel() * ($this->prixHaut - $this->prixRetrait);
+        return $this->getPrixRetrait() + $this->getRatioTempsActuel() * ($this->getPrixHaut() - $this->getPrixRetrait());
+    }
+
+    public function getPrixRetrait(): float
+    {
+        return (isset($this->derniereEnchere))
+            ? $this->derniereEnchere->getMontantDerniereEnchere()
+            : $this->prixRetrait;
+    }
+
+    public function getPrixHaut(): float
+    {
+        return (isset($this->derniereEnchere))
+            ? $this->derniereEnchere->getMontantDerniereEnchere() + $this->getPrixDepart() * 0.05
+            : $this->prixDepart;
     }
 
     /**
@@ -262,22 +267,11 @@ class Enchere
     {
         $maintenant = new DateTime();
         if ($maintenant > $this->getDateDebut()) {
-            $interval1H = new DateInterval('PT1H');
-            $intervalMaintenantFin = $maintenant->diff($this->getInstantFin());
-            $differenceMaintenantFin = (float) Helper::intervalToMilliseconds($intervalMaintenantFin);
-            return (isset($this->derniereEnchere))
-                ? $differenceMaintenantFin / (float) Helper::intervalToMilliseconds($this->derniereEnchere->getInstantDerniereEnchere()->diff($this->getInstantFin()))
-                : $differenceMaintenantFin / (float) Helper::intervalToMilliseconds($interval1H);
+            $differenceMaintenantFin = $this->getInstantFin()->diff($maintenant);
+            return Helper::intervalToSeconds($differenceMaintenantFin) / Helper::intervalToSeconds($this->getInstantFin()->diff($this->getInstantDerniereEnchere()));
         } else {
             return 1;
         }
-    }
-
-    public function getMontantDerniereEnchere(): float
-    {
-        return (isset($this->derniereEnchere))
-            ? $this->derniereEnchere->getMontantDerniereEnchere()
-            : $this->prixDepart;
     }
 
     /**
@@ -285,7 +279,7 @@ class Enchere
      */
     public function getInstantDerniereEnchere(): DateTime
     {
-        return (isset($this->derniereEnchere))
+        return (isset($this->derniereEnchere) && $this->derniereEnchere->getInstantDerniereEnchere() !== null)
             ? $this->derniereEnchere->getInstantDerniereEnchere()
             : $this->dateDebut;
     }

@@ -27,6 +27,7 @@ class Utilisateur {
     private int $nbJetons;
     // booleen qui signifie si l'utilisateur est enregistré dans la base
     private bool $isInDB;
+    private ?DateTime $dateFinConservation;
 
     // constructeur
 
@@ -40,6 +41,18 @@ class Utilisateur {
         $this->setNumeroTelephone($numeroTelephone);
         $this->nbJetons = 0;
         $this->isInDB = false;
+    }
+
+    private static function constructFromDB(array $row) : Utilisateur {
+        // crée un utilisateur à partir de la ligne du tableau
+        $out = new Utilisateur($row['login'], $row['email'], $row['numeroTelephone']);
+
+        // set les informations qui ne sont pas dans le constructeur
+        $out->mdpHash = $row['mdpHash'];
+        $out->nbJetons = $row['nbJetons'];
+        $out->isInDB = true;
+
+        return $out;
     }
 
     // Getters
@@ -137,6 +150,17 @@ class Utilisateur {
         return count($table) != 0;
     }
 
+    /**
+     * @return string|false string représentant le temps de conservation des données restant ou false si $this->dateFinConservation est null
+     */
+    public function getTempsRestant() : string|false {
+        if (!isset($this->dateFinConservation)) return false;
+
+        $maintenant = new DateTime();
+
+        return $maintenant->diff($this->dateFinConservation)->format('%y ans, %m mois, %d jours');
+    }
+
     /////////////////////////////////////////////
     //                  CRUD                   //
     /////////////////////////////////////////////
@@ -157,13 +181,13 @@ class Utilisateur {
         $dao = DAO::get();
 
         // variable correspondant à la date de fin de conservation de l'enchère dans la bd
-        $dateFinConservation = new DateTime();
-        $dateFinConservation->add(DateInterval::createFromDateString(Utilisateur::TEMPS_CONSERVATION));
+        $this->dateFinConservation = new DateTime();
+        $this->dateFinConservation->add(DateInterval::createFromDateString(Utilisateur::TEMPS_CONSERVATION));
 
         // Initialisation de la requête SQL
         $requete = 'INSERT INTO Utilisateur VALUES (?,?,?,?,?,?)';
         // Initialisation du tableau de valeurs pour la requête
-        $valeurs = [$this->login, $this->mdpHash, $this->email, $this->numeroTelephone, $this->nbJetons, $dateFinConservation->getTimestamp()];
+        $valeurs = [$this->login, $this->mdpHash, $this->email, $this->numeroTelephone, $this->nbJetons, $this->dateFinConservation->getTimestamp()];
 
         // Exécution de la requête
         $nbLignesMod = $dao->exec($requete, $valeurs);
@@ -227,53 +251,6 @@ class Utilisateur {
         }
 
         return $out;
-    }
-
-    private static function constructFromDB(array $row) : Utilisateur {
-        // crée un utilisateur à partir de la ligne du tableau
-        $out = new Utilisateur($row['login'], $row['email'], $row['numeroTelephone']);
-
-        // set les informations qui ne sont pas dans le constructeur
-        $out->mdpHash = $row['mdpHash'];
-        $out->nbJetons = $row['nbJetons'];
-        $out->isInDB = true;
-
-        return $out;
-    }
-
-    //Fonction utilisée pour trouver dans combien de temps il reste où les données sont conservées.
-    public function getTempsRestant() : string {
-        // Récupération de la classe DAO
-        $dao = DAO::get();
-        
-        if (!$this->isInDB()) {
-            throw new Exception("lecture du temps restant : L'utilisateur $this->login n'existe pas dans la bd");
-        }
-        // Initialisation de la requête et du tableau de valeurs
-        $requete = 'SELECT dateFinConservation FROM Utilisateur WHERE login LIKE ?';
-        $valeur = [$this->login];
-
-        // Exécution de la requête
-        $table = $dao->query($requete, $valeur);
-
-        // throw une exception si on ne trouve pas l'utilisateur
-        if (count($table) == 0) {
-            throw new Exception("Read : Utilisateur $this->login non trouvée");
-        }
-
-        // throw une exception si on trouve plusieurs utilisateurs
-        if (count($table) > 1) {
-            throw new Exception("Read : Utilisateur $this->login existe en ".count($table).' exemplaires');
-        }
-
-        //Calcul de la différence entre la date de fin de conservation des données et la date actuelle.
-        $tempsrestant = new DateTime();
-        $tempsrestant->setTimestamp($table[0][0]);
-        $date = new DateTime();
-        $diff = date_diff($date,$tempsrestant);
-
-        //Renvoi d'un string sous forme année/mois/jours.
-        return $diff->format('%y ans, %m mois, %d jours');
     }
 
     ////////////////// UPDATE ///////////////////

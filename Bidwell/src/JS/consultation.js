@@ -1,13 +1,15 @@
-function dateToSeconds(date) {
-  return (date.getHours() * 60 + date.getMinutes()) * 60 + date.getSeconds()
+const params = new Proxy(new URLSearchParams(window.location.search), {
+  get: (searchParams, prop) => searchParams.get(prop),
+});
+
+function twoDigits(num) {
+  return `${num}`.length < 2 ? `0${num}` : num;
 }
 
 function getRatioTempsActuel(dateDebut, instantFin, instantDerniereEnchere) {
   let maintenant = new Date();
-  // console.log(`maintenant: ${maintenant}\ndateDebut: ${dateDebut}\ninstantFin: ${instantFin}\ninstantDerniereEnchere: ${instantDerniereEnchere}`);
   if (maintenant > dateDebut) {
       let differenceMaintenantFin = instantFin - maintenant;
-      // console.log(`(instantFin - maintenant): ${instantFin - maintenant}\n(differenceMaintenantFin / instantFin - instantDerniereEnchere): ${differenceMaintenantFin / instantFin - instantDerniereEnchere}`)
       return differenceMaintenantFin / (instantFin - instantDerniereEnchere);
   } else {
       return 1;
@@ -15,38 +17,61 @@ function getRatioTempsActuel(dateDebut, instantFin, instantDerniereEnchere) {
 }
 
 window.setInterval(function () {
-  valeur = parseFloat(document.getElementById('act').innerHTML);
-  mini = parseFloat(document.getElementById('min').innerHTML);
-  maxi = parseFloat(document.getElementById('max').innerHTML);
-  titre = document.getElementById('dateTitle').innerText;
-  date = document.getElementById('temps').innerText;
-  dates = document.getElementById('temps').innerText.split(":");
-  instantDerniereEnchere = new Date(parseInt(document.getElementById('instantDerniereEnchere').value) * 1000);
-  instantFin = new Date(parseInt(document.getElementById('instantFin').value) * 1000);
-  dateDebut = new Date(parseInt(document.getElementById('dateDebut').value) * 1000);
+  let mini = parseFloat(document.getElementById('min').innerHTML);
+  let maxi = parseFloat(document.getElementById('max').innerHTML);
+  let dates = document.getElementById('temps').innerText.split(":");
+  let instantDerniereEnchere = new Date(parseInt(document.getElementById('instantDerniereEnchere').value) * 1000);
+  let instantFin = new Date(parseInt(document.getElementById('instantFin').value) * 1000);
+  let dateDebut = new Date(parseInt(document.getElementById('dateDebut').value) * 1000);
 
-  valeur = mini + getRatioTempsActuel(dateDebut, instantFin, instantDerniereEnchere) * (maxi - mini);
+  const valeur = mini + getRatioTempsActuel(dateDebut, instantFin, instantDerniereEnchere) * (maxi - mini);
 
-  // console.log(`valeur: ${valeur}\nmini: ${mini}\ngetRatiotempsActuel(): ${getRatioTempsActuel(dateDebut, instantFin, instantDerniereEnchere)}\n(maxi - mini): ${(maxi - mini)}`);
+  let maintenant = new Date();
 
-  if (date.includes("0:0:0") || date.includes("00:00:00")) {
-    location.reload();
-  } else if (titre.includes("commencera ")) {
-    
-    date = new Date(0, 0, 0, dates[0], dates[1], dates[2] - 1);
-    document.getElementById('temps').innerHTML = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+  // L'enchère n'est pas terminée, le compteur tourne
+  if (maintenant < instantFin)  {
+    let date = new Date(0, 0, 0, parseInt(dates[0]), parseInt(dates[1]), parseInt(dates[2]) - 1);
 
-  } else if (mini < valeur) {
-    date = new Date(0, 0, 0, dates[0], dates[1], dates[2] - 1);
-    document.getElementById('temps').innerHTML = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+    document.getElementById('temps').innerHTML = `${twoDigits(date.getHours())}:${twoDigits(date.getMinutes())}:${twoDigits(date.getSeconds())}`;
 
-    tpsRestant = dateToSeconds(date);
-    document.getElementById('act').innerHTML = valeur.toFixed(2);
+    // L'enchère est en cours
+    if (maintenant >= dateDebut && maintenant < instantFin) {
+      // Début de l'enchère, on ajoute le script de websocket et on met à jour le contenu de la page
+      if (document.title !== 'Enchère en cours') {
+        const websocketScript = document.createElement('script');
+        websocketScript.id = 'websocketScript';
+        websocketScript.setAttribute('src', '../JS/websocket.js');
+        document.body.appendChild(websocketScript);
+        document.title = 'Enchère en cours';
 
-    affichage = (74 - ((valeur-mini)/(maxi-mini)) * 74).toFixed(2);
-    console.log(affichage);
+        // On envoie une requête ajax pour mettre à jour le contenu de la page
+        const xhttp = new XMLHttpRequest();
+        xhttp.onload = function() {
+          document.getElementById("container").innerHTML = this.responseText;
+        }
+        xhttp.open("GET", `../Ajax/consultation.ajax.php?id=${params.id}`);
+        xhttp.send();
+      }
 
-    document.getElementById('circle-container__progress').setAttribute('style', `stroke-dashoffset:${affichage}`);
+      document.getElementById('act').innerHTML = `${valeur.toFixed(2)}€`;
+
+      affichage = (74 - ((valeur-mini)/(maxi-mini)) * 74).toFixed(2);
+
+      document.getElementById('circle-container__progress').style.setProperty('stroke-dashoffset', affichage);
+    }
+  // Fin de l'enchère, on retire le script de websocket et met à jour le contenu de la page
+  } else if (document.title !== 'Enchère Terminée') {
+    let websocketScript = document.getElementById('websocketScript');
+    if (websocketScript !== null)
+      document.body.removeChild(websocketScript);
+    document.title = 'Enchère Terminée';
+
+    // On envoie une requête ajax pour mettre à jour le contenu de la page
+    const xhttp = new XMLHttpRequest();
+    xhttp.onload = function() {
+      document.getElementById("container").innerHTML = this.responseText;
+    }
+    xhttp.open("GET", `../Ajax/consultation.ajax.php?id=${params.id}`);
+    xhttp.send();
   }
-
 }, 1000);

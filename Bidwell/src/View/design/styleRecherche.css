@@ -134,7 +134,7 @@ color: var(--couleur-jaune);
 }
 
 hr {
-  margin: 1rem 1rem 1rem 0rem;
+  margin: 1rem 1rem 1rem 0;
   height: 0.1rem;
   background-color: var(--couleur-blanc);
   border: none;
@@ -217,4 +217,8 @@ main.recherche .numPage button{
   border-radius: 1rem;
   padding: 0.2rem;
   border: 0.1rem solid var(--couleur-noir);
+}
+
+.left, .description{
+  overflow: hidden;
 }

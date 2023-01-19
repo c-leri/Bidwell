@@ -1,0 +1,21 @@
+main.mention {
+    color: var(--couleur-blanc);
+    width: 80%;
+    margin: 0 auto 0 auto;
+}
+
+main.mention h1 {
+    margin-top: 2rem;
+}
+
+main.mention h2, main.mention h3, main.mention p{
+    margin-bottom: 1rem;
+}
+
+/* -- Design -- */
+main.mention hr {
+    margin: 1rem 0rem 1rem 0rem;
+    height: 0.1rem;
+    background-color: var(--couleur-blanc);
+    border: none;
+}
