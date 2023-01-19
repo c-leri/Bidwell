@@ -15,11 +15,16 @@
 
     <button id="encherebutton" onclick="encherir()" <?=$button?>><span>Enchérir</span></button>
 
-    
+    <?php if (isset($nbJetons)) : ?>
+    <div class="jetons">
+        <p>Vos Jetons : <?= $nbJetons ?></p>
+    </div>
+    <?php endif; ?>
+
     <div class="temps">
-            <p id="dateTitle"><?=$dateTitle?></p>   
-            <p id="temps"><?= $tempsRestant ?></p>
-        </div>
+        <p id="dateTitle"><?=$dateTitle?></p>   
+        <p id="temps"><?= $tempsRestant ?></p>
+    </div>
 
     <div class="prix">
         <div>
@@ -41,7 +46,7 @@
             </div>
         </div>
     </div>
-    <p id="message"><?= $message ?></p>
+    <p id="message" style="display: <?= $messageDisplay ?>; color: <?= $messageColor ?>;"><?= $message ?></p>
 
     <input type="hidden" id="instantDerniereEnchere" name="instantDerniereEnchere" value="<?= $instantDerniereEnchere ?>">
     <input type="hidden" id="instantFin" name="instantFin" value="<?= $instantFin ?>">
@@ -52,16 +57,19 @@
 <div id="demandeJetons" class="modal">
     <div class="modal-content">
         <span class="close" onclick="stop('demandeJetons')">&times;</span>
-        <p>Vous avez déjà enchéri sur cette enchère. Vous pouvez utiliser vos jetons afin de réenchérir.</p>
+        <p>
+            Vous avez déjà enchéri sur cette enchère. Vous pouvez utiliser vos jetons afin de réenchérir.
+            <?php if (isset($nbJetons)) : ?>Vous avez <?= $nbJetons ?> Jetons.<?php endif; ?>
+        </p>
         <button class="btnmodal" onclick="encherirPourJetons()">Réenchérir (<?= $prixJetons ?> Jetons)</button>
     </div>
 </div>
 
 <!-- Fenêtre modale pour signaler à l'utilisateur qu'il n'a pas assez de jetons et l'inviter à en acheter -->
-<div id="pasAssezJetons" class="modal">
+<div id="enchereImpossible" class="modal">
     <div class="modal-content">
-        <span class="close" onclick="stop('pasAssezJetons')">&times;</span>
-        <p>Vous n'avez pas assez de jetons pour réenchérir. Vous pouvez en acheter dans le shop.</p>
-        <button class="btnmodal" onclick="stop('pasAssezJetons')">OK</button>
+        <span class="close" onclick="stop('enchereImpossible')">&times;</span>
+        <p id="messageModal"></p>
+        <button class="btnmodal" onclick="stop('enchereImpossible')">OK</button>
     </div>
 </div>

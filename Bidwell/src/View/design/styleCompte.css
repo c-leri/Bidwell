@@ -56,3 +56,10 @@ h2.margin-bot {
   margin-bottom: 4rem;
 }
 
+#lasupp{
+  background-color: var(--couleur-rouge);
+}
+
+.btnmodal{
+  background-color: var(--couleur-rouge);
+}
