@@ -183,7 +183,7 @@ function loadFile(event) {
       if (!tmp_files.has(filename)) {
         extension = filename.substring(imgInput.files[i]["name"].lastIndexOf('.') + 1).toLowerCase();
         //check la taille du fichier pour pas faire crash le serveur on limite a 8méga
-        if (imgInput.files[i]["size"] > 800000) {
+        if (imgInput.files[i]["size"] > 8000000) {
           errorImgs.innerHTML = "La taille du fichier de ne doit pas excéder 8 Mo";
         } else if (extension !== 'jpg' && extension !== 'png' && extension !== "webp" && extension !== "jpeg") {
           errorImgs.innerHTML = "Les images doivent être au format png, jpg, jpeg ou webp";

@@ -11,6 +11,9 @@ $page = $_GET['numPage'] ?? 1;
 
 $type = $_GET['type'] ?? 'Enchere';
 
+    //Initialisation de variable qui sera renvoyée
+    $str = "";
+
 //Vérifie si le type sélectionné edst "enchère" ou "utilisateur"
 if ($type == 'Enchere') {
 
@@ -50,8 +53,7 @@ if ($type == 'Enchere') {
     $recherche = isset($_GET['recherche']) ? $_GET['recherche'] : 'null';
 
 
-    //Initialisation de variable qui sera renvoyée
-    $str = "";
+
 
     //Si le type est "enchère", alors vérifie si des catégories ont étées sélectionnées ou non et les transforme en un seul string
     if (isset($_GET["categories"]) && $recherche != 'null') {
