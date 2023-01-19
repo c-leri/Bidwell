@@ -29,6 +29,7 @@ if ($id == null) {
 
     $message = '';
     
+    // avant enchère
     if ($maintenant < $enchere->getDateDebut()) {
         $tempsRes = $maintenant->diff($enchere->getDateDebut());
         $prixact = $prixdep;
@@ -39,11 +40,16 @@ if ($id == null) {
         $prixact = round($enchere->getPrixCourant(), 2);
         $fin = $enchere->getInstantFin();
 
+        // enchère en cours
         if ($maintenant >= $enchere->getDateDebut() && $maintenant < $enchere->getInstantFin()) {
             $tempsRes = $maintenant->diff($fin);
             $dateTitle = "L'enchère se terminera dans ";
             $date = $tempsRes->format("%H:%I:%S");
             $button = '';
+            $message = ($enchere->getDerniereEnchere() !== null && $enchere->getDerniereEnchere()->getUtilisateur()->getLogin() == $login)
+                ? "Vous êtes en tête de l'enchère !"
+                : '';
+        // enchère terminée
         } else {
             $createur = $enchere->getCreateur();
 

@@ -22,13 +22,19 @@ $message = '';
 
 $now = new DateTime();
 
+// avant enchère
 if ($now < $enchere->getDateDebut()) {
     $dateTitle = "L'enchère commencera dans";
     $date = $now->diff($enchere->getDateDebut())->format("%H:%I:%S");
+// enchère en cours
 } else if ($now < $enchere->getInstantFin()) {
     $disabled = '';
     $dateTitle = "L'enchère se terminera dans";
     $date = $now->diff($enchere->getInstantFin())->format("%H:%I:%S");
+    $message = ($enchere->getDerniereEnchere() !== null && $enchere->getDerniereEnchere()->getUtilisateur()->getLogin() == $login)
+        ? "Vous êtes en tête de l'enchère !"
+        : '';
+// après enchère
 } else {
     $createur = $enchere->getCreateur();
 
