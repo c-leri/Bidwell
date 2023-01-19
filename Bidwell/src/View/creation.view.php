@@ -111,7 +111,7 @@
                     <h2> Prix de base </h2>
                     <input id="prixbase" type="number" name="base" required min="1" max="99999" placeholder="Prix espéré">
 
-                    <p> Définissez le prix auquel vous souhaitez voir l'enchère commencer. Prenez en compte la valeur réelle
+                    <p> Notre site utilise un système d'enchères qui comprend une partie descendante. Définissez le prix auquel vous souhaitez voir l'enchère commencer. Prenez en compte la valeur réelle
                         de votre article et pensez à ce que vous seriez prêt à mettre à la place de l'acheteur.</p>
                 </div>
 
@@ -122,7 +122,7 @@
 
                     <input id="prixretrait" type="number" name="retrait" required min="1" max="99999" placeholder="Prix de retrait">
                     <p id="errorretrait"></p>
-                    <p> Notre site utilise en système d'enchère qui comprend une partie descendantes. De ce fait, le prix de
+                    <p> Notre site utilise un système d'enchères qui comprend une partie descendante. De ce fait, le prix de
                         votre article pourrait diminuer par rapport au prix de base. Définissez le prix auquel vous ne
                         seriez plus prêt à vendre votre article.</p>
                 </div>

@@ -44,7 +44,7 @@
 
         <ul class="listeCompte">
             <li>Vous avez <?= $nbJetons ?> jetons</li>
-            <li>Les jetons sont une monnaies propre à Bidwell qui vous permet d'enchérir plusieurs fois sur une même annonce.</li>
+            <li>Les jetons sont une monnaie propre à Bidwell qui vous permet d'enchérir plusieurs fois sur une même annonce.</li>
             <li><a class="button" href='shop.ctrl.php'> Acheter des Jetons </a></li>
         </ul>
         <hr />
