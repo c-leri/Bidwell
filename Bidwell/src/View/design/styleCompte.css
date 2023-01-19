@@ -64,28 +64,6 @@ h2.margin-bot {
   padding: 0.5rem;
 }
 
-#suppressionenchere {
-  position: relative;
-  bottom: 0;
-  background-color: var(--couleur-rouge);
-  color: var(--couleur-noir);
-  border-radius: 1rem;
-  width: 50%;
-  margin-top: 0.5rem;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 0.4rem;
-  border-color: var(--couleur-rouge);
-}
-
-<<<<<<< Updated upstream
-#btnsuppr {
-  background-color: var(--couleur-rouge);
-  color: var(--couleur-noir);
-  border-radius: 1rem;
-  padding: 0.5rem;
-}
-=======
   #suppressionenchere{
     position: relative;
     bottom: 0;
@@ -105,4 +83,3 @@ h2.margin-bot {
     border-radius: 1rem;
     padding: 0.5rem;
   }
->>>>>>> Stashed changes
