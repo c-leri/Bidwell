@@ -57,7 +57,7 @@
             <section class="split">
                 <div class="description">
                     <h2> Description de l'annonce </h2>
-                    <textarea id="description" name="descr" cols="50" rows="4" placeholder="Entrez une description (minimum 50 caractères maximum 500) "  onkeyup="validateDescription()" onchange="validateDescription()"></textarea>
+                    <textarea id="description" name="descr" cols="50" rows="4" placeholder="Entrez une description (minimum 30 caractères maximum 500) "  onkeyup="validateDescription()" onchange="validateDescription()"></textarea>
                     <p id="errordescription"></p>
                     <p> Une description complète et détailée de votre bien sera perçue comme de plus grande qualité par les
                         autres utilisateurs. Donnez envie d'acheter votre article et mettez en avant ses informations
