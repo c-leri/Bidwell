@@ -46,8 +46,8 @@
                         <option value="dateDesc">Date de création ↓</option>
                         <option value="nomAsc">Nom ↑</option>
                         <option value="nomDesc">Nom ↓</option>
-                        <option value="prixAsc">Prix ↑</option>
-                        <option value="prixDesc">Prix ↓</option>
+                        <option value="prixAsc">Prix (croissant)</option>
+                        <option value="prixDesc">Prix (décroissant)</option>
                     </select>
                 </form>
             </div>

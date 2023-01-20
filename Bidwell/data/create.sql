@@ -9,7 +9,7 @@ CREATE TABLE Utilisateur (
 
 CREATE TABLE Categorie (
     libelle TEXT PRIMARY KEY,
-    libelleMere INTEGER,		-- NULL si c'est la Categorie racine
+    libelleMere TEXT,		-- NULL si c'est la Categorie racine
     FOREIGN KEY (libelleMere) REFERENCES Categorie(libelle)
 );
 
@@ -23,12 +23,12 @@ CREATE TABLE Enchere (
     loginUtilisateurDerniereEnchere TEXT,
     images TEXT NOT NULL,
     description TEXT NOT NULL,
-    libelleCategorie INTEGER NOT NULL,
+    libelleCategorie TEXT NOT NULL,
     codePostal TEXT  NOT NULL,
-    infoRemiseDirect Boolean  NOT NULL,
-    infoEnvoiColis Boolean  NOT NULL,
-    infoEmail Boolean  NOT NULL,
-    infoTel Boolean  NOT NULL,
+    infoRemiseDirect BOOLEAN NOT NULL,
+    infoEnvoiColis BOOLEAN NOT NULL,
+    infoEmail BOOLEAN NOT NULL,
+    infoTel BOOLEAN NOT NULL,
     dateFinConservation INTEGER NOT NULL,
     FOREIGN KEY (loginCreateur) REFERENCES Utilisateur(login),
     FOREIGN KEY (libelleCategorie) REFERENCES Categorie(libelle),

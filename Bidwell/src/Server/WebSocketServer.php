@@ -101,7 +101,7 @@ class WebSocketServer implements MessageComponentInterface
                             if ($enchere->getCreateur()->getLogin() === $utilisateur->getLogin()) {
                                 $from->send('{"type": "enchereImpossible", "value": "createur"}');
                             // L'utilisateur est déjà gagant de l'enchère, on l'empèche de réenchérir
-                            } else if ($enchere->getDerniereEnchere() !== null && $enchere->getDerniereEnchere()->getUtilisateur()->getLogin() === $utilisateur->getLogin()) {
+                            } else if ($enchere->getDerniereEnchere() !== null && $enchere->getDerniereEnchere()->getUtilisateur()->getLogin() == $utilisateur->getLogin()) {
                                 $from->send('{"type": "enchereImpossible", "value": "gagnant"}');
                             // L'utilisateur a déjà enchéri, on lui demande des jetons
                             } else if ($participation->getNbEncheres() > 0) {

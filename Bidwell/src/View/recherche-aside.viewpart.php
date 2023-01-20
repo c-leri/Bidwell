@@ -1,6 +1,5 @@
 <div class="container">
     <div class="smallContainer" id="checkboxes">
-        Art
     </div>
     <hr>
     <h2> Prix </h2>

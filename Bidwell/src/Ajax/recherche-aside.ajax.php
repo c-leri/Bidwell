@@ -35,7 +35,7 @@ for ($i = 0; $i < sizeof($meres); $i++){
                     <li>
                         <input type='checkbox' id='{$filleDeMere->getLibelle()}' onclick='showItems()'
                         ".((isset($categorie) && $categorie == $filleDeMere->getLibelleColle()) ? ' checked' : '')." />
-                        <label for='{$filleDeMere->getLibelleColle()}'>{$filleDeMere->getLibelle()}</label>
+                        <label for='{$filleDeMere->getLibelle()}'>{$filleDeMere->getLibelle()}</label>
                     </li>
         ";
     }
