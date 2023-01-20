@@ -14,6 +14,11 @@ Le système utilisé est un mélange hybride entre une enchère ascendante et un
 
 [192.168.14.212](http://192.168.14.212) (accessible seulement depuis le réseau local de l'IUT2)
 
+__Attention__ : Votre navigateur va probablement vous afficher un message de prévention la première fois que vous accédez
+aux pages 'Connexion' ou 'Inscription'. Cela est dû au fait que nous utilisons le protocole HTTPS sur ces pages afin que
+les mots de passe soient échangés de manière encryptés sur le réseau mais comme nous n'avions ni le temps, ni le budget de
+faire valider notre certification HTTPS par un organisme de certification reconnu, votre navigateur le prend comme une menace.
+
 ### Utilisateur lambda du site
 
 login : test
