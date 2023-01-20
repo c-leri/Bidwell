@@ -14,14 +14,7 @@
     </div>
 
     <div class="nav-center">
-        <a href="<?php
-        if (isset($_SESSION['login'])) {
-            echo "creation.ctrl.php";
-        }else{
-            echo "connect.ctrl.php";
-        }
-
-        ?>">
+        <a href="<?= $connected ? "creation.ctrl.php" : "connect.ctrl.php" ?>">
             Vendre un article
         </a>
     </div>
