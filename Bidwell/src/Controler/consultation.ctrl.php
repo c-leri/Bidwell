@@ -6,6 +6,13 @@ use Bidwell\Model\Utilisateur;
 
 require_once __DIR__ . '/../../vendor/autoload.php';
 
+// On passe l'utilisateur en http si il est en https pour que les websockets fonctionnent
+if($_SERVER["HTTP"] != "on")
+{
+    header("Location: http://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
+    exit();
+}
+
 ////////////////////////////////////////////////////////////////////////////
 // Récupération des informations à afficher
 ////////////////////////////////////////////////////////////////////////////
