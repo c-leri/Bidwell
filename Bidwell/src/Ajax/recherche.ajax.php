@@ -105,7 +105,7 @@ if ($type == 'Enchere') {
             }
         }
     }else {
-        $str .= "<p> Aucun article ne correspond à votre recherche. </p>";
+        $str .= "<p id='msgabscence'> Aucun article ne correspond à votre recherche. </p>";
     }
 
     $str .= "
