@@ -48,6 +48,8 @@ main.pagePrincipale h2 {
 .variablesEnchere {
     display: flex;
     flex-direction: column;
+    overflow: scroll;
+
 }
 
 .variablesEnchere ul{

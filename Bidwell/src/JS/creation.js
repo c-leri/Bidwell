@@ -123,16 +123,19 @@ function validateCheckBoxes(cb11,cb22,errorp1){
   errorp.innerHTML = "Veuillez cocher au moins une des deux cases";
   return false;
 }
-function validateLocalisation(){
+function validateCodePostal(){
   const errorlocalisation = document.getElementById("errorlocalisation");
-  let input = document.getElementById("localisationInput").value;
-  let numbers = input.replace(/\D/g,"");//regex pour garder que le nombre
-  if(numbers.length!==5){
-    errorlocalisation.innerHTML = "Veuillez entrez un code postal valide";
-    return false;
-  }
+  let localisation = document.getElementById("localisationInput").value;
+  let numbers = localisation.replace(/\D/g,"").slice(-5);
+
+  var Reg = new RegExp(/^(?:0[1-9]|[1-8]\d|9[0-8])\d{3}$/i);
+ if(Reg.test(numbers)){
   errorlocalisation.innerHTML="";
   return true;
+  }
+  errorlocalisation.innerHTML = "Veuillez entrez un code postal valide";
+  errorCategorie.scrollIntoView();
+  return false;
 }
 
 let compteur = 0;
@@ -180,7 +183,7 @@ function loadFile(event) {
       if (!tmp_files.has(filename)) {
         extension = filename.substring(imgInput.files[i]["name"].lastIndexOf('.') + 1).toLowerCase();
         //check la taille du fichier pour pas faire crash le serveur on limite a 8méga
-        if (imgInput.files[i]["size"] > 800000) {
+        if (imgInput.files[i]["size"] > 8000000) {
           errorImgs.innerHTML = "La taille du fichier de ne doit pas excéder 8 Mo";
         } else if (extension !== 'jpg' && extension !== 'png' && extension !== "webp" && extension !== "jpeg") {
           errorImgs.innerHTML = "Les images doivent être au format png, jpg, jpeg ou webp";
@@ -207,7 +210,7 @@ function validateInfos(event){
   event.preventDefault();
   let categorie = validateCategories();
   let prix = validatePrices();
-  let localisation = validateLocalisation();
+  let codePostal = validateCodePostal();
   let informationsEnvoieCheckBoxes = validateCheckBoxes("cbcolis","cbdirect","errorcbenvoie");
   let informationsContactCheckBoxes = validateCheckBoxes("cbemail","cbtel","errorcbcontact");
   let images = false;
@@ -216,8 +219,7 @@ function validateInfos(event){
   select = document.getElementById("categorieSelect");//Ancre pour remonter dans la page en cas d'erreur
 
   
-  let ok =categorie && description  && prix &&  informationsEnvoieCheckBoxes && localisation && informationsContactCheckBoxes;
-  let infosEnvoi, infosContact, codePostal;
+  let ok =categorie && description  && prix &&  informationsEnvoieCheckBoxes && codePostal && informationsContactCheckBoxes;
   if (ok) {
     //Partie upload d'image, à faire en dernier
     const files = new FormData();
@@ -254,13 +256,13 @@ function validateInfos(event){
       //première étape : récupérer toutes les données de formes et les envoyer a un controler php qui s'occupera de créer concretement l'enchere en base
       //deuxième étape : renvoyer l'utilisateur sur la page de consultation de son enchère créé
       let nom = document.getElementById("nom").value,
-          prixbase = document.getElementById("prixbase").value,
-          prixretrait = document.getElementById("prixretrait").value;
-      categorie = document.getElementById("categorieSelect").value;
-      description = document.getElementById("description").value;
-      infosEnvoi = document.getElementById("cbcolis").checked + "," + document.getElementById("cbdirect").checked;
-      infosContact = document.getElementById("cbemail").checked + "," + document.getElementById("cbtel").checked;
-      codePostal = document.getElementById("localisationInput").value.replace(/\D/g, "");
+      prixbase = document.getElementById("prixbase").value,
+      prixretrait = document.getElementById("prixretrait").value,
+      categorie = document.getElementById("categorieSelect").value,
+      description = document.getElementById("description").value,
+      infosEnvoi = document.getElementById("cbcolis").checked + "," + document.getElementById("cbdirect").checked,
+      infosContact = document.getElementById("cbemail").checked + "," + document.getElementById("cbtel").checked,
+      codePostal = document.getElementById("localisationInput").value.replace(/\D/g, "").slice(-5);
       //Envoie php
       let requete = new XMLHttpRequest();
       requete.open("POST", "../Ajax/creation.ajax.php", true);

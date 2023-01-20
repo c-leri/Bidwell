@@ -15,7 +15,7 @@
     <div class="div2">
         <ul><br><br>
             <li><a href="apropos.ctrl.php">À propos</a></li>
-            <li><a href="">Besoin d'aide ?</a></li>
+            <li><a href="tutorial.ctrl.php">Besoin d'aide ?</a></li>
         </ul>
     </div>
     <div class="div3">

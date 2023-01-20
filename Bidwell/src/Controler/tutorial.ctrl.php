@@ -16,4 +16,4 @@ $view = new View();
 $view->assign('connected', $connected);
 
 // Charge la vue
-$view->display("recherche.view.php");
+$view->display("tutorial.view.php");
