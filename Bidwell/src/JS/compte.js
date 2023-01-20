@@ -29,7 +29,10 @@ function affichageConfirmation(){
 function stop() {
     modal.style.display = "none";
     modeul.style.display="none";
+    if(document.getElementById("myMessageErreur")!==null){
+    document.getElementById("myMessageErreur").setAttribute("style", "display : none;");
   }
+}
    
 function supprenchere($id){
   modeul.style.display="flex";
@@ -42,9 +45,10 @@ function suppressionEnchere() {
 
   //Lorsque la requête est "prête", indique que la division classe "annonce" prendre comme HTML résultat du serveur
   xhttp.onload = function() {
+      modeul.style.display="none";
       document.getElementById("vosEncheres").innerHTML = "";
       document.getElementById("vosEncheres").innerHTML = this.responseText;
-      modeul.style.display="none";
+      myMessageErreur.style.display="block";
   }
 
   let createur = document.getElementById("login").innerText;

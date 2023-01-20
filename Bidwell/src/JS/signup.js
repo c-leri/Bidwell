@@ -2,7 +2,7 @@
 function validateLogin(){
   const login = document.getElementById("username"),
   errorlogin = document.getElementById("errorusername");
-  const usernameRegex = /^[a-z0-9_.]+$/
+  const usernameRegex = /^[a-zA-Z0-9_.]+$/
   if(usernameRegex.test(login.value)){
     //La regex trouve le bon pattern, le login est valide
     errorlogin.innerHTML="";
