@@ -77,14 +77,6 @@
                 <button class="buybtn" onclick="affish(1700,99.99)">99,99€</button>
             </div>
 
-            <div class="pack">
-                <div class="imagetdose">
-                    <img src="../View/design/img/BidCoin.png" alt="BidCoin">
-                    <p>admin</p>
-                </div>
-                <button class="buybtn" onclick="affish(9999,0.99)">0.99€</button>
-            </div>
-
             <p class="petit"> En achetant des jetons, vous obtenez une licence limitée, non remboursable, non transférable et révocable pour utiliser ces jetons.qui n'ont aucune valeur en monnaie réelle. </p>
 
         </div>

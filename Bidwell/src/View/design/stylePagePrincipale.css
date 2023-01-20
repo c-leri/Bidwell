@@ -48,6 +48,7 @@ main.pagePrincipale h2 {
 .variablesEnchere {
     display: flex;
     flex-direction: column;
+
 }
 
 .variablesEnchere ul{
@@ -71,4 +72,9 @@ main.pagePrincipale h2 {
 
 .annoncesCarre a:visited {
     color: var(--couleur-gris-clair);
+}
+
+h3{
+    padding: 2rem;
+
 }

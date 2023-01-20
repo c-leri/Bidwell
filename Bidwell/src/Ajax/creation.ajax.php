@@ -20,8 +20,12 @@ $prixRetrait = $_POST["prixretrait"] ?? '';
 $imgs = $_POST["imgs"] ?? '';
 $imgsArray = explode(",", $imgs);//Array contenant les urls des images
 
-$infosEnvoi = explode(",",$_POST["infosEnvoi"]) ?? '';
-$infosContact = explode(",",$_POST["infosContact"]) ?? '';
+$infosEnvoistr = explode(",",$_POST["infosEnvoi"]) ?? '';
+$infosEnvoi = array();
+array_push($infosEnvoi, filter_var($infosEnvoistr[0], FILTER_VALIDATE_BOOLEAN), filter_var($infosEnvoistr[1], FILTER_VALIDATE_BOOLEAN));
+$infosContact = array();
+$infosContactStr = explode(",",$_POST["infosContact"]) ?? '';
+array_push($infosContact, filter_var($infosContactStr[0], FILTER_VALIDATE_BOOLEAN), filter_var($infosContactStr[1], FILTER_VALIDATE_BOOLEAN));
 $categorielibelle = $_POST["categorie"] ?? '';
 $categorie = Categorie::read($categorielibelle);
 $description = $_POST["description"] ?? ''; 

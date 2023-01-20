@@ -134,7 +134,8 @@ class Participation {
      */
     public function encherirPourJetons(): void
     {
-        $this->utilisateur->subJetons($this->getEnchere()->getPrixDepart() - 0.6);
+        $this->utilisateur->subJetons(round($this->getEnchere()->getPrixDepart() * 0.05));
+        $this->utilisateur->update();
         $this->encherir();
     }
 

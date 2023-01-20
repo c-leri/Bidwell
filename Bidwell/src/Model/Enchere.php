@@ -479,6 +479,28 @@ class Enchere
         return $out;
     }
 
+    public static function readFromGagnant(string $gagnant, int $limite) : array {
+        $dao = DAO::get();
+
+        $query = "SELECT * FROM Enchere WHERE loginUtilisateurDerniereEnchere = ? LIMIT ?";
+        $data = [$gagnant, $limite];
+
+        $table = $dao->query($query, $data);
+
+        $out = array();
+        foreach ($table as $row) {
+            $x = Enchere::constructFromDB($row);
+
+            $maintenant = new DateTime();
+            if ($x->getInstantFin() < $maintenant){
+                $out[] = $x;
+            }
+        }
+
+        return $out;
+    }
+
+
     ////////////////// UPDATE ///////////////////
 
     /**

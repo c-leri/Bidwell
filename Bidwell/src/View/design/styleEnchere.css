@@ -70,6 +70,17 @@
     font-size: 1.5rem;
 }
 
+.jetons{
+    position:absolute;
+    top: 2rem;
+    left: 0;
+    width: 24%;
+    padding: 0.5rem 0 0.5rem 0.5rem;
+    background-color: var(--couleur-noir30);
+    font-size: 1.5rem;
+    border-radius: 1rem;
+}
+
 .prix {
     display: flex;
 }
@@ -126,4 +137,14 @@
 
 .btnmodal{
     background-color: var(--couleur-jaune);
+}
+
+/* Texte sous l'enchère */
+#message{
+    margin-top: 1rem;
+    font-size: 1.5rem;
+    background-color: var(--couleur-noir30);
+    color: var(--couleur-jaune);
+    padding: 0.5rem;
+    border-radius: 1rem;
 }

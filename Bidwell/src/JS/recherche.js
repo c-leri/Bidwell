@@ -6,6 +6,9 @@
 
 //En gros, fait que le JavaScript peut récupérer le $_GETs 
 window.onload = function () {
+    if(performance.navigation.type == 2){
+        location.reload(true);
+     }
     const params = new Proxy(new URLSearchParams(window.location.search), {
         get: (searchParams, prop) => searchParams.get(prop),
     });
