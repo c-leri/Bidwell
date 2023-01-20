@@ -12,7 +12,15 @@ if(isset($_SERVER["HTTPS"]) && isset($_SERVER['SERVER_NAME']) && $_SERVER["HTTPS
     exit();
 }
 
+echo isset($_SERVER["HTTPS"]) ? 'oui' : 'non';
+
+echo isset($_SERVER['SERVER_NAME']) ? 'oui' : 'non';
+
+echo $_SERVER["HTTPS"] != "on" ? 'oui' : 'non';
+
 echo $_SERVER['SERVER_NAME'] == '192.168.14.212' ? 'oui' : 'non';
+
+echo isset($_SERVER["HTTPS"]) && isset($_SERVER['SERVER_NAME']) && $_SERVER["HTTPS"] != "on" && $_SERVER['SERVER_NAME'] == '192.168.14.212' ? 'oui' : 'non';
 
 echo $_SERVER['SERVER_NAME'];
 
