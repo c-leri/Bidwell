@@ -105,13 +105,17 @@ main.creation h2 {
 #errorlocalisation,
 #errorimgs,
 #errorcategorie,
-#errordescription {
+#errordescription,
+#errornom,
+#errorprixbase {
   background-color: var(--couleur-rouge);
   text-align: center;
   border-radius: 0.5rem;
   margin: 0.5rem 0rem 0.5rem 0rem;
 }
-
+#errorlocalisation{
+  margin-top: 3rem;
+}
 /* Les boutons */
 main.creation button[type=submit] {
   text-decoration: none;

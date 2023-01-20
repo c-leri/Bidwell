@@ -38,14 +38,14 @@
                 <div class="nom">
                     <h2> Nom de l'annonce </h2>
 
-                    <input id="nom" type="text" required minlength="4" maxlength="60" placeholder="Choisissez un nom">
-
+                    <input id="nom" type="text"  placeholder="Choisissez un nom" onkeyup="validateNomAnnonce()" onchange="validateNomAnnonce()"> 
+                    <p id="errornom"></p>
                     <p> Le nom de l'annonce est l'information principale que rechercheront les autres utilisateurs. Donner un
                         nom simple et explicite augmente grandement les chances de vendre un article. </p>
                 </div>
                 <div class="categorie">
                     <h2> Catégorie de l'annonce </h2>
-                    <select id="categorieSelect" required>
+                    <select id="categorieSelect" onchange="validateCategories()">
                         <option id="optionanchor"></option>
                     </select>
                     <p id="errorcategorie"></p>
@@ -57,22 +57,21 @@
             <section class="split">
                 <div class="description">
                     <h2> Description de l'annonce </h2>
-                    <textarea id="description" name="descr" required cols="50" rows="4" placeholder="Insérez une description (minimum 50 caractères maximum 500) "></textarea>
+                    <textarea id="description" name="descr" cols="50" rows="4" placeholder="Entrez une description (minimum 50 caractères maximum 500) "  onkeyup="validateDescription()" onchange="validateDescription()"></textarea>
                     <p id="errordescription"></p>
                     <p> Une description complète et détailée de votre bien sera perçue comme de plus grande qualité par les
                         autres utilisateurs. Donnez envie d'acheter votre article et mettez en avant ses informations
                         importantes.</p>
                 </div>
                 <div class="localisation">
-                    <h2> Localisation</h2>
-                    <input id="localisationInput" type="text" placeholder="Entrez un code postal ou une ville" list="localisationDatalist" onkeyup="filter()" required>
+                    <h2> Localisation (code postal)</h2>
+                    <input id="localisationInput" type="text" placeholder="Entrez un code postal" list="localisationDatalist" onkeyup="filter()" onchange="validateCodePostal()">
                     <datalist id="localisationDatalist">
                         <option id="optionanchorlocalisation"></option>
                     </datalist>
                     <p id="errorlocalisation"></p>
                     <p> Renseigner votre commune permet aux utilisateurs de savoir si la remise en main propre
-                        est une option possible par rapport à leur emplacement. <br>
-                        Votre adresse exacte ne sera pas connue.</p>
+                        est une option possible par rapport à leur emplacement. Votre adresse exacte ne sera pas connue.</p>
                 </div>
             </section>
             <hr/>
@@ -110,7 +109,7 @@
                 <div class="retrait">
                     <h2> Prix de retrait de l'annonce </h2>
 
-                    <input id="prixretrait" type="number" name="retrait" required min="1" max="99999" placeholder="Prix de retrait">
+                    <input id="prixretrait" type="number" name="retrait" placeholder="Prix de retrait" onkeyup="validatePrixRetrait()" onchange="validatePrixRetrait()">
                     <p id="errorretrait"></p>
                     <p> Notre site utilise un système d'enchères qui comprend une partie descendante. De ce fait, le prix de
                         votre article pourrait diminuer par rapport au prix de base. Définissez le prix auquel vous ne
@@ -118,8 +117,8 @@
                 </div>
                 <div class="base">
                     <h2> Prix de base </h2>
-                    <input id="prixbase" type="number" name="base" required min="1" max="99999" placeholder="Prix espéré">
-
+                    <input id="prixbase" type="number" name="base" placeholder="Prix espéré" onkeyup="validatePrixBase()" onchange="validatePrixBase()">
+                    <p id="errorprixbase"></p>
                     <p> Notre site utilise un système d'enchères qui comprend une partie descendante. Définissez le prix auquel vous souhaitez voir l'enchère commencer. Prenez en compte la valeur réelle
                         de votre article et pensez à ce que vous seriez prêt à mettre à la place de l'acheteur.</p>
                 </div>
@@ -132,13 +131,13 @@
                     <h2> Informations d'envoi </h2>
                     <ul>
                         <li> 
-                            <input id="cbdirect" type="checkbox" name="retraitDirect">
+                            <input id="cbdirect" type="checkbox" name="retraitDirect" onclick='validateCheckBoxes("cbcolis","cbdirect","errorcbenvoie")'>
                             <label for="cbdirect">Je suis prêt à remettre cet article en main propre</label>
                         </li>
 
 
                         <li> 
-                            <input id="cbcolis" type="checkbox" name="retraitColis">
+                            <input id="cbcolis" type="checkbox" name="retraitColis" onclick='validateCheckBoxes("cbcolis","cbdirect","errorcbenvoie")'>
                             <label for="cbcolis">Je suis prêt à envoyer ce colis vers d'autres villes de France</label>
                         </li>
                         <p id="errorcbenvoie"></p>
@@ -153,13 +152,13 @@
                     <h2> Contact avec les acheteurs </h2>
                     <ul>
                         <li> 
-                            <input id="cbemail" type="checkbox" name="okEmail">
+                            <input id="cbemail" type="checkbox" name="okEmail" onclick='validateCheckBoxes("cbemail","cbtel","errorcbcontact")'>
                             <label for="cbemail">J'accepte que mon e-mail soit affiché sur la page de mon annonce</label>
                         </li>
 
 
                         <li> 
-                            <input id="cbtel" type="checkbox" name="okTel">
+                            <input id="cbtel" type="checkbox" name="okTel" onclick='validateCheckBoxes("cbemail","cbtel","errorcbcontact")'>
                             <label for="cbtel">J'accepte que mon numéro de téléphone soit affiché sur la page de mon annonce</label>
                         </li>
                         <p id="errorcbcontact"></p>

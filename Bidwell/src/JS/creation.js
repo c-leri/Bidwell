@@ -1,9 +1,25 @@
-
+/*Récupération des éléments du DOM*/
+const nom = document.getElementById("nom"),
+optionnanchor =  document.getElementById("optionanchor"),
+select = document.getElementById("categorieSelect"),
+codePostal = document.getElementById("localisationInput"),
+categorieSelect = document.getElementById("categorieSelect"),
+optionanchorlocalisation =  document.getElementById("optionanchorlocalisation"),
+datalist = document.getElementById("localisationDatalist"),
+images=  document.getElementById("imagesInput"),
+prixretrait = document.getElementById("prixretrait"),
+prixbase = document.getElementById("prixbase"),
+description = document.getElementById("description"),
+errornom = document.getElementById("errornom"),
+errorCategorie = document.getElementById("errorcategorie"),
+errorCodePostal = document.getElementById("errorlocalisation"),
+errorImgs= document.getElementById("errorimgs"),
+errorretrait = document.getElementById("errorretrait"),
+errordescription = document.getElementById("errordescription"),
+errorprixbase = document.getElementById("errorprixbase");
 window.onload= addCategoriesToSelectList;
 
 function addCategoriesToSelectList(){
-  const optionnanchor =  document.getElementById("optionanchor"),
-  select = document.getElementById("categorieSelect");
   //Recup les catégorie filles via requete ajax
   const requete = new XMLHttpRequest();
   requete.open("POST", "../Ajax/creation-categorie.ajax.php", true);
@@ -34,15 +50,12 @@ function removeOptions(){
 //----------------------------------------------------------//
 //Filtre les suggestions de localisation en fonction du texte entré dans l'input
 function filter() {
-  const input = document.getElementById("localisationInput");
   //on attend que l'utilisateur tape au moins 2 caractères afin d'éviter de recuperer trop de données
-  if(input.value.length>=2){
-    const optionanchorlocalisation =  document.getElementById("optionanchorlocalisation"),
-    datalist = document.getElementById("localisationDatalist");
+  if(codePostal.value.length>1){
   //Création des options contenant code postal+ ville en fonction de l'input utilisateur
       //1- Récupérer les infos via l'api
     let requete = new XMLHttpRequest();
-      requete.open("POST", " https://vicopo.selfbuild.fr/search/"+input.value, true);
+      requete.open("POST", " https://vicopo.selfbuild.fr/search/"+codePostal.value, true);
       requete.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
       requete.onload = function() {
         removeOptions();
@@ -58,22 +71,28 @@ function filter() {
           //Insertion sur la page
           datalist.insertBefore(option, optionanchorlocalisation);
         } 
-       
       }
       requete.send();
   }
+  validateCodePostal();
 }
 //----------------------------------------------------------//
 //--------------------------PARTIE GESTION ERREUR UTILISATEUR--------------------------------//
+function validateNomAnnonce(){
+  if(nom.value.length<4 || nom.value.length>60){
+    errornom.innerHTML = "Veuillez entrer un nom d'annonce entre 4 et 60 caractères ("+nom.value.length+" actuellement)";
+    document.getElementById("navbar-top").scrollIntoView();
+    return false;
+  }
+  errornom.innerHTML = "";
+  return true;
+}
 
 function validateCategories(){
-  const categorieSelect = document.getElementById("categorieSelect"),
-  errorCategorie = document.getElementById("errorcategorie"),
-  nom = document.getElementById("nom");
   //Si la categorie selectionnée est une catégorie mère on l'indique à l'utilisateur
-      if(categorieSelect.value.includes("------")) {
-        errorCategorie.innerHTML = "Veuillez selectionner une sous catégorie";
-      nom.scrollIntoView();
+    if(categorieSelect.value.includes("------")) {
+      errorCategorie.innerHTML = "Veuillez selectionner une sous catégorie";
+      document.getElementById("navbar-top").scrollIntoView();
       return false;
     } else {
       errorCategorie.innerHTML = "";
@@ -81,38 +100,58 @@ function validateCategories(){
     }
 }
 function validateDescription(){
-  const errordescription = document.getElementById("errordescription"),
-  description = document.getElementById("description");
-  if(description.value.length<50){
-    errordescription.innerHTML = "Veuillez écrire au minimum 50 caractères ("+description.value.length+" actuellement)";
-    nom.scrollIntoView();
-    return false;
-  }else if(description.value.length>500){
-    errordescription.innerHTML = "Veuillez écrire au maximum 500 caractères ("+description.value.length+" actuellement)";
-    nom.scrollIntoView();
+  if(description.value.length<30 || description.value.length>500){
+    errordescription.innerHTML = "Veuillez entrer entre 50 caractères et 500 caractères ("+description.value.length+" actuellement)";
     return false;
   }else{
     errordescription.innerHTML = "";
     return true;
   }
 }
-function validatePrices(){
-  const prixretrait = document.getElementById("prixretrait"),
-errorretrait = document.getElementById("errorretrait"),
-prixbase = document.getElementById("prixbase");
-//Si 90% du prix de base > prix retrait
-    if(parseFloat(prixbase.value)*0.9 >= parseFloat(prixretrait.value)) {
-      errorretrait.innerHTML = "";
-      return true;
+
+function validatePrixRetrait(){
+let ok = true;
+  if(prixretrait.value.length==0 || parseFloat(prixretrait.value)<1 ||parseFloat(prixretrait.value)>99999){
+    errorretrait.innerHTML = "Veuillez entrer un prix compris entre 1 et 999 999 €";
+    ok=false;
+  }else{
+    errorretrait.innerHTML="";
+  }
+  
+if(ok && parseFloat(prixbase.value)>1){
+  if(parseFloat(prixbase.value)*0.9 >= parseFloat(prixretrait.value)) {
+    errorretrait.innerHTML = "";
+    return true;
   } else {
-    errorretrait.innerHTML = "Veuillez insérer un prix de retrait inférieur à 90% du prix de base (soit un prix inférieur ou égal à "+ (parseFloat(prixbase.value)*0.9).toFixed(2)+")";
+    errorretrait.innerHTML = "Veuillez entrer un prix inférieur à 90% du prix de base (soit un prix inférieur ou égal à "+ (parseFloat(prixbase.value)*0.9).toFixed(2)+")";
     prixbase.scrollIntoView();
     return false;
   }
 }
-
+return false;
+}
+function validatePrixBase(){
+  let ok = true;
+  if( prixbase.value.length==0|| parseFloat(prixbase.value)<1 ||parseFloat(prixbase.value)>99999){
+    errorprixbase.innerHTML = "Veuillez entrer un prix compris entre 1 et 999 999 €";
+    ok=false;
+  }else{
+    errorprixbase.innerHTML="";
+  }
+  if(ok && parseFloat(prixretrait.value)>1){
+    if(parseFloat(prixbase.value)*0.9 >= parseFloat(prixretrait.value)) {
+      errorprixbase.innerHTML = "";
+      return true;
+    } else {
+      errorprixbase.innerHTML = "Veuillez entrer un prix 10% supérieur au prix de retrait (soit un prix supérieur ou égal à "+ (parseFloat(prixretrait.value)*1.1).toFixed(2)+")";
+      prixbase.scrollIntoView();
+      return false;
+    }
+  }
+  return false;
+}
 function validateCheckBoxes(cb11,cb22,errorp1){
-  const cb1 = document.getElementById(cb11),
+  let cb1 = document.getElementById(cb11),
   cb2 = document.getElementById(cb22),
   errorp = document.getElementById(errorp1);
   //Si au moins une case est cochée c'est ok, sinon on le signale à l'utilisateur
@@ -124,22 +163,19 @@ function validateCheckBoxes(cb11,cb22,errorp1){
   return false;
 }
 function validateCodePostal(){
-  const errorlocalisation = document.getElementById("errorlocalisation");
-  let localisation = document.getElementById("localisationInput").value;
-  let numbers = localisation.replace(/\D/g,"").slice(-5);
-
+  let numbers = codePostal.value.replace(/\D/g,"").slice(-5);
   var Reg = new RegExp(/^(?:0[1-9]|[1-8]\d|9[0-8])\d{3}$/i);
- if(Reg.test(numbers)){
-  errorlocalisation.innerHTML="";
-  return true;
+ if(codePostal.value.replace(/\D/g,"").length!=5 || !Reg.test(numbers)){
+    errorCodePostal.innerHTML = "Veuillez entrer un code postal valide à 5 chiffres";
+    nom.scrollIntoView();
+    return false;
+  }else{
+    errorCodePostal.innerHTML="";
+    return true;
   }
-  errorlocalisation.innerHTML = "Veuillez entrez un code postal valide";
-  errorCategorie.scrollIntoView();
-  return false;
 }
 
 let compteur = 0;
-const imgInput=  document.getElementById("imagesInput");
 
 function removeImg(id){
  let output = document.getElementById("output"+id); 
@@ -150,7 +186,7 @@ function removeImg(id){
  for (let filename of tmp_files.keys()) {
   if(filename.at(0)===id){
     tmp_files.delete(filename);
-    imgInput.value ="";
+    images.value ="";
     break;
   }
 }
@@ -160,7 +196,6 @@ function removeImg(id){
 //Affiche le fichier uploadé
 const tmp_files = new Map();
 const arrayIndexes = [];
-const errorImgs= document.getElementById("errorimgs");
 
 function getFirstFreeSpot(){
   let i =0;
@@ -177,13 +212,13 @@ function loadFile(event) {
   let extension;
   if (compteur <= 6) {
     //Pour chaque fichier contenu dans l'input, on l'ajoute a tmp files si il y est pas déjà
-    for (let i = 0; i < imgInput.files.length; i++) {
-      const filename = imgInput.files[i]["name"];
+    for (let i = 0; i < images.files.length; i++) {
+      const filename = images.files[i]["name"];
       //Check que le fichier nest pas deja dans tmp files
       if (!tmp_files.has(filename)) {
-        extension = filename.substring(imgInput.files[i]["name"].lastIndexOf('.') + 1).toLowerCase();
+        extension = filename.substring(images.files[i]["name"].lastIndexOf('.') + 1).toLowerCase();
         //check la taille du fichier pour pas faire crash le serveur on limite a 8méga
-        if (imgInput.files[i]["size"] > 8000000) {
+        if (images.files[i]["size"] > 8000000) {
           errorImgs.innerHTML = "La taille du fichier de ne doit pas excéder 8 Mo";
         } else if (extension !== 'jpg' && extension !== 'png' && extension !== "webp" && extension !== "jpeg") {
           errorImgs.innerHTML = "Les images doivent être au format png, jpg, jpeg ou webp";
@@ -192,7 +227,7 @@ function loadFile(event) {
 
           //Affichage à l'utilisateur dans un tag img(output)
           let id = getFirstFreeSpot();
-          tmp_files.set(id + filename, imgInput.files[i]);
+          tmp_files.set(id + filename, images.files[i]);
           let output = document.getElementById('output' + id);
           document.getElementById(`p${id}`).style.setProperty('display', 'none');
           compteur++;
@@ -205,27 +240,33 @@ function loadFile(event) {
     }
   }
 }
-
+function validateImages(){
+  if(tmp_files.size!=0){
+    errorImgs.innerHTML ="";
+    return true;
+  }else {
+    errorImgs.innerHTML = "Veuillez ajouter au moins une image";
+    select.scrollIntoView();
+    return false;
+  }
+}
 function validateInfos(event){
   event.preventDefault();
-  let categorie = validateCategories();
-  let prix = validatePrices();
-  let codePostal = validateCodePostal();
   let informationsEnvoieCheckBoxes = validateCheckBoxes("cbcolis","cbdirect","errorcbenvoie");
   let informationsContactCheckBoxes = validateCheckBoxes("cbemail","cbtel","errorcbcontact");
-  let images = false;
+  let prixBase = validatePrixBase();
+  let prixRetrait =validatePrixRetrait();
+  let images = validateImages();
   let description = validateDescription()
-  const errorImgs= document.getElementById("errorimgs"),
-  select = document.getElementById("categorieSelect");//Ancre pour remonter dans la page en cas d'erreur
-
-  
-  let ok =categorie && description  && prix &&  informationsEnvoieCheckBoxes && codePostal && informationsContactCheckBoxes;
+  let codePostal = validateCodePostal();
+  let categorie = validateCategories();
+  let nom = validateNomAnnonce();
+  let ok =nom && categorie && description && images && prixRetrait && prixBase && informationsEnvoieCheckBoxes && codePostal && informationsContactCheckBoxes;
   if (ok) {
     //Partie upload d'image, à faire en dernier
     const files = new FormData();
-    let imgs;
-    if (tmp_files.size !== 0) {
-      for (let i = 0; i < tmp_files.size; i++) {
+    var imgs;
+    for (let i = 0; i < tmp_files.size; i++) {
         const file = tmp_files.get(Array.from(tmp_files.keys())[i]);
         files.append('file' + i, file, (Date.now() * (Math.floor(Math.random() * 7) + 1)) + file["name"].replace(/[^0-9a-zA-Z.]/g, ''));
       }
@@ -245,11 +286,9 @@ function validateInfos(event){
         }
       }
       requete.send(files);
-    } else {
-      //Aucune image upload: on le signale à l'utilisateur
-      errorImgs.innerHTML = "Veuillez ajouter au moins une image";
-      select.scrollIntoView();
-      images = false;
+    }else{
+
+      return false;
     }
     if (images) {
 //les infos remplies sont valides : Création de l'enchère
@@ -277,10 +316,8 @@ function validateInfos(event){
       requete.send("nom=" + nom + "&prixbase=" + prixbase + "&prixretrait=" + prixretrait + "&imgs=" + imgs + "&categorie=" + categorie + "&description=" + description + "&infosEnvoi=" + infosEnvoi + "&infosContact=" + infosContact + "&codePostal=" + codePostal);
       return true;
     } else {
+      errorImgs.innerHTML="Veuillez entrer une image valide";
       return false;
     }
+  } 
 
-  } else {
-    return false;
-  }
-}
