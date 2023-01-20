@@ -1,21 +1,49 @@
+const password = document.getElementById("password"),
+confirm_password = document.getElementById("confirm_password"),
+errorpassword = document.getElementById("errorpassword"),
+email = document.getElementById("mail"),
+erroremail = document.getElementById("erroremail");
 //Retourne true si une erreur survient, false sinon
 function validateLogin(){
   const login = document.getElementById("username"),
   errorlogin = document.getElementById("errorusername");
   const usernameRegex = /^[a-zA-Z0-9_.]+$/
-  if(usernameRegex.test(login.value)){
-    //La regex trouve le bon pattern, le login est valide
-    errorlogin.innerHTML="";
+  if(login.value.length<4 || login.value.length>16){
+    errorlogin.innerHTML = "Veuillez entrer un nom d'utilisateur entre 4 et 16 caractères";
+    return false;
+  }else{
+    if(usernameRegex.test(login.value)){
+      //La regex trouve le bon pattern, le login est valide
+      errorlogin.innerHTML="";
+      return true;
+    }else{
+      errorlogin.innerHTML = "Veuillez entrer un nom d'utilisateur valide contenant uniquement des lettres, des chiffres, des underscore ou des points";
+      return false;
+    }
+  }
+}
+function validateEmail(){
+  const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+  if(emailRegex.test(email.value)){
+    erroremail.innerHTML="";
     return true;
   }
-  errorlogin.innerHTML = "Veuillez entrer un nom d'utilisateur valide contenant uniquement des lettres, des chiffres, des underscore ou des points";
+  erroremail.innerHTML = "Veuillez entrer un email valide";
   return false;
 }
 //Retourne true si une erreur survient, false sinon
 function validatePassword(){
-  const password = document.getElementById("password"),
-  confirm_password = document.getElementById("confirm_password")
-  errorpassword = document.getElementById("errorpassword");
+  if(password.value.length<4 ||password.value.length>16){
+    errorpassword.innerHTML = "Veuillez entrer un mot de passe entre 4 et 16 caractères";
+    return false;
+  }else{
+    errorpassword.innerHTML = "";
+    return true;
+  }
+  
+}
+//Retourne true si une erreur survient, false sinon
+function validateConfirmPassword(){
   if(password.value !== confirm_password.value) {
     errorpassword.innerHTML = "Les mots de passe sont différents";
     return false;
@@ -27,13 +55,10 @@ function validatePassword(){
 function validatePhoneNumber(){
   const tel = document.getElementById("tel"),
   errortel =  document.getElementById("errornumtel");
-	if(isNaN(tel.value)) {
-    errortel.innerHTML= "Le numéro de téléphone doit être uniquement composé de chiffres";
-    return false;
-	}else if(tel.value.length!==10){
+	if(isNaN(tel.value) || tel.value.length!==10) {
     errortel.innerHTML= "Le numéro de téléphone doit être composé de 10 chiffres ("+tel.value.length+" actuellement)";
     return false;
-  } else {
+	} else {
 	  errortel.innerHTML="";
     return true;
 	}
@@ -94,9 +119,10 @@ function validateAlreadyInBaseOrNot(){
     event.preventDefault();
     //On vérifie les différents inputs
     let login = validateLogin();
-    let passwd = validatePassword();
+    let passwd = validatePassword() && validateConfirmPassword();
     let phone =validatePhoneNumber();
-    if(!(login&&passwd&&phone)){
+    let email = validateEmail();
+    if(!(login&&passwd&&email&&phone)){
       return false;
     }else{
       return validateAlreadyInBaseOrNot();

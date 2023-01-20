@@ -101,7 +101,7 @@ function validateCategories(){
 }
 function validateDescription(){
   if(description.value.length<30 || description.value.length>500){
-    errordescription.innerHTML = "Veuillez entrer entre 50 caractères et 500 caractères ("+description.value.length+" actuellement)";
+    errordescription.innerHTML = "Veuillez entrer entre 30 caractères et 500 caractères ("+description.value.length+" actuellement)";
     return false;
   }else{
     errordescription.innerHTML = "";
@@ -184,7 +184,7 @@ function removeImg(id){
  compteur--;
  //Supprimer de tmp files
  for (let filename of tmp_files.keys()) {
-  if(filename.at(0)===id){
+  if(filename.at(0)==id){
     tmp_files.delete(filename);
     images.value ="";
     break;
