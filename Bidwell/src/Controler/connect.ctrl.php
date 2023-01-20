@@ -5,6 +5,13 @@ use Bidwell\Framework\View;
 
 require_once __DIR__ . '/../../vendor/autoload.php';
 
+// On passe l'utilisateur en https si il est en http pour que les mots de passes ne passent pas en clair sur le réseau
+if($_SERVER["HTTPS"] != "on")
+{
+    header("Location: https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
+    exit();
+}
+
 // Récupérations des données du formulaire
 $login = $_POST['login'] ?? '';
 $password = $_POST['password'] ?? '';
