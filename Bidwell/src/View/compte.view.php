@@ -49,7 +49,7 @@
         </ul>
         <hr />
         <h2 class="margin-bot">Vos Enchères</h2>
-        <div class="annoncesCarre" id="vosEncheres">
+        <div class="annoncesCarre btn" id="vosEncheres">
 
         </div>
 
