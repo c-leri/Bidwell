@@ -25,7 +25,7 @@ main.pagePrincipale h2 {
 
 .annoncesCarre article {
     width: 20rem;
-    height: 24rem;
+    height: 26rem;
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;

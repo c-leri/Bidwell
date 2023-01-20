@@ -32,9 +32,9 @@ if (isset($_GET['suppr'])) {
                         </ul>
                         <button class='btnmodal' id='suppressionenchere' onclick=supprenchere('" . $result[$i]->getId() . "')>Supprimer</button>
                     </div>
-                    </article>
-                    ";
+                    </article>";
         }
+        $str .= "|%|OK";
     } else {
         $result = Enchere::readFromCreateurString($createur);
         for ($i = 0; $i < sizeof($result); $i++) {
@@ -50,14 +50,17 @@ if (isset($_GET['suppr'])) {
                             <li>{$result[$i]->getPrixDepart()}€</li>   
                             <li>{$result[$i]->getDateDebut()->format('Y-m-d')}</li>
                             <li>{$result[$i]->getCreateur()->getLogin()}</li>
-                        </ul>";
-            if ($result[$i] == $supprime) {
-                $str .= "<p id='erreurMsg'>Impossible de supprimer une enchère en cours </p>";
-            }
-            $str .= "<button class='btnmodal' id='suppressionenchere' onclick=supprenchere('" . $result[$i]->getId() . "')>Supprimer</button>
-            </div>
-            </article>";
+                        </ul>
+                        <button class='btnmodal' id='suppressionenchere' onclick=supprenchere('" . $result[$i]->getId() . "')>Supprimer</button>
+                    </div>
+                </article>";
         }
+        $str .='<div id="myMessageErreur" class="modal" style="display : block;">
+                    <div class="modal-content">
+                        <span class="close" onclick="stop()">&times;</span>
+                        <p>Vous ne pouvez pas supprimer une enchère en cours</p>
+                    </div>
+                </div>';
     }
 } else {
     $result = Enchere::readFromCreateurString($createur);
