@@ -12,7 +12,7 @@ if(isset($_SERVER["HTTPS"]) && isset($_SERVER['SERVER_NAME']) && $_SERVER["HTTPS
     exit();
 }
 
-echo $_SERVER['SERVER_NAME'] == 'localhost' ? 'oui' : 'non';
+echo $_SERVER['SERVER_NAME'] == '192.168.14.212' ? 'oui' : 'non';
 
 echo $_SERVER['SERVER_NAME'];
 
