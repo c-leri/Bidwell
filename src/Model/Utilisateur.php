@@ -52,6 +52,12 @@ class Utilisateur {
         $out->nbJetons = $row['nbJetons'];
         $out->isInDB = true;
 
+        if (isset($row['dateFinConservation'])) {
+            $dateFinConservation = new DateTime();
+            $dateFinConservation->setTimestamp($row['dateFinConservation']);
+            $out->dateFinConservation = $dateFinConservation;
+        }
+
         return $out;
     }
 
@@ -181,8 +187,10 @@ class Utilisateur {
         $dao = DAO::get();
 
         // variable correspondant à la date de fin de conservation de l'enchère dans la bd
+        $dateFinConservation = new DateTime();
+        $dateFinConservation->add(DateInterval::createFromDateString(Utilisateur::TEMPS_CONSERVATION));
         $this->dateFinConservation = new DateTime();
-        $this->dateFinConservation->add(DateInterval::createFromDateString(Utilisateur::TEMPS_CONSERVATION));
+        $this->dateFinConservation->setTimestamp($dateFinConservation->getTimestamp());
 
         // Initialisation de la requête SQL
         $requete = 'INSERT INTO Utilisateur VALUES (?,?,?,?,?,?)';

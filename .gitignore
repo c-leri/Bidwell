@@ -5,4 +5,3 @@ sqldiff.exe
 sqlite3.exe
 sqlite3_analyzer.exe
 vendor/
-composer.lock
