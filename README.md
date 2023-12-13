@@ -22,9 +22,3 @@ Puis pour lancer le site :
 
 - executer `php bin/server.php` depuis le dossier Bidwell afin de démarer le serveur de websockets
 - ouvrir un serveur web php dans le dossier Bidwell (avec la commande `php -S localhost:8000` par exemple)
-- 
-### Utilisateur lambda du site
-
-login : test
-
-mot de passe : testtest
