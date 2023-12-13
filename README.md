@@ -16,7 +16,9 @@ Avant de lancer le site en local sur vos machines à partir de ce repo, il faudr
 
 - executer `composer install` dans le dossier Bidwell afin de récupérer les dépendances de notre application
 - lancer `sqlite3 database.db` dans Bidwell/data puis `.read create.sql` pour créer la base de données
-  (et éventuellement `.read insert.sql` pour la peupler)
+  (et éventuellement `.read insert.sql` pour la peupler,
+  vous pourriez vouloir changer les timestamps de date de fin des enchères
+  dans le fichier Enchere.txt afin de pouvoir les voir sur le site)
 
 Puis pour lancer le site :
 
